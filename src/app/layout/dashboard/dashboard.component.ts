@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'octo-dashboard',
@@ -12,4 +13,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onActivate(e: any, outlet: HTMLElement) {
+    console.log(e, outlet);
+    window.scrollTo(0, 0);
+  }
 }

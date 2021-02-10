@@ -8,18 +8,24 @@ const routes: Routes = [
     // canActivate: [AuthGuardService],
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./layout/landing-page/landing-page.module').then(m => m.LandingPageModule),
     // canActivate: [AuthGuardService],
   },
   {
+    path: 'notfound',
+    loadChildren: () => import('./layout/landing-page/landing-page.module').then(m => m.LandingPageModule),
+    // canActivate: [AuthGuardService],
+  },
+
+  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'notfound'
   }
 ];
 
