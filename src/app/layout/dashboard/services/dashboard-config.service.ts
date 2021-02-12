@@ -6,19 +6,15 @@ export class DashboardConfigService {
 
   // NAVIGATION
   public getNavigationRoutes() {
-
   }
 
   public createRoute() {
-
   }
 
   public updateRoute() {
-
   }
 
   public deleteRoute() {
-
   }
 
   // LANGUAGES

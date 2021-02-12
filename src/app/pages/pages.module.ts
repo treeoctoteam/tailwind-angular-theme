@@ -4,6 +4,7 @@ import { FaqComponent } from './faq/faq.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { DefaultLandingComponent } from './landingpage/default-landing/default-landing.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FaqComponent, ContactsComponent, NotfoundComponent],
+  declarations: [FaqComponent, ContactsComponent, NotfoundComponent, DefaultLandingComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)

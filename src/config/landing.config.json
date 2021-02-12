@@ -1,11 +1,11 @@
 {
   "navbar": {
     "logoPath": "/assets/pippo.svg",
-    "navigation": [
+    "routes": [
       {
         "id": "Applications",
-        "type": "group",
         "translate": "NAV.APPLICATIONS",
+        "type": "group",
         "icon": "apps",
         "hidden": false,
         "children": [
@@ -36,10 +36,9 @@
       }
     ]
   },
-  "sidebar": {},
   "footer": {
     "logoPath": "/assets/pippo.svg",
-    "navigation": [
+    "routes": [
       {
         "id": "Applications",
         "translate": "NAV.APPLICATIONS",
