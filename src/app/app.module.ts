@@ -1,8 +1,7 @@
 import { APP_INITIALIZER } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Observable, ObservableInput, of } from 'rxjs';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,24 +16,33 @@ import { HttpRequestInterceptorService } from './core/services/http-request-inte
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DashboardModule
+    DashboardModule,
+    HttpClientModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true },
-    { provide: APP_INITIALIZER, useFactory: loadConfig, multi: true, deps: [HttpClient, ApplicationService] },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [ApplicationService],
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
-
-export function loadConfig(http: HttpClient, config: ApplicationService): void {
-  http
-    .get("./appConfig.json")
-    .subscribe(res => {
-      config.INITIALIZE(res);
-    },
-      err => {
-        console.log("CANNOT LOAD APPCONFIG.JSON FILE: Status", err.status);
+export function initConfig(appConfigService: ApplicationService, _http: HttpClient) {
+  return () =>
+    _http.get('./assets/config/application.config.json')
+      .toPromise()
+      .then((config: any) => {
+        appConfigService.config = config;
+        appConfigService.configSubject$.next(config);
       })
-};
+      .catch((err: any) => {
+        console.log("CANNOT LOAD APPCONFIG.JSON FILE: Status", err.status);
+        console.error(err);
+      })
+}
