@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "octoTech": {
+    "tailwind-angular-theme": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/octoTech",
+            "outputPath": "dist/tailwind-angular-theme",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -74,18 +74,18 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "octoTech:build"
+            "browserTarget": "tailwind-angular-theme:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "octoTech:build:production"
+              "browserTarget": "tailwind-angular-theme:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "octoTech:build"
+            "browserTarget": "tailwind-angular-theme:build"
           }
         },
         "test": {
@@ -125,16 +125,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "octoTech:serve"
+            "devServerTarget": "tailwind-angular-theme:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "octoTech:serve:production"
+              "devServerTarget": "tailwind-angular-theme:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "octoTech"
+  "defaultProject": "tailwind-angular-theme"
 }
