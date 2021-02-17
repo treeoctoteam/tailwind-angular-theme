@@ -1,4 +1,3 @@
-import { APP_INITIALIZER } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
@@ -25,8 +24,8 @@ import { HttpRequestInterceptorService } from './core/services/http-request-inte
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
-
+export class AppModule {
+}
 
 export function loadConfig(http: HttpClient, config: ApplicationService): void {
   // http
