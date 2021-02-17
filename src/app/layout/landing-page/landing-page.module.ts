@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GlobalSearchService } from '../services/global-search.service';
 import { LandingPageComponent } from './landing-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutModule } from '../layout.module';
+import { LayoutComponentsModule } from '../components/layout-components.module';
 
 const routes: Routes = [{
   path: '', component: LandingPageComponent, children: [
@@ -19,9 +19,11 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    LayoutModule,
+    LayoutComponentsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [GlobalSearchService]
+  providers: [
+    GlobalSearchService
+  ]
 })
 export class LandingPageModule { }

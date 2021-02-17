@@ -10,14 +10,19 @@ import { DefaultLandingComponent } from './landingpage/default-landing/default-l
 const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
-  { path: 'notfound', component: NotfoundComponent },
+  { path: 'not-found', component: NotfoundComponent },
   {
-    path: "**", pathMatch: "full", redirectTo: "notfound"
+    path: "**", pathMatch: "full", redirectTo: "not-found"
   }
 ];
 
 @NgModule({
-  declarations: [FaqComponent, ContactsComponent, NotfoundComponent, DefaultLandingComponent],
+  declarations: [
+    FaqComponent,
+    ContactsComponent,
+    NotfoundComponent,
+    DefaultLandingComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
