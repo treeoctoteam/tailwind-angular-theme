@@ -63,3 +63,13 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+
+
+/***************************************************************************************************
+ * Edge and IE11 polyfills for Stenciljs components
+ */
+import { applyPolyfills, defineCustomElements } from '@treeocto/ui-kit/loader';
+applyPolyfills().then(() => {
+  defineCustomElements()
+})
