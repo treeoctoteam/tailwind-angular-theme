@@ -12,15 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./layout/landing-page/landing-page.module').then(m => m.LandingPageModule),
     // canActivate: [AuthGuardService],
   },
-  {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: 'notfound'
-  }
+  { path: "**", pathMatch: "full", redirectTo: "not-found" }
 ];
 
 @NgModule({

@@ -5,15 +5,18 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { DefaultLandingComponent } from './landingpage/default-landing/default-landing.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
+  { path: '', pathMatch: "full", redirectTo: "home" },
+  {
+    path: "**", pathMatch: "full", redirectTo: "not-found"
+  },
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'not-found', component: NotfoundComponent },
-  {
-    path: "**", pathMatch: "full", redirectTo: "not-found"
-  }
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({
@@ -21,7 +24,8 @@ const routes: Routes = [
     FaqComponent,
     ContactsComponent,
     NotfoundComponent,
-    DefaultLandingComponent
+    DefaultLandingComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
