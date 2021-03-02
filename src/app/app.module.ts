@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
 
@@ -22,7 +22,8 @@ import { HttpRequestInterceptorService } from './core/services/http-request-inte
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true },
     // { provide: APP_INITIALIZER, useFactory: loadConfig, multi: true, deps: [HttpClient, ApplicationService] },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
 }
