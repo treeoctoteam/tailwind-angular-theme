@@ -12,7 +12,7 @@ export interface Navigation extends NavigationBase {
   exactMatch: boolean;
   externalUrl: boolean;
   openInNewTab: boolean;
-  function: any;
+  function: unknown;
   badge: {
     title: string;
     translate: string;
