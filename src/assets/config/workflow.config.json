@@ -1,48 +1,11 @@
 {
   "navbar": {
     "logoPath": "/assets/pippo.svg",
-    "navigation": [
+    "routes": [
       {
         "id": "Applications",
+        "translate": "NAV.APPLICATIONS",
         "type": "group",
-        "translate": "NAV.APPLICATIONS",
-        "icon": "apps",
-        "hidden": false,
-        "children": [
-          {
-            "id": "home",
-            "translate": "NAV.HOME",
-            "type": "item",
-            "icon": "home",
-            "url": "/home",
-            "hidden": false
-          },
-          {
-            "id": "pdf-reader",
-            "translate": "NAV.DOCUMENTS",
-            "type": "item",
-            "icon": "insert_drive_file",
-            "url": "/pdf",
-            "hidden": false
-          }
-        ]
-      },
-      {
-        "id": "item",
-        "translate": "NAV.APPLICATIONS",
-        "type": "items",
-        "icon": "apps",
-        "url": "/test"
-      }
-    ]
-  },
-  "sidebar": {
-    "logoPath": "/assets/pippo.svg",
-    "navigation": [
-      {
-        "id": "Applications",
-        "type": "group",
-        "translate": "NAV.APPLICATIONS",
         "icon": "apps",
         "hidden": false,
         "children": [
@@ -75,7 +38,7 @@
   },
   "footer": {
     "logoPath": "/assets/pippo.svg",
-    "navigation": [
+    "routes": [
       {
         "id": "Applications",
         "translate": "NAV.APPLICATIONS",
