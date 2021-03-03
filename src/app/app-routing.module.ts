@@ -8,11 +8,24 @@ const routes: Routes = [
     // canActivate: [AuthGuardService],
   },
   {
+    path: 'workflow',
+    loadChildren: () => import('./layout/workflow/workflow.module').then(m => m.WorkflowModule),
+    // canActivate: [AuthGuardService],
+  },
+  {
     path: '',
     loadChildren: () => import('./layout/landing-page/landing-page.module').then(m => m.LandingPageModule),
     // canActivate: [AuthGuardService],
   },
-  { path: "**", pathMatch: "full", redirectTo: "not-found" }
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'notfound'
+  }
 ];
 
 @NgModule({

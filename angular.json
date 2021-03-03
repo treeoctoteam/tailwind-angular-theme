@@ -37,7 +37,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/fontawesome-pro/css/all.min.css"
             ],
             "scripts": []
           },

@@ -1,10 +1,11 @@
-<octo-navbar></octo-navbar>
-<octo-container [customTemplate]="dashboardContainer"></octo-container>
-<octo-footer></octo-footer>
+<div class="layout-grid">
+  <octo-navbar></octo-navbar>
+  <octo-container [customTemplate]="dashboardContainer"></octo-container>
+  <octo-footer></octo-footer>
+</div>
 
 <ng-template #dashboardContainer>
-  <router-outlet
-    #dashboard
+  <router-outlet #dashboard
     (activate)="onActivate($event, dashboard)">
   </router-outlet>
 </ng-template>

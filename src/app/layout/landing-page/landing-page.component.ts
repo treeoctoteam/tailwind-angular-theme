@@ -45,8 +45,4 @@ export class LandingPageComponent implements OnInit {
       }
     });
   }
-  onActivate(e: any, outlet: HTMLElement) {
-    console.log(e, outlet);
-    window.scrollTo(0, 0);
-  }
 }

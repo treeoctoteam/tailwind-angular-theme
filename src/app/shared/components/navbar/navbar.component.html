@@ -1,0 +1,9 @@
+<ng-container
+  [ngTemplateOutlet]="customTemplate || defaultTemplate"
+  [ngTemplateOutletContext]="{ implicit: data }">
+</ng-container>
+
+<ng-template #defaultTemplate>
+  <tc-navbar></tc-navbar>
+</ng-template>
+

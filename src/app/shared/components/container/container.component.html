@@ -1,0 +1,10 @@
+<ng-container
+  [ngTemplateOutlet]="customTemplate || defaultTemplate"
+  [ngTemplateOutletContext]="{ implicit: data }">
+</ng-container>
+
+<ng-template #defaultTemplate>
+  <div class="container w-full p-20 m-4 mx-auto my-16 text-center bg-white border-2 border-dashed border-blueGray-300 h-96 rounded-xl">
+    <ng-content></ng-content>
+  </div>
+</ng-template>

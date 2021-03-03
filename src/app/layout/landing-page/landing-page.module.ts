@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GlobalSearchService } from '../services/global-search.service';
+import { GlobalSearchService } from '../../shared/services/global-search.service';
 import { LandingPageComponent } from './landing-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponentsModule } from '../components/layout-components.module';
+import { LayoutComponentsModule } from '../../shared/components/layout-components.module';
 
 const routes: Routes = [{
   path: '', component: LandingPageComponent, children: [
@@ -11,8 +11,7 @@ const routes: Routes = [{
       path: "",
       loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
     }]
-}
-];
+}];
 
 @NgModule({
   declarations: [
