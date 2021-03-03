@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Step } from '../../models/stepper.model';
+import { Step } from '../models/stepper.model';
 import { WorkflowService } from './services/workflow.service';
 
 @Component({

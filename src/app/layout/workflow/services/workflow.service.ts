@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Step } from '../../../models/stepper.model';
+import { Step } from '../../models/stepper.model';
 import { SessionService } from '../../../shared/services/session.service';
 import { ClientService } from '../../../shared/services/client.service';
 import { ApplicationService } from '../../../shared/services/application.service';
