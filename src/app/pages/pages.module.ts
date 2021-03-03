@@ -10,9 +10,9 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'not-found', component: NotfoundComponent },
-  {
-    path: "**", pathMatch: "full", redirectTo: "not-found"
-  }
+  // {
+  //   path: "**", pathMatch: "full", redirectTo: "not-found"
+  // }
 ];
 
 @NgModule({

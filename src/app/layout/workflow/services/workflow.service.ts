@@ -7,6 +7,56 @@ import { ClientService } from '../../../shared/services/client.service';
 import { ApplicationService } from '../../../shared/services/application.service';
 import { RouteParam } from 'src/app/models/route-param.model';
 
+const getFakeSteps = () => {
+  const fakeSteps: Step[] = [
+    {
+      stepId: 'step1',
+      name: 'Step 1',
+      icon: 'fa-circle-check',
+      isCustomIcon: true,
+      title: 'step1',
+      route: 'contacts',
+      disabled: false,
+      active: true,
+      completed: false,
+      params: [],
+      activeBack: true,
+      data: undefined,
+      sections: [
+        {
+          idCode: 'section1',
+          name: 'Section 1',
+          hidden: false,
+          validationRequired: true,
+        }
+      ]
+    },
+    {
+      stepId: 'step2',
+      name: 'Step 2',
+      icon: 'fa-circle-check',
+      isCustomIcon: true,
+      title: 'step2',
+      route: 'faq',
+      disabled: false,
+      active: false,
+      completed: false,
+      params: [],
+      activeBack: true,
+      data: undefined,
+      sections: [
+        {
+          idCode: 'section1',
+          name: 'Section 1',
+          hidden: false,
+          validationRequired: true,
+        }
+      ]
+    }
+  ];
+  return fakeSteps;
+}
+
 export enum DataStepperType {
   OCR = "ocr",
   DOCUMENT = "document",
@@ -160,6 +210,7 @@ export class WorkflowService {
   }
 
   public getSteps(): Observable<any> {
+    this.stepsSubject.next(getFakeSteps());
     return this.stepsSubject.asObservable();
   }
 

@@ -22,7 +22,6 @@ export class WorkflowComponent implements OnInit {
   }
   ngOnInit() {
     this.workflowService.getSteps().subscribe((data: any) => {
-      console.log(data);
       this.steps = data;
       console.log("STEPS BAR", this.steps)
     });

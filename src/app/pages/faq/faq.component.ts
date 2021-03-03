@@ -9,8 +9,6 @@ export class FaqComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    alert();
-  }
+  ngOnInit(): void {  }
 
 }
