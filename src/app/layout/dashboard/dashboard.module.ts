@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardConfigService } from './services/dashboard-config.service';
 import { LayoutComponentsModule } from '../../shared/components/layout-components.module';
+import { NavigationGuard } from 'src/app/core/guards/navigation.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
+        canActivate: [NavigationGuard]
       }
     ]
   }
@@ -33,4 +35,4 @@ const routes: Routes = [
     DashboardConfigService
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {}
