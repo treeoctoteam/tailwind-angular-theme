@@ -16,7 +16,7 @@
     "openViduServerUrl": "https://rtc.tap-id.tech:4443"
   },
   "startPage": "/home",
-  "layouts": ["dashboard", "landingpage"],
+  "layouts": ["/dashboard", "/landingpage", "/workflow"],
   "defaultLanguage": "en",
   "languages": [
     {

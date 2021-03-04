@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NavigationGuard } from './core/guards/navigation.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./layout/dashboard/dashboard.module').then(m => m.DashboardModule),
-    // canActivate: [AuthGuardService],
+    canActivate: [NavigationGuard]
   },
   {
     path: 'workflow',
     loadChildren: () => import('./layout/workflow/workflow.module').then(m => m.WorkflowModule),
-    // canActivate: [AuthGuardService],
+    canActivate: [NavigationGuard]
   },
   {
-    path: '',
+    path: 'landingpage',
     loadChildren: () => import('./layout/landing-page/landing-page.module').then(m => m.LandingPageModule),
-    // canActivate: [AuthGuardService],
+    canActivate: [NavigationGuard]
   },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'landingpage',
     pathMatch: 'full'
   },
   {

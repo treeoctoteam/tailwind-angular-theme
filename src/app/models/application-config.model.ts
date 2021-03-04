@@ -3,7 +3,7 @@ import { Language } from "./language.model";
 import { Network } from "./network.model";
 
 export interface ApplicationConfig {
-  startup: string | "api" | "file";
+  startup: "api" | "file";
   customerInfo: CustomerInfo;
   network: Network;
   startPage: string;

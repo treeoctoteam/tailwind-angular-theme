@@ -10,8 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 export class LandingPageComponent implements OnInit {
 
   $unsubscribe = new Subject<void>();
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     const navMenuDiv = document.getElementById("nav-content");

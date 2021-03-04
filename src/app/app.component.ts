@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApplicationConfigService } from './core/services/application-config.service';
 
 @Component({
   selector: 'octo-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tailwind-angular-theme';
+
+  constructor(private appService: ApplicationConfigService) {}
+
+  ngOnInit(): void {
+    this.appService.initAppConfig();
+  }
 }

@@ -1,56 +1,57 @@
 import { Injectable } from '@angular/core';
 
+@Injectable()
 export class DashboardConfigService {
 
-  constructor() { }
+  constructor() {}
 
-  // NAVIGATION
-  public getNavigationRoutes() {
-  }
+  // // NAVIGATION
+  // public getNavigationRoutes() {
+  // }
 
-  public createRoute() {
-  }
+  // public createRoute() {
+  // }
 
-  public updateRoute() {
-  }
+  // public updateRoute() {
+  // }
 
-  public deleteRoute() {
-  }
+  // public deleteRoute() {
+  // }
 
-  // LANGUAGES
-  public getLanguages() {
+  // // LANGUAGES
+  // public getLanguages() {
 
-  }
+  // }
 
-  public addLanguage() {
+  // public addLanguage() {
 
-  }
+  // }
 
-  public deleteLanguage() {
+  // public deleteLanguage() {
 
-  }
+  // }
 
-  public getKeys() {
+  // public getKeys() {
 
-  }
+  // }
 
-  public addKey() {
+  // public addKey() {
 
-  }
+  // }
 
-  public updateKey() {
+  // public updateKey() {
 
-  }
+  // }
 
-  public deleteKey() {
+  // public deleteKey() {
 
-  }
+  // }
 
-  private updateConfigurationFile() {
+  // private updateConfigurationFile() {
 
-  }
+  // }
 
-  private updateTranslationFile() {
+  // private updateTranslationFile() {
 
-  }
+  // }
 }
