@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
+import { LandingPageConfig } from '../models/layout.model';
 
 @Component({
   selector: 'octo-landing-page',
@@ -10,7 +12,11 @@ import { takeUntil } from 'rxjs/operators';
 export class LandingPageComponent implements OnInit {
 
   $unsubscribe = new Subject<void>();
-  constructor() {}
+  landingPageConf: LandingPageConfig;
+
+  constructor(appService: ApplicationConfigService) {
+    this.landingPageConf = appService.activeLayoutConfig as LandingPageConfig;
+  }
 
   ngOnInit(): void {
     const navMenuDiv = document.getElementById("nav-content");

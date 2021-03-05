@@ -4,10 +4,8 @@ import { GlobalSearchService } from '../../shared/services/global-search.service
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardConfigService } from './services/dashboard-config.service';
-import { LayoutComponentsModule } from '../../shared/components/layout-components.module';
+import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from '../../core/guards/navigation.guard';
-
-export const DASHBOARD_LAYOUT_CONFIG_PATH = 'assets/config/dashboard-config.json';
 
 const routes: Routes = [
   {

@@ -31,7 +31,6 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      console.log(route)
       this.appConfigService.getActiveLayoutConfig(getConfigPath(state.url))
         .pipe(pluck('routes'))
         .subscribe((values) => {
@@ -41,6 +40,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
               resolve(true);
             }
           }
+          console.log('navigation blocked', state.url);
           resolve(false);
         });
     });

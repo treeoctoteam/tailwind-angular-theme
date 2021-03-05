@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApplicationConfig } from 'src/app/models/application-config.model';
 
@@ -13,8 +13,8 @@ export class ApplicationConfigService {
 
   appConfig: ApplicationConfig;
   activeLayoutConfig: unknown;
+  $appConfig = new Subject<ApplicationConfig>();
   $activeLayoutConfig = new BehaviorSubject<unknown | undefined>(undefined);
-  $appConfig = new BehaviorSubject<ApplicationConfig | undefined>(undefined);
 
   constructor(private http: HttpClient) {}
 

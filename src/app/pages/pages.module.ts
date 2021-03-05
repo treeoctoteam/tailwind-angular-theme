@@ -5,21 +5,27 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './not-found/not-found.component';
 import { UserDataComponent } from './user-data/user-data.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
+  { path: 'home', component: HomeComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'user-data', component: UserDataComponent },
-  { path: 'not-found', component: NotfoundComponent },
-  // {
-  //   path: "**", pathMatch: "full", redirectTo: "not-found"
-  // }
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegisterComponent },
+  { path: 'not-found', component: NotfoundComponent }
 ];
 
 @NgModule({
   declarations: [
     FaqComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
     ContactsComponent,
     NotfoundComponent,
     UserDataComponent
