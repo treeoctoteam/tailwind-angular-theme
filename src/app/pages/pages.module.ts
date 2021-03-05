@@ -8,6 +8,7 @@ import { UserDataComponent } from './user-data/user-data.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -15,8 +16,8 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'user-data', component: UserDataComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegisterComponent },
+  { path: 'sign-in', component: LoginComponent },
+  { path: 'sign-up', component: RegisterComponent },
   { path: 'not-found', component: NotfoundComponent }
 ];
 
@@ -28,10 +29,12 @@ const routes: Routes = [
     RegisterComponent,
     ContactsComponent,
     NotfoundComponent,
-    UserDataComponent
+    UserDataComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
