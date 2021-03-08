@@ -7,6 +7,7 @@ import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from 'src/app/core/guards/navigation.guard';
 import { I18nService } from 'src/app/shared/services/i18n.service';
 import { localeENLandingpage } from './i18n/en';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     LayoutComponentsModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   providers: [
