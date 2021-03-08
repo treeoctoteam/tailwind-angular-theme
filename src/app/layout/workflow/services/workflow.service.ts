@@ -226,9 +226,7 @@ export class WorkflowService {
   }
 
 
-
   // API CALL
-
   getStepList(payload: any) {
     return this.http.post(
       `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow`,
