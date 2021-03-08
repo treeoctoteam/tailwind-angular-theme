@@ -3,6 +3,7 @@ import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { LandingPageConfig } from '../models/layout.model';
+import { NavigationItem } from '../models/navigation.model';
 
 @Component({
   selector: 'octo-landing-page',
@@ -12,13 +13,19 @@ import { LandingPageConfig } from '../models/layout.model';
 export class LandingPageComponent implements OnInit {
 
   $unsubscribe = new Subject<void>();
-  landingPageConf: LandingPageConfig;
+  landingPageConfig: LandingPageConfig;
 
-  constructor(appService: ApplicationConfigService) {
-    this.landingPageConf = appService.activeLayoutConfig as LandingPageConfig;
+  constructor(private appService: ApplicationConfigService) {
+  }
+
+  getNavigationItem(): NavigationItem[] {
+    this.landingPageConfig = this.appService.activeLayoutConfig as LandingPageConfig;
+    console.log(this.appService.activeLayoutConfig)
+    return this.landingPageConfig.navbar.navigation[0].children;
   }
 
   ngOnInit(): void {
+    this.getNavigationItem();
     const navMenuDiv = document.getElementById("nav-content");
     const navMenu = document.getElementById("nav-toggle");
     const checkParent = (t: any, elm: any) => {

@@ -30,12 +30,12 @@ export class LoggerService {
       message
     );
   }
-  public logInfo(message: any, title?: string) {
+  public logInfo(message: any, object?: any, title?: string) {
     const backgroundColor = "#5780C7";
     if (title) {
-      console.debug("%c%s", "background-color: " + backgroundColor + "; color: #ffffff; padding: 10px 10px", message);
+      console.debug("%c%s", "background-color: " + backgroundColor + "; color: #ffffff; padding: 10px 10px", message, object);
     }
-    console.debug("%c%s", "background-color: " + backgroundColor + "; color: #ffffff; padding: 10px 10px", message);
+    console.debug("%c%s", "background-color: " + backgroundColor + "; color: #ffffff; padding: 10px 10px", message,);
   }
   public logSystem(message: any, title?: string) {
     const backgroundColor = "#6f42c1";

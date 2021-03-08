@@ -9,28 +9,27 @@ import { WorkflowService } from './services/workflow.service';
   styleUrls: ['./workflow.component.scss']
 })
 export class WorkflowComponent implements OnInit {
-
   steps: Step[] = [];
-  // isMobile = true;
   constructor(
     private router: Router,
     public workflowService: WorkflowService,
-    // private device: DeviceDetectorService,
-    // public screen: ScreenService
   ) {
-    // this.isMobile = this._device.isMobile();
+
   }
+
   ngOnInit() {
     this.workflowService.getSteps().subscribe((data: any) => {
       this.steps = data;
-      console.log("STEPS BAR", this.steps)
+      console.log("STEPS Recuperati :", this.steps)
     });
   }
+
   move(step: Step) {
     if (step.stepId != this.workflowService.activeStep.stepId) {
       this.workflowService.move(step.stepId);
     }
   }
+
   redirect(step: Step) {
     let route = step.route;
     step.params.forEach((element) => {
@@ -38,6 +37,7 @@ export class WorkflowComponent implements OnInit {
     });
     this.router.navigateByUrl(route);
   }
+
   validate(i: number) {
     if (this.steps[i].active || this.steps[i].completed) {
       return false;
@@ -50,6 +50,7 @@ export class WorkflowComponent implements OnInit {
     }
     return true;
   }
+
   checkBack() {
     if (this.steps) {
       for (let index = 0; index < this.steps.length; index++) {

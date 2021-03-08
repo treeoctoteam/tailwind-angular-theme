@@ -1,12 +1,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GlobalSearchService } from '../../shared/services/global-search.service';
 import { LandingPageComponent } from './landing-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from 'src/app/core/guards/navigation.guard';
-import { I18nService } from 'src/app/shared/services/i18n.service';
+import { I18nService } from 'src/app/core/services/i18n.service';
 import { localeENLandingpage } from './i18n/en';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -31,10 +31,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     LayoutComponentsModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   providers: [
-    GlobalSearchService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

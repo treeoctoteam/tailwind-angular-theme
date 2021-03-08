@@ -37,14 +37,13 @@
 
       <div
         class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
-        id="nav-content"
-      >
+        id="nav-content">
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
-          <li class="mr-3">
+          <li class="mr-3" *ngFor="let navItem of getNavigationItem()">
             <a
               class="inline-block py-2 px-4 text-black font-bold no-underline"
-              href="#"
-              >Active</a
+              href="{{ navItem.url }}"
+              >{{ navItem.translate | translate }}</a
             >
           </li>
           <li class="mr-3">
@@ -62,12 +61,6 @@
             >
           </li>
         </ul>
-        <button
-          id="navAction"
-          class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-4 px-8 shadow opacity-75"
-        >
-          Action
-        </button>
       </div>
     </div>
   </nav>

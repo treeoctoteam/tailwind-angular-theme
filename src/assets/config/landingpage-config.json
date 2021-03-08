@@ -1,7 +1,7 @@
 {
   "navbar": {
     "logoPath": "/assets/pippo.svg",
-    "routes": [
+    "navigation": [
       {
         "id": "Applications",
         "translate": "NAV.APPLICATIONS",
@@ -38,7 +38,7 @@
   },
   "footer": {
     "logoPath": "/assets/pippo.svg",
-    "routes": [
+    "navigation": [
       {
         "id": "Applications",
         "translate": "NAV.APPLICATIONS",
