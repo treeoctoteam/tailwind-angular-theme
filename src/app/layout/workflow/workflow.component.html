@@ -5,32 +5,28 @@
 </div>
 
 <ng-template #workflowContainer>
-  <!-- <to-stepper circle-conteiner-width="w-16">
-    <to-step *ngFor="let step of steps; let i = index" label="" divider-color="bg-gray-300" border-color="bg-gray-300" label-color="text-gray-800">
-      <to-container>
-        <p>aaaaa</p>
-        <router-outlet #workflow></router-outlet>
-      </to-container>
-    </to-step>
-   </to-stepper> -->
+  <to-stepper 
+    divider-color="bg-gray-300" 
+    border-color="bg-gray-300" 
+    label-color="text-gray-800" 
+    icon-color="text-blue-900"
+    circle-padding="p-4"
+    show-label="false"
 
-    <to-stepper circle-conteiner-width="w-16">
-      <to-step>
-        <to-container>
-          <p>aaaaa</p>
-        </to-container>
-      </to-step>
-      <to-step>
-        <to-container>
-          <p>aaaaa</p>
-        </to-container>
-      </to-step>
-      <to-step>
-        <to-container>
-          <p>aaaaa</p>
-        </to-container>
-      </to-step>
-    </to-stepper>
+  >
+    <to-step *ngFor="let step of steps; let i = index" 
+      [icon]="step.icon"
+      [label]="step.name" 
+      [completed]="step.completed"
+      [disabled]="step.disabled"
+      [active]="step.active"
+      (stepClick)="test()"
+    >
+    </to-step>
+  </to-stepper>
+  
+  <router-outlet #workflow></router-outlet>
+
 </ng-template>
 
 

@@ -23,6 +23,10 @@ export class WorkflowComponent implements OnInit {
       console.log("STEPS Recuperati :", this.steps)
     });
   }
+  
+  test(){
+    console.log("click")
+  }
 
   move(step: Step) {
     if (step.stepId != this.workflowService.activeStep.stepId) {

@@ -14,7 +14,7 @@ const getFakeSteps = () => {
     {
       stepId: 'step1',
       name: 'Step 1',
-      icon: 'fa-circle-check',
+      icon: 'fas fa-pen',
       isCustomIcon: true,
       title: 'step1',
       route: 'contacts',
@@ -31,11 +31,11 @@ const getFakeSteps = () => {
     {
       stepId: 'step2',
       name: 'Step 2',
-      icon: 'fa-circle-check',
+      icon: 'fas fa-adjust',
       isCustomIcon: true,
       title: 'step2',
       route: 'faq',
-      disabled: false,
+      disabled: true,
       active: false,
       completed: false,
       params: [],
