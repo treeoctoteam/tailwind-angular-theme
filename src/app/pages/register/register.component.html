@@ -95,7 +95,7 @@
                 </div>
               </button>
             </div>
-            <form class="mt-6" action="#" method="POST">
+            <form class="mt-6" action="#" method="POST" [formGroup]="registerForm">
               <div>
                 <label
                   class="block text-base font-medium leading-relaxed text-gray-700"
@@ -110,6 +110,7 @@
                   autofocus
                   autocomplete
                   required
+                  formControlName="username"
                 />
               </div>
               <div class="mt-4">
@@ -128,7 +129,7 @@
                   required
                 />
               </div>
-              <div class="flex flex-wrap mt-4 mb-6 -mx-3">
+              <div class="flex flex-wrap mt-4 mb-6 -mx-3" formGroupName="passwords">
                 <div class="w-full px-3 mb-6 md:w-1/2 md:mb-0">
                   <label
                     class="text-base font-medium leading-relaxed text-gray-700"
@@ -142,6 +143,7 @@
                     id="password"
                     type="text"
                     placeholder="Your Password"
+                    formControlName="pass1"
                   />
                   <p class="mt-1 text-xs italic text-blue-500">
                     Please fill out this field.
@@ -159,13 +161,16 @@
                     id="confirm"
                     type="text"
                     placeholder="Confirm"
+                    formControlName="pass2"
                   />
                 </div>
               </div>
               <button
                 type="submit"
                 class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-gradient-to-r from-blue-700 hover:from-blue-500 to-blue-500 hover:to-blue-700 focus:shadow-outline focus:outline-none"
-              >
+                (click)="signUp()"
+                [disabled]="registerForm.invalid">
+                >
                 Log In
               </button>
             </form>

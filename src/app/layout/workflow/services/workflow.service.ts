@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Step } from '../../models/stepper.model';
-import { SessionService } from '../../../shared/services/session.service';
-import { ClientService } from '../../../shared/services/client.service';
-import { ApplicationService } from '../../../shared/services/application.service';
+import { SessionService } from '../../../core/services/session.service';
 import { RouteParam } from 'src/app/models/route-param.model';
+import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
+import { LoggerService } from 'src/app/core/services/logger.service';
+import { HttpClient } from '@angular/common/http';
+import { share } from 'rxjs/operators';
 
 const getFakeSteps = () => {
   const fakeSteps: Step[] = [
@@ -23,12 +25,7 @@ const getFakeSteps = () => {
       activeBack: true,
       data: undefined,
       sections: [
-        {
-          idCode: 'section1',
-          name: 'Section 1',
-          hidden: false,
-          validationRequired: true,
-        }
+
       ]
     },
     {
@@ -45,12 +42,7 @@ const getFakeSteps = () => {
       activeBack: true,
       data: undefined,
       sections: [
-        {
-          idCode: 'section1',
-          name: 'Section 1',
-          hidden: false,
-          validationRequired: true,
-        }
+
       ]
     }
   ];
@@ -76,30 +68,29 @@ export class WorkflowService {
 
   constructor(
     private sessionService: SessionService,
-    private clientService: ClientService,
     private router: Router,
-    private config: ApplicationService
-    // private loggerService: LoggerService,
-    // private alertService: AlertService,
-    // private translateService: TranslateService,
-    // private spinnerService: NgxSpinnerService,
-  ) { }
+    private config: ApplicationConfigService,
+    private logger: LoggerService,
+    private http: HttpClient,
+    private session: SessionService
+  ) {
+  }
 
   public set() {
     // this.spinner.hide();
     const route = this.createRoot();
-    console.log(`Set route ==> ${route}`);
+    this.logger.logInfo(`Set route ==> ${route}`);
     const payload = {
       current_route: route,
     };
-    const $termsObserver = this.clientService.getSteps(payload);
+    const $termsObserver = this.getStepList(payload);
     $termsObserver.subscribe((res: any) => {
       if (res.success) {
         this.stepsSubject.next(res.data);
         this.steps = res.data;
         this.steps.forEach((step: Step) => {
           if (step.active) {
-            console.log("STEP: ", step);
+            this.logger.logInfo("STEP: ", step);
             this.activeStep = step;
             this.setActive.next(true);
             return;
@@ -107,9 +98,9 @@ export class WorkflowService {
         });
       }
       if (res.error) {
-        // this._logger.logError(res.error);
+        this.logger.logError(res.error);
         this.router.navigateByUrl(res?.data?.route);
-        console.log(res.message);
+        this.logger.logInfo(res.message);
         // this._alert.showError(this._translate.instant("LOGGER.ERROR"), res.message);
       }
     });
@@ -123,16 +114,16 @@ export class WorkflowService {
         id = this.activeStep.stepId;
 
       }
-      this.clientService.moveToStep(id).subscribe((res: any) => {
+      this.moveToStep(id).subscribe((res: any) => {
         if (res.success) {
-          console.log("ROUTE TO GO: " + res.route);
+          this.logger.logInfo("ROUTE TO GO: " + res.route);
           this.setActive.next(false);
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
           this.router.navigateByUrl(res.route);
         }
         if (res.error) {
-          console.log(res.message);
+          this.logger.logInfo(res.message);
           // this._alert.showError(this._translate.instant("LOGGER.ERROR"), res.message);
         }
         // this._spinner.hide();
@@ -145,14 +136,14 @@ export class WorkflowService {
     }
   }
   public next(params?: RouteParam[]) {
-    console.log(`Next route params ===> ${JSON.stringify(params)}`);
+    this.logger.logInfo(`Next route params ===> ${JSON.stringify(params)}`);
     if (params?.length) {
-      this.clientService.nextStep(params).subscribe((res: any) => {
+      this.nextStep(params).subscribe((res: any) => {
         if (res.success) {
           this.router.navigateByUrl(res.route);
         }
         if (res.error) {
-          console.log(res.message);
+          this.logger.logInfo(res.message);
           // this._alert.showError(this._translate.instant("LOGGER.ERROR"), res.message);
         }
       });
@@ -174,23 +165,23 @@ export class WorkflowService {
   public resume(route: any) { }
 
   public validateStep(hashemail: string, token: string, certificateRequestId?: string) {
-    this.clientService.validateStep(hashemail, token, certificateRequestId).subscribe(
+    this.validationStep(hashemail, token, certificateRequestId).subscribe(
       (res: any) => {
         if (res.success) {
           this.sessionService.setSessionId(res.sessionId);
           if (res.requireLogin) {
-            this.router.navigateByUrl(this.config.appConfig.ui.customerStartPage + "/" + res.token);
+            this.router.navigateByUrl(this.config.appConfig.startPage + "/" + res.token);
           } else {
             this.router.navigateByUrl(res.route);
           }
         }
         if (res.error) {
           // this._alert.showError(this._translate.instant("LOGGER.ERROR"), res.message);
-          console.log(res.message);
+          this.logger.logInfo(res.message);
           this.router.navigateByUrl("/");
         }
       },
-      (err: any) => console.log(err.message)
+      (err: any) => this.logger.logInfo(err.message)
     );
   }
 
@@ -219,7 +210,7 @@ export class WorkflowService {
   }
 
   public restartWorkflow() {
-    this.clientService.start().subscribe((res: any) => {
+    this.start().subscribe((res: any) => {
       if (res.success && res.sessionId) {
         this.sessionService.setSessionId(res.sessionId);
         this.sessionService.removeUserId();
@@ -232,5 +223,57 @@ export class WorkflowService {
         // this._alert.showError(this._translate.instant("LOGGER.ERROR"), res.message);
       }
     });
+  }
+
+
+
+  // API CALL
+
+  getStepList(payload: any) {
+    return this.http.post(
+      `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow`,
+      payload
+    ).pipe(share());
+  }
+
+  moveToStep(id: string) {
+    return this.http.get(
+      `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/move?id=${id}`
+    );
+  }
+
+  nextStep(params: RouteParam[]) {
+    if (!params) {
+      return this.http.get(
+        `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/next`
+      );
+    } else {
+      return this.http.get(
+        `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/next?${params[0].key
+        }=${params[0].value}`
+      );
+    }
+  }
+
+  validationStep(hashemail: string, token: string, certficiateRequestId?: any): any {
+    if (!certficiateRequestId && hashemail && token) {
+      return this.http.get(`${this.config.appConfig.network.hostApiV3}/api/user/${hashemail}/${token}`);
+    }
+    if (certficiateRequestId && hashemail && token) {
+      return this.http.get(
+        `${this.config.appConfig.network.hostApiV3}/api/user/${hashemail}/${token}/${certficiateRequestId}`
+      );
+    }
+    if (!certficiateRequestId && !hashemail && token) {
+      return this.http.get(
+        `${this.config.appConfig.network.hostApiV3}/api/agent/${token}`
+      );
+    }
+  }
+  start(hashemail?: any, certificateRequestId?: any) {
+    if (certificateRequestId && hashemail) {
+      return this.http.get(`${this.config.appConfig.network.hostApiV3}/api/session/${hashemail}/${certificateRequestId}`);
+    }
+    return this.http.get(`${this.config.appConfig.network.hostApiV3}/api/session`);
   }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GlobalSearchService } from '../../shared/services/global-search.service';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardConfigService } from './services/dashboard-config.service';
@@ -31,8 +30,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ],
   providers: [
-    GlobalSearchService,
     DashboardConfigService
   ]
 })
-export class DashboardModule {}
+export class DashboardModule { }
