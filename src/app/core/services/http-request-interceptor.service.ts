@@ -1,17 +1,19 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpInterceptor } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpRequestInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private injector: Injector) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // console.log(req)
-    // throw new Error('Method not implemented.');
-    return of()
+  intercept(req: any, next: any) {
+    const auth = this.injector.get(AuthService);
+    const authRequest = req.clone({
+      headers: req.headers.set('Authorization', 'token ' + auth.token)
+    })
+    return next.handle(authRequest);
   }
 }
