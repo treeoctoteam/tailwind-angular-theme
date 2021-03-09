@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { elementAt } from 'rxjs/operators';
 import { Step } from '../models/stepper.model';
 import { WorkflowService } from './services/workflow.service';
 
@@ -20,7 +21,8 @@ export class WorkflowComponent implements OnInit {
   ngOnInit() {
     this.workflowService.getSteps().subscribe((data: any) => {
       this.steps = data;
-      console.log("STEPS Recuperati :", this.steps)
+      console.log("STEPS Recuperati :", this.steps);
+      this.redirect(this.steps[0]);
     });
   }
   
@@ -39,7 +41,19 @@ export class WorkflowComponent implements OnInit {
     step.params.forEach((element) => {
       route = route + "/" + element;
     });
-    this.router.navigateByUrl(route);
+    // set active step
+    if (this.workflowService.activeStep?.stepId) {
+      this.steps.forEach((element: Step) => {
+        if (element.stepId === step.stepId) {
+          element.active = true;
+        } 
+        else if (element.stepId === this.workflowService.activeStep.stepId) {
+          element.active = false;
+        }
+      })
+    }
+    this.router.navigateByUrl(`workflow/${route}`);
+    this.workflowService.activeStep = step;
   }
 
   validate(i: number) {

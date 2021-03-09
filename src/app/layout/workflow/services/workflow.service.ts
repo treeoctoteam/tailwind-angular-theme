@@ -35,7 +35,7 @@ const getFakeSteps = () => {
       isCustomIcon: true,
       title: 'step2',
       route: 'faq',
-      disabled: true,
+      disabled: false,
       active: false,
       completed: false,
       params: [],
@@ -106,9 +106,11 @@ export class WorkflowService {
     });
     return $termsObserver;
   }
+  
   public move(id: string, loader = false) {
     // this._spinner.show();
     const currentUrl = this.router.url;
+    console.log(currentUrl, this.activeStep?.stepId, "CURRENT URL1")
     if (this.activeStep?.stepId) {
       if (id == null) {
         id = this.activeStep.stepId;
@@ -130,11 +132,13 @@ export class WorkflowService {
       });
     } else {
       setTimeout(() => {
+        console.log(currentUrl, "CURRENT URL2")
         this.router.navigateByUrl(currentUrl);
         // this._spinner.hide();
       }, 250);
     }
   }
+
   public next(params?: RouteParam[]) {
     this.logger.logInfo(`Next route params ===> ${JSON.stringify(params)}`);
     if (params?.length) {
