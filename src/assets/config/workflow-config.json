@@ -73,5 +73,5 @@
       }
     ]
   },
-  "routes": ["/user-data"]
+  "routes": ["/user-data","/contacts","/faq"]
 }
