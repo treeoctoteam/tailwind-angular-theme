@@ -13,13 +13,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registerData: { username: string, password: string } = { username: "", password: "" };
+  registerData: { email: string, username: string, password: string } = { email: "",username: "", password: "" };
   registerForm: FormGroup;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       passwords: this.formBuilder.group({
         pass1: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -42,6 +43,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async signUp() {
+    this.registerData.email = this.registerForm.value.email;
     this.registerData.username = this.registerForm.value.username;
     this.registerData.password = this.registerForm.value.passwords.pass1;
     console.log(this.registerData);

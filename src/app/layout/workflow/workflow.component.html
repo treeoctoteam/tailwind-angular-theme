@@ -5,16 +5,25 @@
 </div>
 
 <ng-template #workflowContainer>
-  <to-stepper circle-conteiner-width="w-16" has-container="true">
+  <to-stepper
+    divider-color="bg-gray-300"
+    border-color="bg-gray-300"
+    label-color="text-gray-800"
+    icon-color="text-blue-900"
+    circle-padding="p-4"
+    show-label="false"
+  >
     <to-step
       *ngFor="let step of steps; let i = index"
       [icon]="step.icon"
       [label]="step.name"
-      divider-color="bg-gray-300"
-      border-color="bg-gray-300"
-      label-color="text-gray-800"
+      [completed]="step.completed"
+      [disabled]="step.disabled"
+      [active]="step.active"
+      (stepClick)="test()"
     >
     </to-step>
   </to-stepper>
+
   <router-outlet #workflow></router-outlet>
 </ng-template>

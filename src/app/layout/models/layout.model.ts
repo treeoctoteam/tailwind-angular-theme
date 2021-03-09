@@ -1,4 +1,4 @@
-import { Navigation } from "@angular/router";
+import { Navigation } from "./navigation.model";
 
 interface LayoutBase {
   logoPath?: string;
