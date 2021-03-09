@@ -1,0 +1,13 @@
+<div *ngIf="alerts?.length" class="absolute z-40 right-0 top-0 bottom-0 w-96">
+  <to-alert *ngFor="let alert of alerts"
+    [type]="alert.type"
+    [position]="alert.postition"
+    [duration]="alert.duration"
+    [isStandalone]="alert.isStandalone"
+    [closable]="alert.closable"
+    (afterHide)="afterAlertHide(alert)">
+    <i slot="icon" [class]="alert.icon"></i>
+    <strong>{{ alert.title }}</strong>
+    {{ alert.message }}
+  </to-alert>
+</div>
