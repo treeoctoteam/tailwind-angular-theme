@@ -1,4 +1,4 @@
-<div *ngIf="alerts?.length" class="absolute z-40 right-0 top-0 bottom-0 w-96">
+<div *ngIf="alerts?.length" class="absolute z-40 right-0 top-0 w-96">
   <to-alert *ngFor="let alert of alerts"
     [type]="alert.type"
     [position]="alert.postition"

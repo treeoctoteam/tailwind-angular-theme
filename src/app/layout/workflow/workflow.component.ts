@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { elementAt } from 'rxjs/operators';
+import { AlertService } from '../../core/services/alert.service';
 import { Step } from '../models/stepper.model';
 import { WorkflowService } from './services/workflow.service';
 
@@ -12,6 +13,7 @@ import { WorkflowService } from './services/workflow.service';
 export class WorkflowComponent implements OnInit {
   steps: Step[] = [];
   constructor(
+    private alertService: AlertService,
     private router: Router,
     public workflowService: WorkflowService,
   ) {
@@ -19,13 +21,20 @@ export class WorkflowComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.alertService.present('success', 'Titolo di test', 'Messaggio di test!');
+    this.alertService.present('info', 'Titolo di test', 'Messaggio di test!');
+    this.alertService.present('primary', 'Titolo di test', 'Messaggio di test!');
+    this.alertService.present('warning', 'Titolo di test', 'Messaggio di test!');
+    this.alertService.present('danger', 'Titolo di test', 'Messaggio di test!');
+    this.alertService.present('success', 'Titolo di test', 'Messaggio di test!', 6000);
+
     this.workflowService.getSteps().subscribe((data: any) => {
       this.steps = data;
       console.log("STEPS Recuperati :", this.steps);
       this.redirect(this.steps[0]);
     });
   }
-  
+
   test(){
     console.log("click")
   }
@@ -46,7 +55,7 @@ export class WorkflowComponent implements OnInit {
       this.steps.forEach((element: Step) => {
         if (element.stepId === step.stepId) {
           element.active = true;
-        } 
+        }
         else if (element.stepId === this.workflowService.activeStep.stepId) {
           element.active = false;
         }
