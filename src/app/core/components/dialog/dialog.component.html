@@ -1,0 +1,10 @@
+<to-dialog
+  [opened]="opened"
+  [options]="options"
+  (dialogConfirm)="dialogConfirm($event)"
+  (dialogCancel)="dialogCancel($event)">
+  <octo-custom-dialog-template
+    slot="custom-template"
+    [customTemplate]="customTemplate">
+  </octo-custom-dialog-template>
+</to-dialog>

@@ -1,16 +1,20 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertComponent } from './components/alert/alert.component';
+import { CustomDialogTemplateComponent, DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
-    AlertComponent
+    AlertComponent,
+    DialogComponent,
+    CustomDialogTemplateComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
-    AlertComponent
+    AlertComponent,
+    DialogComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
