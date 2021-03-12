@@ -1,21 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { TODialogOptions } from '@treeocto/ui-kit/dist/types/components/to-dialog/to-dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DialogService } from '../../services/dialog.service';
-
-const initDialogOptions = (): TODialogOptions => {
-  return {
-    hasBackdrop: true,
-    hasCustomTemplate: true,
-    showDismissButton: false,
-    showCancelButton: true,
-    showConfirmlButton: true,
-    dialogType: 'info',
-    dialogTitle: '',
-    dialogContentMessage: ''
-  };
-}
+import { Dialog, DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'octo-dialog',
@@ -26,20 +12,16 @@ const initDialogOptions = (): TODialogOptions => {
 export class DialogComponent implements OnInit, OnDestroy {
 
   $unsubscribe = new Subject<void>();
-  opened = false;
-  customTemplate: TemplateRef<any> | undefined;
-  options: Partial<TODialogOptions> = initDialogOptions();
+  dialogs: Dialog[] = [];
 
   constructor(private dialogService: DialogService,
               private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.dialogService.$triggerDialog.pipe(
-      takeUntil(this.$unsubscribe)
-    ).subscribe(({options, customTemplate}) => {
-      this.options = {...this.options, ...options};
-      this.customTemplate = customTemplate;
-      this.opened = true;
+    this.dialogService.$triggerOpenDialog.pipe(
+      takeUntil(this.$unsubscribe),
+    ).subscribe((dialog: Dialog) => {
+      this.dialogs = [...this.dialogs, dialog];
       this.changeDetector.markForCheck();
     })
   }
@@ -48,14 +30,24 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.$unsubscribe.next();
   }
 
-  dialogConfirm(value: any): void {
-    this.dialogService.$afterClosed.next(value);
-    this.opened = false;
+  dialogConfirm(dialog: Dialog): void {
+    const result: {dialogId: string; success: boolean; value: any;} = {
+      dialogId: dialog.dialogId,
+      success: true,
+      value: 'Dialog Confirmed'
+    };
+    this.dialogs = this.dialogs.filter(d => d !== dialog);
+    this.dialogService.$afterClosed.next(result);
   }
 
-  dialogCancel(value: any): void {
-    this.dialogService.$afterClosed.next(value);
-    this.opened = false;
+  dialogCancel(dialog: Dialog): void {
+    const result: {dialogId: string; success: boolean, value: any} = {
+      dialogId: dialog.dialogId,
+      success: false,
+      value: 'Dialog Closed'
+    };
+    this.dialogs = this.dialogs.filter(d => d !== dialog);
+    this.dialogService.$afterClosed.next(result);
   }
 }
 
@@ -66,9 +58,9 @@ export class DialogComponent implements OnInit, OnDestroy {
 })
 export class CustomDialogTemplateComponent {
 
-  templateRef: TemplateRef<any> | undefined = undefined;
+  templateRef: TemplateRef<any> | undefined;
   @Input()
-  set customTemplate(templateRef: TemplateRef<any>) {
+  set customTemplate(templateRef: TemplateRef<any> | undefined) {
     if (templateRef) {
       this.templateRef = templateRef;
     }
