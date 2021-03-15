@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { elementAt } from 'rxjs/operators';
 import { AlertService } from '../../core/services/alert.service';
@@ -16,9 +16,9 @@ export class WorkflowComponent implements OnInit {
     private alertService: AlertService,
     private router: Router,
     public workflowService: WorkflowService,
-  ) {
+  ) {}
 
-  }
+  @ViewChild('stepper') stepper: ElementRef;
 
   ngOnInit() {
     this.alertService.present('success', 'Titolo di test', 'Messaggio di test!');
@@ -35,8 +35,13 @@ export class WorkflowComponent implements OnInit {
     });
   }
 
-  test(){
-    console.log("click")
+  nextStep(){
+    this.stepper.nativeElement.nextStep();
+  }
+
+
+  prevStep() {
+    this.stepper.nativeElement.prevStep();
   }
 
   move(step: Step) {
@@ -90,6 +95,11 @@ export class WorkflowComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  testInputChange(event: any) {
+    const value = (event.target as HTMLInputElement).value;
+    console.log("input change", event)
   }
 
 }

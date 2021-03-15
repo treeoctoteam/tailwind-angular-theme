@@ -1,5 +1,13 @@
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
+
+interface AuthResponse {
+  email: string;
+  accessToken: string;
+  refreshToken: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -21,15 +29,44 @@ export class AuthService {
   //   localStorage.removeItem(this.TOKEN_KEY);
   // };
 
-  loginUser(loginData: { email: string, password: string }) {
-    return this.http.post<any>(`${this.path}/login`, loginData);
+  setToken(key: string, value: string) {
+    localStorage.setItem(key, value);
+  }
+
+  loginUser(loginData: { email: string, password: string }): Observable<AuthResponse> {
+    return this.http.post<any>(`${this.path}/login`, loginData)
+      .pipe(
+        tap(res => {
+          res.email;
+          this.setToken('token', res.accessToken);
+          this.setToken('refreshToken', res.refreshToken);
+        })
+      );
     //We are calling shareReplay to prevent the receiver of this Observable from accidentally 
     //triggering multiple POST requests due to multiple subscriptions.
     // .shareReplay()
   }
 
-  registerUser(registerData: { email: string, username: string, password: string}) {
-    return this.http.post<any>(`${this.path}/register`, registerData);
+  registerUser(registerData: { email: string, username: string, password: string }): Observable<AuthResponse> {
+    return this.http.post<any>(`${this.path}/register`, registerData)
+      .pipe(
+        tap(res => {
+          res.email;
+          this.setToken('token', res.accessToken);
+          this.setToken('refreshToken', res.refreshToken);
+        })
+      );
+  }
+
+  refreshToken(): Observable<{ accessToken: string; refreshToken: string }> {
+    const refreshToken = localStorage.getItem('refreshToken');
+    return this.http.post<{ accessToken: string; refreshToken: string }>(`${this.path}/refresh`, { refreshToken })
+      .pipe(
+        tap(res => {
+          this.setToken('token', res.accessToken);
+          this.setToken('refreshToken', res.refreshToken);
+        })
+      );
   }
 
   test() {
