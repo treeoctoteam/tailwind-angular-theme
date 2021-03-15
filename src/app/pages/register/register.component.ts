@@ -42,18 +42,16 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  async signUp() {
+  register() {
     this.registerData.email = this.registerForm.value.email;
     this.registerData.username = this.registerForm.value.username;
     this.registerData.password = this.registerForm.value.passwords.pass1;
-    console.log(this.registerData);
-    await this.authService.registerUser(this.registerData)
-    if (this.authService.isAuthenticated) {
-      this.router.navigate(['/'])
-    }
-    else {
-      alert("Register failed")
-    }
+    this.authService.registerUser(this.registerData).subscribe(
+      () => {
+        console.log("User is register and logged in");
+        this.router.navigateByUrl('/');
+      }
+    );
   }
 
 }

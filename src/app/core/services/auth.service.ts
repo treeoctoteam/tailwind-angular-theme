@@ -3,43 +3,36 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
-  path = 'http://localhost:3002/auth';
+  // path = 'https://dev.tap-id.tech/tapidconfig/auth';
+  path = 'http://localhost:3002/tapidconfig/auth';
 
   TOKEN_KEY = 'token';
 
   constructor(private http: HttpClient) { }
-  get token() {
-    return localStorage.getItem(this.TOKEN_KEY);
-  }
-  get isAuthenticated() {
-    return !!localStorage.getItem(this.TOKEN_KEY);
-  }
-  logout() {
-    localStorage.removeItem(this.TOKEN_KEY);
-  };
 
-  async loginUser(loginData: any) {
-    try {
-      const res = await this.http.post<any>(`${this.path}/login`, loginData).toPromise()
-      this.saveToken(res.token);
-    }
-    catch (err) {
-      console.log(`Errore: ${err}`);
-    }
+  // with token jwt set oon local storage
+  // get token() {
+  //   return localStorage.getItem(this.TOKEN_KEY);
+  // }
+  // get isAuthenticated() {
+  //   return !!localStorage.getItem(this.TOKEN_KEY);
+  // }
+  // logout() {
+  //   localStorage.removeItem(this.TOKEN_KEY);
+  // };
 
+  loginUser(loginData: { email: string, password: string }) {
+    return this.http.post<any>(`${this.path}/login`, loginData);
+    //We are calling shareReplay to prevent the receiver of this Observable from accidentally 
+    //triggering multiple POST requests due to multiple subscriptions.
+    // .shareReplay()
   }
 
-  async registerUser(registerData: any) {
-    try {
-      const res = await this.http.post<any>(`${this.path}/register`, registerData).toPromise()
-      this.saveToken(res.token);
-    }
-    catch (err) {
-      console.log(`Errore: ${err}`)
-    }
+  registerUser(registerData: { email: string, username: string, password: string}) {
+    return this.http.post<any>(`${this.path}/register`, registerData);
   }
 
-  saveToken(token: string) {
-    localStorage.setItem(this.TOKEN_KEY, token);
+  test() {
+    return this.http.get<any>("http://localhost:3002/tapidconfig/home");
   }
 }

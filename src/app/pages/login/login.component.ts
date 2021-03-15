@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginData: { username: string, password: string } = { username: "", password: "" };
+  loginData: { email: string, password: string } = { email: "", password: "" };
   loginForm: FormGroup;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
@@ -25,14 +25,35 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async signIn() {
+   login() {
     this.loginData = this.loginForm.value;
-    await this.authService.loginUser(this.loginData);
-    if (this.authService.isAuthenticated) {
-      this.router.navigate(['/'])
+    if(this.loginData){
+      this.authService.loginUser(this.loginData).subscribe(
+         () => {
+           console.log("User is logged in");
+           this.router.navigateByUrl('/');
+         }
+       );
     }
-    else {
-      alert("Login failed")
-    }
+  }
+
+  // async login() {
+  //   this.loginData = this.loginForm.value;
+  //   const token = await this.authService.loginUser(this.loginData);
+  //   if (token) {
+  //     this.router.navigate(['/'])
+  //   }
+  //   else {
+  //     alert("Login failed")
+  //   }
+  // }
+
+  test(){
+    console.log("TEST");
+    this.authService.test().subscribe(
+      () => {
+        console.log("User is authorizate");
+      }
+    );;
   }
 }

@@ -20,7 +20,7 @@
         </div>
         <div class="mt-4">
           <label class="block text-sm font-medium leading-relaxed tracking-tighter text-gray-700">Password</label>
-          <input type="password" name="" id="" placeholder="Your Password" minlength="6" formControlName="password"
+          <input type="password" name="" id="" placeholder="Your Password" formControlName="password"
             class="w-full px-4 py-2 text-base text-blue-700 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0"
             required />
         </div>
@@ -31,10 +31,17 @@
         </div>
         <button type="submit"
           class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-gradient-to-r from-blue-700 hover:from-blue-600 to-blue-600 hover:to-blue-700 focus:shadow-outline focus:outline-none"
-          (click)="signIn()"
+          (click)="login()"
           [disabled]="loginForm.invalid">
           Log In
         </button>
+
+
+        <button class="p-3" (click)="test()">
+          Test
+        </button>
+
+
       </form>
       <hr class="w-full my-6 border-gray-300" />
       <div class="flex justify-enter">
