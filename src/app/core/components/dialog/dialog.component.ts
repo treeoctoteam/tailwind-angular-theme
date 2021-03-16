@@ -19,9 +19,20 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dialogService.$triggerOpenDialog.pipe(
-      takeUntil(this.$unsubscribe),
+      takeUntil(this.$unsubscribe)
     ).subscribe((dialog: Dialog) => {
       this.dialogs = [...this.dialogs, dialog];
+      this.changeDetector.markForCheck();
+    });
+
+    this.dialogService.$triggerCloseDialog.pipe(
+      takeUntil(this.$unsubscribe)
+    ).subscribe((dialogId: string | undefined) => {
+      if (dialogId !== undefined) {
+        this.dialogs = this.dialogs.filter(d => d.dialogId !== dialogId);
+      } else {
+        this.dialogs = [];
+      }
       this.changeDetector.markForCheck();
     })
   }

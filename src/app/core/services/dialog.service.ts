@@ -17,7 +17,7 @@ export class DialogService {
   private dialogList: Dialog[] = [];
   $dialogs = new BehaviorSubject<Dialog[]>([]);
   $triggerOpenDialog = new Subject<Dialog>();
-  $triggerCloseDialog = new Subject<void>();
+  $triggerCloseDialog = new Subject<string | undefined>();
   $afterClosed = new Subject<unknown>();
 
   constructor() { }
@@ -35,7 +35,11 @@ export class DialogService {
     return this.$afterClosed.asObservable();
   }
 
-  close() {
+  close(dialogId: string) {
+    this.$triggerCloseDialog.next(dialogId);
+  }
+
+  closeAll() {
     this.$triggerCloseDialog.next();
   }
 }
