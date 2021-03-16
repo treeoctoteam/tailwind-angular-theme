@@ -8,15 +8,23 @@
   <router-outlet #dashboard
     (activate)="onActivate($event, dashboard)">
   </router-outlet>
+  <to-button #spinnerButton type="filled" color="blue" size="md" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton()">
+    <i slot="icon-start" class="fab fa-firefox"></i>
+    Button Spinner cricle
+  </to-button>
+  <to-button #spinnerButton2 type="filled" color="blue" size="md" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton2()">
+    <i slot="icon-start" class="fab fa-firefox"></i>
+    Button
+  </to-button>
+  <to-button type="filled" color="blue" size="md" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton3()">
+    <i slot="icon-start" class="fab fa-firefox"></i>
+    Button
+  </to-button>
 </ng-template>
 
 
 <ng-template #customDialog>
-  <div class="w-full h-28 flex items-center justify-center bg-white">
-    <to-button type="filled" [showSpinner]="isButtonSpinner" color="blue" size="lg" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton()">
-      <i slot="icon-start" class="fab fa-firefox"></i>
-      Button
-    </to-button>
+  <div class="w-96 h-28 flex items-center justify-center bg-white">
   </div>
 </ng-template>
 

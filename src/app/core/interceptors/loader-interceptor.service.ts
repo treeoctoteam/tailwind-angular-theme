@@ -14,13 +14,22 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     this.totalRequests++;
-    this.loaderService.show();
+    let elementRef = this.loaderService.elementRef?.nativeElement;
+    if (elementRef !== undefined) {
+      elementRef.showSpinner = true;
+    } else {
+      this.loaderService.show();
+    }
 
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;
         if (this.totalRequests === 0) {
-          this.loaderService.hide();
+          if (elementRef !== undefined) {
+            elementRef.showSpinner = false;
+          } else {
+            this.loaderService.hide();
+          }
         }
       })
     );
