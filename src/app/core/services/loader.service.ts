@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -7,17 +7,13 @@ import { Subject } from 'rxjs';
 export class LoaderService {
 
   $isLoading: Subject<boolean> = new Subject<boolean>();
-  isLoaderElement = false;
+  elementRef: ElementRef<any> | undefined;
 
   show() {
-    if (!this.isLoaderElement) {
-      this.$isLoading.next(true);
-    }
+    this.$isLoading.next(true);
   }
 
   hide() {
-    if (!this.isLoaderElement) {
-      this.$isLoading.next(false);
-    }
+    this.$isLoading.next(false);
   }
 }
