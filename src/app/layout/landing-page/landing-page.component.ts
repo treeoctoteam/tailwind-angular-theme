@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { LandingPageConfig } from '../models/layout.model';
 import { NavigationItem } from '../models/navigation.model';
 
@@ -15,7 +16,7 @@ export class LandingPageComponent implements OnInit {
   $unsubscribe = new Subject<void>();
   landingPageConfig: LandingPageConfig;
 
-  constructor(private appService: ApplicationConfigService) {
+  constructor(private appService: ApplicationConfigService, private authService:AuthService) {
   }
 
   getNavigationItem(): NavigationItem[] {
@@ -56,5 +57,14 @@ export class LandingPageComponent implements OnInit {
         }
       }
     });
+  }
+
+  test() {
+    console.log("TEST");
+    this.authService.test().subscribe(
+      () => {
+        console.log("User is authorizate");
+      }
+    );;
   }
 }

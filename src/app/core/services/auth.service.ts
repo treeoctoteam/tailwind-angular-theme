@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   loginUser(loginData: { email: string, password: string }): Observable<AuthResponse> {
-    return this.http.post<any>(`${this.path}/login`, loginData)
+    return this.http.post<AuthResponse>(`${this.path}/login`, loginData)
       .pipe(
         tap(res => {
           res.email;
@@ -48,7 +48,7 @@ export class AuthService {
   }
 
   registerUser(registerData: { email: string, username: string, password: string }): Observable<AuthResponse> {
-    return this.http.post<any>(`${this.path}/register`, registerData)
+    return this.http.post<AuthResponse>(`${this.path}/register`, registerData)
       .pipe(
         tap(res => {
           res.email;
@@ -59,17 +59,18 @@ export class AuthService {
   }
 
   refreshToken(): Observable<{ accessToken: string; refreshToken: string }> {
-    const refreshToken = localStorage.getItem('refreshToken');
-    return this.http.post<{ accessToken: string; refreshToken: string }>(`${this.path}/refresh`, { refreshToken })
-      .pipe(
-        tap(res => {
-          this.setToken('token', res.accessToken);
-          this.setToken('refreshToken', res.refreshToken);
-        })
-      );
+    // const refreshToken = localStorage.getItem('refreshToken');
+    return this.http.post<{ accessToken: string; refreshToken: string }>(`${this.path}/refresh`, {})
+      // .pipe(
+      //   tap(res => {
+      //     this.setToken('token', res.accessToken);
+      //     this.setToken('refreshToken', res.refreshToken);
+      //   })
+      // );
   }
 
   test() {
+    // return this.http.get<any>("https://dev.tap-id.tech/tapidconfig/home");
     return this.http.get<any>("http://localhost:3002/tapidconfig/home");
   }
 }

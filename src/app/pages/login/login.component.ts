@@ -48,12 +48,5 @@ export class LoginComponent implements OnInit {
   //   }
   // }
 
-  test(){
-    console.log("TEST");
-    this.authService.test().subscribe(
-      () => {
-        console.log("User is authorizate");
-      }
-    );;
-  }
+ 
 }

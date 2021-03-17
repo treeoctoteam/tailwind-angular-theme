@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable, Injector } from '@angular/core';
+import { HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,24 +28,15 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
           if (err instanceof HttpErrorResponse && err.status === 401 && err.statusText === "Token not verified") {
             return this.authService.refreshToken();
           }
-          // of error operator transform in observable
-          // return of(err.statusText);
-          return throwError(err);
+          else {
+            console.log("ELSE")
+            return this.router.navigateByUrl('/landingpage/login');
+            // of error operator transform in observable
+            // return of(err.statusText);
+            // return throwError(err);
+          }
         })
       )
   }
 }
-
-
-
-
-// with token jwt set oon local storage
-// intercept(req: any, next: any) {
-//   const auth = this.injector.get(AuthService);
-//   const authRequest = req.clone({
-//     headers: req.headers.set('Authorization', 'token ' + auth.token)
-//   })
-//   return next.handle(authRequest);
-// }
-
 
