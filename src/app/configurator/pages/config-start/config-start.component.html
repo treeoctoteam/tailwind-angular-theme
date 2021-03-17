@@ -1,0 +1,21 @@
+<div
+  id="configMain"
+  class="flex flex-col items-center justify-center w-screen h-screen p-20 text-center bg-white"
+>
+  <to-input
+    [label]="'Key'"
+    [placeholder]="'Key'"
+    [inputTextColor]="'text-blue-400'"
+    [underlineColor]="'text-blue-400'"
+    [textColor]="'text-blue-400'"
+    [placeholderTextColor]="'text-blue-400'"
+    (inputChange)="change($event)"
+  ></to-input>
+  <button
+    *ngIf="key.length > 0"
+    (click)="validate()"
+    class="mt-2 bg-transparent border-2 border-solid border-blue-400 text-blue-400 font-bold py-1 px-8 rounded m-2"
+  >
+    Start
+  </button>
+</div>

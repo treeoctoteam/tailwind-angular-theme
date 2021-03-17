@@ -19,6 +19,10 @@ const routes: Routes = [
     canActivate: [NavigationGuard]
   },
   {
+    path: 'configurator',
+    loadChildren: () => import('./configurator/configurator.module').then(m => m.ConfiguratorModule),
+  },
+  {
     path: '',
     redirectTo: 'landingpage',
     pathMatch: 'full'
