@@ -73,5 +73,5 @@
       }
     ]
   },
-  "routes": ["/home", "/sign-in", "/sign-up"]
+  "routes": ["/home", "/login", "/register"]
 }

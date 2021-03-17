@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'user-data', component: UserDataComponent },
-  { path: 'sign-in', component: LoginComponent },
-  { path: 'sign-up', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'not-found', component: NotfoundComponent }
 ];
 

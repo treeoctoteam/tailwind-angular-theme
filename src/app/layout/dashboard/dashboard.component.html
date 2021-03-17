@@ -10,3 +10,14 @@
   </router-outlet>
 </ng-template>
 
+
+<ng-template #customDialog>
+  <div class="w-full h-28 flex items-center justify-center bg-white">
+    <to-button type="filled" [showSpinner]="isButtonSpinner" color="blue" size="lg" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton()">
+      <i slot="icon-start" class="fab fa-firefox"></i>
+      Button
+    </to-button>
+  </div>
+</ng-template>
+
+

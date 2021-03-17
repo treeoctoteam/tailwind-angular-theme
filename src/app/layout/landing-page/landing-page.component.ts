@@ -20,7 +20,7 @@ export class LandingPageComponent implements OnInit {
 
   getNavigationItem(): NavigationItem[] {
     this.landingPageConfig = this.appService.activeLayoutConfig as LandingPageConfig;
-    console.log(this.appService.activeLayoutConfig)
+    // console.log(this.appService.activeLayoutConfig)
     return this.landingPageConfig.navbar.navigation[0].children;
   }
 
