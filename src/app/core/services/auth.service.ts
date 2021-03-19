@@ -13,6 +13,8 @@ export class AuthService {
   path = 'https://dev.tap-id.tech/tapidconfig/auth';
   // path = 'http://localhost:3002/tapidconfig/auth';
 
+  
+  user = { role: "admin", name: "Giovanni" };
   constructor(private http: HttpClient) { }
 
   // with token jwt set on local storage
