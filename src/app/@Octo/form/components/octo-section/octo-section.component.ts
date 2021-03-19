@@ -5,14 +5,13 @@ import { OctoFormService } from '../../octo-form.service';
 @Component({
   selector: 'octo-section',
   templateUrl: './octo-section.component.html',
-  styleUrls: ['./octo-section.component.css']
+  styleUrls: ['./octo-section.component.scss'],
 })
 export class OctoSectionComponent implements OnInit {
   @Input() section: OctoSectionModel;
-
-  constructor(public _formService: OctoFormService) { }
+  constructor(public formService: OctoFormService) {}
 
   ngOnInit(): void {
-    console.log("SECTION", this.section)
+    console.log('SECTION', this.section);
   }
 }

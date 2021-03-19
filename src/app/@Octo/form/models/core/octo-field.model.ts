@@ -1,21 +1,29 @@
+import { TOInputAppearance } from '@treeocto/ui-kit/dist/types/utils/utils';
+import { TOInputType } from '@treeocto/ui-kit/dist/types/components/to-input/to-input';
+import { OctoFieldOptionModel } from './octo-field-option.model';
 import { OctoFieldValidationModel } from './octo-field-validation.model';
 import { OctoAuditModel } from './octo-audit.model';
-import { OctoFieldOptionModel } from './octo-field-option.model';
+
+export type OctoFieldType = TOInputType | 'select' | 'autocomplete' | 'toggle' | 'checkbox' | 'textarea';
 
 export interface OctoFieldModel {
   id: number;
   name: string;
-  class: string;
-  style: string;
+  disabled: boolean;
+  readonly: boolean;
+  value: string | number;
   placeholder: string;
-  appearance: string;
-  icon: string;
-  iconSet: string;
+  appearance: TOInputAppearance;
+  type: OctoFieldType;
+  clearable: boolean;
   label: string;
-  value: any;
-  type: string;
-  options: OctoFieldOptionModel[]
-  validation: OctoFieldValidationModel;
+  labelColor: string;
+  borderColor: string;
+  placeholderColor: string;
+  textColor: string;
+  backgroundColor: string;
+  options: OctoFieldOptionModel[];
+  validation: Partial<OctoFieldValidationModel>;
   sectionId: number;
   audit: OctoAuditModel;
 }

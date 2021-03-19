@@ -7,6 +7,7 @@ import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from '../../core/guards/navigation.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { OctoFormModule } from 'src/app/@Octo/form/octo-form.module';
 
 const routes: Routes = [
   {
@@ -15,27 +16,25 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
-        canActivateChild: [NavigationGuard]
-      }
-    ]
-  }
+        loadChildren: () =>
+          import('../../pages/pages.module').then((m) => m.PagesModule),
+        canActivateChild: [NavigationGuard],
+      },
+    ],
+  },
 ];
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
+    OctoFormModule,
     LayoutComponentsModule,
     RouterModule.forChild(routes),
   ],
-  providers: [
-    DashboardConfigService
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [DashboardConfigService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class DashboardModule { }
+export class DashboardModule {}

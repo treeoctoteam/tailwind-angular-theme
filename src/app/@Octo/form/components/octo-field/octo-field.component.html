@@ -1,88 +1,94 @@
 <ng-container *ngIf="field">
   <ng-container [ngSwitch]="field.type">
-    <mat-form-field
-      [class]="field.class"
-      [style]="field.style"
-      *ngSwitchCase="'text'"
+    <!-- TODO invalid -->
+    <to-input *ngSwitchCase="'text'"
+      [type]="field.type"
+      [value]="field.value"
+      [clearable]="field.clearable"
+      [placeholder]="field.placeholder"
       [appearance]="field.appearance"
-    >
-      <mat-label>{{ field.label }}</mat-label>
-      <i
-        class="icon"
-        matPrefix
-        *ngIf="field.icon"
-        [fontSet]="field.iconSet"
-        [fontIcon]="field.icon"
-      ></i>
-      <input
-        matInput
-        #i
-        [type]="field.type"
-        [name]="field.name"
-        [placeholder]="field.placeholder"
-        [formControl]="input"
-        [required]="field.validation.required"
-      />
-      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-form-field>
+      [disabled]="field.disabled"
+      [maxlength]="field.validation.maxLength"
+      [minlength]="field.validation.minLength"
+      [regexPattern]="field.validation.regEx"
+      [labelColor]="field.labelColor"
+      [borderColor]="field.borderColor"
+      [placeholderColor]="field.placeholderColor"
+      [textColor]="field.textColor"
+      [backgroundColor]="field.backgroundColor">
+      {{ field.label }}
+      <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
+    </to-input>
 
-    <mat-form-field *ngSwitchCase="'number'" [appearance]="field.appearance">
-      <mat-label>{{ field.label }}</mat-label>
-      <i
-        class="icon"
-        matPrefix
-        *ngIf="field.icon"
-        [fontSet]="field.iconSet"
-        [fontIcon]="field.icon"
-      ></i>
-      <input
-        matInput
-        #i
-        [type]="field.type"
-        [name]="field.name"
-        [placeholder]="field.placeholder"
-        [formControl]="input"
-        [required]="field.validation.required"
-      />
-      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-form-field>
+    <to-input *ngSwitchCase="'number'"
+      [type]="field.type"
+      [value]="field.value"
+      [clearable]="field.clearable"
+      [placeholder]="field.placeholder"
+      [appearance]="field.appearance"
+      [disabled]="field.disabled"
+      [min]="field.validation.min"
+      [max]="field.validation.max"
+      [maxlength]="field.validation.maxLength"
+      [minlength]="field.validation.minLength"
+      [regexPattern]="field.validation.regEx"
+      [labelColor]="field.labelColor"
+      [borderColor]="field.borderColor"
+      [placeholderColor]="field.placeholderColor"
+      [textColor]="field.textColor"
+      [backgroundColor]="field.backgroundColor">
+      {{ field.label }}
+      <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
+    </to-input>
 
-    <mat-form-field *ngSwitchCase="'textArea'" [appearance]="field.appearance">
-      <mat-label>{{ field.label }}</mat-label>
-      <i
-        class="icon"
-        matPrefix
-        *ngIf="field.icon"
-        [fontSet]="field.iconSet"
-        [fontIcon]="field.icon"
-      ></i>
-      <textarea
-        matInput
-        #i
-        [name]="field.name"
-        [value]="field.value"
-        [formControl]="input"
-        [placeholder]="field.placeholder"
-        [required]="field.validation.required"
-      >
-      </textarea>
-      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-form-field>
+    <to-textarea *ngSwitchCase="'textarea'"
+      [value]="field.value"
+      [label]="field.label"
+      [clearable]="field.clearable"
+      [placeholder]="field.placeholder"
+      [appearance]="field.appearance"
+      [disabled]="field.disabled"
+      [regexPattern]="field.validation.regEx"
+      [labelColor]="field.labelColor"
+      [borderColor]="field.borderColor"
+      [placeholderColor]="field.placeholderColor"
+      [textColor]="field.textColor"
+      [backgroundColor]="field.backgroundColor">
+    </to-textarea>
 
-    <ng-container *ngSwitchCase="'checkbox'">
-      <mat-checkbox
-        class="p-8"
-        [name]="field.name"
-        [formControl]="input"
-        [checked]="field.value"
-        [required]="field.validation.required"
-      >
-        {{ field.label }}
-      </mat-checkbox>
-      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </ng-container>
+    <to-checkbox *ngSwitchCase="'checkbox'"
+      [checkboxId]="field.id"
+      [checked]="field.value"
+      [label]="field.label"
+      [appearance]="field.appearance"
+      [disabled]="field.disabled"
+      [labelColor]="field.labelColor"
+      [borderColor]="field.borderColor"
+      [textColor]="field.textColor"
+      [backgroundColor]="field.backgroundColor">
+    </to-checkbox>
 
-    <mat-radio-group
+    <to-autocomplete *ngSwitchCase="'autovomplete'"
+      [type]="field.type"
+      [options]="filteredOptions"
+      [value]="field.value"
+      [label]="field.label"
+      [clearable]="field.clearable"
+      [placeholder]="field.placeholder"
+      [appearance]="field.appearance"
+      [disabled]="field.disabled"
+      [labelColor]="field.labelColor"
+      [borderColor]="field.borderColor"
+      [placeholderColor]="field.placeholderColor"
+      [textColor]="field.textColor"
+      [backgroundColor]="field.backgroundColor">
+    </to-autocomplete>
+
+    <to-toggle *ngSwitchCase="'toggle'"
+      [checked]="field.value"
+    ></to-toggle>
+
+    <!-- <mat-radio-group
       *ngSwitchCase="'radioButton'"
       class="p-8"
       [name]="field.name"
@@ -98,9 +104,9 @@
         >
       </ng-container>
       <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-radio-group>
+    </mat-radio-group> -->
 
-    <mat-form-field
+    <!-- <mat-form-field
       *ngSwitchCase="'datePicker'"
       [appearance]="field.appearance"
     >
@@ -115,48 +121,5 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker> </mat-datepicker>
       <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-form-field>
-
-    <mat-form-field
-      *ngSwitchCase="'autocomplete'"
-      [appearance]="field.appearance"
-    >
-      <i
-        class="icon"
-        matPrefix
-        *ngIf="field.icon"
-        [fontSet]="field.iconSet"
-        [fontIcon]="field.icon"
-      ></i>
-      <input
-        type="text"
-        [placeholder]="field.placeholder"
-        aria-label="Number"
-        matInput
-        [formControl]="input"
-        [matAutocomplete]="auto"
-        [required]="field.validation.required"
-      />
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option
-          *ngFor="let option of filteredOptions | async"
-          [value]="option.value"
-        >
-          {{ option.label }}
-        </mat-option>
-      </mat-autocomplete>
-      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-form-field>
-
-    <div *ngSwitchCase="'toggle'" class="p-8" [class]="field.class">
-      <mat-slide-toggle
-        [name]="field.name"
-        [formControl]="input"
-        [required]="field.validation.required"
-      >
-        {{ field.label }}
-      </mat-slide-toggle>
-      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </div>
-  </ng-container>
+    </mat-form-field> -->
 </ng-container>

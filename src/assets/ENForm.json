@@ -1,0 +1,60 @@
+{
+  "id": 1,
+  "title": "Ciao",
+  "class": "option1 fasdf",
+  "style": "red",
+  "sections": [
+    {
+      "id": 1,
+      "name": "Via Casoni",
+      "class": "bordered ",
+      "style": "dsa",
+      "validation": {
+        "required": true
+      },
+      "fields": [
+        {
+          "id": 1,
+          "name": "Ciao",
+          "style": null,
+          "placeholder": null,
+          "appearance": "outline",
+          "icon": null,
+          "iconSet": null,
+          "label": "Ciao",
+          "value": null,
+          "type": "number",
+          "options": [],
+          "validation": {
+            "required": false,
+            "min": null,
+            "max": null,
+            "minDate": null,
+            "maxDate": null,
+            "regEx": null
+          },
+          "sectionId": 1,
+          "audit": {
+            "creationDate": "2021-03-19T16:13:43.679Z",
+            "updateDate": null,
+            "creationUserId": 1,
+            "updateUserId": 1
+          }
+        }
+      ],
+      "audit": {
+        "creationDate": "2021-03-19T16:13:03.725Z",
+        "updateDate": null,
+        "creationUserId": 1,
+        "updateUserId": 1
+      }
+    }
+  ],
+  "audit": {
+    "creationDate": "2021-03-19T16:12:44.469Z",
+    "updateDate": null,
+    "creationUserId": 1,
+    "updateUserId": 1
+  },
+  "mode": "full"
+}
