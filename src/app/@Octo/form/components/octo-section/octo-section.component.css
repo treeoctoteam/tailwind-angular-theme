@@ -1,0 +1,45 @@
+.title {
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.section-hilighted {
+  border: 1px solid #ccc;
+  background-color: rgb(246, 248, 132);
+  margin: 1%;
+}
+
+.section-lite {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin: 1%;
+}
+
+.section-transparent {
+  border: 0;
+  background-color: transparent;
+  margin: 1%;
+}
+
+.bordered {
+  border: 2px solid lightgray;
+}
+
+.bordered-rounded {
+  border: 2px solid lightgray;
+  border-radius: 20px;
+}
+
+.bordered-dotted {
+  border: 2px dotted lightgray;
+}
+
+
+.octo-form{
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}

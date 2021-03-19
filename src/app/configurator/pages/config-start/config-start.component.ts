@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'octo-config-start',
@@ -6,16 +7,12 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./config-start.component.scss']
 })
 export class ConfigStartComponent implements OnInit {
-  key = "";
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-  change(e: any) {
-    console.log(e);
-    this.key = e.detail;
-  }
-  validate() {
-    alert(this.key)
+
+  start() {
+    this.router.navigate(["configurator/overview"])
   }
 }

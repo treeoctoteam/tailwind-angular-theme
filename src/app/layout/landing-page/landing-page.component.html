@@ -22,7 +22,7 @@
       <div class="block lg:hidden pr-4">
         <button
           id="nav-toggle"
-          class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-green-500 appearance-none focus:outline-none"
+          class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-greocto-500 appearance-none focus:outline-none"
         >
           <svg
             class="fill-current h-3 w-3"
@@ -37,7 +37,8 @@
 
       <div
         class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
-        id="nav-content">
+        id="nav-content"
+      >
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li class="mr-3" *ngFor="let navItem of getNavigationItem()">
             <a
@@ -64,18 +65,13 @@
       </div>
     </div>
   </nav>
-
 </ng-template>
 
 <ng-template #landingPageContainer>
-
-
   <router-outlet #landing></router-outlet>
 </ng-template>
 
-<button class="p-3" (click)="test()">
-  Test
-</button>
+<button class="p-3" (click)="test()">Test</button>
 
 <ng-template #ladingPageFooter>
   <footer class="bg-white">
@@ -192,4 +188,3 @@
     </div>
   </footer>
 </ng-template>
-

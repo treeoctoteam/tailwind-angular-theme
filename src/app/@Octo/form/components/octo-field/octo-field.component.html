@@ -1,0 +1,162 @@
+<ng-container *ngIf="field">
+  <ng-container [ngSwitch]="field.type">
+    <mat-form-field
+      [class]="field.class"
+      [style]="field.style"
+      *ngSwitchCase="'text'"
+      [appearance]="field.appearance"
+    >
+      <mat-label>{{ field.label }}</mat-label>
+      <i
+        class="icon"
+        matPrefix
+        *ngIf="field.icon"
+        [fontSet]="field.iconSet"
+        [fontIcon]="field.icon"
+      ></i>
+      <input
+        matInput
+        #i
+        [type]="field.type"
+        [name]="field.name"
+        [placeholder]="field.placeholder"
+        [formControl]="input"
+        [required]="field.validation.required"
+      />
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'number'" [appearance]="field.appearance">
+      <mat-label>{{ field.label }}</mat-label>
+      <i
+        class="icon"
+        matPrefix
+        *ngIf="field.icon"
+        [fontSet]="field.iconSet"
+        [fontIcon]="field.icon"
+      ></i>
+      <input
+        matInput
+        #i
+        [type]="field.type"
+        [name]="field.name"
+        [placeholder]="field.placeholder"
+        [formControl]="input"
+        [required]="field.validation.required"
+      />
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'textArea'" [appearance]="field.appearance">
+      <mat-label>{{ field.label }}</mat-label>
+      <i
+        class="icon"
+        matPrefix
+        *ngIf="field.icon"
+        [fontSet]="field.iconSet"
+        [fontIcon]="field.icon"
+      ></i>
+      <textarea
+        matInput
+        #i
+        [name]="field.name"
+        [value]="field.value"
+        [formControl]="input"
+        [placeholder]="field.placeholder"
+        [required]="field.validation.required"
+      >
+      </textarea>
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </mat-form-field>
+
+    <ng-container *ngSwitchCase="'checkbox'">
+      <mat-checkbox
+        class="p-8"
+        [name]="field.name"
+        [formControl]="input"
+        [checked]="field.value"
+        [required]="field.validation.required"
+      >
+        {{ field.label }}
+      </mat-checkbox>
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </ng-container>
+
+    <mat-radio-group
+      *ngSwitchCase="'radioButton'"
+      class="p-8"
+      [name]="field.name"
+      [formControl]="input"
+    >
+      <mat-label>{{ field.label }}</mat-label>
+      <ng-container *ngFor="let option of field.options">
+        <mat-radio-button
+          [value]="option.value"
+          class="vertical-content"
+          [required]="field.validation.required"
+          >{{ option.label }}</mat-radio-button
+        >
+      </ng-container>
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </mat-radio-group>
+
+    <mat-form-field
+      *ngSwitchCase="'datePicker'"
+      [appearance]="field.appearance"
+    >
+      <mat-label>{{ field.label }}</mat-label>
+      <input
+        matInput
+        [name]="field.name"
+        [formControl]="input"
+        [matDatepicker]="picker"
+        [required]="field.validation.required"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker> </mat-datepicker>
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngSwitchCase="'autocomplete'"
+      [appearance]="field.appearance"
+    >
+      <i
+        class="icon"
+        matPrefix
+        *ngIf="field.icon"
+        [fontSet]="field.iconSet"
+        [fontIcon]="field.icon"
+      ></i>
+      <input
+        type="text"
+        [placeholder]="field.placeholder"
+        aria-label="Number"
+        matInput
+        [formControl]="input"
+        [matAutocomplete]="auto"
+        [required]="field.validation.required"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option.value"
+        >
+          {{ option.label }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </mat-form-field>
+
+    <div *ngSwitchCase="'toggle'" class="p-8" [class]="field.class">
+      <mat-slide-toggle
+        [name]="field.name"
+        [formControl]="input"
+        [required]="field.validation.required"
+      >
+        {{ field.label }}
+      </mat-slide-toggle>
+      <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
+    </div>
+  </ng-container>
+</ng-container>

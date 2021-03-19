@@ -1,1 +1,96 @@
-<p>config-overview works!</p>
+<div class="gradient leading-relaxed tracking-wide flex flex-col">
+  <octo-header [customTemplate]="configPageHeader"></octo-header>
+  <div class="p-5 w-full">
+    <to-card [cardTitle]="'Active Configuration'">
+      <json-editor
+        [options]="editorOptions"
+        [data]="data"
+        (change)="change($event)"
+        (jsonChange)="jchange($event)"
+      ></json-editor>
+    </to-card>
+    <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
+
+    <div class="grid grid-cols-2 gap-4 grid-flow-row-dense">
+      <to-card [cardTitle]="'StartUp'">
+        {{ appService.appConfig.startup }}
+      </to-card>
+      <to-card [cardTitle]="'Customer Info'">
+        {{ appService.appConfig.customerInfo | json }}
+      </to-card>
+      <to-card [cardTitle]="'Network'">
+        {{ appService.appConfig.network | json }}
+      </to-card>
+      <to-card [cardTitle]="'Theme'">
+        {{ appService.appConfig.theme | json }}
+      </to-card>
+      <to-card [cardTitle]="'Internationalization'">
+        <to-card [cardTitle]="'Default Language'">
+          {{ appService.appConfig.defaultLanguage }}
+        </to-card>
+        <br />
+        <to-card [cardTitle]="'Avaiable Languages'">
+          {{ appService.appConfig.languages | json }}
+        </to-card>
+      </to-card>
+    </div>
+  </div>
+  <div class="flex flex-wrap w-full p-2 justify-center">
+    <to-button class="mx-2" (btnClick)="export()" [color]="'red'"
+      >Export</to-button
+    >
+    <to-button class="mx-2" (btnClick)="save()" [color]="'yellow'"
+      >Update</to-button
+    >
+  </div>
+</div>
+
+<ng-template #configPageHeader>
+  <nav id="header" class="w-full z-30 top-0 text-white py-1 lg:py-6">
+    <div
+      class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6"
+    >
+      <div class="pl-4 flex items-center">
+        <img class="w-24 mr-4" src="assets/img/octopus.png" alt="" />
+        <a
+          class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+          href="#"
+        >
+          Octo Configurator
+        </a>
+      </div>
+
+      <div class="block lg:hidden pr-4">
+        <button
+          id="nav-toggle"
+          class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-greocto-500 appearance-none focus:outline-none"
+        >
+          <svg
+            class="fill-current h-3 w-3"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
+        id="nav-content"
+      >
+        <!-- <ul class="list-reset lg:flex justify-end flex-1 items-center">
+          <li class="mr-3" *ngFor="let navItem of getNavigationItem()">
+            <a
+              class="inline-block py-2 px-4 text-black font-bold no-underline"
+              href="{{ navItem.url }}"
+              >{{ navItem.translate | translate }}</a
+            >
+          </li>
+
+        </ul> -->
+      </div>
+    </div>
+  </nav>
+</ng-template>

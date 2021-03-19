@@ -15,7 +15,7 @@ export class AuthService {
   path = 'http://localhost:3002/tapidconfig/auth';
 
   TOKEN_KEY = 'token';
-
+  user = { role: "admin", name: "Giovanni" };
   constructor(private http: HttpClient) { }
 
   // with token jwt set oon local storage
@@ -34,39 +34,25 @@ export class AuthService {
   }
 
   loginUser(loginData: { email: string, password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.path}/login`, loginData)
-      .pipe(
-        tap(res => {
-          res.email;
-          this.setToken('token', res.accessToken);
-          this.setToken('refreshToken', res.refreshToken);
-        })
-      );
-    //We are calling shareReplay to prevent the receiver of this Observable from accidentally 
+    return this.http.post<AuthResponse>(`${this.path}/login`, loginData);
+    //We are calling shareReplay to prevent the receiver of this Observable from accidentally
     //triggering multiple POST requests due to multiple subscriptions.
     // .shareReplay()
   }
 
   registerUser(registerData: { email: string, username: string, password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.path}/register`, registerData)
-      .pipe(
-        tap(res => {
-          res.email;
-          this.setToken('token', res.accessToken);
-          this.setToken('refreshToken', res.refreshToken);
-        })
-      );
+    return this.http.post<AuthResponse>(`${this.path}/register`, registerData);
   }
 
   refreshToken(): Observable<{ accessToken: string; refreshToken: string }> {
     // const refreshToken = localStorage.getItem('refreshToken');
     return this.http.post<{ accessToken: string; refreshToken: string }>(`${this.path}/refresh`, {})
-      // .pipe(
-      //   tap(res => {
-      //     this.setToken('token', res.accessToken);
-      //     this.setToken('refreshToken', res.refreshToken);
-      //   })
-      // );
+    // .pipe(
+    //   tap(res => {
+    //     this.setToken('token', res.accessToken);
+    //     this.setToken('refreshToken', res.refreshToken);
+    //   })
+    // );
   }
 
   test() {
