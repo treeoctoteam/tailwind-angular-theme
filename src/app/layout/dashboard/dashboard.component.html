@@ -5,27 +5,20 @@
 </div>
 
 <ng-template #dashboardContainer>
-  <router-outlet #dashboard
-    (activate)="onActivate($event, dashboard)">
-  </router-outlet>
-  <to-button #spinnerButton type="filled" color="blue" size="md" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton()">
-    <i slot="icon-start" class="fab fa-firefox"></i>
-    Button Spinner cricle
-  </to-button>
-  <to-button #spinnerButton2 type="filled" color="blue" size="md" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton2()">
-    <i slot="icon-start" class="fab fa-firefox"></i>
-    Button
-  </to-button>
-  <to-button type="filled" color="blue" size="md" [disabled]="isButtonSpinner" (btnClick)="onSpinnerButton3()">
-    <i slot="icon-start" class="fab fa-firefox"></i>
-    Button
-  </to-button>
-</ng-template>
-
-
-<ng-template #customDialog>
-  <div class="w-96 h-28 flex items-center justify-center bg-white">
+  <div class="flex items-center justify-center bg-white shadow-md rounded-md">
+    <form class="w-96 m-3" [formGroup]="formGroupTest">
+      <to-input type="text" appearance="solid" octoValueAccessor formControlName="name">
+        Name
+      </to-input>
+      <to-input type="text" appearance="simple" octoValueAccessor formControlName="surname">
+        Surname
+      </to-input>
+      <to-input type="number" [clearable]="false" appearance="underline" octoValueAccessor formControlName="age">
+        Age
+      </to-input>
+    </form>
   </div>
+  <!-- <router-outlet #dashboard
+    (activate)="onActivate($event, dashboard)">
+  </router-outlet> -->
 </ng-template>
-
-
