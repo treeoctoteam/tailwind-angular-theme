@@ -110,5 +110,5 @@
       }
     ]
   },
-  "routes": ["/faq", "/contacts"]
+  "routes": ["/faq", "/contacts", "/animations-config"]
 }

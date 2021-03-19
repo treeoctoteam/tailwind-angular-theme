@@ -38,7 +38,7 @@ export class AuthService {
           this.setToken('role', res.role);
         })
       );
-    //We are calling shareReplay to prevent the receiver of this Observable from accidentally 
+    //We are calling shareReplay to prevent the receiver of this Observable from accidentally
     //triggering multiple POST requests due to multiple subscriptions.
     // .shareReplay()
   }

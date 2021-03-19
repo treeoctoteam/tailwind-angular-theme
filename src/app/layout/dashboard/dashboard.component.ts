@@ -1,68 +1,44 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
-import { ToButton } from '@treeocto/ui-kit/dist/types/components/to-button/to-button';
-import { delay } from 'rxjs/operators';
-import { DialogService } from 'src/app/core/services/dialog.service';
-import { LoaderService } from 'src/app/core/services/loader.service';
+import { AfterViewInit, Component } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { octoAnimations } from 'src/app/shared/utils/animations';
 
 @Component({
   selector: 'octo-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [octoAnimations]
 })
 export class DashboardComponent implements AfterViewInit {
 
-  @ViewChild('spinnerButton') private spinnerBtn: ElementRef<ToButton>;
-  @ViewChild('spinnerButton2') private spinnerBtn2: ElementRef<ToButton>;
-  @ViewChild('customDialog') customTemplate: TemplateRef<any>;
-  isButtonSpinner = false;
+  formGroupTest: FormGroup;
+  formControld = new FormControl('name')
 
-  constructor(private dialogService: DialogService,
-              private http: HttpClient,
-              private loaderService: LoaderService) { }
-
-  ngAfterViewInit(): void {
-    this.showDialog1();
-    this.showDialog2();
+  constructor() {
+    this.formGroupTest = new FormBuilder().group({
+      name: new FormControl('Paolo', [Validators.required, Validators.maxLength(4)]),
+      surname: new FormControl('Milani', [Validators.required, Validators.maxLength(4)]),
+      age: new FormControl(0, [Validators.required, Validators.max(25)])
+    });
+    this.formGroupTest.valueChanges.subscribe(console.log)
   }
 
-  showDialog1() {
-    // const id = 'dialog1';
-    // this.dialogService.open({ dialogType: 'danger', dialogTitle: 'fsdf', hasCustomTemplate: false, hasBackdrop: true }, id)
-    //   .pipe(filter(d => d.dialogId === id))
-    //   .subscribe(response => console.log(response));
+  ngAfterViewInit(): void { }
+
+  get name(): AbstractControl | null {
+    return this.formGroupTest.get('name');
   }
 
-  showDialog2() {
-    // const id = 'dialog2';
-    // this.dialogService.open({ dialogType: 'success', dialogTitle: 'fsdf', hasCustomTemplate: true, hasBackdrop: true }, id)
-    //   .pipe(filter(d => d.dialogId === id))
-    //   .subscribe(response => console.log(response));
-  }
-
-  closeDialog2() {
-    this.dialogService.close('dialog2');
-  }
-
-  onSpinnerButton() {
-    this.loaderService.elementRef = this.spinnerBtn;
-    this.http.get('http://localhost:4200').pipe(
-      delay(1000000)
-      ).subscribe()
+  animation = {
+    value: '*',
+    params: {
+      duration: "1000ms",
+      delay: "1000ms",
+      opacity: '0',
+      scale: '2',
+      x: '300px',
+      y: "10000px",
+      z: "0px"
     }
-
-  onSpinnerButton2() {
-    this.loaderService.elementRef = this.spinnerBtn2;
-    this.http.get('http://localhost:4200').pipe(
-      delay(1000000)
-    ).subscribe()
-  }
-
-  onSpinnerButton3() {
-    this.loaderService.elementRef = undefined;
-    this.http.get('http://localhost:4200').pipe(
-      delay(1000000)
-    ).subscribe()
   }
 
   onActivate(e: any, outlet: HTMLElement) {

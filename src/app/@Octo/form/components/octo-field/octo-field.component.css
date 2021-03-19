@@ -1,0 +1,17 @@
+.error {
+  color: red;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.vertical-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mat-form-field {
+  max-width: 200px !important;
+}

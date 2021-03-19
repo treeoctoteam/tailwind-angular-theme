@@ -1,0 +1,11 @@
+<div *ngIf="section" [class]="section?.class" [style]="section?.style">
+  <div class="title">{{ section.name }}</div>
+  <form class="octo-form">
+    <ng-container *ngFor="let field of section?.fields">
+      <octo-field
+        [field]="field"
+        [required]="field.validation.required"
+      ></octo-field>
+    </ng-container>
+  </form>
+</div>
