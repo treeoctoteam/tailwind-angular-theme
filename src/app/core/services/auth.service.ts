@@ -10,8 +10,8 @@ interface AuthResponse {
 
 @Injectable()
 export class AuthService {
-  // path = 'https://dev.tap-id.tech/tapidconfig/auth';
-  path = 'http://localhost:3002/tapidconfig/auth';
+  path = 'https://dev.tap-id.tech/tapidconfig/auth';
+  // path = 'http://localhost:3002/tapidconfig/auth';
 
   constructor(private http: HttpClient) { }
 
@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   test() {
-    // return this.http.get<any>("https://dev.tap-id.tech/tapidconfig/home");
-    return this.http.get<any>("http://localhost:3002/tapidconfig/home");
+    return this.http.get<any>("https://dev.tap-id.tech/tapidconfig/home");
+    // return this.http.get<any>("http://localhost:3002/tapidconfig/home");
   }
 }

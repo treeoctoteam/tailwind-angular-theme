@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../core/services/loader.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +18,7 @@ export class LoginFormComponent implements OnInit {
   loginData: { email: string, password: string } = { email: "", password: "" };
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private leaderService: LoaderService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
