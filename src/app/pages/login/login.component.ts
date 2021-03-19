@@ -6,47 +6,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'octo-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [
-    AuthService
-  ]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  loginData: { email: string, password: string } = { email: "", password: "" };
-  loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(4)])]
-    });
   }
-
-   login() {
-    this.loginData = this.loginForm.value;
-    if(this.loginData){
-      this.authService.loginUser(this.loginData).subscribe(
-         () => {
-           console.log("User is logged in");
-           this.router.navigateByUrl('/');
-         }
-       );
-    }
-  }
-
-  // async login() {
-  //   this.loginData = this.loginForm.value;
-  //   const token = await this.authService.loginUser(this.loginData);
-  //   if (token) {
-  //     this.router.navigate(['/'])
-  //   }
-  //   else {
-  //     alert("Login failed")
-  //   }
-  // }
-
  
 }

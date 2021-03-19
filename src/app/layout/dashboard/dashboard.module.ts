@@ -5,6 +5,8 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardConfigService } from './services/dashboard-config.service';
 import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from '../../core/guards/navigation.guard';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -26,6 +28,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    SharedModule,
     LayoutComponentsModule,
     RouterModule.forChild(routes),
   ],
