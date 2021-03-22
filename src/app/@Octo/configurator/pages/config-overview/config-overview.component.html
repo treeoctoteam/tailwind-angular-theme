@@ -10,30 +10,7 @@
       ></json-editor>
     </to-card>
     <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
-
-    <div class="grid grid-cols-2 gap-4 grid-flow-row-dense">
-      <to-card [cardTitle]="'StartUp'">
-        {{ appService.config.startup }}
-      </to-card>
-      <to-card [cardTitle]="'Customer Info'">
-        {{ appService.config.customerInfo | json }}
-      </to-card>
-      <to-card [cardTitle]="'Network'">
-        {{ appService.config.network | json }}
-      </to-card>
-      <to-card [cardTitle]="'Theme'">
-        {{ appService.config.theme | json }}
-      </to-card>
-      <to-card [cardTitle]="'Internationalization'">
-        <to-card [cardTitle]="'Default Language'">
-          {{ appService.config.defaultLanguage }}
-        </to-card>
-        <br />
-        <to-card [cardTitle]="'Avaiable Languages'">
-          {{ appService.config.languages | json }}
-        </to-card>
-      </to-card>
-    </div>
+    <octo-app-config-form></octo-app-config-form>
   </div>
   <div class="flex flex-wrap w-full p-2 justify-center">
     <to-button class="mx-2" (btnClick)="export()" [color]="'red'"

@@ -30,8 +30,8 @@ export class AuthService {
     localStorage.setItem(key, value);
   }
 
-  loginUser(loginData: { email: string, password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.path}/login`, loginData)
+  loginUser(data: { email: string, password: string }): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.path}/login`, data)
       .pipe(
         tap(res => {
           this.setToken('user', res.email);
@@ -56,11 +56,6 @@ export class AuthService {
   }
 
   refreshToken(): Observable<void> {
-    return this.http.post<void>(`${this.path}/refresh`, {});
-  }
-
-  test() {
-    return this.http.get<any>("https://dev.tap-id.tech/tapidconfig/home");
-    // return this.http.get<any>("http://localhost:3002/tapidconfig/home");
+    return this.http.post<void>(`${this.path}/refresh`, null);
   }
 }

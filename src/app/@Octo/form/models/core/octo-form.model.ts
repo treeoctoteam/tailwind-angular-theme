@@ -7,6 +7,6 @@ export interface OctoFormModel {
   class: string;
   style: string;
   sections: OctoSectionModel[];
-  audit: OctoAuditModel;
+  audit?: OctoAuditModel;
   mode: string;
 }

@@ -16,6 +16,7 @@
     "openViduServerUrl": "https://rtc.tap-id.tech:4443"
   },
   "enableAuthentication": true,
+  "authenticationMode": "JWT",
   "defaultLayout": "/landingpage",
   "layouts": ["/dashboard", "/landingpage", "/workflow"],
   "defaultLanguage": "en",

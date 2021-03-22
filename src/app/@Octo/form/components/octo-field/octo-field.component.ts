@@ -20,7 +20,7 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
   @Input() field: OctoFieldModel;
   @Input() required: boolean;
 
-  constructor(public _formService: OctoFormService) {}
+  constructor(public _formService: OctoFormService) { }
 
 
   ngOnInit(): void {
@@ -46,29 +46,29 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
 
     }
     let validators: ValidatorFn[] = []
-    if (this.field.validation.required) {
+    if (this.field.validation?.required) {
       validators.push(Validators.required);
     }
-    if (this.field.type === 'number' && this.field.validation.max) {
-      validators.push(Validators.max(this.field.validation.max));
+    if (this.field.type === 'number' && this.field.validation?.max) {
+      validators.push(Validators.max(this.field.validation?.max));
     }
-    if (this.field.type === 'number' && this.field.validation.min) {
-      validators.push(Validators.min(this.field.validation.min));
+    if (this.field.type === 'number' && this.field.validation?.min) {
+      validators.push(Validators.min(this.field.validation?.min));
     }
-    if (this.field.type === 'text' && this.field.validation.max) {
-      validators.push(Validators.maxLength(this.field.validation.max));
+    if (this.field.type === 'text' && this.field.validation?.max) {
+      validators.push(Validators.maxLength(this.field.validation?.max));
     }
-    if (this.field.type === 'text' && this.field.validation.min) {
-      validators.push(Validators.minLength(this.field.validation.min));
+    if (this.field.type === 'text' && this.field.validation?.min) {
+      validators.push(Validators.minLength(this.field.validation?.min));
     }
-    if (this.field.validation.regEx) {
-      validators.push(Validators.pattern(this.field.validation.regEx));
+    if (this.field.validation?.regEx) {
+      validators.push(Validators.pattern(this.field.validation?.regEx));
     }
-    // if (this.field.type === 'datePicker' && this.field.validation.minDate) {
-    //   validators.push(this.minDate(this.field.validation.minDate));
+    // if (this.field.type === 'datePicker' && this.field.validation?.minDate) {
+    //   validators.push(this.minDate(this.field.validation?.minDate));
     // }
-    // if (this.field.type === 'datePicker' && this.field.validation.maxDate) {
-    //   validators.push(this.maxDate(this.field.validation.maxDate));
+    // if (this.field.type === 'datePicker' && this.field.validation?.maxDate) {
+    //   validators.push(this.maxDate(this.field.validation?.maxDate));
     // }
     this.input.setValidators(validators);
     this.input.updateValueAndValidity();
@@ -127,7 +127,10 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
 
   private _filter(value: string): OctoFieldOptionModel[] {
     const filterValue = value.toLowerCase();
-    return this.field.options.filter(option => option.label.toLowerCase().indexOf(filterValue) >= 0);
+    if (this.field.options) {
+      return this.field.options.filter(option => option.label.toLowerCase().indexOf(filterValue) >= 0);
+    }
+    return [];
   }
 
 }

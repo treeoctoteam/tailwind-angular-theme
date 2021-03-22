@@ -9,5 +9,5 @@ export interface OctoSectionModel {
   style: string;
   validation: OctoSectionValidationModel;
   fields: OctoFieldModel[];
-  audit: OctoAuditModel;
+  audit?: OctoAuditModel;
 }

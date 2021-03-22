@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
   declarations: [OctoFormComponent, OctoFieldComponent, OctoSectionComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [OctoFormComponent],
-  providers: [OctoFormService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class OctoFormModule {}
+export class OctoFormModule { }

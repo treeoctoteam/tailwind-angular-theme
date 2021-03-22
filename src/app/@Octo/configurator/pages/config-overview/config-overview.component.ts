@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import { octoAnimations } from 'src/app/shared/utils/animations';
 
 @Component({
   selector: 'octo-config-overview',
   templateUrl: './config-overview.component.html',
-  styleUrls: ['./config-overview.component.scss']
+  styleUrls: ['./config-overview.component.scss'],
+  animations: [octoAnimations]
 })
 export class ConfigOverviewComponent implements OnInit {
 

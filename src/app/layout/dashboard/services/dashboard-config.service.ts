@@ -21,6 +21,7 @@ export class DashboardConfigService {
     $req.subscribe((response: DashboardConfig) => {
       this.$config.next(response);
       this.config = response;
+      // Manage Routing
       let navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
       if (!navigationExist) {
         this.router.navigate(['dashboard/' + this.config.defaultRoute]);

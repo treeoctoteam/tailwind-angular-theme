@@ -1,62 +1,69 @@
 <ng-container *ngIf="field">
   <ng-container [ngSwitch]="field.type">
     <!-- TODO invalid -->
-    <to-input *ngSwitchCase="'text'"
+    <to-input
+      *ngSwitchCase="'text'"
       [type]="field.type"
       [value]="field.value"
       [clearable]="field.clearable"
       [placeholder]="field.placeholder"
       [appearance]="field.appearance"
       [disabled]="field.disabled"
-      [maxlength]="field.validation.maxLength"
-      [minlength]="field.validation.minLength"
-      [regexPattern]="field.validation.regEx"
+      [maxlength]="field.validation?.maxLength"
+      [minlength]="field.validation?.minLength"
+      [regexPattern]="field.validation?.regEx"
       [labelColor]="field.labelColor"
       [borderColor]="field.borderColor"
       [placeholderColor]="field.placeholderColor"
       [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor">
+      [backgroundColor]="field.backgroundColor"
+    >
       {{ field.label }}
       <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
     </to-input>
 
-    <to-input *ngSwitchCase="'number'"
+    <to-input
+      *ngSwitchCase="'number'"
       [type]="field.type"
       [value]="field.value"
       [clearable]="field.clearable"
       [placeholder]="field.placeholder"
       [appearance]="field.appearance"
       [disabled]="field.disabled"
-      [min]="field.validation.min"
-      [max]="field.validation.max"
-      [maxlength]="field.validation.maxLength"
-      [minlength]="field.validation.minLength"
-      [regexPattern]="field.validation.regEx"
+      [min]="field.validation?.min"
+      [max]="field.validation?.max"
+      [maxlength]="field.validation?.maxLength"
+      [minlength]="field.validation?.minLength"
+      [regexPattern]="field.validation?.regEx"
       [labelColor]="field.labelColor"
       [borderColor]="field.borderColor"
       [placeholderColor]="field.placeholderColor"
       [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor">
+      [backgroundColor]="field.backgroundColor"
+    >
       {{ field.label }}
       <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
     </to-input>
 
-    <to-textarea *ngSwitchCase="'textarea'"
+    <to-textarea
+      *ngSwitchCase="'textarea'"
       [value]="field.value"
       [label]="field.label"
       [clearable]="field.clearable"
       [placeholder]="field.placeholder"
       [appearance]="field.appearance"
       [disabled]="field.disabled"
-      [regexPattern]="field.validation.regEx"
+      [regexPattern]="field.validation?.regEx"
       [labelColor]="field.labelColor"
       [borderColor]="field.borderColor"
       [placeholderColor]="field.placeholderColor"
       [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor">
+      [backgroundColor]="field.backgroundColor"
+    >
     </to-textarea>
 
-    <to-checkbox *ngSwitchCase="'checkbox'"
+    <to-checkbox
+      *ngSwitchCase="'checkbox'"
       [checkboxId]="field.id"
       [checked]="field.value"
       [appearance]="field.appearance"
@@ -64,11 +71,13 @@
       [labelColor]="field.labelColor"
       [borderColor]="field.borderColor"
       [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor">
+      [backgroundColor]="field.backgroundColor"
+    >
       {{ field.label }}
     </to-checkbox>
 
-    <to-autocomplete *ngSwitchCase="'autocomplete'"
+    <to-autocomplete
+      *ngSwitchCase="'autocomplete'"
       [type]="field.type"
       [options]="filteredOptions"
       [value]="field.value"
@@ -82,12 +91,11 @@
       [placeholderColor]="field.placeholderColor"
       [textColor]="field.textColor"
       [backgroundColor]="field.backgroundColor"
-      [options]="field.options">
+      [options]="field.options"
+    >
     </to-autocomplete>
 
-    <to-toggle *ngSwitchCase="'toggle'"
-      [checked]="field.value"
-    ></to-toggle>
+    <to-toggle *ngSwitchCase="'toggle'" [checked]="field.value"></to-toggle>
 
     <!-- <mat-radio-group
       *ngSwitchCase="'radioButton'"
@@ -123,4 +131,5 @@
       <mat-datepicker #picker> </mat-datepicker>
       <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
     </mat-form-field> -->
+  </ng-container>
 </ng-container>

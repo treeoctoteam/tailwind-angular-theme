@@ -22,6 +22,7 @@ export class LandingpageConfigService {
     $req.subscribe((response: LandingPageConfig) => {
       this.$config.next(response);
       this.config = response;
+      // Manage Routing
       let navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
       if (!navigationExist) {
         this.router.navigate(['landingpage/' + this.config.defaultRoute]);

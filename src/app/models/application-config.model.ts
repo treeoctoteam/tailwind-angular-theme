@@ -10,6 +10,7 @@ export interface ApplicationConfig {
   defaultLayout: string;
   layouts: string[];
   enableAuthentication: boolean;
+  authenticationMode: "JWT" | "Cookie";
   defaultLanguage: string;
   languages: Language[];
   theme: ThemeConfig;
