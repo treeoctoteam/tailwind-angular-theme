@@ -106,7 +106,7 @@ export class WorkflowService {
     });
     return $termsObserver;
   }
-  
+
   public move(id: string, loader = false) {
     // this._spinner.show();
     const currentUrl = this.router.url;
@@ -174,7 +174,7 @@ export class WorkflowService {
         if (res.success) {
           this.sessionService.setSessionId(res.sessionId);
           if (res.requireLogin) {
-            this.router.navigateByUrl(this.config.appConfig.startPage + "/" + res.token);
+            this.router.navigateByUrl(this.config.config.defaultLayout + "/" + res.token);
           } else {
             this.router.navigateByUrl(res.route);
           }
@@ -233,25 +233,25 @@ export class WorkflowService {
   // API CALL
   getStepList(payload: any) {
     return this.http.post(
-      `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow`,
+      `${this.config.config.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow`,
       payload
     ).pipe(share());
   }
 
   moveToStep(id: string) {
     return this.http.get(
-      `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/move?id=${id}`
+      `${this.config.config.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/move?id=${id}`
     );
   }
 
   nextStep(params: RouteParam[]) {
     if (!params) {
       return this.http.get(
-        `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/next`
+        `${this.config.config.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/next`
       );
     } else {
       return this.http.get(
-        `${this.config.appConfig.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/next?${params[0].key
+        `${this.config.config.network.hostApiV3}/api/session/${this.session.getSessionId()}/workflow/next?${params[0].key
         }=${params[0].value}`
       );
     }
@@ -259,23 +259,23 @@ export class WorkflowService {
 
   validationStep(hashemail: string, token: string, certficiateRequestId?: any): any {
     if (!certficiateRequestId && hashemail && token) {
-      return this.http.get(`${this.config.appConfig.network.hostApiV3}/api/user/${hashemail}/${token}`);
+      return this.http.get(`${this.config.config.network.hostApiV3}/api/user/${hashemail}/${token}`);
     }
     if (certficiateRequestId && hashemail && token) {
       return this.http.get(
-        `${this.config.appConfig.network.hostApiV3}/api/user/${hashemail}/${token}/${certficiateRequestId}`
+        `${this.config.config.network.hostApiV3}/api/user/${hashemail}/${token}/${certficiateRequestId}`
       );
     }
     if (!certficiateRequestId && !hashemail && token) {
       return this.http.get(
-        `${this.config.appConfig.network.hostApiV3}/api/agent/${token}`
+        `${this.config.config.network.hostApiV3}/api/agent/${token}`
       );
     }
   }
   start(hashemail?: any, certificateRequestId?: any) {
     if (certificateRequestId && hashemail) {
-      return this.http.get(`${this.config.appConfig.network.hostApiV3}/api/session/${hashemail}/${certificateRequestId}`);
+      return this.http.get(`${this.config.config.network.hostApiV3}/api/session/${hashemail}/${certificateRequestId}`);
     }
-    return this.http.get(`${this.config.appConfig.network.hostApiV3}/api/session`);
+    return this.http.get(`${this.config.config.network.hostApiV3}/api/session`);
   }
 }

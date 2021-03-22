@@ -17,13 +17,13 @@ export class AppComponent {
   locale: string;
 
   constructor(private appService: ApplicationConfigService,
-              private translateService: TranslateService,
-              private router: Router) {}
+    private translateService: TranslateService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.appService.initAppConfig();
 
-    this.appService.$appConfig.pipe(
+    this.appService.$config.pipe(
       takeUntil(this.$unsubscribe)
     ).subscribe((appConfig: ApplicationConfig) => {
       // Add languages

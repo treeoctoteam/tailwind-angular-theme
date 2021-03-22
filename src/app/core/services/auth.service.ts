@@ -6,15 +6,13 @@ import { tap } from 'rxjs/operators';
 interface AuthResponse {
   email: string;
   role: string;
+  name: string;
 }
 
 @Injectable()
 export class AuthService {
   path = 'https://dev.tap-id.tech/tapidconfig/auth';
-  // path = 'http://localhost:3002/tapidconfig/auth';
-
-  
-  user = { role: "admin", name: "Giovanni" };
+  user: AuthResponse;
   constructor(private http: HttpClient) { }
 
   // with token jwt set on local storage
@@ -38,6 +36,7 @@ export class AuthService {
         tap(res => {
           this.setToken('user', res.email);
           this.setToken('role', res.role);
+          this.user = { role: res.role, name: res.email, email: res.email };
         })
       );
     //We are calling shareReplay to prevent the receiver of this Observable from accidentally
@@ -51,6 +50,7 @@ export class AuthService {
         tap(res => {
           this.setToken('user', res.email);
           this.setToken('role', res.role);
+          this.user = { role: res.role, name: res.email, email: res.email };
         })
       );
   }

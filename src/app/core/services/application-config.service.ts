@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApplicationConfig } from 'src/app/models/application-config.model';
@@ -11,27 +12,20 @@ const APP_CONFIG_PATH = 'assets/config/application-config.json';
 })
 export class ApplicationConfigService {
 
-  appConfig: ApplicationConfig;
-  activeLayoutConfig: unknown;
-  $appConfig = new Subject<ApplicationConfig>();
-  $activeLayoutConfig = new BehaviorSubject<unknown | undefined>(undefined);
+  config: ApplicationConfig;
+  $config = new Subject<ApplicationConfig>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   initAppConfig(): Observable<ApplicationConfig> {
     const $req = this.http.get<ApplicationConfig>(APP_CONFIG_PATH).pipe(share());
     $req.subscribe((response: ApplicationConfig) => {
-      this.$appConfig.next(response);
-      this.appConfig = response;
-    });
-    return $req;
-  }
-
-  getActiveLayoutConfig(routePath: string): Observable<unknown> {
-    const $req = this.http.get<unknown>(`assets/config/${routePath}-config.json`).pipe(share());
-    $req.subscribe(response => {
-      this.$activeLayoutConfig.next(response);
-      this.activeLayoutConfig = response;
+      this.$config.next(response);
+      this.config = response;
+      let navigationExist = this.config.layouts.some(l => this.router.url.includes(l));
+      if (!navigationExist) {
+        this.router.navigateByUrl(this.config.defaultLayout);
+      }
     });
     return $req;
   }

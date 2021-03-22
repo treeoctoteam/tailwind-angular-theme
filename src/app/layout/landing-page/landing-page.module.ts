@@ -7,6 +7,7 @@ import { NavigationGuard } from 'src/app/core/guards/navigation.guard';
 import { I18nService } from 'src/app/core/services/i18n.service';
 import { localeENLandingpage } from './i18n/en';
 import { TranslateModule } from '@ngx-translate/core';
+import { LandingpageConfigService } from './services/landingpage-config.service';
 
 const routes: Routes = [
   {
@@ -16,12 +17,9 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
         canActivateChild: [NavigationGuard]
-      },
-      { path: '', pathMatch: 'full', redirectTo: 'home' },
-      { path: '**', pathMatch: 'full', redirectTo: 'not-found' }
-    ]
+      }
+    ],
   },
-
 ];
 
 @NgModule({
@@ -35,6 +33,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
+    LandingpageConfigService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

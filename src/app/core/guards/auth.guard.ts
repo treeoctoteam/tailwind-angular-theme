@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private appConfigService: ApplicationConfigService, private authService: AuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.user && this.authService.user.role == "admin") {
+    if (this.authService?.user && this.authService.user?.role == "admin") {
       return true;
     }
     return false;

@@ -13,24 +13,24 @@
 
     <div class="grid grid-cols-2 gap-4 grid-flow-row-dense">
       <to-card [cardTitle]="'StartUp'">
-        {{ appService.appConfig.startup }}
+        {{ appService.config.startup }}
       </to-card>
       <to-card [cardTitle]="'Customer Info'">
-        {{ appService.appConfig.customerInfo | json }}
+        {{ appService.config.customerInfo | json }}
       </to-card>
       <to-card [cardTitle]="'Network'">
-        {{ appService.appConfig.network | json }}
+        {{ appService.config.network | json }}
       </to-card>
       <to-card [cardTitle]="'Theme'">
-        {{ appService.appConfig.theme | json }}
+        {{ appService.config.theme | json }}
       </to-card>
       <to-card [cardTitle]="'Internationalization'">
         <to-card [cardTitle]="'Default Language'">
-          {{ appService.appConfig.defaultLanguage }}
+          {{ appService.config.defaultLanguage }}
         </to-card>
         <br />
         <to-card [cardTitle]="'Avaiable Languages'">
-          {{ appService.appConfig.languages | json }}
+          {{ appService.config.languages | json }}
         </to-card>
       </to-card>
     </div>

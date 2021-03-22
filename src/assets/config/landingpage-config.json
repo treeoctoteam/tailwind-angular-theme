@@ -73,5 +73,11 @@
       }
     ]
   },
-  "routes": ["/home", "/login", "/register"]
+  "authenticate": false,
+  "defaultRoute": "home",
+  "routes": [
+    { "path": "/home", "authenticate": false },
+    { "path": "/login", "authenticate": false },
+    { "path": "/register", "authenticate": false }
+  ]
 }

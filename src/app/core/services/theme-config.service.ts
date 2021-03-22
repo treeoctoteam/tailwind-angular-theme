@@ -13,16 +13,16 @@ export class ThemeConfigService {
     favicon.id = "appFavicon";
     favicon.rel = "icon";
     favicon.type = "image/x-icon";
-    favicon.href = this.appConfigService.appConfig.theme.favicon;
+    favicon.href = this.appConfigService.config.theme.favicon;
     const defaultFavicon = document.getElementById("defaultFavicon")
     defaultFavicon?.remove();
     return favicon;
   }
   setWebManifest() {
     const myDynamicManifest = {
-      name: `Digital Onboarding | ${this.appConfigService.appConfig.customerInfo.name.toUpperCase()}`,
-      short_name: `${this.appConfigService.appConfig.customerInfo.name.toUpperCase()}`,
-      description: `Digital Onboarding | ${this.appConfigService.appConfig.customerInfo.name.toUpperCase()}`,
+      name: `Digital Onboarding | ${this.appConfigService.config.customerInfo.name.toUpperCase()}`,
+      short_name: `${this.appConfigService.config.customerInfo.name.toUpperCase()}`,
+      description: `Digital Onboarding | ${this.appConfigService.config.customerInfo.name.toUpperCase()}`,
       start_url: "./",
       scope: "./",
       display: "standalone",

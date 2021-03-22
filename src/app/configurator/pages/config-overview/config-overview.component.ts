@@ -24,7 +24,7 @@ export class ConfigOverviewComponent implements OnInit {
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
 
-    this.data = appService.appConfig;
+    this.data = appService.config;
   }
 
   ngOnInit(): void {

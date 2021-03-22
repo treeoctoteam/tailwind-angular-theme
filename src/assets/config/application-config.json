@@ -15,7 +15,8 @@
     "hostApiV3": "https://dev.tap-id.tech/v3",
     "openViduServerUrl": "https://rtc.tap-id.tech:4443"
   },
-  "startPage": "/home",
+  "enableAuthentication": true,
+  "defaultLayout": "/landingpage",
   "layouts": ["/dashboard", "/landingpage", "/workflow"],
   "defaultLanguage": "en",
   "languages": [

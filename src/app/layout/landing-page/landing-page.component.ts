@@ -5,6 +5,8 @@ import { ApplicationConfigService } from 'src/app/core/services/application-conf
 import { AuthService } from 'src/app/core/services/auth.service';
 import { LandingPageConfig } from '../models/layout.model';
 import { NavigationItem } from '../models/navigation.model';
+import { LandingPageModule } from './landing-page.module';
+import { LandingpageConfigService } from './services/landingpage-config.service';
 
 @Component({
   selector: 'octo-landing-page',
@@ -14,15 +16,12 @@ import { NavigationItem } from '../models/navigation.model';
 export class LandingPageComponent implements OnInit {
 
   $unsubscribe = new Subject<void>();
-  landingPageConfig: LandingPageConfig;
 
-  constructor(private appService: ApplicationConfigService, private authService:AuthService) {
+  constructor(public appService: ApplicationConfigService, private landingService: LandingpageConfigService, private authService: AuthService) {
   }
 
   getNavigationItem(): NavigationItem[] {
-    this.landingPageConfig = this.appService.activeLayoutConfig as LandingPageConfig;
-    // console.log(this.appService.activeLayoutConfig)
-    return this.landingPageConfig.navbar.navigation[0].children;
+    return this.landingService.config?.navbar?.navigation[0].children;
   }
 
   ngOnInit(): void {
@@ -57,14 +56,5 @@ export class LandingPageComponent implements OnInit {
         }
       }
     });
-  }
-
-  test() {
-    console.log("TEST");
-    this.authService.test().subscribe(
-      () => {
-        console.log("User is authorizate");
-      }
-    );;
   }
 }

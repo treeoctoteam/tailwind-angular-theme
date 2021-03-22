@@ -47,20 +47,22 @@
               >{{ navItem.translate | translate }}</a
             >
           </li>
-          <li class="mr-3">
-            <a
-              class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-              href="landingpage/login"
-              >Sign in</a
-            >
-          </li>
-          <li class="mr-3">
-            <a
-              class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-              href="landingpage/register"
-              >Sign up</a
-            >
-          </li>
+          <ng-container *ngIf="appService.config.enableAuthentication">
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                routerLink="login"
+                >Sign in</a
+              >
+            </li>
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                routerLink="register"
+                >Sign up</a
+              >
+            </li>
+          </ng-container>
         </ul>
       </div>
     </div>
@@ -70,8 +72,6 @@
 <ng-template #landingPageContainer>
   <router-outlet #landing></router-outlet>
 </ng-template>
-
-<button class="p-3" (click)="test()">Test</button>
 
 <ng-template #ladingPageFooter>
   <footer class="bg-white">
