@@ -15,15 +15,43 @@
       "fields": [
         {
           "id": 1,
-          "name": "Ciao",
-          "style": null,
-          "placeholder": null,
+          "name": "Name",
+          "placeholder": "placeholder test",
           "appearance": "outline",
-          "icon": null,
-          "iconSet": null,
-          "label": "Ciao",
+          "label": "Label",
+          "labelColor": "text-blue-500",
+          "borderColor": "border-green-600",
+          "clearable": true,
           "value": null,
-          "type": "number",
+          "type": "text",
+          "options": [],
+          "validation": {
+            "required": false,
+            "min": null,
+            "max": null,
+            "minDate": null,
+            "maxDate": null,
+            "regEx": null
+          },
+          "sectionId": 1,
+          "audit": {
+            "creationDate": "2021-03-19T16:13:43.679Z",
+            "updateDate": null,
+            "creationUserId": 1,
+            "updateUserId": 1
+          }
+        },
+        {
+          "id": 2,
+          "name": "Name2",
+          "placeholder": "placeholder test2",
+          "appearance": "fill",
+          "label": "Label2",
+          "labelColor": "text-green-500",
+          "borderColor": "border-blue-600",
+          "clearable": true,
+          "value": null,
+          "type": "text",
           "options": [],
           "validation": {
             "required": false,

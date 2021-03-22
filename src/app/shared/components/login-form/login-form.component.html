@@ -23,7 +23,7 @@
         class="text-sm font-semibold leading-relaxed text-gray-700 hover:text-blue-700 focus:text-blue-700">Forgot
         Password?</a>
     </div>
-    <to-button (btnClick)="login()" [disabled]="loginForm.invalid" size="xl" type="outline" color="green" textColor="blue">
+    <to-button #loginButton (btnClick)="login()" [disabled]="loginForm.invalid" size="xl" type="outline" color="green" text-color="blue">
       <i class="fad fa-sign-in-alt" slot="icon-start"></i>
       Log In
     </to-button>

@@ -17,6 +17,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
     let elementRef = this.loaderService.elementRef?.nativeElement;
     if (elementRef !== undefined) {
       elementRef.showSpinner = true;
+      elementRef.disabled = true;
     } else {
       this.loaderService.show();
     }
@@ -27,6 +28,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
         if (this.totalRequests === 0) {
           if (elementRef !== undefined) {
             elementRef.showSpinner = false;
+            elementRef.disabled = false;
           } else {
             this.loaderService.hide();
           }
