@@ -2,7 +2,7 @@
   <div class="title">{{ section.name }}</div>
   <form class="octo-form">
     <ng-container *ngFor="let field of section?.fields">
-      {{field | json}}
+      <!-- {{field | json}} -->
       <octo-field
         [field]="field"
       ></octo-field>

@@ -59,16 +59,16 @@
     <to-checkbox *ngSwitchCase="'checkbox'"
       [checkboxId]="field.id"
       [checked]="field.value"
-      [label]="field.label"
       [appearance]="field.appearance"
       [disabled]="field.disabled"
       [labelColor]="field.labelColor"
       [borderColor]="field.borderColor"
       [textColor]="field.textColor"
       [backgroundColor]="field.backgroundColor">
+      {{ field.label }}
     </to-checkbox>
 
-    <to-autocomplete *ngSwitchCase="'autovomplete'"
+    <to-autocomplete *ngSwitchCase="'autocomplete'"
       [type]="field.type"
       [options]="filteredOptions"
       [value]="field.value"
@@ -81,7 +81,8 @@
       [borderColor]="field.borderColor"
       [placeholderColor]="field.placeholderColor"
       [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor">
+      [backgroundColor]="field.backgroundColor"
+      [options]="field.options">
     </to-autocomplete>
 
     <to-toggle *ngSwitchCase="'toggle'"
