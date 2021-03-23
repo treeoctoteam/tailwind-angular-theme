@@ -18,9 +18,9 @@
   "enableAuthentication": true,
   "authenticationMode": "JWT",
   "idleConfig": {
-    "timeout": 500,
-    "idletime": 200,
-    "gap": 200
+    "timeout": 1000,
+    "idle": 5000,
+    "ping": 5000
   },
   "defaultLayout": "/landingpage",
   "layouts": ["/dashboard", "/landingpage", "/workflow"],

@@ -1,14 +1,12 @@
 {
   "id": 1,
-  "title": "Ciao",
-  "class": "option1 fasdf",
-  "style": "red",
+  "title": "Form title",
   "sections": [
     {
       "id": 1,
-      "name": "Via Casoni",
+      "sectionId":1,
+      "name": "Section title",
       "class": "bordered ",
-      "style": "dsa",
       "validation": {
         "required": true
       },
@@ -29,7 +27,7 @@
           "type": "text",
           "options": [],
           "validation": {
-            "required": false,
+            "required": true,
             "min": null,
             "max": null,
             "maxLength": null,
@@ -59,7 +57,7 @@
           "backgroundColor": "bg-gray-300",
           "clearable": true,
           "value": "",
-          "type": "text",
+          "type": "password",
           "options": [],
           "validation": {
             "required": false,
@@ -193,7 +191,50 @@
           "value": "",
           "type": "autocomplete",
           "options": [
-            {"value": "value1", "label": "value1 "}
+            {"value": "value1", "label": "value 1"}
+          ],
+          "validation": {
+            "required": false,
+            "min": null,
+            "max": null,
+            "maxLength": null,
+            "minLength": null,
+            "minDate": null,
+            "maxDate": null,
+            "regEx": null
+          },
+          "sectionId": 1,
+          "audit": {
+            "creationDate": "2021-03-19T16:13:43.679Z",
+            "updateDate": null,
+            "creationUserId": 1,
+            "updateUserId": 1
+          }
+        },
+        {
+          "id": 7,
+          "class": "w-96",
+          "name": "Name7",
+          "placeholder": "Select",
+          "placeholderColor": "placeholder-red-500",
+          "appearance": "unstyled",
+          "label": "Select",
+          "labelColor": "",
+          "borderColor": "",
+          "textColor": "",
+          "backgroundColor": "",
+          "clearable": true,
+          "value": "",
+          "type": "select",
+          "options": [
+            {
+              "value": "value1",
+              "label": "value 1"
+            },
+            {
+              "value": "value2",
+              "label": "value 2"
+            }
           ],
           "validation": {
             "required": false,

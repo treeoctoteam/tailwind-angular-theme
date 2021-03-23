@@ -1,6 +1,6 @@
 import { LoaderService } from './../../../core/services/loader.service';
 import { Router } from '@angular/router';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToButton } from '@treeocto/ui-kit/dist/types/components/to-button/to-button';
@@ -18,6 +18,9 @@ export class LoginFormComponent implements OnInit {
 
   loginData: { email: string, password: string } = { email: "", password: "" };
   loginForm: FormGroup;
+
+  @Input() isLocked: boolean = false;
+
   @ViewChild("loginButton") loginButtonElement: ElementRef<ToButton>;
 
 
@@ -41,6 +44,14 @@ export class LoginFormComponent implements OnInit {
         }
       );
     }
+  }
+
+  testAuth() {
+    this.authService.checkAuth();
+  }
+
+  testRefresh() {
+    this.authService.refreshToken();
   }
 
 }

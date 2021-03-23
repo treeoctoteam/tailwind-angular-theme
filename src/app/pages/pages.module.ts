@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
+import { LockComponent } from './lock/lock.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'user-data', component: UserDataComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'lock', component: LockComponent },
   { path: 'not-found', component: NotfoundComponent }
 ];
 
@@ -30,6 +32,7 @@ const routes: Routes = [
     ContactsComponent,
     NotfoundComponent,
     UserDataComponent,
+    LockComponent,
   ],
   imports: [
     CommonModule,

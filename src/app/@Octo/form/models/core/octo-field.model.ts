@@ -8,6 +8,7 @@ export type OctoFieldType = TOInputType | 'select' | 'autocomplete' | 'toggle' |
 
 export interface OctoFieldModel {
   id: number;
+  class?: string;
   name: string;
   disabled: boolean;
   readonly: boolean;

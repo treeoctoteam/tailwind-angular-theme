@@ -1,9 +1,10 @@
+import { ApplicationConfigService } from './../services/application-config.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable, Injector } from '@angular/core';
+import { HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,37 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
-
+    private router: Router,
+    private applicationConfigservice: ApplicationConfigService
+  ) {
+  }
+  
   intercept(req: any, next: any) {
     // const auth = this.injector.get(AuthService);
-    const authRequest = req.clone({
-      withCredentials: true
-      // headers: req.headers.set('Authorization', 'token ' + auth.token)
-    })
+    let authRequest = req.clone();
+    if (this.applicationConfigservice.config){
+      if (this.applicationConfigservice?.config.authenticationMode === "Cookie"){
+        authRequest = req.clone({
+          withCredentials: true,
+          setHeaders: {
+            Authmode: "Cookie"
+          }
+        })
+      }
+      else {
+        authRequest = req.clone({
+          setHeaders: {
+            // User: this.authService.user,
+            Authorization: `Bearer ${this.authService.token}`,
+            Authmode: "JWT"
+          }
+        })
+      }
+      
+    }
+    else {
+      console.log("CONFIGURATION HASN'T BEEN LOADED");
+    }
     return next.handle(authRequest)
       .pipe(
         catchError(err => {
@@ -35,17 +58,4 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
       )
   }
 }
-
-
-
-
-// with token jwt set oon local storage
-// intercept(req: any, next: any) {
-//   const auth = this.injector.get(AuthService);
-//   const authRequest = req.clone({
-//     headers: req.headers.set('Authorization', 'token ' + auth.token)
-//   })
-//   return next.handle(authRequest);
-// }
-
 

@@ -2,8 +2,11 @@
   <a class="flex items-center w-32 mb-4 font-medium text-gray-900 title-font md:mb-0">
     <img src="../badges/WhitePink.svg" alt="" />
   </a>
-  <h1 class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font">
+  <h1 *ngIf="!isLocked" class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font">
     Log in to your account
+  </h1>
+  <h1 *ngIf="isLocked" class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font">
+    Session locked, log in to your account
   </h1>
   <form class="mt-6" action="#" method="POST" [formGroup]="loginForm">
     <div>
@@ -26,6 +29,15 @@
     <to-button #loginButton (btnClick)="login()" [disabled]="loginForm.invalid" size="xl" type="outline" color="green" text-color="blue">
       <i class="fad fa-sign-in-alt" slot="icon-start"></i>
       Log In
+    </to-button>
+    <to-button #loginButton (btnClick)="testAuth()" size="xl" type="outline" color="green"
+      text-color="blue">
+      <i class="fad fa-sign-in-alt" slot="icon-start"></i>
+      Check auth
+    </to-button>
+    <to-button #loginButton (btnClick)="testRefresh()" size="xl" type="outline" color="green" text-color="blue">
+      <i class="fad fa-sign-in-alt" slot="icon-start"></i>
+      Check refresh
     </to-button>
 
 

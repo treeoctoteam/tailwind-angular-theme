@@ -49,7 +49,7 @@ export class OctoFormService {
       .fields.find((f: OctoFieldModel) => f.id == fieldID).value = value;
   }
 
-  public getFielt(fieldID: number, sectionID: number) {
+  public getField(fieldID: number, sectionID: number) {
     // @ts-ignore
     return this.form?.sections
       ?.find((s: OctoSectionModel) => s.id == sectionID)

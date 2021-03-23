@@ -1,3 +1,4 @@
+import { UserIdleConfig } from "angular-user-idle";
 import { CustomerInfo } from "./customer-info.model";
 import { Language } from "./language.model";
 import { Network } from "./network.model";
@@ -14,5 +15,6 @@ export interface ApplicationConfig {
   defaultLanguage: string;
   languages: Language[];
   theme: ThemeConfig;
+  idleConfig: UserIdleConfig
 }
 
