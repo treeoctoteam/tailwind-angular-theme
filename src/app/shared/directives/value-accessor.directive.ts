@@ -1,5 +1,17 @@
-import { Directive, ElementRef, forwardRef, HostListener, Injector, OnInit, Self } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  HostListener,
+  Injector,
+  OnInit,
+  Self,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 @Directive({
   selector: '[octoValueAccessor]',
@@ -19,8 +31,10 @@ export class ValueAccessorDirective implements OnInit, ControlValueAccessor {
   private onChange = (value: any): void => {};
   private onTouched = (): void => {};
 
-  constructor(@Self() private injector: Injector,
-              private elementRef: ElementRef) { }
+  constructor(
+    @Self() private injector: Injector,
+    private elementRef: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.ngControl = this.injector.get(NgControl);
@@ -28,11 +42,12 @@ export class ValueAccessorDirective implements OnInit, ControlValueAccessor {
 
   @HostListener('inputChange', ['$event.detail.target'])
   handleInputEvent(element: HTMLInputElement) {
-    this.setErrors(element);
+    // this.setErrors(element);
+    this.writeValue(element.value);
   }
 
   setErrors(element: any) {
-    const ngErrors = {...this.ngControl.control?.errors};
+    const ngErrors = { ...this.ngControl.control?.errors };
     const matchingErrors: string[] = [];
 
     this.onChange(element.value);
@@ -41,7 +56,7 @@ export class ValueAccessorDirective implements OnInit, ControlValueAccessor {
     if (ngErrors) {
       const ngErrorKeys: string[] = [...Object.keys(ngErrors)];
       if (ngErrorKeys.length > 0) {
-        ngErrorKeys.forEach(e => {
+        ngErrorKeys.forEach((e) => {
           // matchingErrors.push(this.errors[e]);
         });
         // console.log(this.errors)

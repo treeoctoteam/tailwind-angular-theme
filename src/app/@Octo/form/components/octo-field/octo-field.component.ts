@@ -43,9 +43,8 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
     console.log("FIELD", this.field);
     if (this.field.value) {
       this.input.setValue(this.field.value);
-
     }
-    let validators: ValidatorFn[] = []
+    let validators: ValidatorFn[] = [];
     if (this.field.validation?.required) {
       validators.push(Validators.required);
     }

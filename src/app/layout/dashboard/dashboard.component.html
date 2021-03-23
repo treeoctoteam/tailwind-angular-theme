@@ -4,20 +4,24 @@
   <octo-footer></octo-footer>
 </div>
 
-<ng-template #dashboardContainer>
-  <!-- <div class="flex items-center justify-center bg-white shadow-md rounded-md">
-    <form class="w-96 m-3" [formGroup]="formGroupTest">
-      <to-input type="text" appearance="solid" octoValueAccessor formControlName="name">
+<ng-template #dashboardContainer >
+  <div class="flex items-center justify-center bg-white shadow-md rounded-md">
+    <form class="w-96 m-3">
+      <to-input type="text" appearance="solid" octoValueAccessor [formControl]="formControld">
         Name
       </to-input>
-      <to-input type="text" appearance="simple" octoValueAccessor formControlName="surname">
+      <to-input type="text" appearance="simple">
         Surname
       </to-input>
-      <to-input type="number" [clearable]="false" appearance="underline" octoValueAccessor formControlName="age">
+      <to-input type="number" [clearable]="false">
         Age
       </to-input>
+      <!-- <octo-form formGroupName=""></octo-form>
+      <octo-form formControlName=""></octo-form>
+      <octo-form formControlName=""></octo-form>
+      <octo-form formControlName=""></octo-form> -->
     </form>
-  </div> -->
+  </div>
   <octo-form></octo-form>
   <!-- <router-outlet #dashboard
     (activate)="onActivate($event, dashboard)">
