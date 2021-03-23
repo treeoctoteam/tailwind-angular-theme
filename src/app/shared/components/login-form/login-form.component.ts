@@ -4,6 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToButton } from '@treeocto/ui-kit/dist/types/components/to-button/to-button';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
   selector: 'octo-login-form',
@@ -17,10 +18,10 @@ export class LoginFormComponent implements OnInit {
 
   loginData: { email: string, password: string } = { email: "", password: "" };
   loginForm: FormGroup;
-  @ViewChild("loginButton") loginButtonElement : ElementRef<ToButton>;
+  @ViewChild("loginButton") loginButtonElement: ElementRef<ToButton>;
 
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private loaderService: LoaderService) { }
+  constructor(private alertService: AlertService, private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private loaderService: LoaderService) { }
 
 
   ngOnInit(): void {
@@ -34,10 +35,9 @@ export class LoginFormComponent implements OnInit {
     this.loginData = this.loginForm.value;
     if (this.loginData) {
       this.loaderService.elementRef = this.loginButtonElement;
-      this.authService.loginUser(this.loginData).subscribe(
+      this.authService.login(this.loginData).subscribe(
         () => {
           this.loaderService.elementRef = undefined;
-          this.router.navigateByUrl('/');
         }
       );
     }

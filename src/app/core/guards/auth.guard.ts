@@ -18,10 +18,13 @@ const getConfigPath = (pathUrl: string) => {
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
 
-  constructor(private appConfigService: ApplicationConfigService, private authService: AuthService) { }
+  constructor(private appConfigService: ApplicationConfigService, private authService: AuthService) {
+
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const role = route.data.role;
+    console.log("ROLE", role, this.authService.user, this.authService.path);
     if (!role) {
       if (this.authService?.user) {
         return true;

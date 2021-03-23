@@ -17,6 +17,11 @@
   },
   "enableAuthentication": true,
   "authenticationMode": "JWT",
+  "idleConfig": {
+    "timeout": 500,
+    "idletime": 200,
+    "gap": 200
+  },
   "defaultLayout": "/landingpage",
   "layouts": ["/dashboard", "/landingpage", "/workflow"],
   "defaultLanguage": "en",
