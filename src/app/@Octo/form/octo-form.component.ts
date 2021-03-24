@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { OctoFormModel } from './models/core/octo-form.model';
+import {
+  Component,
+  OnDestroy,
+  Input
+} from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { OctoFormService } from './octo-form.service';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'octo-form',
@@ -10,38 +13,41 @@ import { OctoFormService } from './octo-form.service';
   styleUrls: ['./octo-form.component.scss'],
   providers: [OctoFormService],
 })
-export class OctoFormComponent implements OnInit, OnDestroy {
-  public form: OctoFormModel;
+export class OctoFormComponent implements OnDestroy {
+
+  @Input() octoForm: FormGroup;
   private $onDestroing: Subject<any> = new Subject<any>();
 
-  @Input() set formModel(data: OctoFormModel) {
-    this.form = data;
-  };
-  @Output() change: EventEmitter<OctoFormModel> = new EventEmitter();
-  @Output() submit: EventEmitter<OctoFormModel> = new EventEmitter();
+  constructor(public formService: OctoFormService) {}
 
-  constructor(public formService: OctoFormService) {
-    console.log('Init Form COMPONENT');
-    this.formService.InitializeForm(this.form);
-    this.formService.$formChange.pipe(
-      takeUntil(this.$onDestroing)
-    ).subscribe(form => {
-      if (form) {
-        this.form = form;
-        this.change.emit(this.form);
-        console.log('Form Change', form);
-      }
-    });
+  getFormProp(prop: string): string {
+    return this.octoForm.get(`${prop}`)?.value;
   }
 
-  ngOnInit() {
+  get sectionsFormArrayControls(): AbstractControl[] {
+    return (this.octoForm.get('sections') as FormArray).controls;
   }
 
   ngOnDestroy(): void {
     this.$onDestroing.next();
   }
 
-  submitClick() {
-    this.submit.emit(this.form);
+  getErrorMessage(): string {
+    // if (this.input.touched) {
+    //   if (this.input.hasError('required')) {
+    //     return 'You must enter a value';
+    //   }
+    //   if (this.input.hasError('min')) {
+    //     return 'Min error';
+    //   }
+    //   if (this.input.hasError('minDate')) {
+    //     return 'Min date error';
+    //   }
+    //   if (this.input.hasError('maxDate')) {
+    //     return 'Max date error';
+    //   }
+    //   return this.input.hasError('max') ? 'Max error' : '';
+    // }
+    return '';
   }
 }

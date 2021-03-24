@@ -6,8 +6,8 @@
 
 <ng-template #dashboardContainer >
   <div class="flex items-center justify-center bg-white shadow-md rounded-md">
-    <form class="w-96 m-3">
-      <to-input type="text" appearance="solid" octoValueAccessor [formControl]="formControld">
+    <form class="w-96 m-3" [formGroup]="formGroupTest">
+      <to-input type="text" appearance="solid" octoValueAccessor formControlName="name">
         Name
       </to-input>
       <to-input type="text" appearance="simple">
@@ -22,7 +22,7 @@
       <octo-form formControlName=""></octo-form> -->
     </form>
   </div>
-  <octo-form></octo-form>
+  <!-- <octo-form></octo-form> -->
   <!-- <router-outlet #dashboard
     (activate)="onActivate($event, dashboard)">
   </router-outlet> -->

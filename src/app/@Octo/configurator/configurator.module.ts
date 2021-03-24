@@ -8,6 +8,9 @@ import { LayoutComponentsModule } from '../../layout/components/layout-component
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { OctoFormModule } from '../form/octo-form.module';
 import { AppConfigFormComponent } from './components/app-config-form/app-config-form.component';
+import { OctoFormService } from '../form/octo-form.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -15,8 +18,8 @@ const routes: Routes = [
     component: ConfigOverviewComponent,
     canActivate: [AuthGuard],
     data: {
-      role: 'admin'
-    }
+      role: 'admin',
+    },
   },
   {
     path: 'start',
@@ -26,16 +29,23 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'start' },
 ];
 
-
 @NgModule({
-  declarations: [ConfigStartComponent, ConfigOverviewComponent, AppConfigFormComponent],
+  declarations: [
+    ConfigStartComponent,
+    ConfigOverviewComponent,
+    AppConfigFormComponent,
+  ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     NgJsonEditorModule,
     LayoutComponentsModule,
     OctoFormModule,
+    SharedModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [OctoFormService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ConfiguratorModule { }
+export class ConfiguratorModule {}

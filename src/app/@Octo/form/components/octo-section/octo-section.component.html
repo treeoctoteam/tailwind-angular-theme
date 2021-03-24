@@ -1,11 +1,9 @@
-<div *ngIf="section" [class]="section?.class" [style]="section?.style">
+<form class="octo-form" [formGroup]="sectionForm" [class]="section?.class" [style]="section?.style">
   <div class="title">{{ section.name }}</div>
-  <form class="octo-form">
-    <ng-container *ngFor="let field of section?.fields">
-      <!-- {{field | json}} -->
-      <octo-field
-        [field]="field"
-      ></octo-field>
-    </ng-container>
-  </form>
-</div>
+  <ng-container *ngFor="let field of fieldsFormArray" [formGroup]="field">
+    <octo-field
+      formControlName="name"
+      [field]="field"
+    ></octo-field>
+  </ng-container>
+</form>

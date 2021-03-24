@@ -15,20 +15,21 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
   animations: [octoAnimations],
 })
 export class DashboardComponent implements AfterViewInit {
+
   formGroupTest: FormGroup;
   formControld = new FormControl('name');
 
   constructor() {
     this.formGroupTest = new FormBuilder().group({
-      name: new FormControl('Paolo', [
+      'name': new FormControl('Paolo', [
         Validators.required,
         Validators.maxLength(4),
       ]),
-      surname: new FormControl('Milani', [
+      'surname': new FormControl('Milani', [
         Validators.required,
         Validators.maxLength(4),
       ]),
-      age: new FormControl(0, [Validators.required, Validators.max(25)]),
+      'age': new FormControl(0, [Validators.required, Validators.max(25)]),
     });
     this.formControld.valueChanges.subscribe(console.log);
   }

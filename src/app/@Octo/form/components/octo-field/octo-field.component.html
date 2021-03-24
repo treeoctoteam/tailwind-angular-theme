@@ -1,135 +1,139 @@
-<ng-container *ngIf="field">
-  <ng-container [ngSwitch]="field.type">
+<ng-container *ngIf="octoField">
+  <ng-container [ngSwitch]="octoField.type">
     <!-- TODO invalid -->
     <to-input
       *ngSwitchCase="'text'"
-      [type]="field.type"
-      [value]="field.value"
-      [clearable]="field.clearable"
-      [placeholder]="field.placeholder"
-      [appearance]="field.appearance"
-      [disabled]="field.disabled"
-      [maxlength]="field.validation?.maxLength"
-      [minlength]="field.validation?.minLength"
-      [regexPattern]="field.validation?.regEx"
-      [labelColor]="field.labelColor"
-      [borderColor]="field.borderColor"
-      [placeholderColor]="field.placeholderColor"
-      [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor"
+      octoValueAccessor
+      [formControl]="octoFieldControl"
+      [type]="octoField.type"
+      [value]="octoField.value"
+      [clearable]="octoField.clearable"
+      [placeholder]="octoField.placeholder"
+      [appearance]="octoField.appearance"
+      [disabled]="octoField.disabled"
+      [labelColor]="octoField.labelColor"
+      [borderColor]="octoField.borderColor"
+      [placeholderColor]="octoField.placeholderColor"
+      [textColor]="octoField.textColor"
+      [backgroundColor]="octoField.backgroundColor"
     >
-      {{ field.label }}
-      <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
+      {{ octoField.label }}
+      <to-hint slot="hint" type="error"></to-hint>
     </to-input>
 
     <to-input
       *ngSwitchCase="'number'"
-      [type]="field.type"
-      [value]="field.value"
-      [clearable]="field.clearable"
-      [placeholder]="field.placeholder"
-      [appearance]="field.appearance"
-      [disabled]="field.disabled"
-      [min]="field.validation?.min"
-      [max]="field.validation?.max"
-      [maxlength]="field.validation?.maxLength"
-      [minlength]="field.validation?.minLength"
-      [regexPattern]="field.validation?.regEx"
-      [labelColor]="field.labelColor"
-      [borderColor]="field.borderColor"
-      [placeholderColor]="field.placeholderColor"
-      [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor"
+      octoValueAccessor
+      [formControl]="octoFieldControl"
+      [type]="octoField.type"
+      [value]="octoField.value"
+      [clearable]="octoField.clearable"
+      [placeholder]="octoField.placeholder"
+      [appearance]="octoField.appearance"
+      [disabled]="octoField.disabled"
+      [labelColor]="octoField.labelColor"
+      [borderColor]="octoField.borderColor"
+      [placeholderColor]="octoField.placeholderColor"
+      [textColor]="octoField.textColor"
+      [backgroundColor]="octoField.backgroundColor"
     >
-      {{ field.label }}
-      <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
+      {{ octoField.label }}
+      <to-hint slot="hint" type="error"></to-hint>
     </to-input>
 
     <to-textarea
       *ngSwitchCase="'textarea'"
-      [value]="field.value"
-      [label]="field.label"
-      [clearable]="field.clearable"
-      [placeholder]="field.placeholder"
-      [appearance]="field.appearance"
-      [disabled]="field.disabled"
-      [regexPattern]="field.validation?.regEx"
-      [labelColor]="field.labelColor"
-      [borderColor]="field.borderColor"
-      [placeholderColor]="field.placeholderColor"
-      [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor"
+      octoValueAccessor
+      [formControl]="octoFieldControl"
+      [value]="octoField.value"
+      [label]="octoField.label"
+      [clearable]="octoField.clearable"
+      [placeholder]="octoField.placeholder"
+      [appearance]="octoField.appearance"
+      [disabled]="octoField.disabled"
+      [labelColor]="octoField.labelColor"
+      [borderColor]="octoField.borderColor"
+      [placeholderColor]="octoField.placeholderColor"
+      [textColor]="octoField.textColor"
+      [backgroundColor]="octoField.backgroundColor"
     >
     </to-textarea>
 
     <to-checkbox
       *ngSwitchCase="'checkbox'"
-      [checkboxId]="field.id"
-      [checked]="field.value"
-      [appearance]="field.appearance"
-      [disabled]="field.disabled"
-      [labelColor]="field.labelColor"
-      [borderColor]="field.borderColor"
-      [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor"
+      octoValueAccessor
+      [formControl]="octoFieldControl"
+      [checkboxId]="octoField.id"
+      [checked]="octoField.value"
+      [appearance]="octoField.appearance"
+      [disabled]="octoField.disabled"
+      [labelColor]="octoField.labelColor"
+      [borderColor]="octoField.borderColor"
+      [textColor]="octoField.textColor"
+      [backgroundColor]="octoField.backgroundColor"
     >
-      {{ field.label }}
+      {{ octoField.label }}
     </to-checkbox>
 
     <to-autocomplete
       *ngSwitchCase="'autocomplete'"
-      [type]="field.type"
-      [options]="filteredOptions"
-      [value]="field.value"
-      [label]="field.label"
-      [clearable]="field.clearable"
-      [placeholder]="field.placeholder"
-      [appearance]="field.appearance"
-      [disabled]="field.disabled"
-      [labelColor]="field.labelColor"
-      [borderColor]="field.borderColor"
-      [placeholderColor]="field.placeholderColor"
-      [textColor]="field.textColor"
-      [backgroundColor]="field.backgroundColor"
-      [options]="field.options"
+      octoValueAccessor
+      [formControl]="octoFieldControl"
+      [type]="octoField.type"
+      [value]="octoField.value"
+      [label]="octoField.label"
+      [clearable]="octoField.clearable"
+      [placeholder]="octoField.placeholder"
+      [appearance]="octoField.appearance"
+      [disabled]="octoField.disabled"
+      [labelColor]="octoField.labelColor"
+      [borderColor]="octoField.borderColor"
+      [placeholderColor]="octoField.placeholderColor"
+      [textColor]="octoField.textColor"
+      [backgroundColor]="octoField.backgroundColor"
+      [options]="octoField.options"
     >
     </to-autocomplete>
 
-    <to-toggle *ngSwitchCase="'toggle'" [checked]="field.value"></to-toggle>
+    <to-toggle *ngSwitchCase="'toggle'"
+      octoValueAccessor
+      [formControl]="octoFieldControl"
+      [checked]="octoField.value">
+    </to-toggle>
 
     <!-- <mat-radio-group
       *ngSwitchCase="'radioButton'"
       class="p-8"
-      [name]="field.name"
+      [name]="octoField.name"
       [formControl]="input"
     >
-      <mat-label>{{ field.label }}</mat-label>
-      <ng-container *ngFor="let option of field.options">
+      <mat-label>{{ octoField.label }}</mat-label>
+      <ng-container *ngFor="let option of octoField.options">
         <mat-radio-button
           [value]="option.value"
           class="vertical-content"
-          [required]="field.validation.required"
+          [required]="octoField.validation.required"
           >{{ option.label }}</mat-radio-button
         >
       </ng-container>
       <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
     </mat-radio-group> -->
 
-    <!-- <mat-form-field
+    <!-- <mat-form-octoField
       *ngSwitchCase="'datePicker'"
-      [appearance]="field.appearance"
+      [appearance]="octoField.appearance"
     >
-      <mat-label>{{ field.label }}</mat-label>
+      <mat-label>{{ octoField.label }}</mat-label>
       <input
         matInput
-        [name]="field.name"
+        [name]="octoField.name"
         [formControl]="input"
         [matDatepicker]="picker"
-        [required]="field.validation.required"
+        [required]="octoField.validation.required"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker> </mat-datepicker>
       <mat-hint class="error">{{ getErrorMessage() }}</mat-hint>
-    </mat-form-field> -->
+    </mat-form-octoField> -->
   </ng-container>
 </ng-container>

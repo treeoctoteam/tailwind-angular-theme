@@ -1,13 +1,14 @@
 <div class="grid grid-cols-2 gap-4 grid-flow-row-dense">
   <to-card [cardTitle]="'StartUp'">
-    <octo-form
+    <octo-form [octoForm]="startupForm"></octo-form>
+    <!-- <octo-form
       [formModel]="startupForm"
       (submit)="updateStartup($event)"
-    ></octo-form>
+    ></octo-form> -->
   </to-card>
   <to-card [cardTitle]="'Customer Info'">
     {{ appService.config.customerInfo | json }}
-    <octo-form></octo-form>
+    <!-- <octo-form></octo-form> -->
   </to-card>
   <to-card [cardTitle]="'Network'">
     {{ appService.config.network | json }}
