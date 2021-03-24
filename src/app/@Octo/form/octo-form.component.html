@@ -2,13 +2,14 @@
   <h2 class="title">{{ form.title }}</h2>
   <ng-container [ngSwitch]="form.mode">
     <ng-container *ngSwitchCase="'full'">
-      <div *ngFor="let section of form?.sections">
-        <octo-section [section]="section"></octo-section>
+      <div class="grid grid-cols-2 gap-3 m-3 grid-flow-col-dense">
+        <octo-section *ngFor="let section of form?.sections" [section]="section"></octo-section>
       </div>
-      <div class="text-center mt-4">
-        <button mat-raised-button color="accent" (click)="submitClick()">
+      <div class="text-center">
+        <to-button appearance="filled" color="yellow" (click)="submitClick()">
+          <i slot="icon-start" class="fad fa-share-square"></i>
           Submit
-        </button>
+        </to-button>
       </div>
     </ng-container>
   </ng-container>

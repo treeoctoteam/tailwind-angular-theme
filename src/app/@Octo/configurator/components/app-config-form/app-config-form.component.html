@@ -1,27 +1,7 @@
-<div class="grid grid-cols-2 gap-4 grid-flow-row-dense">
-  <to-card [cardTitle]="'StartUp'">
-    <octo-form
-      [formModel]="startupForm"
-      (submit)="updateStartup($event)"
-    ></octo-form>
-  </to-card>
-  <to-card [cardTitle]="'Customer Info'">
-    {{ appService.config.customerInfo | json }}
-    <octo-form></octo-form>
-  </to-card>
-  <to-card [cardTitle]="'Network'">
-    {{ appService.config.network | json }}
-  </to-card>
-  <to-card [cardTitle]="'Theme'">
-    {{ appService.config.theme | json }}
-  </to-card>
-  <to-card [cardTitle]="'Internationalization'">
-    <to-card [cardTitle]="'Default Language'">
-      {{ appService.config.defaultLanguage }}
-    </to-card>
-    <br />
-    <to-card [cardTitle]="'Avaiable Languages'">
-      {{ appService.config.languages | json }}
-    </to-card>
-  </to-card>
-</div>
+<to-card [cardTitle]="'StartUp'">
+  <octo-form
+    [formModel]="appConfigForm"
+    (formChange)="formChange($event)"
+    (formSubmit)="formSubmit($event)"
+  ></octo-form>
+</to-card>

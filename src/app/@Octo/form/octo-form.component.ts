@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { OctoFormModel } from './models/core/octo-form.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { OctoFormModel } from './models/octo-form.model';
 import { OctoFormService } from './octo-form.service';
 
 @Component({
@@ -11,30 +11,27 @@ import { OctoFormService } from './octo-form.service';
   providers: [OctoFormService],
 })
 export class OctoFormComponent implements OnInit, OnDestroy {
-  public form: OctoFormModel;
-  private $onDestroing: Subject<any> = new Subject<any>();
 
+  public form: OctoFormModel;
+  private $onDestroing: Subject<void> = new Subject<void>();
   @Input() set formModel(data: OctoFormModel) {
     this.form = data;
-  };
-  @Output() change: EventEmitter<OctoFormModel> = new EventEmitter();
-  @Output() submit: EventEmitter<OctoFormModel> = new EventEmitter();
-
-  constructor(public formService: OctoFormService) {
-    console.log('Init Form COMPONENT');
     this.formService.InitializeForm(this.form);
-    this.formService.$formChange.pipe(
-      takeUntil(this.$onDestroing)
-    ).subscribe(form => {
-      if (form) {
-        this.form = form;
-        this.change.emit(this.form);
-        console.log('Form Change', form);
-      }
-    });
   }
+  @Output() formChange: EventEmitter<OctoFormModel> = new EventEmitter();
+  @Output() formSubmit: EventEmitter<OctoFormModel> = new EventEmitter();
+
+  constructor(public formService: OctoFormService) {}
 
   ngOnInit() {
+    this.formService.$formChange
+      .pipe(takeUntil(this.$onDestroing))
+      .subscribe((form: OctoFormModel) => {
+        if (form) {
+          this.form = form;
+          this.formChange.emit(this.form);
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -42,6 +39,6 @@ export class OctoFormComponent implements OnInit, OnDestroy {
   }
 
   submitClick() {
-    this.submit.emit(this.form);
+    this.formSubmit.emit(this.form);
   }
 }

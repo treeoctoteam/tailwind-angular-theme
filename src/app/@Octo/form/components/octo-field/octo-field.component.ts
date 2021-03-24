@@ -1,50 +1,53 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { OctoFieldModel } from '../../models/core/octo-field.model';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { OctoFormService } from '../../octo-form.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { OctoFieldOptionModel } from '../../models/core/octo-field-option.model';
+import { Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
+import { OctoFieldModel } from '../../models/octo-field.model';
+import { OctoFieldOptionModel } from '../../models/octo-field-option.model';
 
 @Component({
   selector: 'octo-field',
   templateUrl: './octo-field.component.html',
-  styleUrls: ['./octo-field.component.scss']
+  styleUrls: ['./octo-field.component.scss'],
 })
-export class OctoFieldComponent implements OnInit, AfterViewInit {
+export class OctoFieldComponent implements OnInit, OnDestroy {
 
-  value: any;
-  input = new FormControl('');
+  formFieldControl = new FormControl('');
+  private $onDestroing: Subject<void> = new Subject<void>();
   filteredOptions: Observable<OctoFieldOptionModel[]>;
   @Input() field: OctoFieldModel;
   @Input() required: boolean;
-
-  constructor(public _formService: OctoFormService) { }
-
+  constructor(public _formService: OctoFormService) {}
 
   ngOnInit(): void {
     this.initField();
-    this.filteredOptions = this.input.valueChanges.pipe(
+    this.formFieldControl.valueChanges.pipe(
+      takeUntil(this.$onDestroing),
+      distinctUntilChanged()
+    ).subscribe((value) => {
+      this._formService.setFieldValue(
+        value,
+        this.field.id,
+        this.field.sectionId
+      );
+    });
+    this.filteredOptions = this.formFieldControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map((value) => this._filter(value))
     );
   }
 
-  ngAfterViewInit(): void {
-    this.input.valueChanges.subscribe(res => {
-      if (res !== this.field.value) {
-        this._formService.setFieldValue(res, this.field.id, this.field.sectionId);
-      }
-    })
+  ngOnDestroy(): void {
+    this.$onDestroing.next();
   }
 
   initField(): void {
-    console.log("FIELD", this.field);
-    if (this.field.value) {
-      this.input.setValue(this.field.value);
-    }
     let validators: ValidatorFn[] = [];
+    if (this.field.value) {
+      this.formFieldControl.setValue(this.field.value);
+    }
     if (this.field.validation?.required) {
       validators.push(Validators.required);
     }
@@ -69,8 +72,8 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
     // if (this.field.type === 'datePicker' && this.field.validation?.maxDate) {
     //   validators.push(this.maxDate(this.field.validation?.maxDate));
     // }
-    this.input.setValidators(validators);
-    this.input.updateValueAndValidity();
+    this.formFieldControl.setValidators(validators);
+    this.formFieldControl.updateValueAndValidity();
   }
 
   minDate(date: string): ValidatorFn {
@@ -83,9 +86,11 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
         return null;
       }
       const validationDate = new Date(date);
-      return controlDate.isAfter(validationDate) ? null : {
-        'minDate': true
-      };
+      return controlDate.isAfter(validationDate)
+        ? null
+        : {
+            minDate: true,
+          };
     };
   }
 
@@ -99,27 +104,29 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
         return null;
       }
       const validationDate = new Date(date);
-      return controlDate.isBefore(validationDate) ? null : {
-        'maxDate': true
-      };
+      return controlDate.isBefore(validationDate)
+        ? null
+        : {
+            maxDate: true,
+          };
     };
   }
 
   getErrorMessage(): string {
-    if (this.input.touched) {
-      if (this.input.hasError('required')) {
+    if (this.formFieldControl.touched) {
+      if (this.formFieldControl.hasError('required')) {
         return 'You must enter a value';
       }
-      if (this.input.hasError('min')) {
+      if (this.formFieldControl.hasError('min')) {
         return 'Min error';
       }
-      if (this.input.hasError('minDate')) {
+      if (this.formFieldControl.hasError('minDate')) {
         return 'Min date error';
       }
-      if (this.input.hasError('maxDate')) {
+      if (this.formFieldControl.hasError('maxDate')) {
         return 'Max date error';
       }
-      return this.input.hasError('max') ? 'Max error' : '';
+      return this.formFieldControl.hasError('max') ? 'Max error' : '';
     }
     return '';
   }
@@ -127,10 +134,11 @@ export class OctoFieldComponent implements OnInit, AfterViewInit {
   private _filter(value: string): OctoFieldOptionModel[] {
     const filterValue = value.toLowerCase();
     if (this.field.options) {
-      return this.field.options.filter(option => option.label.toLowerCase().indexOf(filterValue) >= 0);
+      return this.field.options.filter(
+        (option) => option.label.toLowerCase().indexOf(filterValue) >= 0
+      );
     }
     return [];
   }
-
 }
 

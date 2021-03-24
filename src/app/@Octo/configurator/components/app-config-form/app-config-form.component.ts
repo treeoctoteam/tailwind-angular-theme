@@ -1,71 +1,403 @@
 import { Component, OnInit } from '@angular/core';
-import { OctoFormModel } from 'src/app/@Octo/form/models/core/octo-form.model';
+import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
+import { OctoFormUtilsService } from 'src/app/@Octo/form/octo-form-utils.service';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 
-
 const STARTUP: OctoFormModel = {
-  "mode": "full",
-  "id": 1,
-  "title": "",
-  "class": "",
-  "style": "",
-  "sections": [
+  mode: 'full',
+  id: '1',
+  title: '',
+  class: '',
+  style: '',
+  sections: [
     {
-      "id": 1,
-      "name": "",
-      "class": "",
-      "style": "",
-      "validation": {
-        "required": true
+      id: '1',
+      name: 'Section 1',
+      class: 'border-2 broder-grey-100 rounded-md p-4',
+      style: '',
+      validation: {
+        required: true,
       },
-      "fields": [
+      fields: [
         {
-          "id": 1,
-          "name": "startup",
-          "disabled": false,
-          "readonly": false,
-          "placeholder": "File, API ...",
-          "placeholderColor": "",
-          "appearance": "unstyled",
-          "label": "Startup Mode",
-          "labelColor": "",
-          "borderColor": "",
-          "textColor": "",
-          "backgroundColor": "",
-          "clearable": true,
-          "value": "",
-          "type": "autocomplete",
-          "options": [
-            { "value": "File", "label": "File" },
-            { "value": "API", "label": "API" }
+          id: '1',
+          name: 'textField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Text field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'text',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
           ],
-          "validation": {
-            "required": true,
+          validation: {
+            required: true,
           },
-          "sectionId": 1
-        }
-      ]
-    }
-  ]
-}
-
-
+          sectionId: '1',
+        },
+        {
+          id: '2',
+          name: 'numberField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Number Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'number',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '3',
+          name: 'textareaField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Textarea Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'textarea',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '4',
+          name: 'checkboxField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Checkbox Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          value: '',
+          type: 'checkbox',
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '5',
+          name: 'autocompleteField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Autocomplete Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'autocomplete',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '6',
+          name: 'toogleField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Toggle Field',
+          labelColor: '',
+          borderColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'toggle',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '7',
+          name: 'selectField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Select field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'select',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '8',
+          name: 'passwordField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Password field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'password',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+      ],
+    },
+    {
+      id: '2',
+      name: 'Section 2',
+      class: 'border-2 broder-grey-100 rounded-md p-4',
+      style: '',
+      validation: {
+        required: true,
+      },
+      fields: [
+        {
+          id: '1',
+          name: 'textField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Text field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'text',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
+        {
+          id: '2',
+          name: 'numberField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Number Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'number',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
+        {
+          id: '3',
+          name: 'textareaField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Textarea Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'textarea',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
+        {
+          id: '4',
+          name: 'checkboxField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Checkbox Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'checkbox',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
+        {
+          id: '5',
+          name: 'autocompleteField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Autocomplete Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'autocomplete',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
+        {
+          id: '6',
+          name: 'toogleField',
+          disabled: false,
+          readonly: false,
+          placeholder: 'File, API ...',
+          placeholderColor: '',
+          appearance: 'unstyled',
+          label: 'Toogle Field',
+          labelColor: '',
+          borderColor: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'toggle',
+          options: [
+            { value: 'File', label: 'File' },
+            { value: 'API', label: 'API' },
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
+      ],
+    },
+  ],
+};
 
 @Component({
   selector: 'octo-app-config-form',
   templateUrl: './app-config-form.component.html',
-  styleUrls: ['./app-config-form.component.scss']
+  styleUrls: ['./app-config-form.component.scss'],
+  providers: [OctoFormUtilsService],
 })
 export class AppConfigFormComponent implements OnInit {
 
-  startupForm: OctoFormModel = STARTUP;
-  constructor(public appService: ApplicationConfigService) { }
+  appConfigForm: OctoFormModel = STARTUP;
+  constructor(public appService: ApplicationConfigService,  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  formSubmit(form: OctoFormModel) {
+    // const sections = this.octoFormUtilsService.getSectionFormMap(form);
+    console.log('form submit', form);
   }
 
-  updateStartup(data: OctoFormModel) {
-    console.log(data);
+  formChange(form: OctoFormModel) {
+    console.log('form change', form);
   }
-
 }

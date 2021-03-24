@@ -1,11 +1,8 @@
-<div *ngIf="section" [class]="section?.class" [style]="section?.style">
-  <div class="title">{{ section.name }}</div>
-  <form class="octo-form">
+<div *ngIf="section" [class]="section?.class + ' h-full'" [style]="section?.style">
+  <div class="font-medium text-base mb-2 text-center">{{ section.name }}</div>
+  <form class="octo-form-grid">
     <ng-container *ngFor="let field of section?.fields">
-      <!-- {{field | json}} -->
-      <octo-field
-        [field]="field"
-      ></octo-field>
+      <octo-field [field]="field"></octo-field>
     </ng-container>
   </form>
 </div>

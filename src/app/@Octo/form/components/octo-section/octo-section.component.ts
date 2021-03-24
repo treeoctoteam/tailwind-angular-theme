@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OctoSectionModel } from '../../models/core/octo-section.model';
+import { OctoSectionModel } from '../../models/octo-section.model';
 import { OctoFormService } from '../../octo-form.service';
 
 @Component({
@@ -8,10 +8,9 @@ import { OctoFormService } from '../../octo-form.service';
   styleUrls: ['./octo-section.component.scss'],
 })
 export class OctoSectionComponent implements OnInit {
+
   @Input() section: OctoSectionModel;
   constructor(public formService: OctoFormService) {}
 
-  ngOnInit(): void {
-    console.log('SECTION', this.section);
-  }
+  ngOnInit(): void { }
 }
