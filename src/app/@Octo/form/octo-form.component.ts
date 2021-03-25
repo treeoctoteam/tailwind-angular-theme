@@ -39,6 +39,9 @@ export class OctoFormComponent implements OnInit, OnDestroy {
   }
 
   submitClick() {
+    this.form.sections.forEach(section => {
+      section
+    })
     this.formSubmit.emit(this.form);
   }
 }

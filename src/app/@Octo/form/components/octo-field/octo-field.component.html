@@ -58,7 +58,6 @@
     [type]="field.type"
     [options]="field.options"
     [value]="field.value"
-    [label]="field.label"
     [clearable]="field.clearable"
     [placeholder]="field.placeholder"
     [appearance]="field.appearance"
@@ -66,7 +65,9 @@
     [borderColor]="field.borderColor"
     [placeholderColor]="field.placeholderColor"
     [textColor]="field.textColor"
-    [backgroundColor]="field.backgroundColor">
+    [backgroundColor]="field.backgroundColor"
+    [multipleSelection]="field.multipleSelection"> 
+    {{ field.label }}
   </to-autocomplete>
 
   <to-select

@@ -7,9 +7,13 @@
         <octo-section *ngFor="let section of form?.sections" [section]="section"></octo-section>
       </div>
       <div class="text-center">
-        <to-button appearance="filled" color="yellow" (click)="submitClick()">
+        <to-button appearance="filled" color="yellow" (click)="submitClick()" class="mr-2">
           <i slot="icon-start" class="fad fa-share-square"></i>
           Submit
+        </to-button>
+        <to-button appearance="filled" color="yellow" class="ml-2">
+          <i slot="icon-start" class="fad fa-share-square"></i>
+          Generate JSON
         </to-button>
       </div>
     </ng-container>

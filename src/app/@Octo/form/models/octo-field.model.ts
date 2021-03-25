@@ -16,6 +16,7 @@ export interface OctoFieldModel {
   placeholder?: string;
   appearance: TOInputAppearance;
   type: OctoFieldType;
+  multipleSelection?: boolean;
   clearable?: boolean;
   label?: string;
   labelColor?: string;

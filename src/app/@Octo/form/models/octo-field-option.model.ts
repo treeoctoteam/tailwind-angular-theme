@@ -1,4 +1,4 @@
 export interface OctoFieldOptionModel {
-  value: string;
+  value: string | object;
   label: string;
 }

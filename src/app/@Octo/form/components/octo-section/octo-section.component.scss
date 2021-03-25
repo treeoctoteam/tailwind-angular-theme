@@ -2,6 +2,6 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(80px, 1fr));
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
 }
