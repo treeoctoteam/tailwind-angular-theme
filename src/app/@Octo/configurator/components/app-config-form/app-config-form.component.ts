@@ -3,7 +3,7 @@ import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { OctoFormUtilsService } from 'src/app/@Octo/form/octo-form-utils.service';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 
-const STARTUP: OctoFormModel = {
+const APPCONFIG_FORM: OctoFormModel = {
   mode: 'full',
   id: '1',
   title: '',
@@ -387,10 +387,10 @@ const STARTUP: OctoFormModel = {
 })
 export class AppConfigFormComponent implements OnInit {
 
-  appConfigForm: OctoFormModel = STARTUP;
-  constructor(public appService: ApplicationConfigService,  ) {}
+  appConfigForm: OctoFormModel = APPCONFIG_FORM;
+  constructor(public appService: ApplicationConfigService,) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
     // const sections = this.octoFormUtilsService.getSectionFormMap(form);

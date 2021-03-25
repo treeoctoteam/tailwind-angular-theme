@@ -4,7 +4,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApplicationConfigService } from './core/services/application-config.service';
-import { ApplicationConfig } from './models/application-config.model';
+import { ApplicationConfig } from './shared/models/application-config.model';
 
 @Component({
   selector: 'octo-root',

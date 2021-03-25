@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardConfigService } from './services/dashboard-config.service';
-import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from '../../core/guards/navigation.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -31,10 +30,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     OctoFormModule,
-    LayoutComponentsModule,
+    SharedModule,
     RouterModule.forChild(routes),
   ],
   providers: [DashboardConfigService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class DashboardModule {}
+export class DashboardModule { }

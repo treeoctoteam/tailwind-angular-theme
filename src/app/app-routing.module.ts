@@ -6,17 +6,17 @@ import { AuthGuard } from './core/guards/auth.guard';
 const routes: Routes = [
   {
     path: 'dashboard',
-    loadChildren: () => import('./layout/dashboard/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [NavigationGuard]
   },
   {
     path: 'workflow',
-    loadChildren: () => import('./layout/workflow/workflow.module').then(m => m.WorkflowModule),
+    loadChildren: () => import('./modules/workflow/workflow.module').then(m => m.WorkflowModule),
     canActivate: [NavigationGuard]
   },
   {
     path: 'landingpage',
-    loadChildren: () => import('./layout/landing-page/landing-page.module').then(m => m.LandingPageModule),
+    loadChildren: () => import('./modules/landing-page/landing-page.module').then(m => m.LandingPageModule),
     canActivate: [NavigationGuard]
   },
   {

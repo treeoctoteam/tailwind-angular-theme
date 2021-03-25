@@ -2,12 +2,12 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponentsModule } from '../components/layout-components.module';
 import { NavigationGuard } from 'src/app/core/guards/navigation.guard';
 import { I18nService } from 'src/app/core/services/i18n.service';
 import { localeENLandingpage } from './i18n/en';
 import { TranslateModule } from '@ngx-translate/core';
 import { LandingpageConfigService } from './services/landingpage-config.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    LayoutComponentsModule,
+    SharedModule,
     TranslateModule,
     RouterModule.forChild(routes)
   ],

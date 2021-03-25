@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { LandingPageConfig } from '../../models/layout.model';
+import { LandingPageConfig } from '../../models/modules.model';
 const CONFIG_PATH = 'assets/config/landingpage-config.json';
 
 @Injectable({

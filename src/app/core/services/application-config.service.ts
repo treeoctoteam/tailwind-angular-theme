@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { ApplicationConfig } from 'src/app/models/application-config.model';
+import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
 
 const APP_CONFIG_PATH = 'assets/config/application-config.json';
 
@@ -22,11 +22,13 @@ export class ApplicationConfigService {
     $req.subscribe((response: ApplicationConfig) => {
       this.$config.next(response);
       this.config = response;
-      let navigationExist = this.config.layouts.some(l => this.router.url.includes(l));
+      let navigationExist = this.config.modules.some(l => this.router.url.includes(l));
       if (!navigationExist) {
         this.router.navigateByUrl(this.config.defaultLayout);
       }
     });
     return $req;
   }
+
+
 }

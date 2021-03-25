@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Step } from '../../models/stepper.model';
+import { Step } from '../models/stepper.model';
 import { SessionService } from '../../../core/services/session.service';
-import { RouteParam } from 'src/app/models/route-param.model';
+import { RouteParam } from 'src/app/shared/models/route-param.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { HttpClient } from '@angular/common/http';

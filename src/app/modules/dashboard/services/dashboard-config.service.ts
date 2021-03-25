@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { DashboardConfig } from '../../models/layout.model';
+import { DashboardConfig } from '../../models/modules.model';
 const CONFIG_PATH = 'assets/config/dashboard-config.json';
 
 @Injectable({

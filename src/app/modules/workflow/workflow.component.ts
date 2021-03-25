@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { elementAt } from 'rxjs/operators';
 import { AlertService } from '../../core/services/alert.service';
-import { Step } from '../models/stepper.model';
+import { Step } from './models/stepper.model';
 import { WorkflowService } from './services/workflow.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class WorkflowComponent implements OnInit {
     private alertService: AlertService,
     private router: Router,
     public workflowService: WorkflowService,
-  ) {}
+  ) { }
 
   @ViewChild('stepper') stepper: ElementRef;
 
@@ -35,7 +35,7 @@ export class WorkflowComponent implements OnInit {
     });
   }
 
-  nextStep(){
+  nextStep() {
     this.stepper.nativeElement.nextStep();
   }
 

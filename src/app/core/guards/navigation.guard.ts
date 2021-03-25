@@ -6,8 +6,8 @@ import {
   CanActivateChild,
   Router,
 } from '@angular/router';
-import { DashboardConfigService } from 'src/app/layout/dashboard/services/dashboard-config.service';
-import { LandingpageConfigService } from 'src/app/layout/landing-page/services/landingpage-config.service';
+import { DashboardConfigService } from 'src/app/modules/dashboard/services/dashboard-config.service';
+import { LandingpageConfigService } from 'src/app/modules/landing-page/services/landingpage-config.service';
 import { AlertService } from '../services/alert.service';
 import { ApplicationConfigService } from '../services/application-config.service';
 import { AuthService } from '../services/auth.service';
@@ -27,31 +27,31 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): boolean {
     if (this.appConfigService.config.enableAuthentication) {
-      let activeLayout = this.checkActiveLayout(state);
-      switch (activeLayout) {
+      let activeModule = this.checkActiveModule(state);
+      switch (activeModule) {
         case "landingpage":
           if (!this.landingService.config) {
             this.landingService.initConfig().subscribe(() => {
-              return this.layoutAuthenticate(this.landingService);
+              return this.moduleAuthenticate(this.landingService);
             })
           }
           else {
-            return this.layoutAuthenticate(this.landingService);
+            return this.moduleAuthenticate(this.landingService);
           }
           break;
         case "dashboard":
           if (!this.dashboardService.config) {
             this.dashboardService.initConfig().subscribe(() => {
-              return this.layoutAuthenticate(this.dashboardService);
+              return this.moduleAuthenticate(this.dashboardService);
             })
           }
           else {
-            return this.layoutAuthenticate(this.dashboardService);
+            return this.moduleAuthenticate(this.dashboardService);
           }
           break;
       }
     } else {
-      if (this.checkActiveLayout(state)) {
+      if (this.checkActiveModule(state)) {
         return true;
       }
       else {
@@ -63,7 +63,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      let activeLayout = this.checkActiveLayout(state);
+      let activeLayout = this.checkActiveModule(state);
       let activeRoute = this.checkActivePage(activeLayout, state);
       if (!activeRoute?.authenticate) {
         resolve(true)
@@ -77,7 +77,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     })
   }
 
-  private layoutAuthenticate(service: any) {
+  private moduleAuthenticate(service: any) {
     if (!service.config.authenticate) {
       return true;
     }
@@ -99,8 +99,8 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     this.router.navigateByUrl("auth/login");
   }
 
-  private checkActiveLayout(state: RouterStateSnapshot) {
-    const layouts: string[] = this.appConfigService.config.layouts;
+  private checkActiveModule(state: RouterStateSnapshot) {
+    const layouts: string[] = this.appConfigService.config.modules;
     let activeLayout = "";
     for (let l of layouts) {
       const res = state.url.includes(l);

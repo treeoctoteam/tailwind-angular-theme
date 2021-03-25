@@ -33,7 +33,7 @@ export class DashboardComponent implements AfterViewInit {
     this.formControld.valueChanges.subscribe(console.log);
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   get name(): AbstractControl | null {
     return this.formGroupTest.get('name');
