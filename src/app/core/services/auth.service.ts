@@ -29,12 +29,17 @@ export class ChangePassword {
 
 @Injectable()
 export class AuthService {
-  // path = 'https://dev.tap-id.tech/tapidconfig/auth';
-  path = 'http://localhost:3002/tapidconfig/auth';
+  // NB STEFANO
+  // Please Stefano, don't delete the second var path, is useful for local tests!
+  path = 'https://dev.tap-id.tech/tapidconfig/auth';
+  // path = 'http://localhost:3002/tapidconfig/auth';
 
   public user: User;
   public isLoggedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private loggedUserSubject: BehaviorSubject<User>;
+  public redirectUrl: string;
+
+  
   constructor(
     private http: HttpClient, 
     private alertService: AlertService, 
@@ -97,7 +102,7 @@ export class AuthService {
   register(registerData: { username: string, email: string, password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.path}/register`, registerData).pipe(share());
     $req.subscribe(res => {
-      // TODO confirm account and not logged automatically
+      // TODO confirm account and not logged user automatically
       console.log("registered");
       this.user = { role: res.user.role, username: res.user.username, email: res.user.email };
       localStorage.setItem("user", JSON.stringify(this.user));
@@ -117,10 +122,9 @@ export class AuthService {
   }
 
   // NB STEFANO
-  // Please Stefano, don't delete this method!
-  // NB STEFANO
+  // Please Stefano don't delete this method, is useful for testing!
   checkAuth() {
-    const $req = this.http.get<any>("http://localhost:3002/tapidconfig/home").pipe(share());
+    const $req = this.http.get<any>("https://dev.tap-id.tech/tapidconfig/home").pipe(share());
     $req.subscribe((res: any) => {
       console.log("EMAIL",res.email);
     })

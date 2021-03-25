@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { LandingPageConfig } from '../models/modules.model';
-import { NavigationItem } from '../models/navigation.model';
+import { NavigationItem } from '../models/modules.model';
 import { LandingPageModule } from './landing-page.module';
 import { LandingpageConfigService } from './services/landingpage-config.service';
 

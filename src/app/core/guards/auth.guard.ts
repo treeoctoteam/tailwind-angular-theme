@@ -4,6 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   CanActivateChild,
+  Router,
 } from '@angular/router';
 import { pluck } from 'rxjs/operators';
 import { ApplicationConfigService } from '../services/application-config.service';
@@ -18,9 +19,11 @@ const getConfigPath = (pathUrl: string) => {
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
 
-  constructor(private appConfigService: ApplicationConfigService, private authService: AuthService) {
-
-  }
+  constructor(
+    private appConfigService: ApplicationConfigService, 
+    private authService: AuthService, 
+    private router: Router
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const role = route.data.role;
@@ -40,5 +43,16 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     return new Promise<boolean>((resolve, reject) => {
       resolve(true);
     });
+  }
+
+  checkAuth(url: string): boolean {
+    console.log("Check user logged");
+    if (this.authService.isLogged) {
+      return true;
+    }
+    // Store the attempted URL for redirecting
+    this.authService.redirectUrl = url;
+    this.router.navigate(["auth/login"]);
+    return false;
   }
 }

@@ -24,25 +24,22 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     if (this.applicationConfigservice.config){
       if (this.applicationConfigservice?.config.authenticationMode === "Cookie"){
         authRequest = req.clone({
-          withCredentials: true,
-          setHeaders: {
-            Authmode: "Cookie"
-          }
+          withCredentials: true
         })
+        console.log("TEST", authRequest)
       }
       else {
         authRequest = req.clone({
           setHeaders: {
             // User: this.authService.user,
             Authorization: `Bearer ${this.authService.token}`,
-            Authmode: "JWT"
           }
         })
       }
       
     }
     else {
-      console.log("CONFIGURATION HASN'T BEEN LOADED");
+      console.log("Configuration hasn't been loaded yet");
     }
     return next.handle(authRequest)
       .pipe(

@@ -22,7 +22,8 @@ export class ApplicationConfigService {
     $req.subscribe((response: ApplicationConfig) => {
       this.$config.next(response);
       this.config = response;
-      let navigationExist = this.config.modules.some(l => this.router.url.includes(l));
+      console.log("CONFIG", this.config);
+      let navigationExist = this.config.layouts.some(l => this.router.url.includes(l));
       if (!navigationExist) {
         this.router.navigateByUrl(this.config.defaultLayout);
       }

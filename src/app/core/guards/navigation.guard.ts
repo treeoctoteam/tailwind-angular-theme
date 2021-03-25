@@ -100,7 +100,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
   }
 
   private checkActiveModule(state: RouterStateSnapshot) {
-    const layouts: string[] = this.appConfigService.config.modules;
+    const layouts: string[] = this.appConfigService.config.layouts;
     let activeLayout = "";
     for (let l of layouts) {
       const res = state.url.includes(l);
