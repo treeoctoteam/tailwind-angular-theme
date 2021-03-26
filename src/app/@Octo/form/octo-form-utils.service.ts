@@ -14,7 +14,7 @@ export class OctoFormUtilsService {
     form: OctoFormModel
   ): { id: string; name: string }[] {
     const sections: { id: string; name: string }[] = [];
-    form.sections.forEach((s) => {
+    form.sections?.forEach((s) => {
       const section: { id: string; name: string } = {
         id: s.id,
         name: s.name,
@@ -28,7 +28,7 @@ export class OctoFormUtilsService {
     section: OctoSectionModel
   ): { id: string; name: string; value: string | number }[] {
     const fields: { id: string; name: string; value: string | number }[] = [];
-    section.fields.forEach((f) => {
+    section.fields?.forEach((f) => {
       const field: { id: string; name: string; value: string | number } = {
         id: f.id,
         name: f.name,

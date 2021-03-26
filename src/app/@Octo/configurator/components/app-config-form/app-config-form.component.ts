@@ -3,8 +3,31 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 
+@Component({
+  selector: 'octo-app-config-form',
+  templateUrl: './app-config-form.component.html',
+  styleUrls: ['./app-config-form.component.scss'],
+})
+export class AppConfigFormComponent implements OnInit {
 
+  appConfigForm: OctoFormModel = APPCONFIG_FORM;
+  constructor(public appService: ApplicationConfigService, private formServices: OctoFormService) { }
 
+  @Output() submit = new EventEmitter();
+
+  ngOnInit(): void { }
+
+  formSubmit(form: OctoFormModel) {
+    // const sections = this.octoFormUtilsService.getSectionFormMap(form);
+    this.appConfigForm = {...form};
+    this.submit.emit(this.appConfigForm);
+    console.log('form submit', form);
+  }
+
+  formChange(form: OctoFormModel) {
+    console.log('form change', form);
+  }
+}
 
 const APPCONFIG_FORM: OctoFormModel = {
   mode: 'full',
@@ -63,7 +86,7 @@ const APPCONFIG_FORM: OctoFormModel = {
         {
           id: '1',
           name: 'name',
-          disabled: false,
+          disabled: true,
           readonly: false,
           placeholder: 'Ex Euronovate, Siga98...',
           placeholderColor: '',
@@ -78,6 +101,8 @@ const APPCONFIG_FORM: OctoFormModel = {
           type: 'text',
           validation: {
             required: true,
+            maxLength: 4,
+            min: 2
           },
           sectionId: '2',
         },
@@ -599,24 +624,24 @@ const APPCONFIG_FORM: OctoFormModel = {
           multipleSelection: true,
           options: [
             {
-              label: 'Italiano', 
+              label: 'Italiano',
               value: {
                 "id": "en",
                 "title": "LOCALES.EN",
                 "flag": "EN",
                 "iso3code": "USA",
                 "enabled": false
-              } 
+              }
             },
             {
-              label: 'English', 
+              label: 'English',
               value: {
                 "id": "it",
                 "title": "LOCALES.IT",
                 "flag": "IT",
                 "iso3code": "ITA",
                 "enabled": false
-              } 
+              }
             }
           ],
           validation: {
@@ -661,29 +686,3 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
   ],
 };
-
-@Component({
-  selector: 'octo-app-config-form',
-  templateUrl: './app-config-form.component.html',
-  styleUrls: ['./app-config-form.component.scss'],
-})
-export class AppConfigFormComponent implements OnInit {
-
-  appConfigForm: OctoFormModel = APPCONFIG_FORM;
-  constructor(public appService: ApplicationConfigService, private formServices: OctoFormService) { }
-
-  @Output() submit = new EventEmitter();
-
-  ngOnInit(): void { }
-
-  formSubmit(form: OctoFormModel) {
-    // const sections = this.octoFormUtilsService.getSectionFormMap(form);
-    this.appConfigForm = {...form};
-    this.submit.emit(this.appConfigForm);
-    console.log('form submit', form);
-  }
-
-  formChange(form: OctoFormModel) {
-    console.log('form change', form);
-  }
-}

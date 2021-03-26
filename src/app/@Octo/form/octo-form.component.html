@@ -2,8 +2,7 @@
   <h2 class="title">{{ form.title }}</h2>
   <ng-container [ngSwitch]="form.mode">
     <ng-container *ngSwitchCase="'full'">
-      <!-- <div class="grid grid-cols-2 gap-3 m-3 grid-flow-col-dense"> -->
-      <div class="grid gap-x-4 gap-y-8 m-3 grid-flow-row-dense">
+      <div class="grid grid-flow-row-dense gap-3 my-3">
         <octo-section *ngFor="let section of form?.sections" [section]="section"></octo-section>
       </div>
       <div class="text-center">

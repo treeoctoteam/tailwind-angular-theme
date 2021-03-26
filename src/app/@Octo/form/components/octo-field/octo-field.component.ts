@@ -14,7 +14,7 @@ import { OctoFieldOptionModel } from '../../models/octo-field-option.model';
 })
 export class OctoFieldComponent implements OnInit, OnDestroy {
 
-  formFieldControl = new FormControl('');
+  formFieldControl = new FormControl('', [Validators.maxLength(4)]);
   private $onDestroing: Subject<void> = new Subject<void>();
   filteredOptions: Observable<OctoFieldOptionModel[]>;
   @Input() field: OctoFieldModel;
@@ -23,16 +23,16 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initField();
-    this.formFieldControl.valueChanges.pipe(
-      takeUntil(this.$onDestroing),
-      distinctUntilChanged()
-    ).subscribe((value) => {
-      this._formService.setFieldValue(
-        value,
-        this.field.id,
-        this.field.sectionId
-      );
-    });
+    this.formFieldControl.valueChanges
+      .pipe(takeUntil(this.$onDestroing), distinctUntilChanged())
+      .subscribe((value) => {
+        this.field.value = value;
+        this._formService.setFieldValue(
+          value,
+          this.field.id,
+          this.field.sectionId
+        );
+      });
     this.filteredOptions = this.formFieldControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
