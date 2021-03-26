@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OctoFormService } from './../../../form/octo-form.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
-import { OctoFormUtilsService } from 'src/app/@Octo/form/octo-form-utils.service';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 
 
@@ -666,17 +666,20 @@ const APPCONFIG_FORM: OctoFormModel = {
   selector: 'octo-app-config-form',
   templateUrl: './app-config-form.component.html',
   styleUrls: ['./app-config-form.component.scss'],
-  providers: [OctoFormUtilsService],
 })
 export class AppConfigFormComponent implements OnInit {
 
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
-  constructor(public appService: ApplicationConfigService,) { }
+  constructor(public appService: ApplicationConfigService, private formServices: OctoFormService) { }
+
+  @Output() submit = new EventEmitter();
 
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
     // const sections = this.octoFormUtilsService.getSectionFormMap(form);
+    this.appConfigForm = {...form};
+    this.submit.emit(this.appConfigForm);
     console.log('form submit', form);
   }
 

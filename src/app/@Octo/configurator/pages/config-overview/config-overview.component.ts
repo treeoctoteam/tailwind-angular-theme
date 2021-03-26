@@ -1,3 +1,5 @@
+import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
+import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
@@ -64,5 +66,10 @@ export class ConfigOverviewComponent implements OnInit {
   }
   change(e: any) {
     console.log("CHANGE", e)
+  }
+
+  setAppConfig(form: OctoFormModel) {
+    const newConfig = this.appService.generateFromOctoForm(form);
+    this.data = form;
   }
 }

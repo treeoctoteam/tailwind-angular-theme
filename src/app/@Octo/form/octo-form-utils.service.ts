@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { OctoFormModel } from './models/octo-form.model';
 import { OctoSectionModel } from './models/octo-section.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class OctoFormUtilsService {
+
   constructor() {}
 
   public getSectionFormMap(
