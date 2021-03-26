@@ -3,15 +3,17 @@ import {
   ElementRef,
   forwardRef,
   HostListener,
-  Injector,
+  Input,
   OnInit,
-  Self,
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  NgControl,
+  FormControl,
   NG_VALUE_ACCESSOR,
+  ValidatorFn,
+  Validators,
 } from '@angular/forms';
+import { OctoFieldModel } from '../models/octo-field.model';
 
 @Directive({
   selector: '[octoValueAccessor]',
@@ -24,72 +26,61 @@ import {
   ]
 })
 export class ValueAccessorDirective implements OnInit, ControlValueAccessor {
-  // @Input('octoValueAccessor') errors: { [k: string]: string} = {};
-
-  private ngControl: NgControl;
+  elementControl: FormControl
+  @Input('formField') formField: OctoFieldModel;
+  @Input('formControl')
+  set fieldContol(control: FormControl) {
+    if (control) {
+      this.elementControl = control;
+    }
+  }
 
   private onChange = (value: any): void => {};
   private onTouched = (): void => {};
 
-  constructor(
-    @Self() private injector: Injector,
-    private elementRef: ElementRef
-  ) {}
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.ngControl = this.injector.get(NgControl);
+    this.setValidators(this.formField, this.elementControl)
   }
 
   @HostListener('toElementChange', ['$event'])
   handleInputEvent(event: any) {
     this.writeValue(event.detail.value);
-    this.setErrors(event);
+    console.log(this.elementControl);
   }
 
-        // if (
-      //   elementInputTypes === 'text' ||
-      //   elementInputTypes === 'number' ||
-      //   elementInputTypes === 'autocomplete' ||
-      //   elementInputTypes === 'password'
-      // ) {
-      //   elementValue = (event.target as HTMLInputElement).value;
-      // }
-      // if ((event as any)?.detail?.target?.localName === 'select') {
-      //   elementValue = (event as any).detail.target.value;
-      // }
-      // if ((event as any)?.detail?.target?.type === 'checkbox') {
-      //   elementValue = (event.target as any).checked;
-      // }
-      // if ((event as any)?.target?.localName === 'to-toggle') {
-      //   elementValue = (event as any).detail;
-      // }
-      // if ((event as any)?.detail?.target?.type === 'textarea') {
-      //   elementValue = (event as any).detail.target.value;
-      // }
-
-
-  setErrors(event: any) {
-    // console.log(this.ngControl);
-    const ngErrors = { ...this.ngControl.control?.errors };
-    const matchingErrors: string[] = [];
-
-    console.log(this.ngControl);
-
-    this.onChange(event.detail.value);
-    this.onTouched();
-
-    // if (ngErrors) {
-      // const ngErrorKeys: string[] = [...Object.keys(ngErrors)];
-      // if (ngErrorKeys.length > 0) {
-      //   ngErrorKeys.forEach((e) => {
-      //     // matchingErrors.push(this.errors[e]);
-      //   });
-      // //   // console.log(this.errors)
-      // //   event.errorMessage = [...matchingErrors];
-      // // } else {
-      // //   element.errorMessage = [];
-      // }
-    // }
+  private setValidators(field: OctoFieldModel, control: FormControl) {
+    if (field) {
+      console.log(field)
+      let validators: ValidatorFn[] = [];
+      if (field.disabled) {
+        control.disable();
+        this.elementRef.nativeElement.disabled = true;
+      }
+      if ((field.type === 'text' || field.type === 'number') && field.validation?.max) {
+        validators.push(Validators.max(field.validation?.max));
+        this.elementRef.nativeElement.max = field.validation.max;
+      }
+      if ((field.type === 'text' || field.type === 'number') && field.validation?.min) {
+        validators.push(Validators.min(field.validation?.min));
+        this.elementRef.nativeElement.min = field.validation.min;
+      }
+      if (field.type === 'text' && field.validation?.maxLength) {
+        validators.push(Validators.maxLength(field.validation?.maxLength));
+        this.elementRef.nativeElement.maxLength = field.validation.maxLength;
+      }
+      if (field.type === 'text' && field.validation?.minLength) {
+        validators.push(Validators.minLength(field.validation?.minLength));
+        this.elementRef.nativeElement.minLength = field.validation.minLength;
+      }
+      if (field.validation?.regEx) {
+        validators.push(Validators.pattern(field.validation?.regEx));
+        this.elementRef.nativeElement.regEx = field.validation.regEx;
+      }
+      console.log(validators)
+      control.setValidators(validators)
+    }
   }
 
   writeValue(value: any): void {
@@ -105,6 +96,4 @@ export class ValueAccessorDirective implements OnInit, ControlValueAccessor {
   registerOnTouched(fn: () => void) {
     this.onTouched = fn;
   }
-
-
 }

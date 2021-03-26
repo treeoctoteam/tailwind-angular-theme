@@ -1,95 +1,95 @@
-<ng-container *ngIf="field">
+<ng-container *ngIf="formField">
   <to-input
-    *ngIf="field.type === 'text' || field.type === 'number' || field.type === 'password'"
+    *ngIf="formField.type === 'text' || formField.type === 'number' || formField.type === 'password'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [type]="field.type"
-    [value]="field.value"
-    [clearable]="field.clearable"
-    [placeholder]="field.placeholder"
-    [appearance]="field.appearance"
-    [maxLength]="field.validation?.maxLength"
-    [minLength]="field.validation?.minLength"
-    [regexPattern]="field.validation?.regEx"
-    [labelColor]="field.labelColor"
-    [borderColor]="field.borderColor"
-    [placeholderColor]="field.placeholderColor"
-    [textColor]="field.textColor"
-    [backgroundColor]="field.backgroundColor">
-    {{ field.label }}
+    [formField]="formField"
+    [type]="formField.type"
+    [clearable]="formField.clearable"
+    [placeholder]="formField.placeholder"
+    [appearance]="formField.appearance"
+    [labelColor]="formField.labelColor"
+    [borderColor]="formField.borderColor"
+    [placeholderColor]="formField.placeholderColor"
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor">
+    {{ formField.label }}
     <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
   </to-input>
 
   <to-textarea
-    *ngIf="field.type === 'textarea'"
+    *ngIf="formField.type === 'textarea'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [value]="field.value"
-    [label]="field.label"
-    [clearable]="field.clearable"
-    [placeholder]="field.placeholder"
-    [appearance]="field.appearance"
-    [regexPattern]="field.validation?.regEx"
-    [labelColor]="field.labelColor"
-    [borderColor]="field.borderColor"
-    [placeholderColor]="field.placeholderColor"
-    [textColor]="field.textColor"
-    [backgroundColor]="field.backgroundColor">
+    [formField]="formField"
+    [label]="formField.label"
+    [clearable]="formField.clearable"
+    [placeholder]="formField.placeholder"
+    [appearance]="formField.appearance"
+    [labelColor]="formField.labelColor"
+    [borderColor]="formField.borderColor"
+    [placeholderColor]="formField.placeholderColor"
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor">
+    <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
   </to-textarea>
 
   <to-checkbox
-    *ngIf="field.type === 'checkbox'"
+    *ngIf="formField.type === 'checkbox'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [checkboxId]="field.id"
-    [checked]="field.value"
-    [appearance]="field.appearance"
-    [labelColor]="field.labelColor"
-    [borderColor]="field.borderColor"
-    [textColor]="field.textColor"
-    [backgroundColor]="field.backgroundColor">
-    {{ field.label }}
+    [formField]="formField"
+    [checkboxId]="formField.id"
+    [checked]="formField.value"
+    [appearance]="formField.appearance"
+    [labelColor]="formField.labelColor"
+    [borderColor]="formField.borderColor"
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor">
+    {{ formField.label }}
   </to-checkbox>
 
   <to-autocomplete
-    *ngIf="field.type === 'autocomplete'"
+    *ngIf="formField.type === 'autocomplete'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [type]="field.type"
-    [options]="field.options"
-    [value]="field.value"
-    [clearable]="field.clearable"
-    [placeholder]="field.placeholder"
-    [appearance]="field.appearance"
-    [labelColor]="field.labelColor"
-    [borderColor]="field.borderColor"
-    [placeholderColor]="field.placeholderColor"
-    [textColor]="field.textColor"
-    [backgroundColor]="field.backgroundColor"
-    [multipleSelection]="field.multipleSelection">
-    {{ field.label }}
+    [formField]="formField"
+    [type]="formField.type"
+    [options]="formField.options"
+    [clearable]="formField.clearable"
+    [placeholder]="formField.placeholder"
+    [appearance]="formField.appearance"
+    [labelColor]="formField.labelColor"
+    [borderColor]="formField.borderColor"
+    [placeholderColor]="formField.placeholderColor"
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor"
+    [multipleSelection]="formField.multipleSelection">
+    {{ formField.label }}
   </to-autocomplete>
 
   <to-select
-    *ngIf="field.type === 'select'"
+    *ngIf="formField.type === 'select'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [options]="field.options"
-    [label]="field.label"
-    [placeholder]="field.placeholder"
-    [appearance]="field.appearance"
-    [labelColor]="field.labelColor"
-    [borderColor]="field.borderColor"
-    [placeholderColor]="field.placeholderColor"
-    [textColor]="field.textColor"
-    [backgroundColor]="field.backgroundColor">
+    [formField]="formField"
+    [options]="formField.options"
+    [label]="formField.label"
+    [placeholder]="formField.placeholder"
+    [appearance]="formField.appearance"
+    [labelColor]="formField.labelColor"
+    [borderColor]="formField.borderColor"
+    [placeholderColor]="formField.placeholderColor"
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor">
   </to-select>
 
   <to-toggle
-    *ngIf="field.type === 'toggle'"
+    *ngIf="formField.type === 'toggle'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [checked]="field.value">
-    {{field.label}}
+    [formField]="formField"
+    [checked]="formField.value">
+    {{formField.label}}
   </to-toggle>
 </ng-container>

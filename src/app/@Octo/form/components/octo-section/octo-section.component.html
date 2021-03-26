@@ -2,7 +2,7 @@
   <div class="font-medium text-base mb-2 text-center">{{ section.title }}</div>
   <form class="octo-form-grid" autocomplete="off">
     <ng-container *ngFor="let field of section?.fields">
-      <octo-field [field]="field"></octo-field>
+      <octo-field [formField]="field"></octo-field>
     </ng-container>
   </form>
 </div>

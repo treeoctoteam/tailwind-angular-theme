@@ -86,7 +86,7 @@ const APPCONFIG_FORM: OctoFormModel = {
         {
           id: '1',
           name: 'name',
-          disabled: true,
+          disabled: false,
           readonly: false,
           placeholder: 'Ex Euronovate, Siga98...',
           placeholderColor: '',
