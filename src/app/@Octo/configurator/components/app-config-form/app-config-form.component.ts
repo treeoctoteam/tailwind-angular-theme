@@ -1,4 +1,3 @@
-import { OctoFormService } from './../../../form/octo-form.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
@@ -11,14 +10,13 @@ import { ApplicationConfigService } from 'src/app/core/services/application-conf
 export class AppConfigFormComponent implements OnInit {
 
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
-  constructor(public appService: ApplicationConfigService, private formServices: OctoFormService) { }
+  constructor(public appService: ApplicationConfigService) { }
 
   @Output() submit = new EventEmitter();
 
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
-    // const sections = this.octoFormUtilsService.getSectionFormMap(form);
     this.appConfigForm = {...form};
     this.submit.emit(this.appConfigForm);
     console.log('form submit', form);
@@ -50,7 +48,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'startup',
           disabled: false,
-          readonly: false,
+
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -86,8 +84,7 @@ const APPCONFIG_FORM: OctoFormModel = {
         {
           id: '1',
           name: 'name',
-          disabled: true,
-          readonly: false,
+          disabled: false,
           placeholder: 'Ex Euronovate, Siga98...',
           placeholderColor: '',
           appearance: 'simple',
@@ -102,14 +99,14 @@ const APPCONFIG_FORM: OctoFormModel = {
           validation: {
             required: false,
             maxLength: 4,
+            regEx: '^[aeiouy]+$'
           },
           sectionId: '2',
         },
         {
           id: '2',
           name: 'address',
-          disabled: false,
-          readonly: false,
+          disabled: true,
           placeholder: 'Ex via roma 1',
           placeholderColor: '',
           appearance: 'simple',
@@ -130,7 +127,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '3',
           name: 'supportEmail',
           disabled: false,
-          readonly: false,
           placeholder: 'Ex support@treeocto.com',
           placeholderColor: '',
           appearance: 'simple',
@@ -151,7 +147,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '4',
           name: 'phone',
           disabled: false,
-          readonly: false,
           placeholder: 'Ex +3472941411',
           placeholderColor: '',
           appearance: 'simple',
@@ -184,7 +179,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'host',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -209,7 +203,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '2',
           name: 'basePath',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -244,7 +237,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '3',
           name: 'hostApi',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -269,7 +261,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '4',
           name: 'hostApiV1',
           disabled: false,
-          readonly: false,
           placeholder: '',
           placeholderColor: 'Choose one',
           appearance: 'simple',
@@ -294,7 +285,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '5',
           name: 'hostApiV2',
           disabled: false,
-          readonly: false,
           placeholder: '',
           placeholderColor: 'Choose one',
           appearance: 'simple',
@@ -319,7 +309,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '6',
           name: 'hostApiV3',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -344,7 +333,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '7',
           name: 'openViduServerUrl',
           disabled: false,
-          readonly: false,
           placeholder: '',
           placeholderColor: '',
           appearance: 'simple',
@@ -377,7 +365,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'enableAuthentication',
           disabled: false,
-          readonly: false,
           placeholder: '',
           placeholderColor: '',
           appearance: 'simple',
@@ -397,7 +384,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '2',
           name: 'authenticationMode',
           disabled: false,
-          readonly: false,
           placeholder: 'JWT or Cookie',
           placeholderColor: '',
           appearance: 'simple',
@@ -434,7 +420,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'timeout',
           disabled: false,
-          readonly: false,
           placeholder: 'Ex 1000',
           placeholderColor: '',
           appearance: 'simple',
@@ -454,7 +439,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '2',
           name: 'idle',
           disabled: false,
-          readonly: false,
+
           placeholder: 'Ex 1000',
           placeholderColor: '',
           appearance: 'simple',
@@ -474,7 +459,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '3',
           name: 'ping',
           disabled: false,
-          readonly: false,
           placeholder: 'Ex 1000',
           placeholderColor: '',
           appearance: 'simple',
@@ -506,7 +490,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'defaultLayout',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -544,7 +527,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'layouts',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one or more',
           placeholderColor: '',
           appearance: 'simple',
@@ -583,7 +565,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'defaultLanguage',
           disabled: false,
-          readonly: false,
           placeholder: 'Ex en, it ...',
           placeholderColor: '',
           appearance: 'simple',
@@ -608,7 +589,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '2',
           name: 'languages',
           disabled: false,
-          readonly: false,
           placeholder: 'Choose one or more',
           placeholderColor: '',
           appearance: 'simple',
@@ -664,7 +644,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'favicon',
           disabled: false,
-          readonly: false,
           placeholder: 'Insert file ico',
           placeholderColor: '',
           appearance: 'simple',

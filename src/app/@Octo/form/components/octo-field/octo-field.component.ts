@@ -92,6 +92,8 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
         return 'Min error';
       } else if (this.formFieldControl.errors.max) {
         return 'Max error';
+      } else if (this.formFieldControl.errors.pattern) {
+        return 'Regex error'
       }
     }
     return '';
@@ -102,7 +104,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
     if (this.formField.options) {
       return this.formField.options.filter(
         (option) => option.label.toLowerCase().indexOf(filterValue) >= 0
-        );
+      );
     }
     return [];
   }
