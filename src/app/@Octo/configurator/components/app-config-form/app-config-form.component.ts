@@ -95,7 +95,7 @@ const APPCONFIG_FORM: OctoFormModel = {
         {
           id: '1',
           name: 'name',
-          disabled: false,
+          disabled: true,
           readonly: false,
           placeholder: 'Ex Euronovate, Siga98...',
           placeholderColor: '',
@@ -109,9 +109,8 @@ const APPCONFIG_FORM: OctoFormModel = {
           value: '',
           type: 'text',
           validation: {
-            required: true,
+            required: false,
             maxLength: 4,
-            min: 2
           },
           sectionId: '2',
         },
