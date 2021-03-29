@@ -8,6 +8,9 @@ import { ApplicationConfigService } from 'src/app/core/services/application-conf
   templateUrl: './app-config-form.component.html',
   styleUrls: ['./app-config-form.component.scss'],
 })
+
+
+
 export class AppConfigFormComponent implements OnInit {
 
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
@@ -28,11 +31,39 @@ export class AppConfigFormComponent implements OnInit {
     console.log('form change', form);
   }
 
-  test() {
-    console.log("THIS CONFIG FORM",this.configForm);
-    const test = this.formServices.setFieldValue("test", '2', '2')
-
-    // this.APPCONFIG_FORM
+  editConfig() {
+    console.log("THIS CONFIG FORM",this.configForm, this.appConfigForm);
+    // const sections = Object.keys(this.configForm);
+    // const sectionsValue = Object.values(this.configForm)
+    // this.appConfigForm.sections.forEach((section, index)=> {
+    //   sections.forEach((element, index) => {
+    //     if(element === section.name){
+    //       section.fields[0].value = sectionsValue[index]
+    //     }
+    //   });
+    // })
+    this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
+    this.appConfigForm.sections[1].fields[0].value = this.configForm.customerInfo.name;
+    this.appConfigForm.sections[1].fields[1].value = this.configForm.customerInfo.address;
+    this.appConfigForm.sections[1].fields[2].value = this.configForm.customerInfo.supportEmail;
+    this.appConfigForm.sections[1].fields[3].value = this.configForm.customerInfo.phone;
+    this.appConfigForm.sections[2].fields[0].value = this.configForm.network.host;
+    this.appConfigForm.sections[2].fields[1].value = this.configForm.network.basePath;
+    this.appConfigForm.sections[2].fields[2].value = this.configForm.network.hostApi;
+    this.appConfigForm.sections[2].fields[3].value = this.configForm.network.hostApiV1;
+    this.appConfigForm.sections[2].fields[4].value = this.configForm.network.hostApiV2;
+    this.appConfigForm.sections[2].fields[5].value = this.configForm.network.hostApiV3;
+    this.appConfigForm.sections[2].fields[6].value = this.configForm.network.openViduServerUrl;
+    this.appConfigForm.sections[3].fields[0].value = this.configForm.enableAuthentication;
+    this.appConfigForm.sections[3].fields[1].value = this.configForm.authenticationMode;
+    this.appConfigForm.sections[4].fields[0].value = this.configForm.idleConfig.timeout;
+    this.appConfigForm.sections[4].fields[1].value = this.configForm.idleConfig.idle;
+    this.appConfigForm.sections[4].fields[2].value = this.configForm.idleConfig.ping;
+    this.appConfigForm.sections[5].fields[0].value = this.configForm.defaultLayout;
+    this.appConfigForm.sections[6].fields[0].value = this.configForm.layouts;
+    this.appConfigForm.sections[7].fields[0].value = this.configForm.defaultLanguage;
+    this.appConfigForm.sections[7].fields[1].value = this.configForm.languages;
+    this.appConfigForm.sections[8].fields[0].value = this.configForm.theme.favicon;
   }
 }
 
@@ -57,7 +88,6 @@ const APPCONFIG_FORM: OctoFormModel = {
           id: '1',
           name: 'startup',
           disabled: false,
-
           placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
@@ -95,15 +125,15 @@ const APPCONFIG_FORM: OctoFormModel = {
           name: 'name',
           disabled: false,
           placeholder: 'Ex Euronovate, Siga98...',
-          placeholderColor: '',
+          placeholderColor: 'text-green-600',
           appearance: 'simple',
           label: 'Name',
           labelColor: '',
-          borderColor: '',
+          borderColor: 'border-green-600',
           textColor: '',
           backgroundColor: '',
           clearable: true,
-          value: '',
+          value: 'TEST VALUE',
           type: 'text',
           validation: {
             required: false,
@@ -115,7 +145,7 @@ const APPCONFIG_FORM: OctoFormModel = {
         {
           id: '2',
           name: 'address',
-          disabled: true,
+          disabled: false,
           placeholder: 'Ex via roma 1',
           placeholderColor: '',
           appearance: 'simple',
