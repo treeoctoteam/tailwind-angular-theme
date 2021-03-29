@@ -14,7 +14,7 @@
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor">
     {{ formField.label }}
-    <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
+    <to-hint  slot="hint" type="error">{{ errorMessage }}</to-hint>
   </to-input>
 
   <to-textarea
@@ -31,7 +31,7 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor">
-    <to-hint slot="hint" type="error">{{ getErrorMessage() }}</to-hint>
+    <to-hint *ngIf="errorMessage" slot="hint" type="error">{{ errorMessage }}</to-hint>
   </to-textarea>
 
   <to-checkbox
