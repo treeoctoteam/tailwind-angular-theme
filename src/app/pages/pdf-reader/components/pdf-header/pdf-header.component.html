@@ -1,0 +1,40 @@
+<div
+  id="en-pdf-header"
+  class="header accent p-24"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon class="secondary-text s-18 cursor-pointer" routerLink="/"
+      >home</mat-icon
+    >
+    <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+    <span class="secondary-text cursor-pointer" routerLink="..">{{
+      "NAV.DOCUMENTS" | translate
+    }}</span>
+    <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+    <span class="secondary-text cursor-pointer"><strong>PDF</strong></span>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3>{{ title }}</h3>
+  </div>
+
+  <div class="signature-widget" *ngIf="config.showSignatureWidget">
+    <button
+      mat-icon-button
+      [disabled]="config.isPrevDisabled"
+      (click)="prevSignature.emit()"
+    >
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+    {{ "PDFHEADER.SIGNATURE" | translate }}
+    <button
+      mat-icon-button
+      [disabled]="config.isNextDisabled"
+      (click)="nextSignature.emit()"
+    >
+      <mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+  <div class="sign-form-container">
+    <div class="menu-header">
+      <h4>Proprieties</h4>
+      <to-button class="close" (click)="closeOverlayMenu()">
+        <i class="fas fa-times"></i>
+      </to-button>
+    </div>
+    <div>
+      <form [formGroup]="signFieldForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Field Name</mat-label>
+          <input matInput type="text" formControlName="fieldName" />
+        </mat-form-field>
+        <form formGroupName="dimensions">
+          <mat-form-field appearance="outline">
+            <mat-label>Width</mat-label>
+            <input matInput type="number" formControlName="w" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Height</mat-label>
+            <input matInput type="number" formControlName="h" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Top</mat-label>
+            <input matInput type="number" formControlName="y" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Left</mat-label>
+            <input matInput type="number" formControlName="x" />
+          </mat-form-field>
+        </form>
+        
+      </form>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <to-button (click)="closeOverlayMenu()" mat-raised-button color="primary" class="delete-button">
+        Ok
+      </to-button>
+      <to-button (click)="deleteSignFieldElement()" mat-raised-button color="primary" class="delete-button">
+        Delete
+      </to-button>
+    </div>
+  </div>

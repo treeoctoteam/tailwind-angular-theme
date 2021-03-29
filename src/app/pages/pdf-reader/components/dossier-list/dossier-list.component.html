@@ -1,0 +1,74 @@
+<div class="page-layout simple inner-scroll" style="height: 100%">
+    <div
+        class="header accent p-24"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+    >
+        <h3>Dossiers</h3>
+
+        <button mat-button *ngIf="showGridView" (click)="onToggleViewChange()">
+            <mat-icon
+                class=""
+                *ngIf="true"
+                fontSet="far"
+                fontIcon="fa-th"
+            ></mat-icon>
+        </button>
+        <button mat-button *ngIf="!showGridView" (click)="onToggleViewChange()">
+            <mat-icon
+                class=""
+                *ngIf="true"
+                fontSet="far"
+                fontIcon="fa-list-alt"
+            ></mat-icon>
+        </button>
+    </div>
+
+    <button
+        mat-fab
+        color="warn"
+        class="add-file-button"
+        aria-label="Add file"
+        [style.transform]="documentDetails ? 'translateX(-280px)' : 'none'"
+        (click)="presentDossierConfigurator()"
+    >
+        <mat-icon>add</mat-icon>
+    </button>
+
+    <ng-container *ngIf="!showGridView; else gridView">
+        <div class="content p-12">
+            <app-dossier-card
+                *ngFor="let dossier of dossiers"
+                [dossier]="dossier"
+                (dossierSelected)="dossierSelected($event)"
+                (editDossier)="editDossier($event)"
+            >
+            </app-dossier-card>
+        </div>
+    </ng-container>
+
+    <ng-template #gridView>
+        <div fxFlex fxLayout="row">
+            <app-dossier-table
+                [dataSource]="dossiers"
+                (documentSelected)="documentSelected($event)"
+                (signDossier)="dossierSelected($event)"
+                (dossierSelectedId)="dossierSelectedIdChange($event)"
+            >
+            </app-dossier-table>
+            <euronovate-sidebar
+                *ngIf="documentDetails"
+                class="sidebar details-sidebar"
+                position="right"
+                lockedOpen="gt-sm"
+            >
+                <app-document-detail
+                    [documentDetails]="documentDetails"
+                    (editDocumentDetails)="editDocument($event)"
+                    [dossierId] = "dossierSelectedId"
+                >
+                </app-document-detail>
+            </euronovate-sidebar>
+        </div>
+    </ng-template>
+</div>

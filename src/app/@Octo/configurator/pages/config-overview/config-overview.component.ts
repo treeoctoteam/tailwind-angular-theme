@@ -1,6 +1,6 @@
 import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { octoAnimations } from 'src/app/shared/utils/animations';
@@ -21,6 +21,7 @@ export class ConfigOverviewComponent implements OnInit {
       dynamicDownload: null as unknown as HTMLElement
     }
   }
+  // @Output() configForm: EventEmitter<any> = new EventEmitter();
 
   constructor(public appService: ApplicationConfigService) {
     this.editorOptions = new JsonEditorOptions()
@@ -71,5 +72,9 @@ export class ConfigOverviewComponent implements OnInit {
   setAppConfig(form: OctoFormModel) {
     const newConfig = this.appService.generateFromOctoForm(form);
     this.data = form;
+  }
+
+  edit() {
+    console.log("EDIT FUNCION");
   }
 }

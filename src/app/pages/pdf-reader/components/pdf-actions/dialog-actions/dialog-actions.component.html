@@ -1,0 +1,33 @@
+<h1 mat-dialog-title class="text-center">Sign document</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" (submit)="sendPass()" fxLayout="column" fxLayoutAlign="space-around center">
+    <mat-form-field appearance="outline" class="w-200">
+      <mat-label>Select certificate</mat-label>
+      <mat-select formControlName="certificate">
+        <mat-option *ngFor="let certificate of certificates" [value]="certificate">
+          {{certificate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div formGroupName="passwords" fxLayout="column" fxLayoutAlign="space-around center">
+      <mat-form-field class="py-4">
+        <mat-label>Insert OTP</mat-label>
+        <input matInput type="password" formControlName="pass1">
+        <mat-error *ngIf="form.controls.passwords.get('pass1').hasError('required')">
+          OTP is request
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="py-4">
+        <mat-label>Confirm OTP</mat-label>
+        <input matInput type="password" formControlName="pass2">
+        <mat-error *ngIf="form.controls.passwords.get('pass2').hasError('required')">
+          Confirm OTP is request
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button mat-raised-button color="accent" class="mx-4" [disabled]="form.invalid">Ok</button>
+  <button mat-raised-button color="accent" class="mx-4" mat-dialog-close>Close</button>
+</div>

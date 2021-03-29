@@ -1,0 +1,22 @@
+<div class="dossier-card" 
+    appRigthClickTrigger
+    (click)="dossierSelected.emit(dossier)"
+    (rightClick)="editDossier.emit(dossier)">
+  <div class="paper"></div>
+  <div class="title">{{ dossier.name }}</div>
+  <div class="card-content">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <mat-icon>description</mat-icon>
+        </div>
+        <div class="flip-card-back">
+          <div class="counter-badge">
+            <span>{{ dossier.documents.length }} Files</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

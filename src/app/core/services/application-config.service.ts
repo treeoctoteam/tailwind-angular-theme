@@ -1,3 +1,4 @@
+import { OctoSectionModel } from './../../@Octo/form/models/octo-section.model';
 import { OctoFormUtilsService } from 'src/app/@Octo/form/octo-form-utils.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -35,7 +36,16 @@ export class ApplicationConfigService {
 
   generateFromOctoForm(form: OctoFormModel) {
     const result = this.formUtilsService.getSectionFormMap(form);
-    console.log("APPCONFIG SERVICE RESULT",result);
+    
+    let updateFields : any[] = [];
+    form.sections.forEach((section: OctoSectionModel) => {
+      const field: { id: string; name: string; value: string | number | object }[] = this.formUtilsService.getFieldFormMap(section)
+      updateFields = [field, ...updateFields]
+    })
+    
+    console.log("APPCONFIG SERVICE RESULT SECTION", result);
+    console.log("APPCONFIG SERVICE RESULT FIELDS", updateFields);
+
     // aggiornare this config con i valore di result
     this.$config.next(this.config);
   }
