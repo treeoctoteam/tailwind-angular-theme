@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { OctoFormService } from '../../octo-form.service';
 import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs/operators';
@@ -13,16 +13,16 @@ import { OctoFieldOptionModel } from '../../models/octo-field-option.model';
 })
 export class OctoFieldComponent implements OnInit, OnDestroy {
 
+  private $onDestroing: Subject<void> = new Subject<void>();
   formFieldControl: FormControl;
   errorMessage: string;
-  private $onDestroing: Subject<void> = new Subject<void>();
   filteredOptions: Observable<OctoFieldOptionModel[]>;
   @Input() formField: OctoFieldModel;
-  @Input() required: boolean;
   constructor(public _formService: OctoFormService) {}
 
   ngOnInit(): void {
     this.formFieldControl = new FormControl('', Validators.compose(this.setValidators(this.formField)));
+    this.initFormControlState(this.formField, this.formFieldControl);
     this.formFieldControl.valueChanges
       .pipe(takeUntil(this.$onDestroing), distinctUntilChanged())
       .subscribe((value) => {
@@ -33,9 +33,11 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
           this.formField.sectionId
         );
       });
+
     this.formFieldControl.statusChanges
       .pipe(takeUntil(this.$onDestroing))
       .subscribe(status => this.errorMessage = status === 'INVALID' ? this.getErrorMessage() : '');
+
     this.filteredOptions = this.formFieldControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
@@ -44,6 +46,12 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.$onDestroing.next();
+  }
+
+  private initFormControlState(field: OctoFieldModel, formControl: FormControl): void {
+    if (field?.disabled) {
+      formControl.disable();
+    }
   }
 
   private setValidators(field: OctoFieldModel): ValidatorFn[] {
