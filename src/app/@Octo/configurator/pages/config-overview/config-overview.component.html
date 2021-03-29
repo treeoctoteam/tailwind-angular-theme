@@ -2,6 +2,7 @@
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
     <to-card [cardTitle]="'Active Configuration'">
+      <to-button class="mx-2" (btnClick)="edit()" [color]="'red'">Edit</to-button>
       <json-editor
         [options]="editorOptions"
         [data]="data"
@@ -16,7 +17,7 @@
       </div>
     </to-card>
     <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
-    <octo-app-config-form (submit)="setAppConfig($event)"></octo-app-config-form>
+    <octo-app-config-form (submit)="setAppConfig($event)" [configForm]="data"></octo-app-config-form>
   </div>
 </div>
 

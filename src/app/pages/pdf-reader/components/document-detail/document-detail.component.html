@@ -1,0 +1,70 @@
+<div class="document-datail-container">
+  <div class="content p-24" euronovatePerfectScrollbar>
+    <div class="file-details"
+      [@animate]="{ value: '*', params: { delay: '200ms' } }">
+      <div class="action-buttons" fxLayout="row" fxLayoutAlign="end none">
+        <button mat-mini-fab color="primary" aria-label="Sign document" (click)="signDocument()">
+          <mat-icon>gesture</mat-icon>
+        </button>
+      </div>
+      <div class="preview file-icon"
+        fxLayout="row"
+        fxLayoutAlign="center center">
+        <mat-icon class="type-icon document s-48"></mat-icon>
+      </div>
+      <mat-form-field style="width: 100%;" appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" readonly [value]="documentDetails?.name">
+      </mat-form-field>
+      <en-file-uploader-btn
+        [multipleFile]="false"
+        [disabled]="!documentDetails"
+        [regExpFileName]="'(.*?)\.(pdf)$'"
+        (files)="onFileSelected($event)">
+      </en-file-uploader-btn>
+      <div class="flags-container">
+        <mat-slide-toggle
+          color="accent"
+          [disabled]="!documentDetails"
+          [checked]="documentDetails?.drawSignatureFields">
+          Draw signature fields
+        </mat-slide-toggle>
+        <mat-slide-toggle
+          color="accent"
+          [disabled]="!documentDetails"
+          [checked]="documentDetails?.showSignatureFields">
+          Show signature fields
+        </mat-slide-toggle>
+      </div>
+      <div class="title">Info</div>
+      <table>
+        <tr>
+          <th>Description</th>
+          <td>{{ documentDetails?.description ? documentDetails.description : "-" }}</td>
+        </tr>
+        <tr>
+          <th>Priority</th>
+          <td>{{ documentDetails?.priority ? documentDetails.priority : "-" }}</td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>{{ documentDetails?.status ? documentDetails.status : "-" }}</td>
+        </tr>
+      </table>
+    </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button
+      color="accent"
+      style="margin-right: 8px;"
+      [disabled]="!documentDetails"
+      (click)="clearDocumentDetails()">
+      Clear
+    </button>
+    <button mat-raised-button
+      color="accent"
+      [disabled]="!documentDetails"
+      (click)="editDocumentDetails.emit(documentDetails)">
+      Edit
+    </button>
+  </div>
+</div>

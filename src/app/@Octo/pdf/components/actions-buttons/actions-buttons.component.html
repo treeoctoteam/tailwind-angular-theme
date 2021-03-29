@@ -1,0 +1,180 @@
+<div class="overlay-btn-container">
+  <ng-container *ngIf="showFieldActions">
+    <to-button
+      [color]="yellow"
+      matTooltip="Field"
+      [disabled]="config.disableField"
+      (click)="drawingField.emit()"
+      [@animateEnter]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '250ms',
+          opacity: 0,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }"
+      [@animateLeave]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '50ms',
+          opacity: 1,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }">
+      <mat-icon>settings_overscan</mat-icon>
+    </to-button>
+    <to-button
+      [color]="yellow"
+      matTooltip="Image field"
+      [disabled]="config.disableImage"
+      (click)="drawingImage.emit()"
+      [@animateEnter]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '200ms',
+          opacity: 0,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }"
+      [@animateLeave]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '100ms',
+          opacity: 1,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }">
+      <mat-icon>wallpaper</mat-icon>
+    </to-button>
+    <to-button
+      [color]="yellow"
+      matTooltip="Free hand field"
+      [disabled]="config.disableFreeHand"
+      (click)="drawingFreeHand.emit()"
+      [@animateEnter]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '150ms',
+          opacity: 0,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }"
+      [@animateLeave]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '150ms',
+          opacity: 1,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }">
+      <mat-icon>brush</mat-icon>
+    </to-button>
+    <to-button 
+      [color]="yellow"
+      [disabled]="config.disableEditField"
+      (click)="editField.emit()"
+      [@animateEnter]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '100ms',
+          opacity: 0,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }"
+      [@animateLeave]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '200ms',
+          opacity: 1,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }">
+      <i slot="icon-end" class="fas fa-edit"></i>
+    </to-button>
+
+    <to-button 
+      [color]="yellow"
+      matTooltip="Print preview"
+      [disabled]="config.disablePrintPreview"
+      (click)="printView.emit()"
+      [@animateEnter]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '50ms',
+          opacity: 0,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }"
+      [@animateLeave]="{
+        value: '*',
+        params: {
+          duration: '50ms',
+          delay: '250ms',
+          opacity: 1,
+          scale: 1,
+          x: '50px',
+          y: 0,
+          z: 0
+        }
+      }">
+      <i slot="icon-end" class="fas fa-print"></i>
+    </to-button>
+    <!-- <pre> {{ config | json }}</pre> -->
+  </ng-container>
+
+  <to-button 
+    [color]="yellow"
+    matTooltip="Field"
+    [disabled]="config.disableField"
+    (click)="showFieldActions = !showFieldActions"
+    [@animateEnter]="{
+        value: '*',
+        params: {
+          duration: '300ms',
+          delay: '300ms',
+          opacity: 0,
+          scale: 1,
+          x: 0,
+          y: -400,
+          z: 0
+        }
+      }">
+  <mat-icon>more_vert</mat-icon>
+  </to-button>
+</div>

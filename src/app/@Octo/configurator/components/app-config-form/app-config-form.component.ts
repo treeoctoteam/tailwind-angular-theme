@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { OctoFormService } from './../../../form/octo-form.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 
@@ -10,9 +11,10 @@ import { ApplicationConfigService } from 'src/app/core/services/application-conf
 export class AppConfigFormComponent implements OnInit {
 
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
-  constructor(public appService: ApplicationConfigService) { }
+  constructor(public appService: ApplicationConfigService, private formServices: OctoFormService) { }
 
   @Output() submit = new EventEmitter();
+  @Input() configForm: any;
 
   ngOnInit(): void { }
 
@@ -24,6 +26,13 @@ export class AppConfigFormComponent implements OnInit {
 
   formChange(form: OctoFormModel) {
     console.log('form change', form);
+  }
+
+  test() {
+    console.log("THIS CONFIG FORM",this.configForm);
+    const test = this.formServices.setFieldValue("test", '2', '2')
+
+    // this.APPCONFIG_FORM
   }
 }
 

@@ -1,0 +1,19 @@
+<!-- <h2 mat-dialog-title>Draw your sign:</h2>
+<mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="space-around center" class="canvas-container">
+  <canvas #canvasElement class="draw-sign"></canvas>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center"  class="mt-32">
+  <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="imageData" [disabled]="!imageData">Ok</button>
+</mat-dialog-actions> -->
+
+<to-dialog
+  [dialogTitle]="Draw your sign:"
+  [dialogType]="info"
+>
+<canvas #canvasElement class="draw-sign"></canvas>
+<to-button [color]="yellow">Cancel</to-button>
+<to-button [color]="yellow" (onDialogConfirm)="imageData" [disabled]="!imageData">Ok</to-button>
+</to-dialog>

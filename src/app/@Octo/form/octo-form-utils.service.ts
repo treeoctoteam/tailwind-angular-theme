@@ -26,10 +26,10 @@ export class OctoFormUtilsService {
 
   public getFieldFormMap(
     section: OctoSectionModel
-  ): { id: string; name: string; value: string | number }[] {
-    const fields: { id: string; name: string; value: string | number }[] = [];
-    section.fields?.forEach((f) => {
-      const field: { id: string; name: string; value: string | number } = {
+  ): { id: string; name: string; value: string | number | object}[] {
+    const fields: { id: string; name: string; value: string | number | object }[] = [];
+    section.fields.forEach((f) => {
+      const field: { id: string; name: string; value: string | number | object } = {
         id: f.id,
         name: f.name,
         value: f.value,

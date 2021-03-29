@@ -1,0 +1,32 @@
+#pdf-sidebar {
+  overflow: auto;
+  background-color: rgba(249, 249, 249, 1);
+  height: 100%;
+
+  .mat-list-base .mat-list-item,
+  .mat-list-base .mat-list-option {
+      height: 60px !important;
+  }
+
+  .step-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .step-icon {
+      width: 44px;
+      height: auto;
+      padding-right: 15px;
+      img {
+        position: relative;
+        width: 100%;
+      }
+    }
+    .step-desc {
+      max-width: 160px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}
