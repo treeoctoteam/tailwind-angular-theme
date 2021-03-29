@@ -21,7 +21,7 @@ export class ConfigOverviewComponent implements OnInit {
       dynamicDownload: null as unknown as HTMLElement
     }
   }
-  // @Output() configForm: EventEmitter<any> = new EventEmitter();
+  @Output() configForm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(public appService: ApplicationConfigService) {
     this.editorOptions = new JsonEditorOptions()
@@ -75,6 +75,7 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
   edit() {
-    console.log("EDIT FUNCION");
+    // console.log("EDIT FUNCION");
+    this.configForm.emit(true);
   }
 }

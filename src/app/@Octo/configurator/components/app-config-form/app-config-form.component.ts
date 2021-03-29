@@ -575,7 +575,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           textColor: '',
           backgroundColor: '',
           clearable: true,
-          value: '',
+          value: 'landingpage',
           type: 'autocomplete',
           multipleSelection: true,
           options: [

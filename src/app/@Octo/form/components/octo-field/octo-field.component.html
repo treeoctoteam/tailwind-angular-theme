@@ -67,7 +67,10 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
-    [multipleSelection]="formField.multipleSelection">
+    [multipleSelection]="formField.multipleSelection"
+    [value]="formField.value"
+    >
+
     {{ formField.label }}
   </to-autocomplete>
 
@@ -84,7 +87,8 @@
     [borderColor]="formField.borderColor"
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
-    [backgroundColor]="formField.backgroundColor">
+    [backgroundColor]="formField.backgroundColor"
+    [value]="formField.value">
   </to-select>
 
   <to-toggle
