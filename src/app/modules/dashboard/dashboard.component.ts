@@ -30,7 +30,7 @@ export class DashboardComponent implements AfterViewInit {
       ]),
       age: new FormControl(0, [Validators.required, Validators.max(25)]),
     });
-    this.formControld.valueChanges.subscribe(console.log);
+    this.formGroupTest.valueChanges.subscribe(console.log);
   }
 
   ngAfterViewInit(): void { }

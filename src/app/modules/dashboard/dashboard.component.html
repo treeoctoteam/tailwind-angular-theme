@@ -5,6 +5,19 @@
 </div>
 
 <ng-template #dashboardContainer>
+  <div class="flex items-center justify-center bg-white shadow-md rounded-md">
+    <form class="w-96 m-3" [formGroup]="formGroupTest">
+      <to-input type="text" appearance="solid" octoValueAccessor formControlName="name">
+        Name
+      </to-input>
+      <to-input type="text" appearance="simple" octoValueAccessor formControlName="surname">
+        Surname
+      </to-input>
+      <to-input type="number" [clearable]="false" appearance="underline" octoValueAccessor formControlName="age">
+        Age
+      </to-input>
+    </form>
+  </div>
   <!-- <router-outlet #dashboard
     (activate)="onActivate($event, dashboard)">
   </router-outlet> -->

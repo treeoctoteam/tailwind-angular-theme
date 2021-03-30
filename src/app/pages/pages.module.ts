@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { LockComponent } from './lock/lock.component';
 
-
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'faq', component: FaqComponent },

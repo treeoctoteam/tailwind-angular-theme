@@ -31,7 +31,6 @@ export class AppConfigFormComponent implements OnInit {
   test() {
     console.log("THIS CONFIG FORM",this.configForm);
     const test = this.formServices.setFieldValue("test", '2', '2')
-
     // this.APPCONFIG_FORM
   }
 }
@@ -103,7 +102,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           textColor: '',
           backgroundColor: '',
           clearable: true,
-          value: '',
+          value: 'gsdfgsdfg',
           type: 'text',
           validation: {
             required: false,
@@ -381,13 +380,14 @@ const APPCONFIG_FORM: OctoFormModel = {
           labelColor: '',
           borderColor: '',
           backgroundColor: '',
+          textColor: 'text-red-300',
           clearable: true,
           value: '',
           type: 'toggle',
           validation: {
-            required: true,
+            required: true
           },
-          sectionId: '4',
+          sectionId: '4'
         },
         {
           id: '2',

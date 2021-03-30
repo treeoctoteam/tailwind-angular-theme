@@ -1,0 +1,28 @@
+  <div class="sign-form-container">
+    <div class="menu-header">
+      <h4>Proprieties</h4>
+      <to-button class="float-right -right-6 -top-6" [type]="'flat'" [color]="'red'" [textColor]="'red'" type="flat"
+        (btnClick)="closeOverlayMenu()">
+        <i class="fad fa-times-circle fa-2x"></i>
+      </to-button>
+    </div>
+    <div>
+      <form [formGroup]="signFieldForm">
+        <to-input type="text" octoValueAccessor formControlName="fieldName">Field Nmae</to-input>
+        <form formGroupName="dimensions">
+          <to-input type="number" octoValueAccessor formControlName="w">Width</to-input>
+          <to-input type="number" octoValueAccessor formControlName="h">Heigth</to-input>
+          <to-input type="number" octoValueAccessor formControlName="y">Top</to-input>
+          <to-input type="number" octoValueAccessor formControlName="x">Left</to-input>
+        </form>
+      </form>
+    </div>
+    <div class="flex items-center justify-center p-2">
+      <to-button (click)="deleteSignFieldElement()" [color]="'red'" class="mr-2">
+        Delete
+      </to-button>
+      <to-button (click)="closeOverlayMenu()" [type]="'outline'" [color]="'red'" [textColor]="'red'">
+        Confirm
+      </to-button>
+    </div>
+  </div>

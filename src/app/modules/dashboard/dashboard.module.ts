@@ -19,8 +19,8 @@ const routes: Routes = [
           import('../../pages/pages.module').then((m) => m.PagesModule),
         canActivateChild: [NavigationGuard],
       },
-    ],
-  },
+    ]
+  }
 ];
 
 @NgModule({

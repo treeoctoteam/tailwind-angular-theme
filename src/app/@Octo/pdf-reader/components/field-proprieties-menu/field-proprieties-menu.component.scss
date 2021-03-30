@@ -1,0 +1,29 @@
+.delete-button {
+  margin: -1em 1em 1em 1em;
+}
+
+.sign-form-container {
+  background-color: #fafafa;
+  z-index: 1000;
+  box-shadow: 0 0 12pt rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  animation: fadeIn 0.2s ease-out;
+  opacity: 1;
+  display: block;
+  width: 280px;
+  .menu-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-left: 14px;
+  }
+  h4 {
+    margin-top: 0.7em;
+  }
+  form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -87,8 +87,10 @@
     *ngIf="formField.type === 'toggle'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [formField]="formField"
-    [checked]="formField.value">
+    [checked]="formField.value"
+    [borderColor]="formField.borderColor"
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor">
     {{formField.label}}
   </to-toggle>
 </ng-container>

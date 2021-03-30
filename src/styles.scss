@@ -13,3 +13,19 @@
   display: grid;
   grid-template-rows: 66px 1fr 69px;
 }
+
+.active-sign-field {
+  border-style: dashed!important;
+  background-color: rgba($color: azure, $alpha: .6)!important;;
+}
+
+.unverified-signature-warning {
+  display: none ;
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  width: 250px;
+  top: 0;
+  left: 0;
+}

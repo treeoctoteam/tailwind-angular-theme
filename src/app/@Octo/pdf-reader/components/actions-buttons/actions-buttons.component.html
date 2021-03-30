@@ -1,0 +1,55 @@
+<div class="absolute bottom-4 right-4 m-2">
+  <ng-container  *ngIf="showFieldActions">
+    <to-button
+      [color]="'yellow'"
+      [type]="'flat'"
+      [textColor]="'yellow'"
+      [disabled]="config.disableField"
+      (click)="drawingField.emit()">
+      <i class="fad fa-arrows fa-2x"></i>
+    </to-button>
+    <to-button
+      [color]="'yellow'"
+      [type]="'flat'"
+      [textColor]="'yellow'"
+      [disabled]="config.disableImage"
+      (click)="drawingImage.emit()">
+      <i class="fad fa-image-polaroid fa-2x"></i>
+    </to-button>
+    <to-button
+      [color]="'yellow'"
+      [type]="'flat'"
+      [textColor]="'yellow'"
+      [disabled]="config.disableFreeHand"
+      (click)="drawingFreeHand.emit()">
+      <i class="fad fa-paint-brush-alt fa-2x"></i>
+    </to-button>
+    <to-button
+      [color]="'yellow'"
+      [type]="'flat'"
+      [textColor]="'yellow'"
+      [disabled]="config.disableEditField"
+      (click)="editField.emit()">
+      <i class="fas fa-edit fa-2x"></i>
+    </to-button>
+
+    <to-button
+      [color]="'yellow'"
+      [type]="'flat'"
+      [textColor]="'yellow'"
+      [disabled]="config.disablePrintPreview"
+      (click)="printView.emit()">
+      <i class="fas fa-print fa-2x"></i>
+    </to-button>
+  </ng-container>
+
+  <to-button
+    class="ml-2"
+    [color]="'yellow'"
+    [type]="'flat'"
+    [textColor]="'yellow'"
+    [disabled]="config.disableField"
+    (click)="showFieldActions = !showFieldActions">
+    <i class="fad fa-ellipsis-v fa-2x"></i>
+  </to-button>
+</div>

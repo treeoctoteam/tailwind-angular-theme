@@ -116,6 +116,7 @@
     { "path": "/login", "authenticate": false },
     { "path": "/register", "authenticate": false },
     { "path": "/faq", "authenticate": true },
+    { "path": "/pdf-viewer", "authenticate": false },
     { "path": "/contacts", "authenticate": false },
     { "path": "/animations-config", "authenticate": true }
   ]

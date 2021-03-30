@@ -8,11 +8,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ValueAccessorDirective } from './directives/value-accessor.directive';
 
 @NgModule({
   declarations: [
     LoginFormComponent,
     RegisterFormComponent,
+    ValueAccessorDirective,
     FooterComponent,
     ContainerComponent,
     HeaderComponent,
@@ -22,8 +24,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
-
+    FormsModule
   ],
   exports: [
     LoginFormComponent,
@@ -32,7 +33,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ContainerComponent,
     HeaderComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ValueAccessorDirective
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

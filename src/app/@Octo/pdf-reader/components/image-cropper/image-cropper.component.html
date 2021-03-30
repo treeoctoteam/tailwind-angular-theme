@@ -1,0 +1,28 @@
+<div class="cropper-container">
+  <div class="img-cropper-container">
+    <img alt="Signature Image">
+  </div>
+
+  <div class="zoom-buttons m-1">
+    <to-button type="flat" [textColor]="'blue'" (btnClick)="onCropperZoom('zoom-out')">
+      <i class="fad fa-minus-circle fa-2x"></i>
+    </to-button>
+    <div class="font-medium text-base text-gray-600 mx-1">Zoom</div>
+    <to-button type="flat" [textColor]="'blue'" (btnClick)="onCropperZoom('zoom-in')">
+      <i class="fad fa-plus-circle fa-2x"></i>
+    </to-button>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <div class="font-medium text-base text-gray-600">Preview: </div>
+    <div class="img-preview-container">
+      <!-- <div class="signature-shape"
+        [style.width]="signatureFieldWidth + 'px'"
+        [style.height]="(signatureFieldHeight - 1) + 'px'">
+      </div> -->
+      <div [style.width]="signatureFieldWidth + 'px'"
+          class="img-preview preview-lg">
+      </div>
+    </div>
+  </div>
+</div>

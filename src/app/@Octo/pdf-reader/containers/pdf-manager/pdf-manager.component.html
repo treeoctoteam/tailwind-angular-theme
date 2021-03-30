@@ -1,0 +1,44 @@
+<div class="pdf-container">
+  <octo-pdf-viewer
+    [config]="viewerConfig"
+    [documentSrc]="document?.url"
+    [documentFields]="document?.documentFields"
+    [enableHandTool]="canvasDrawerService.enableHandTool"
+    (drawDocumentFields)="drawDocumentFields($event)"
+    (currentPageElement)="setCurrentPageElement($event)">
+  </octo-pdf-viewer>
+  <div class="actions-buttons-container">
+    <octo-actions-buttons
+      (drawingField)="drawingField()"
+      (drawingImage)="createDrawingImage()"
+      (drawingFreeHand)="drawingFreeHand()"
+      (editField)="editField()"
+      (printView)="printView()"
+      [config]="actionButtonsConfig">
+    </octo-actions-buttons>
+  </div>
+  <ng-template #signForm>
+    <octo-field-proprieties-menu
+      cdkDrag
+      [activeDocumentField]="activeDocumentField"
+      (formDataChange)="formDataChange($event)"
+      (closeMenu)="closeMenu()"
+      (deleteSignField)="deleteSignField($event)">
+    </octo-field-proprieties-menu>
+  </ng-template>
+</div>
+
+<ng-template #signatureDialog>
+  <octo-signature-dialog
+    (dismissDrawSignature)="dismissDrawSignature()"
+    (confirmSignatureDrawn)="confirmSignatureDrawn($event)">
+  </octo-signature-dialog>
+</ng-template>
+
+<ng-template #uploadImageDialog>
+  <octo-upload-image-dialog
+    (confirmCroppedImage)="confirmCroppedImage($event)"
+    (dismissImageCropper)="dismissImageCropper()">
+  </octo-upload-image-dialog>
+</ng-template>
+

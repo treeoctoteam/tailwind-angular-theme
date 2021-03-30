@@ -34,13 +34,21 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/fontawesome-pro/css/all.min.css"
+              "src/assets/fontawesome-pro/css/all.min.css",
+              "node_modules/cropperjs/dist/cropper.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/cropperjs/dist/cropper.js"
+            ]
           },
           "configurations": {
             "production": {
