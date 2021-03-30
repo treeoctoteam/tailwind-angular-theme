@@ -1,3 +1,4 @@
+import { AppConfigFormComponent } from './../../components/app-config-form/app-config-form.component';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
@@ -13,14 +14,18 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
 export class ConfigOverviewComponent implements OnInit {
 
   public editorOptions: JsonEditorOptions;
-  public data: any;
+  public appConfigForm: any;
+
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
+  @ViewChild(AppConfigFormComponent) appConfigFormComponent: AppConfigFormComponent;
+
   private setting = {
     element: {
       dynamicDownload: null as unknown as HTMLElement
     }
   }
-  // @Output() configForm: EventEmitter<any> = new EventEmitter();
+
+  editedConfigForm: any;
 
   constructor(public appService: ApplicationConfigService) {
     this.editorOptions = new JsonEditorOptions()
@@ -28,7 +33,7 @@ export class ConfigOverviewComponent implements OnInit {
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
 
-    this.data = appService.config;
+    this.appConfigForm = appService.config;
   }
 
   ngOnInit(): void {
@@ -54,7 +59,7 @@ export class ConfigOverviewComponent implements OnInit {
     alert("exported!")
     this.dyanmicDownloadByHtmlTag({
       fileName: 'app-config.json',
-      text: JSON.stringify(this.data)
+      text: JSON.stringify(this.appConfigForm)
     });
   }
   save() {
@@ -70,10 +75,9 @@ export class ConfigOverviewComponent implements OnInit {
 
   setAppConfig(form: OctoFormModel) {
     const newConfig = this.appService.generateFromOctoForm(form);
-    this.data = form;
+    this.appConfigForm = form;
   }
-
-  edit() {
-    console.log("EDIT FUNCION");
+  editForm() {
+    this.appConfigFormComponent.editConfig();
   }
 }

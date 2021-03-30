@@ -1,5 +1,5 @@
 {
-  "startup": "file",
+  "startup": "API",
   "customerInfo": {
     "name": "EURONOVATE",
     "address": "via roma 1",
@@ -8,7 +8,7 @@
   },
   "network": {
     "host": "https://dev.tap-id.tech",
-    "basePath": "/euronovate/",
+    "basePath": "/video_operator/euronovate/",
     "hostApi": "https://dev.tap-id.tech",
     "hostApiV1": "https://dev.tap-id.tech/v1",
     "hostApiV2": "https://dev.tap-id.tech/v2",
@@ -42,6 +42,6 @@
     }
   ],
   "theme": {
-    "favicon": ""
+    "favicon": "test"
   }
 }

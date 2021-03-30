@@ -2,22 +2,22 @@
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
     <to-card [cardTitle]="'Active Configuration'">
-      <to-button class="mx-2" (btnClick)="edit()" [color]="'red'">Edit</to-button>
       <json-editor
-        [options]="editorOptions"
-        [data]="data"
-        (change)="change($event)"
-        (jsonChange)="jchange($event)"
+      [options]="editorOptions"
+      [data]="appConfigForm"
+      (change)="change($event)"
+      (jsonChange)="jchange($event)"
       ></json-editor>
       <div class="flex flex-wrap w-full p-2 justify-center">
         <to-button class="mx-2" (btnClick)="export()" [color]="'red'">Export</to-button>
+        <to-button class="mx-2" (btnClick)="editForm()" [color]="'red'">Edit</to-button>
         <!-- <to-button class="mx-2" (btnClick)="save()" [color]="'yellow'"
             >Update</to-button
           > -->
       </div>
     </to-card>
     <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
-    <octo-app-config-form (submit)="setAppConfig($event)" [configForm]="data"></octo-app-config-form>
+    <octo-app-config-form (submit)="setAppConfig($event)" [configForm]="appConfigForm"></octo-app-config-form>
   </div>
 </div>
 
