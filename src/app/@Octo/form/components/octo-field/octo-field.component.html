@@ -3,7 +3,7 @@
     *ngIf="formField.type === 'text' || formField.type === 'number' || formField.type === 'password'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [formField]="formField"
+    [value]="formField.value"
     [type]="formField.type"
     [clearable]="formField.clearable"
     [placeholder]="formField.placeholder"
@@ -21,7 +21,7 @@
     *ngIf="formField.type === 'textarea'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [formField]="formField"
+    [value]="formField.value"
     [label]="formField.label"
     [clearable]="formField.clearable"
     [placeholder]="formField.placeholder"
@@ -38,7 +38,6 @@
     *ngIf="formField.type === 'checkbox'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [formField]="formField"
     [checkboxId]="formField.id"
     [checked]="formField.value"
     [appearance]="formField.appearance"
@@ -53,7 +52,7 @@
     *ngIf="formField.type === 'autocomplete'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [formField]="formField"
+    [value]="formField.value"
     [type]="formField.type"
     [options]="formField.options"
     [clearable]="formField.clearable"
@@ -72,7 +71,7 @@
     *ngIf="formField.type === 'select'"
     octoValueAccessor
     [formControl]="formFieldControl"
-    [formField]="formField"
+    [value]="formField.value"
     [options]="formField.options"
     [label]="formField.label"
     [placeholder]="formField.placeholder"

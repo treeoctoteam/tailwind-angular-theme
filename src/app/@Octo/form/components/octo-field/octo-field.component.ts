@@ -49,6 +49,9 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
   }
 
   private initFormControlState(field: OctoFieldModel, formControl: FormControl): void {
+    if (field?.value) {
+      formControl.setValue(field.value);
+    }
     if (field?.disabled) {
       formControl.disable();
     }
