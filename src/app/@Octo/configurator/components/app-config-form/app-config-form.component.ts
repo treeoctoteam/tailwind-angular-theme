@@ -1,4 +1,3 @@
-import { OctoFormService } from './../../../form/octo-form.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
@@ -14,7 +13,8 @@ import { ApplicationConfigService } from 'src/app/core/services/application-conf
 export class AppConfigFormComponent implements OnInit {
 
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
-  constructor(public appService: ApplicationConfigService, private formServices: OctoFormService) { }
+
+  constructor(public appService: ApplicationConfigService) { }
 
   @Output() submit = new EventEmitter();
   @Input() configForm: any;
@@ -31,17 +31,7 @@ export class AppConfigFormComponent implements OnInit {
     console.log('form change', form);
   }
 
-  editConfig() {
-    console.log("THIS CONFIG FORM",this.configForm, this.appConfigForm);
-    // const sections = Object.keys(this.configForm);
-    // const sectionsValue = Object.values(this.configForm)
-    // this.appConfigForm.sections.forEach((section, index)=> {
-    //   sections.forEach((element, index) => {
-    //     if(element === section.name){
-    //       section.fields[0].value = sectionsValue[index]
-    //     }
-    //   });
-    // })
+   editConfig() {
     this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
     this.appConfigForm.sections[1].fields[0].value = this.configForm.customerInfo.name;
     this.appConfigForm.sections[1].fields[1].value = this.configForm.customerInfo.address;
@@ -133,7 +123,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           textColor: '',
           backgroundColor: '',
           clearable: true,
-          value: 'TEST VALUE',
+          value: '',
           type: 'text',
           validation: {
             required: false,
@@ -229,6 +219,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           clearable: true,
           value: '',
           type: 'autocomplete',
+          multipleSelection: false,
           options: [
             { value: 'https://dev.tap-id.tech', label: 'Dev' },
             { value: 'https://test.tap-id.tech', label: 'Test' },
@@ -544,6 +535,7 @@ const APPCONFIG_FORM: OctoFormModel = {
             { value: '/landingpage', label: 'landingpage' },
             { value: '/dashboard', label: 'dashboard' },
             { value: '/workflow', label: 'workflow' },
+            { value: '/configurator', label: 'configurator' },
           ],
           validation: {
             required: true,
@@ -575,13 +567,14 @@ const APPCONFIG_FORM: OctoFormModel = {
           textColor: '',
           backgroundColor: '',
           clearable: true,
-          value: 'landingpage',
+          value: '/landingpage',
           type: 'autocomplete',
           multipleSelection: true,
           options: [
             { value: '/landingpage', label: 'landingpage' },
             { value: '/dashboard', label: 'dashboard' },
             { value: '/workflow', label: 'workflow' },
+            { value: '/configurator', label: 'configurator' },
           ],
           validation: {
             required: true,
@@ -643,23 +636,11 @@ const APPCONFIG_FORM: OctoFormModel = {
           options: [
             {
               label: 'Italiano',
-              value: {
-                "id": "en",
-                "title": "LOCALES.EN",
-                "flag": "EN",
-                "iso3code": "USA",
-                "enabled": false
-              }
+              value: 'it'
             },
             {
               label: 'English',
-              value: {
-                "id": "it",
-                "title": "LOCALES.IT",
-                "flag": "IT",
-                "iso3code": "ITA",
-                "enabled": false
-              }
+              value: 'en'
             }
           ],
           validation: {

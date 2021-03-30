@@ -1,6 +1,7 @@
+import { AppConfigFormComponent } from './../../components/app-config-form/app-config-form.component';
 import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
-import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter, Input } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { octoAnimations } from 'src/app/shared/utils/animations';
@@ -14,14 +15,18 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
 export class ConfigOverviewComponent implements OnInit {
 
   public editorOptions: JsonEditorOptions;
-  public data: any;
+  public appConfigForm: any;
+
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
+  @ViewChild(AppConfigFormComponent) appConfigFormComponent: AppConfigFormComponent;
+
   private setting = {
     element: {
       dynamicDownload: null as unknown as HTMLElement
     }
   }
-  @Output() configForm: EventEmitter<boolean> = new EventEmitter();
+
+  editedConfigForm: any;
 
   constructor(public appService: ApplicationConfigService) {
     this.editorOptions = new JsonEditorOptions()
@@ -29,7 +34,7 @@ export class ConfigOverviewComponent implements OnInit {
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
 
-    this.data = appService.config;
+    this.appConfigForm = appService.config;
   }
 
   ngOnInit(): void {
@@ -55,7 +60,7 @@ export class ConfigOverviewComponent implements OnInit {
     alert("exported!")
     this.dyanmicDownloadByHtmlTag({
       fileName: 'app-config.json',
-      text: JSON.stringify(this.data)
+      text: JSON.stringify(this.appConfigForm)
     });
   }
   save() {
@@ -71,11 +76,9 @@ export class ConfigOverviewComponent implements OnInit {
 
   setAppConfig(form: OctoFormModel) {
     const newConfig = this.appService.generateFromOctoForm(form);
-    this.data = form;
+    this.appConfigForm = form;
   }
-
-  edit() {
-    // console.log("EDIT FUNCION");
-    this.configForm.emit(true);
+  editForm() {
+    this.appConfigFormComponent.editConfig();
   }
 }

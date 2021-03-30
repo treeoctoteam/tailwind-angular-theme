@@ -11,7 +11,7 @@ export interface OctoFieldModel {
   class?: string;
   name: string;
   disabled: boolean;
-  value: string | number;
+  value: string | number | string[];
   placeholder?: string;
   appearance: TOInputAppearance;
   type: OctoFieldType;
