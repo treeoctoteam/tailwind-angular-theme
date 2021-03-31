@@ -79,7 +79,8 @@ export class ConfigOverviewComponent implements OnInit {
     this.appConfigForm = form;
   }
   editForm() {
-    this.isEditedMode = true;
+    // this.isEditedMode = true;
     this.appConfigFormComponent.editConfig();
+    this.appConfigFormComponent.showForm = true;
   }
 }

@@ -1,7 +1,8 @@
-<to-card [cardTitle]="'StartUp'">
+<to-card [cardTitle]="'StartUp'" *ngIf="showForm">
   <octo-form
     [formModel]="appConfigForm"
     (formChange)="formChange($event)"
     (formSubmit)="formSubmit($event)"
+    (formExport)="formExport()"
   ></octo-form>
 </to-card>
