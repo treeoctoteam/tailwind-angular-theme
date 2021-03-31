@@ -15,7 +15,8 @@ export class ConfigOverviewComponent implements OnInit {
 
   public editorOptions: JsonEditorOptions;
   public appConfigForm: any;
-
+  public isEditedMode = false;
+  
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
   @ViewChild(AppConfigFormComponent) appConfigFormComponent: AppConfigFormComponent;
 
@@ -78,6 +79,7 @@ export class ConfigOverviewComponent implements OnInit {
     this.appConfigForm = form;
   }
   editForm() {
+    this.isEditedMode = true;
     this.appConfigFormComponent.editConfig();
   }
 }

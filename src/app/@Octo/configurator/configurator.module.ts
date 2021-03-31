@@ -1,3 +1,4 @@
+import { I18nService } from 'src/app/core/services/i18n.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfigStartComponent } from './pages/config-start/config-start.component';
@@ -38,4 +39,8 @@ const routes: Routes = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ConfiguratorModule { }
+export class ConfiguratorModule {
+  constructor(i18nService: I18nService) {
+    i18nService.getCountries();
+  }
+ }

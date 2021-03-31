@@ -38,7 +38,7 @@
       "title": "LOCALES.IT",
       "flag": "IT",
       "iso3code": "ITA",
-      "enabled": false
+      "enabled": true
     }
   ],
   "theme": {

@@ -1,6 +1,17 @@
+import { Country } from './../../../../core/services/i18n.service';
+import { I18nService } from 'src/app/core/services/i18n.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
+import { element } from 'protractor';
+
+export type AppConfigLanguage = { 
+  id: string; 
+  title: string; 
+  flag: string;
+  iso3code: string; 
+  enabled: boolean;
+}
 
 @Component({
   selector: 'octo-app-config-form',
@@ -14,7 +25,24 @@ export class AppConfigFormComponent implements OnInit {
 
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
 
-  constructor(public appService: ApplicationConfigService) { }
+  languages: AppConfigLanguage[] = [
+    {
+      "id": "en",
+      "title": "LOCALES.EN",
+      "flag": "EN",
+      "iso3code": "USA",
+      "enabled": false
+    },
+    {
+      "id": "it",
+      "title": "LOCALES.IT",
+      "flag": "IT",
+      "iso3code": "ITA",
+      "enabled": false
+    }
+  ]
+
+  constructor(public appService: ApplicationConfigService, public i18nService: I18nService) { }
 
   @Output() submit = new EventEmitter();
   @Input() configForm: any;
@@ -23,6 +51,18 @@ export class AppConfigFormComponent implements OnInit {
 
   formSubmit(form: OctoFormModel) {
     this.appConfigForm = {...form};
+
+    const languagesValue = this.appConfigForm.sections[7].fields[1].value as string[];
+    if(languagesValue) {
+      let newLanguagesValue: any[] = []
+      languagesValue.forEach(lang => {
+        this.languages.forEach((language) => {
+          if(lang === language.flag)
+          newLanguagesValue = [language, ...newLanguagesValue];
+        })
+      })
+      this.appConfigForm.sections[7].fields[1].value = newLanguagesValue;
+    }
     this.submit.emit(this.appConfigForm);
     console.log('form submit', form);
   }
@@ -31,7 +71,7 @@ export class AppConfigFormComponent implements OnInit {
     console.log('form change', form);
   }
 
-   editConfig() {
+   editConfig() {  
     this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
     this.appConfigForm.sections[1].fields[0].value = this.configForm.customerInfo.name;
     this.appConfigForm.sections[1].fields[1].value = this.configForm.customerInfo.address;
@@ -52,8 +92,17 @@ export class AppConfigFormComponent implements OnInit {
     this.appConfigForm.sections[5].fields[0].value = this.configForm.defaultLayout;
     this.appConfigForm.sections[6].fields[0].value = this.configForm.layouts;
     this.appConfigForm.sections[7].fields[0].value = this.configForm.defaultLanguage;
-    this.appConfigForm.sections[7].fields[1].value = this.configForm.languages;
+
+    let enabledLanguageFromConfig: string[] = [];
+     this.configForm.languages?.forEach((language:AppConfigLanguage) => {
+       if(language.enabled === true) {
+         enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
+       }
+     });
+    this.appConfigForm.sections[7].fields[1].value = enabledLanguageFromConfig;
     this.appConfigForm.sections[8].fields[0].value = this.configForm.theme.favicon;
+
+     console.log(this.appConfigForm.sections[7].fields[1].value)
   }
 }
 
@@ -636,12 +685,12 @@ const APPCONFIG_FORM: OctoFormModel = {
           multipleSelection: true,
           options: [
             {
-              label: 'Italiano',
-              value: 'it'
+              label: 'USA',
+              value: 'EN'
             },
             {
-              label: 'English',
-              value: 'en'
+              label: 'ITA',
+              value: 'IT'
             }
           ],
           validation: {
