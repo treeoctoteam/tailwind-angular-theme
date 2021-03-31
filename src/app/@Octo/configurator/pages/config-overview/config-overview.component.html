@@ -1,4 +1,4 @@
-<div class="gradient leading-relaxed tracking-wide flex flex-col">
+<div class="gradient leading-relaxed tracking-wide flex flex-col h-full">
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
     <to-card [cardTitle]="'Active Configuration'">
@@ -16,8 +16,10 @@
           > -->
       </div>
     </to-card>
-    <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
-    <octo-app-config-form (submit)="setAppConfig($event)" [configForm]="appConfigForm"></octo-app-config-form>
+    <ng-container *ngIf="isEditedMode">
+      <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
+      <octo-app-config-form (submit)="setAppConfig($event)" [configForm]="appConfigForm"></octo-app-config-form>
+    </ng-container>
   </div>
 </div>
 
