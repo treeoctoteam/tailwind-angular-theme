@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ENDocumentField } from '../../models/document-fields.model';
 
 @Component({
@@ -43,7 +43,7 @@ export class PdfViewerComponent implements OnInit {
     if (pageElement) {
       pageData.pdfPage.getAnnotations().then((annotations) => {
         let documentFields = [];
-       if (this.prevPageHeight === 0 && annotations?.length > 0) {
+        if (this.prevPageHeight === 0 && annotations?.length > 0) {
           for (let annotation of annotations) {
             let documentField: Partial<ENDocumentField>;
             documentField = {
@@ -59,6 +59,14 @@ export class PdfViewerComponent implements OnInit {
             this.drawDocumentFields.emit(documentField);
           }
         }
+        else if (this.documentFields?.length > 0){
+          for (let documentField of this.documentFields) {
+            if (this.prevPageHeight !== 0) {
+              documentField.dimensions = this.calculateSignaturePositionByDimensions(documentField.dimensions)
+            }
+            this.drawDocumentFields.emit(documentField);
+          }
+        }
         this.prevPageHeight = pageDimensions.canvasHeight;
       });
     }
@@ -69,16 +77,16 @@ export class PdfViewerComponent implements OnInit {
     this.currentPageElement.emit(pageElement);
   }
 
-  zoomChange(value: number) {
-    if (value) {
-      for (let documentField of this.documentFields) {
-        if (this.prevPageHeight !== 0) {
-          documentField.dimensions = this.calculateSignaturePositionByDimensions(documentField.dimensions)
-        }
-        this.drawDocumentFields.emit(documentField);
-      }
-    }
-  }
+  // zoomChange(value: number) {
+  //   if (value) {
+  //     for (let documentField of this.documentFields) {
+  //       if (this.prevPageHeight !== 0) {
+  //         documentField.dimensions = this.calculateSignaturePositionByDimensions(documentField.dimensions)
+  //       }
+  //       this.drawDocumentFields.emit(documentField);
+  //     }
+  //   }
+  // }
 
   private calculateSignaturePositionByAnnotationRect(signFieldRect: number[], pageDimensions, pageElement) {
     const fx = signFieldRect[0];
