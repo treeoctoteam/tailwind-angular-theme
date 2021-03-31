@@ -138,7 +138,7 @@ export class PdfManagerComponent implements AfterViewInit {
   }
 
   drawingFreeHand() {
-    this.dialogService.open({hasBackdrop: true, hasCustomTemplate: true}, signatureDialogId, this.signatureDialogTemplateRef)
+    this.dialogService.open({hasBackdrop: true, hasCustomTemplate: true, width: '800px', maxWidth: 'auto', height: '345px'}, signatureDialogId, this.signatureDialogTemplateRef)
   }
 
   dismissDrawSignature() {

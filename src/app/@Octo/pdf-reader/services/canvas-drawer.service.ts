@@ -140,6 +140,7 @@ export class CanvasDrawerService {
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
+    console.log(rect)
 
     this.captureEvents(canvas, 'freeHand')
       .pipe(takeUntil($unsubscribe))
@@ -150,6 +151,7 @@ export class CanvasDrawerService {
         x2 = this.getClientXY(res[1]).clientX;
         y2 = this.getClientXY(res[1]).clientY;
 
+        console.log(x1, y1);
         // previous and current position with the offset
         let prevPos = {
           x: x1 - rect.left,

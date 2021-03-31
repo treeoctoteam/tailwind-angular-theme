@@ -1,13 +1,17 @@
-<div class="p-6">
-  <to-button class="float-right -right-6 -top-6" [type]="'flat'" [color]="'green'" [textColor]="'green'" type="flat" (btnClick)="dismissDrawSignature.emit()">
-    <i class="fad fa-times-circle fa-2x"></i>
-  </to-button>
+<div class="p-4">
+  <div class="flex items-center justify-between">
+    <div class="font-medium text-base text-gray-600 mb-3">Draw your sign:</div>
+    <to-button class="float-right -right-6 -top-6" [type]="'flat'" [color]="'green'" [textColor]="'green'" type="flat"
+      (btnClick)="dismissDrawSignature.emit()">
+      <i class="fad fa-times-circle fa-2x"></i>
+    </to-button>
+  </div>
 
-  <div class="font-medium text-base text-gray-600 mb-3">Draw your sign:</div>
-  <div>
+  <div class="canvas-container">
     <canvas #canvasElement class="border-gray-200 border"></canvas>
   </div>
-  <div class="flex items-center justify-end mt-2">
+
+  <div class="absolute right-4 bottom-4 flex items-center justify-end mt-2">
     <to-button
       [type]="'outline'"
       [color]="'green'"

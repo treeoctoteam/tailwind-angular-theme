@@ -1,9 +1,10 @@
-<div class="p-6">
-  <to-button class="float-right -right-6 -top-6" [textColor]="'blue'" type="flat" (btnClick)="dismissImageCropper.emit()">
-    <i class="fad fa-times-circle fa-2x"></i>
-  </to-button>
-
-  <div class="font-medium text-base text-gray-600 mb-3">Upload and crop signature images</div>
+<div class="p-4">
+  <div class="flex items-center justify-between px-2">
+    <div class="font-medium text-base text-gray-600">Upload and crop signature images</div>
+    <to-button [textColor]="'blue'" type="flat" (btnClick)="dismissImageCropper.emit()">
+      <i class="fad fa-times-circle fa-2x"></i>
+    </to-button>
+  </div>
   <div class="w-full flex items-end justify-evenly">
     <to-button type="filled"  class="mt-4" (btnClick)="inputElement.click()">
       <i class="fad fa-file-image"></i> Select immage

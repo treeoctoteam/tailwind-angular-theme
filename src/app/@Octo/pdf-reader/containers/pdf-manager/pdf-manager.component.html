@@ -1,4 +1,4 @@
-<div class="pdf-container">
+<div class="w-screen h-screen">
   <octo-pdf-viewer
     [config]="viewerConfig"
     [documentSrc]="document?.url"
@@ -37,8 +37,8 @@
 
 <ng-template #uploadImageDialog>
   <octo-upload-image-dialog
-    (confirmCroppedImage)="confirmCroppedImage($event)"
-    (dismissImageCropper)="dismissImageCropper()">
+    (dismissImageCropper)="dismissImageCropper()"
+    (confirmCroppedImage)="confirmCroppedImage($event)">
   </octo-upload-image-dialog>
 </ng-template>
 
