@@ -78,19 +78,6 @@ export class AppConfigFormComponent implements OnInit {
     console.log('form change', form);
   }
 
-
-
-  downloadJson(configForm) {
-    const newConfigForm = JSON.stringify(configForm);
-    const element = document.createElement('a');
-    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(newConfigForm));
-    element.setAttribute('download', "app-config.json");
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  }
-
   editConfig() {
     this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
     this.appConfigForm.sections[1].fields[0].value = this.configForm.customerInfo.name;
@@ -450,7 +437,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '4',
-      name: '',
+      name: 'authentication',
       title: 'Authentication',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
@@ -576,7 +563,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '6',
-      name: '',
+      name: 'defaultLayout',
       title: 'Default layout',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
@@ -653,7 +640,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '8',
-      name: '',
+      name: 'languageSetting',
       title: 'Language settings',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
