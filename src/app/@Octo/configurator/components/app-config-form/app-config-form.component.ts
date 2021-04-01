@@ -62,14 +62,16 @@ export class AppConfigFormComponent implements OnInit {
       let newLanguagesValue: any[] = []
       languagesValue.forEach(lang => {
         this.languages.forEach((language) => {
-          if(lang === language.flag)
-          newLanguagesValue = [language, ...newLanguagesValue];
+          if(lang === language.flag) {
+            language.enabled = true;
+            newLanguagesValue = [language, ...newLanguagesValue];
+          }
         })
       })
       this.appConfigForm.sections[7].fields[1].value = newLanguagesValue;
     }
     this.submit.emit(this.appConfigForm);
-    console.log('form submit', form);
+    console.log('form submit', this.appConfigForm);
   }
 
   formChange(form: OctoFormModel) {
@@ -97,15 +99,16 @@ export class AppConfigFormComponent implements OnInit {
     this.configForm.defaultLayout = this.appConfigForm.sections[5].fields[0].value;
     this.configForm.layouts = this.appConfigForm.sections[5].fields[0].value;
     this.configForm.defaultLanguage = this.appConfigForm.sections[7].fields[0].value;
-
-    // let enabledLanguageFromConfig: AppConfigLanguage[] = [];
-    // this.appConfigForm.sections[7].fields[0].value.forEach((language) => {
-    //   console.log("LANG", language);
-    //   if (language.enabled === true) {
-    //     enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
-    //   }
-    // });
-    // this.configForm.languages = enabledLanguageFromConfig;
+    let enabledLanguageFromForm = [];
+    (this.appConfigForm.sections[7].fields[1].value as string [])?.forEach(selectLanguage => {
+      console.log(selectLanguage);
+      this.languages.forEach(language => {
+        if(language.flag === selectLanguage){
+          language.enabled = true;
+          enabledLanguageFromForm = [language, ...enabledLanguageFromForm]
+        }
+      })
+    });
     this.configForm.favico = this.appConfigForm.sections[8].fields[0].value;
     this.downloadJson(this.configForm);
   }
@@ -114,7 +117,7 @@ export class AppConfigFormComponent implements OnInit {
     const newConfigForm = JSON.stringify(configForm);
     const element = document.createElement('a');
     element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(newConfigForm));
-    element.setAttribute('download', "primer-server-task.json");
+    element.setAttribute('download', "app-config.json");
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();

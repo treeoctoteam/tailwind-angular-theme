@@ -20,7 +20,6 @@ export class OctoFormComponent implements OnInit, OnDestroy {
   }
   @Output() formChange: EventEmitter<OctoFormModel> = new EventEmitter();
   @Output() formSubmit: EventEmitter<OctoFormModel> = new EventEmitter();
-  @Output() formExport: EventEmitter<void> = new EventEmitter();
 
   constructor(public formService: OctoFormService) {}
 
@@ -43,7 +42,4 @@ export class OctoFormComponent implements OnInit, OnDestroy {
     this.formSubmit.emit(this.form);
   }
 
-  exportJsonClick() {
-    this.formExport.emit();
-  }
 }
