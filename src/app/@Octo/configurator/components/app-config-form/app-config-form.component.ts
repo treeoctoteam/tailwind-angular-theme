@@ -7,11 +7,11 @@ import { ApplicationConfigService } from 'src/app/core/services/application-conf
 import { element } from 'protractor';
 import { DomSanitizer } from '@angular/platform-browser';
 
-export type AppConfigLanguage = { 
-  id: string; 
-  title: string; 
+export type AppConfigLanguage = {
+  id: string;
+  title: string;
   flag: string;
-  iso3code: string; 
+  iso3code: string;
   enabled: boolean;
 }
 
@@ -55,14 +55,14 @@ export class AppConfigFormComponent implements OnInit {
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
-    this.appConfigForm = {...form};
+    this.appConfigForm = { ...form };
 
     const languagesValue = this.appConfigForm.sections[7].fields[1].value as string[];
-    if(languagesValue) {
+    if (languagesValue) {
       let newLanguagesValue: any[] = []
       languagesValue.forEach(lang => {
         this.languages.forEach((language) => {
-          if(lang === language.flag) {
+          if (lang === language.flag) {
             language.enabled = true;
             newLanguagesValue = [language, ...newLanguagesValue];
           }
@@ -78,40 +78,7 @@ export class AppConfigFormComponent implements OnInit {
     console.log('form change', form);
   }
 
-  formExport() {
-    this.configForm.startup = this.appConfigForm.sections[0].fields[0].value;
-    this.configForm.customerInfo.name = this.appConfigForm.sections[1].fields[0].value;
-    this.configForm.customerInfo.address = this.appConfigForm.sections[1].fields[1].value;
-    this.configForm.customerInfo.supportEmail = this.appConfigForm.sections[1].fields[2].value;
-    this.configForm.customerInfo.phone = this.appConfigForm.sections[1].fields[3].value;
-    this.configForm.network.host = this.appConfigForm.sections[2].fields[0].value;
-    this.configForm.network.basePath = this.appConfigForm.sections[2].fields[1].value;
-    this.configForm.network.hostApi = this.appConfigForm.sections[2].fields[2].value;
-    this.configForm.network.hostApiV1 = this.appConfigForm.sections[2].fields[3].value;
-    this.configForm.network.hostApiV2 = this.appConfigForm.sections[2].fields[4].value;
-    this.configForm.network.hostApiV3 = this.appConfigForm.sections[2].fields[5].value;
-    this.configForm.network.openViduServerUrl = this.appConfigForm.sections[2].fields[6].value;
-    this.configForm.enableAuthentication = this.appConfigForm.sections[3].fields[0].value;
-    this.configForm.authenticationMode = this.appConfigForm.sections[3].fields[1].value;
-    this.configForm.idleConfig.timeout = this.appConfigForm.sections[4].fields[0].value;
-    this.configForm.idleConfig.idle = this.appConfigForm.sections[4].fields[1].value;
-    this.configForm.idleConfig.ping = this.appConfigForm.sections[4].fields[2].value;
-    this.configForm.defaultLayout = this.appConfigForm.sections[5].fields[0].value;
-    this.configForm.layouts = this.appConfigForm.sections[5].fields[0].value;
-    this.configForm.defaultLanguage = this.appConfigForm.sections[7].fields[0].value;
-    let enabledLanguageFromForm = [];
-    (this.appConfigForm.sections[7].fields[1].value as string [])?.forEach(selectLanguage => {
-      console.log(selectLanguage);
-      this.languages.forEach(language => {
-        if(language.flag === selectLanguage){
-          language.enabled = true;
-          enabledLanguageFromForm = [language, ...enabledLanguageFromForm]
-        }
-      })
-    });
-    this.configForm.favico = this.appConfigForm.sections[8].fields[0].value;
-    this.downloadJson(this.configForm);
-  }
+
 
   downloadJson(configForm) {
     const newConfigForm = JSON.stringify(configForm);
@@ -124,7 +91,7 @@ export class AppConfigFormComponent implements OnInit {
     document.body.removeChild(element);
   }
 
-  editConfig() {  
+  editConfig() {
     this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
     this.appConfigForm.sections[1].fields[0].value = this.configForm.customerInfo.name;
     this.appConfigForm.sections[1].fields[1].value = this.configForm.customerInfo.address;
@@ -147,11 +114,11 @@ export class AppConfigFormComponent implements OnInit {
     this.appConfigForm.sections[7].fields[0].value = this.configForm.defaultLanguage;
 
     let enabledLanguageFromConfig: string[] = [];
-     this.configForm.languages?.forEach((language:AppConfigLanguage) => {
-       if(language.enabled === true) {
-         enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
-       }
-     });
+    this.configForm.languages?.forEach((language: AppConfigLanguage) => {
+      if (language.enabled === true) {
+        enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
+      }
+    });
     this.appConfigForm.sections[7].fields[1].value = enabledLanguageFromConfig;
     this.appConfigForm.sections[8].fields[0].value = this.configForm.theme.favicon;
   }

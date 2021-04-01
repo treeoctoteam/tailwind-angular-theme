@@ -16,7 +16,7 @@ export class ConfigOverviewComponent implements OnInit {
   public editorOptions: JsonEditorOptions;
   public appConfigForm: any;
   public isEditedMode = false;
-  
+
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
   @ViewChild(AppConfigFormComponent) appConfigFormComponent: AppConfigFormComponent;
 
@@ -75,7 +75,7 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
   setAppConfig(form: OctoFormModel) {
-    const newConfig = this.appService.generateFromOctoForm(form);
+    const newConfig = this.appService.generateConfigFromOctoForm(form);
     this.appConfigForm = form;
   }
   editForm() {
