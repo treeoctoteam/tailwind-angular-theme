@@ -55,7 +55,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
         return true;
       }
       else {
-        this.router.navigateByUrl(this.appConfigService.config.defaultLayout)
+        this.router.navigateByUrl(this.appConfigService.config.layoutSettings.defaultLayout)
       }
     }
     return false;
@@ -100,7 +100,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
   }
 
   private checkActiveModule(state: RouterStateSnapshot) {
-    const layouts: string[] = this.appConfigService.config.layouts;
+    const layouts: string[] = this.appConfigService.config.layoutSettings.layouts;
     let activeLayout = "";
     for (let l of layouts) {
       const res = state.url.includes(l);

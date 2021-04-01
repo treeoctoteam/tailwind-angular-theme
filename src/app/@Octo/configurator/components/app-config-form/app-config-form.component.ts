@@ -57,7 +57,7 @@ export class AppConfigFormComponent implements OnInit {
   formSubmit(form: OctoFormModel) {
     this.appConfigForm = { ...form };
 
-    const languagesValue = this.appConfigForm.sections[7].fields[1].value as string[];
+    const languagesValue = this.appConfigForm.sections[6].fields[1].value as string[];
     if (languagesValue) {
       let newLanguagesValue: any[] = []
       languagesValue.forEach(lang => {
@@ -68,7 +68,7 @@ export class AppConfigFormComponent implements OnInit {
           }
         })
       })
-      this.appConfigForm.sections[7].fields[1].value = newLanguagesValue;
+      this.appConfigForm.sections[6].fields[1].value = newLanguagesValue;
     }
     this.submit.emit(this.appConfigForm);
     console.log('form submit', this.appConfigForm);
@@ -96,9 +96,10 @@ export class AppConfigFormComponent implements OnInit {
     this.appConfigForm.sections[4].fields[0].value = this.configForm.idleConfig.timeout;
     this.appConfigForm.sections[4].fields[1].value = this.configForm.idleConfig.idle;
     this.appConfigForm.sections[4].fields[2].value = this.configForm.idleConfig.ping;
-    this.appConfigForm.sections[5].fields[0].value = this.configForm.defaultLayout;
-    this.appConfigForm.sections[6].fields[0].value = this.configForm.layouts;
-    this.appConfigForm.sections[7].fields[0].value = this.configForm.languageSettings.defaultLanguage;
+
+    this.appConfigForm.sections[5].fields[0].value = this.configForm.layoutSettings.defaultLayout;
+    this.appConfigForm.sections[5].fields[1].value = this.configForm.layoutSettings.layouts;
+    this.appConfigForm.sections[6].fields[0].value = this.configForm.languageSettings.defaultLanguage;
 
     let enabledLanguageFromConfig: string[] = [];
     this.configForm.languageSettings.languages?.forEach((language: AppConfigLanguage) => {
@@ -106,8 +107,8 @@ export class AppConfigFormComponent implements OnInit {
         enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
       }
     });
-    this.appConfigForm.sections[7].fields[1].value = enabledLanguageFromConfig;
-    this.appConfigForm.sections[8].fields[0].value = this.configForm.theme.favicon;
+    this.appConfigForm.sections[6].fields[1].value = enabledLanguageFromConfig;
+    this.appConfigForm.sections[7].fields[0].value = this.configForm.theme.favicon;
   }
 }
 
@@ -563,8 +564,8 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '6',
-      name: 'defaultLayout',
-      title: 'Default layout',
+      name: 'layoutSettings',
+      title: 'Layout settings',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
       validation: {
@@ -596,21 +597,9 @@ const APPCONFIG_FORM: OctoFormModel = {
             required: true,
           },
           sectionId: '6',
-        }
-      ]
-    },
-    {
-      id: '7',
-      name: 'layouts',
-      title: 'Layouts',
-      class: 'border-2 broder-grey-100 rounded-md p-4',
-      style: '',
-      validation: {
-        required: true,
-      },
-      fields: [
+        },
         {
-          id: '1',
+          id: '2',
           name: 'layouts',
           disabled: false,
           placeholder: 'Choose one or more',
@@ -634,12 +623,12 @@ const APPCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '7',
+          sectionId: '6',
         }
       ]
     },
     {
-      id: '8',
+      id: '7',
       name: 'languageSettings',
       title: 'Language settings',
       class: 'border-2 broder-grey-100 rounded-md p-4',
@@ -670,7 +659,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '8',
+          sectionId: '7',
         },
         {
           id: '2',
@@ -701,12 +690,12 @@ const APPCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '8',
+          sectionId: '7',
         }
       ]
     },
     {
-      id: '9',
+      id: '8',
       name: 'theme',
       title: 'Theme',
       class: 'border-2 broder-grey-100 rounded-md p-4',
@@ -733,7 +722,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '9',
+          sectionId: '8',
         }
       ]
     },

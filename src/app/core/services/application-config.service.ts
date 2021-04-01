@@ -28,16 +28,16 @@ export class ApplicationConfigService {
       this.$config.next(response);
       this.config = response;
       console.log("CONFIG", this.config);
-      let navigationExist = this.config.layouts.some(l => this.router.url.includes(l));
+      let navigationExist = this.config.layoutSettings.layouts.some(l => this.router.url.includes(l));
       if (!navigationExist) {
-        this.router.navigateByUrl(this.config.defaultLayout);
+        this.router.navigateByUrl(this.config.layoutSettings.defaultLayout);
       }
     });
     return $req;
   }
 
 
-  generateFromOctoForm(form: OctoFormModel) {
+  generateConfigFromOctoForm(form: OctoFormModel) {
 
     let config = null;
     const result = this.formUtilsService.getSectionFormMap(form);
