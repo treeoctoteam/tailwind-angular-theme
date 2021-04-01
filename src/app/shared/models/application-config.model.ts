@@ -1,3 +1,4 @@
+import { LayoutSettings } from './layout-settings.model';
 import { CustomerInfo } from "./customer-info.model";
 import { Network } from "./network.model";
 import { ThemeConfig } from "./theme-config.model";
@@ -9,8 +10,7 @@ export interface ApplicationConfig {
   startup: "api" | "file";
   customerInfo: CustomerInfo;
   network: Network;
-  defaultLayout: string;
-  layouts: string[];
+  layoutSettings: LayoutSettings;
   authenticationSettings: AuthenticationSettings;
   languageSettings: LanguageSettings;
   theme: ThemeConfig;

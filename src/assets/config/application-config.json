@@ -24,8 +24,10 @@
     "idle": 5000,
     "ping": 5000
   },
-  "defaultLayout": "/configurator",
-  "layouts": ["/dashboard", "/landingpage", "/workflow", "/configurator", "/pdf-reader"],
+  "layoutSettings": {
+    "defaultLayout": "/configurator",
+    "layouts": ["/dashboard", "/landingpage", "/workflow", "/configurator", "/pdf-reader"]
+  },
   "languageSettings" : {
     "defaultLanguage": "en",
     "languages": [
