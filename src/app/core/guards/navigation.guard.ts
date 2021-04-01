@@ -26,7 +26,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     private alertService: AlertService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): boolean {
-    if (this.appConfigService.config.enableAuthentication) {
+    if (this.appConfigService.config.authentication.enableAuthentication) {
       let activeModule = this.checkActiveModule(state);
       switch (activeModule) {
         case "landingpage":

@@ -1,8 +1,9 @@
 import { CustomerInfo } from "./customer-info.model";
-import { Language } from "./language.model";
 import { Network } from "./network.model";
 import { ThemeConfig } from "./theme-config.model";
 import { UserIdleConfig } from "angular-user-idle";
+import { Authentication } from "./authentication.model";
+import { LanguageSetting } from "./language-setting.model";
 
 export interface ApplicationConfig {
   startup: "api" | "file";
@@ -10,10 +11,8 @@ export interface ApplicationConfig {
   network: Network;
   defaultLayout: string;
   layouts: string[];
-  enableAuthentication: boolean;
-  authenticationMode: "JWT" | "Cookie";
-  defaultLanguage: string;
-  languages: Language[];
+  authentication: Authentication;
+  languageSetting: LanguageSetting;
   theme: ThemeConfig;
   idleConfig: UserIdleConfig
 }

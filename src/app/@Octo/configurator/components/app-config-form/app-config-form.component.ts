@@ -78,51 +78,51 @@ export class AppConfigFormComponent implements OnInit {
     console.log('form change', form);
   }
 
-  formExport() {
-    this.configForm.startup = this.appConfigForm.sections[0].fields[0].value;
-    this.configForm.customerInfo.name = this.appConfigForm.sections[1].fields[0].value;
-    this.configForm.customerInfo.address = this.appConfigForm.sections[1].fields[1].value;
-    this.configForm.customerInfo.supportEmail = this.appConfigForm.sections[1].fields[2].value;
-    this.configForm.customerInfo.phone = this.appConfigForm.sections[1].fields[3].value;
-    this.configForm.network.host = this.appConfigForm.sections[2].fields[0].value;
-    this.configForm.network.basePath = this.appConfigForm.sections[2].fields[1].value;
-    this.configForm.network.hostApi = this.appConfigForm.sections[2].fields[2].value;
-    this.configForm.network.hostApiV1 = this.appConfigForm.sections[2].fields[3].value;
-    this.configForm.network.hostApiV2 = this.appConfigForm.sections[2].fields[4].value;
-    this.configForm.network.hostApiV3 = this.appConfigForm.sections[2].fields[5].value;
-    this.configForm.network.openViduServerUrl = this.appConfigForm.sections[2].fields[6].value;
-    this.configForm.enableAuthentication = this.appConfigForm.sections[3].fields[0].value;
-    this.configForm.authenticationMode = this.appConfigForm.sections[3].fields[1].value;
-    this.configForm.idleConfig.timeout = this.appConfigForm.sections[4].fields[0].value;
-    this.configForm.idleConfig.idle = this.appConfigForm.sections[4].fields[1].value;
-    this.configForm.idleConfig.ping = this.appConfigForm.sections[4].fields[2].value;
-    this.configForm.defaultLayout = this.appConfigForm.sections[5].fields[0].value;
-    this.configForm.layouts = this.appConfigForm.sections[5].fields[0].value;
-    this.configForm.defaultLanguage = this.appConfigForm.sections[7].fields[0].value;
-    let enabledLanguageFromForm = [];
-    (this.appConfigForm.sections[7].fields[1].value as string [])?.forEach(selectLanguage => {
-      console.log(selectLanguage);
-      this.languages.forEach(language => {
-        if(language.flag === selectLanguage){
-          language.enabled = true;
-          enabledLanguageFromForm = [language, ...enabledLanguageFromForm]
-        }
-      })
-    });
-    this.configForm.favico = this.appConfigForm.sections[8].fields[0].value;
-    this.downloadJson(this.configForm);
-  }
+  // formExport() {
+  //   this.configForm.startup = this.appConfigForm.sections[0].fields[0].value;
+  //   this.configForm.customerInfo.name = this.appConfigForm.sections[1].fields[0].value;
+  //   this.configForm.customerInfo.address = this.appConfigForm.sections[1].fields[1].value;
+  //   this.configForm.customerInfo.supportEmail = this.appConfigForm.sections[1].fields[2].value;
+  //   this.configForm.customerInfo.phone = this.appConfigForm.sections[1].fields[3].value;
+  //   this.configForm.network.host = this.appConfigForm.sections[2].fields[0].value;
+  //   this.configForm.network.basePath = this.appConfigForm.sections[2].fields[1].value;
+  //   this.configForm.network.hostApi = this.appConfigForm.sections[2].fields[2].value;
+  //   this.configForm.network.hostApiV1 = this.appConfigForm.sections[2].fields[3].value;
+  //   this.configForm.network.hostApiV2 = this.appConfigForm.sections[2].fields[4].value;
+  //   this.configForm.network.hostApiV3 = this.appConfigForm.sections[2].fields[5].value;
+  //   this.configForm.network.openViduServerUrl = this.appConfigForm.sections[2].fields[6].value;
+  //   this.configForm.enableAuthentication = this.appConfigForm.sections[3].fields[0].value;
+  //   this.configForm.authenticationMode = this.appConfigForm.sections[3].fields[1].value;
+  //   this.configForm.idleConfig.timeout = this.appConfigForm.sections[4].fields[0].value;
+  //   this.configForm.idleConfig.idle = this.appConfigForm.sections[4].fields[1].value;
+  //   this.configForm.idleConfig.ping = this.appConfigForm.sections[4].fields[2].value;
+  //   this.configForm.defaultLayout = this.appConfigForm.sections[5].fields[0].value;
+  //   this.configForm.layouts = this.appConfigForm.sections[5].fields[0].value;
+  //   this.configForm.defaultLanguage = this.appConfigForm.sections[7].fields[0].value;
+  //   let enabledLanguageFromForm = [];
+  //   (this.appConfigForm.sections[7].fields[1].value as string [])?.forEach(selectLanguage => {
+  //     console.log(selectLanguage);
+  //     this.languages.forEach(language => {
+  //       if(language.flag === selectLanguage){
+  //         language.enabled = true;
+  //         enabledLanguageFromForm = [language, ...enabledLanguageFromForm]
+  //       }
+  //     })
+  //   });
+  //   this.configForm.favico = this.appConfigForm.sections[8].fields[0].value;
+  //   this.downloadJson(this.configForm);
+  // }
 
-  downloadJson(configForm) {
-    const newConfigForm = JSON.stringify(configForm);
-    const element = document.createElement('a');
-    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(newConfigForm));
-    element.setAttribute('download', "app-config.json");
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  }
+  // downloadJson(configForm) {
+  //   const newConfigForm = JSON.stringify(configForm);
+  //   const element = document.createElement('a');
+  //   element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(newConfigForm));
+  //   element.setAttribute('download', "app-config.json");
+  //   element.style.display = 'none';
+  //   document.body.appendChild(element);
+  //   element.click();
+  //   document.body.removeChild(element);
+  // }
 
   editConfig() {  
     this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
@@ -483,7 +483,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '4',
-      name: '',
+      name: 'authentication',
       title: 'Authentication',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
@@ -609,7 +609,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '6',
-      name: '',
+      name: 'defaultLayout',
       title: 'Default layout',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
@@ -686,7 +686,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '8',
-      name: '',
+      name: 'languageSetting',
       title: 'Language settings',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',

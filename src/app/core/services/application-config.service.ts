@@ -18,6 +18,8 @@ export class ApplicationConfigService {
   config: ApplicationConfig;
   $config = new Subject<ApplicationConfig>();
 
+
+
   constructor(private http: HttpClient, private router: Router, private formUtilsService: OctoFormUtilsService) { }
 
   initAppConfig(): Observable<ApplicationConfig> {
@@ -35,6 +37,8 @@ export class ApplicationConfigService {
   }
 
   generateFromOctoForm(form: OctoFormModel) {
+
+    let config = null;
     const result = this.formUtilsService.getSectionFormMap(form);
     
     let updateFields : any[] = [];
