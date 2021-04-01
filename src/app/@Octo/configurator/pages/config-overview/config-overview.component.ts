@@ -75,7 +75,7 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
   setAppConfig(form: OctoFormModel) {
-    const newConfig = this.appService.generateConfigFromOctoForm(form);
+    const newConfig = this.appService.generateFromOctoForm(form);
     this.appConfigForm = form;
   }
   editForm() {

@@ -15,7 +15,7 @@
     "hostApiV3": "https://dev.tap-id.tech/v3",
     "openViduServerUrl": "https://rtc.tap-id.tech:4443"
   },
-  "authentication": {
+  "authenticationSettings": {
     "enableAuthentication": true,
     "authenticationMode": "JWT"
   },
@@ -26,7 +26,7 @@
   },
   "defaultLayout": "/configurator",
   "layouts": ["/dashboard", "/landingpage", "/workflow", "/configurator", "/pdf-reader"],
-  "languageSetting" : {
+  "languageSettings" : {
     "defaultLanguage": "en",
     "languages": [
       {

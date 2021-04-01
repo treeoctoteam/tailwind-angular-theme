@@ -91,17 +91,17 @@ export class AppConfigFormComponent implements OnInit {
     this.appConfigForm.sections[2].fields[4].value = this.configForm.network.hostApiV2;
     this.appConfigForm.sections[2].fields[5].value = this.configForm.network.hostApiV3;
     this.appConfigForm.sections[2].fields[6].value = this.configForm.network.openViduServerUrl;
-    this.appConfigForm.sections[3].fields[0].value = this.configForm.enableAuthentication;
-    this.appConfigForm.sections[3].fields[1].value = this.configForm.authenticationMode;
+    this.appConfigForm.sections[3].fields[0].value = this.configForm.authenticationSettings.enableAuthentication;
+    this.appConfigForm.sections[3].fields[1].value = this.configForm.authenticationSettings.authenticationMode;
     this.appConfigForm.sections[4].fields[0].value = this.configForm.idleConfig.timeout;
     this.appConfigForm.sections[4].fields[1].value = this.configForm.idleConfig.idle;
     this.appConfigForm.sections[4].fields[2].value = this.configForm.idleConfig.ping;
     this.appConfigForm.sections[5].fields[0].value = this.configForm.defaultLayout;
     this.appConfigForm.sections[6].fields[0].value = this.configForm.layouts;
-    this.appConfigForm.sections[7].fields[0].value = this.configForm.defaultLanguage;
+    this.appConfigForm.sections[7].fields[0].value = this.configForm.languageSettings.defaultLanguage;
 
     let enabledLanguageFromConfig: string[] = [];
-    this.configForm.languages?.forEach((language: AppConfigLanguage) => {
+    this.configForm.languageSettings.languages?.forEach((language: AppConfigLanguage) => {
       if (language.enabled === true) {
         enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
       }
@@ -437,7 +437,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '4',
-      name: 'authentication',
+      name: 'authenticationSettings',
       title: 'Authentication',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
@@ -601,7 +601,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '7',
-      name: '',
+      name: 'layouts',
       title: 'Layouts',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
@@ -640,7 +640,7 @@ const APPCONFIG_FORM: OctoFormModel = {
     },
     {
       id: '8',
-      name: 'languageSetting',
+      name: 'languageSettings',
       title: 'Language settings',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',

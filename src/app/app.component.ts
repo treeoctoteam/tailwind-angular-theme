@@ -29,7 +29,7 @@ export class AppComponent {
       // Add languages
       this.translateService.langs = [];
 
-      appConfig.languageSetting.languages.forEach(lang => {
+      appConfig.languageSettings.languages.forEach(lang => {
         if (lang.enabled) {
           this.translateService.addLangs([lang.id]);
         }
@@ -42,7 +42,7 @@ export class AppComponent {
 
       let browserLang = navigator.language.slice(0, 2);
       // this._logger.logInfo("Browser Language : " + browserLang);
-      if (appConfig.languageSetting.languages.find(lang => lang.id == browserLang && lang.enabled)) {
+      if (appConfig.languageSettings.languages.find(lang => lang.id == browserLang && lang.enabled)) {
         // this._logger.logSystem("Active Language :" + browserLang);
         this.translateService.use(browserLang);
       }

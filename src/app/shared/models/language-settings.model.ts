@@ -1,5 +1,5 @@
 import { Language } from "./language.model";
-export interface LanguageSetting {
+export interface LanguageSettings {
   defaultLanguage: string;
   languages: Language[];
 }
