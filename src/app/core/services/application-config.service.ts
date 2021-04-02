@@ -54,8 +54,8 @@ export class ApplicationConfigService {
     newConfig.authenticationSettings.enableAuthentication = authenticationSettingsSection.find(f => f.name === "enableAuthentication").value as boolean;
 
     const layoutSection = this.formUtilsService.getFieldFormMap(form.sections.find(s => s.name === "layoutSettings"));
-    newConfig.defaultLayout = layoutSection.find(f => f.name === "defaultLayout").value as string;
-    newConfig.layouts = layoutSection.find(f => f.name === "layouts").value as string[];
+    newConfig.layoutSettings.defaultLayout = layoutSection.find(f => f.name === "defaultLayout").value as string;
+    newConfig.layoutSettings.layouts = layoutSection.find(f => f.name === "layouts").value as string[];
 
     const idleConfigSection = this.formUtilsService.getFieldFormMap(form.sections.find(s => s.name === "idleConfig"));
     newConfig.idleConfig.idle = idleConfigSection.find(f => f.name === "idle").value as number;

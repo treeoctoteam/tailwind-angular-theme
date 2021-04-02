@@ -1,10 +1,7 @@
-import { ApplicationConfig } from './../../../../shared/models/application-config.model';
-import { Country } from './../../../../core/services/i18n.service';
 import { I18nService } from 'src/app/core/services/i18n.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
-import { element } from 'protractor';
 import { DomSanitizer } from '@angular/platform-browser';
 
 export type AppConfigLanguage = {
@@ -55,6 +52,7 @@ export class AppConfigFormComponent implements OnInit {
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
+    console.log("SUBMIT", form)
     this.appConfigForm = { ...form };
 
     const languagesValue = this.appConfigForm.sections[6].fields[1].value as string[];

@@ -21,17 +21,20 @@ export class OctoFormComponent implements OnInit, OnDestroy {
   @Output() formChange: EventEmitter<OctoFormModel> = new EventEmitter();
   @Output() formSubmit: EventEmitter<OctoFormModel> = new EventEmitter();
 
-  constructor(public formService: OctoFormService) {}
-
-  ngOnInit() {
+  constructor(public formService: OctoFormService) {
     this.formService.$formChange
       .pipe(takeUntil(this.$onDestroing))
       .subscribe((form: OctoFormModel) => {
         if (form) {
           this.form = form;
           this.formChange.emit(this.form);
+          console.log("FORMCHANGE EVENT", form);
         }
       });
+  }
+
+  ngOnInit() {
+
   }
 
   ngOnDestroy(): void {
