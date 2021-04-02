@@ -5,6 +5,7 @@ import { OctoSectionComponent } from './components/octo-section/octo-section.com
 import { CommonModule } from '@angular/common';
 import { OctoFormService } from './octo-form.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   exports: [
     OctoFormComponent,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     OctoFormService
