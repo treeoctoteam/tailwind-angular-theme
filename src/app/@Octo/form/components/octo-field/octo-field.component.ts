@@ -18,14 +18,15 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
   errorMessage: string;
   filteredOptions: Observable<OctoFieldOptionModel[]>;
   @Input() formField: OctoFieldModel;
-  constructor(public _formService: OctoFormService) {}
+  constructor(public _formService: OctoFormService) { }
 
   ngOnInit(): void {
     this.formFieldControl = new FormControl('', Validators.compose(this.setValidators(this.formField)));
     this.initFormControlState(this.formField, this.formFieldControl);
     this.formFieldControl.valueChanges
-      .pipe(takeUntil(this.$onDestroing), distinctUntilChanged())
+      .pipe(takeUntil(this.$onDestroing))
       .subscribe((value) => {
+        console.log("#####", this.formField.value, value)
         this.formField.value = value;
         this._formService.setFieldValue(
           value,
@@ -36,7 +37,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
 
     this.formFieldControl.statusChanges
       .pipe(takeUntil(this.$onDestroing))
-      .subscribe(status => this.errorMessage = status === 'INVALID' ? this.getErrorMessage() : '');
+      .subscribe(status => { console.log("????"); this.errorMessage = status === 'INVALID' ? this.getErrorMessage() : '' });
 
     this.filteredOptions = this.formFieldControl.valueChanges.pipe(
       startWith(''),
@@ -111,40 +112,5 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
     }
     return [];
   }
-  // minDate(date: string): ValidatorFn {
-  //   return (control: AbstractControl): ValidationErrors | null => {
-  //     if (control.value == null) {
-  //       return null;
-  //     }
-  //     const controlDate = moment(control.value);
-  //     if (!control.valid) {
-  //       return null;
-  //     }
-  //     const validationDate = new Date(date);
-  //     return controlDate.isAfter(validationDate)
-  //       ? null
-  //       : {
-  //           minDate: true,
-  //         };
-  //   };
-  // }
-
-  // maxDate(date: string): ValidatorFn {
-  //   return (control: AbstractControl): ValidationErrors | null => {
-  //     if (control.value == null) {
-  //       return null;
-  //     }
-  //     const controlDate = moment(control.value);
-  //     if (!control.valid) {
-  //       return null;
-  //     }
-  //     const validationDate = new Date(date);
-  //     return controlDate.isBefore(validationDate)
-  //       ? null
-  //       : {
-  //           maxDate: true,
-  //         };
-  //   };
-  // }
 }
 

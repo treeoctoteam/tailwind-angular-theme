@@ -1,6 +1,10 @@
 <ng-container *ngIf="formField">
   <to-input
-    *ngIf="formField.type === 'text' || formField.type === 'number' || formField.type === 'password'"
+    *ngIf="
+      formField.type === 'text' ||
+      formField.type === 'number' ||
+      formField.type === 'password'
+    "
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -13,10 +17,9 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
-    [value]="formField.value"
-    >
+  >
     {{ formField.label }}
-    <to-hint  slot="hint" type="error">{{ errorMessage }}</to-hint>
+    <to-hint slot="hint" type="error">{{ errorMessage }}</to-hint>
   </to-input>
 
   <to-textarea
@@ -33,8 +36,11 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
-    [value]="formField.value" >
-    <to-hint *ngIf="errorMessage" slot="hint" type="error">{{ errorMessage }}</to-hint>
+    [value]="formField.value"
+  >
+    <to-hint *ngIf="errorMessage" slot="hint" type="error">{{
+      errorMessage
+    }}</to-hint>
   </to-textarea>
 
   <to-checkbox
@@ -47,7 +53,8 @@
     [labelColor]="formField.labelColor"
     [borderColor]="formField.borderColor"
     [textColor]="formField.textColor"
-    [backgroundColor]="formField.backgroundColor">
+    [backgroundColor]="formField.backgroundColor"
+  >
     {{ formField.label }}
   </to-checkbox>
 
@@ -68,8 +75,7 @@
     [backgroundColor]="formField.backgroundColor"
     [value]="formField.value"
     [multipleSelection]="formField.multipleSelection"
-    >
-
+  >
     {{ formField.label }}
   </to-autocomplete>
 
@@ -87,8 +93,7 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
-    [value]="formField.value">
-  </to-select>
+  ></to-select>
 
   <to-toggle
     *ngIf="formField.type === 'toggle'"
@@ -97,7 +102,8 @@
     [checked]="formField.value"
     [borderColor]="formField.borderColor"
     [textColor]="formField.textColor"
-    [backgroundColor]="formField.backgroundColor">
-    {{formField.label}}
+    [backgroundColor]="formField.backgroundColor"
+  >
+    {{ formField.label }}
   </to-toggle>
 </ng-container>

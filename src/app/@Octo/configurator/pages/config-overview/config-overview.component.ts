@@ -15,11 +15,10 @@ export class ConfigOverviewComponent implements OnInit {
 
   public editorOptions: JsonEditorOptions;
   public appConfigForm: any;
+  public editAppConfigForm: any;
   public isEditedMode = false;
 
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
-  @ViewChild(AppConfigFormComponent) appConfigFormComponent: AppConfigFormComponent;
-
   private setting = {
     element: {
       dynamicDownload: null as unknown as HTMLElement
@@ -33,8 +32,8 @@ export class ConfigOverviewComponent implements OnInit {
     this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
+    this.appConfigForm = this.appService.config;
 
-    this.appConfigForm = appService.config;
   }
 
   ngOnInit(): void {
@@ -79,8 +78,6 @@ export class ConfigOverviewComponent implements OnInit {
     this.appConfigForm = form;
   }
   editForm() {
-    // this.isEditedMode = true;
-    this.appConfigFormComponent.editConfig();
-    this.appConfigFormComponent.showForm = true;
+    this.editAppConfigForm = this.appConfigForm;
   }
 }

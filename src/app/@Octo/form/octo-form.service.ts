@@ -10,7 +10,7 @@ export class OctoFormService {
   private form: OctoFormModel;
   public $formChange = new Subject<OctoFormModel>();
 
-  constructor() {}
+  constructor() { }
 
   public InitializeForm(form: OctoFormModel): ResultMessage {
     const result: ResultMessage = new ResultMessage();
@@ -28,8 +28,8 @@ export class OctoFormService {
     const field = this.getField(fieldID, sectionID);
     if (field) {
       field.value = value;
+      this.$formChange.next(this.form);
     }
-    this.$formChange.next(this.form);
   }
 
   private getField(fieldID: string, sectionID: string): OctoFieldModel | undefined {

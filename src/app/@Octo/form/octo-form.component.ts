@@ -28,7 +28,6 @@ export class OctoFormComponent implements OnInit, OnDestroy {
         if (form) {
           this.form = form;
           this.formChange.emit(this.form);
-          console.log("FORMCHANGE EVENT", form);
         }
       });
   }

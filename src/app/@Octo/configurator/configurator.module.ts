@@ -9,6 +9,8 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { OctoFormModule } from '../form/octo-form.module';
 import { AppConfigFormComponent } from './components/app-config-form/app-config-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DashboardConfigFormComponent } from './components/dashboard-config-form/dashboard-config-form.component';
+import { LandingConfigFormComponent } from './components/landing-config-form/landing-config-form.component';
 
 const routes: Routes = [
   {
@@ -29,7 +31,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ConfigStartComponent, ConfigOverviewComponent, AppConfigFormComponent],
+  declarations: [ConfigStartComponent, ConfigOverviewComponent, AppConfigFormComponent, DashboardConfigFormComponent, LandingConfigFormComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

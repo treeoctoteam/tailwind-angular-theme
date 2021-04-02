@@ -21,10 +21,10 @@ import {
 })
 export class ValueAccessorDirective implements ControlValueAccessor {
 
-  private onChange = (value: any): void => {};
-  private onTouched = (): void => {};
+  private onChange = (value: any): void => { };
+  private onTouched = (): void => { };
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) { }
 
   @HostListener('toElementChange', ['$event'])
   handleInputEvent(event: any) {

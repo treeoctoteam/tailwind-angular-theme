@@ -27,9 +27,9 @@ export class OctoFormUtilsService {
   public getFieldFormMap(
     section: OctoSectionModel
   ): { id: string; name: string; value: string | number | object | boolean }[] {
-    const fields: { id: string; name: string; value: string | number | object }[] = [];
+    const fields: { id: string; name: string; value: string | number | object | boolean }[] = [];
     section.fields.forEach((f) => {
-      const field: { id: string; name: string; value: string | number | object } = {
+      const field: { id: string; name: string; value: string | number | object | boolean } = {
         id: f.id,
         name: f.name,
         value: f.value,

@@ -1,4 +1,6 @@
-<div class="gradient leading-relaxed tracking-wide flex flex-col h-full">
+<div
+  class="gradient leading-relaxed tracking-wide flex flex-col h-full min-h-screen"
+>
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
     <to-card [cardTitle]="'Active Configuration'">
@@ -20,10 +22,12 @@
           > -->
       </div>
     </to-card>
-    <h1 class="text-center mt-4 mb-2 text-white">Update Parameters</h1>
+    <h1 class="text-center mt-4 mb-2 text-white" *ngIf="editAppConfigForm">
+      Update Parameters
+    </h1>
     <octo-app-config-form
       (submit)="setAppConfig($event)"
-      [configForm]="appConfigForm"
+      [form]="editAppConfigForm"
     ></octo-app-config-form>
   </div>
 </div>
@@ -57,22 +61,6 @@
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
-      </div>
-
-      <div
-        class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
-        id="nav-content"
-      >
-        <!-- <ul class="list-reset lg:flex justify-end flex-1 items-center">
-          <li class="mr-3" *ngFor="let navItem of getNavigationItem()">
-            <a
-              class="inline-block py-2 px-4 text-black font-bold no-underline"
-              href="{{ navItem.url }}"
-              >{{ navItem.translate | translate }}</a
-            >
-          </li>
-
-        </ul> -->
       </div>
     </div>
   </nav>

@@ -3,28 +3,18 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
+import { Language } from 'src/app/shared/models/language.model';
 
-export type AppConfigLanguage = {
-  id: string;
-  title: string;
-  flag: string;
-  iso3code: string;
-  enabled: boolean;
-}
 
 @Component({
   selector: 'octo-app-config-form',
   templateUrl: './app-config-form.component.html',
   styleUrls: ['./app-config-form.component.scss'],
 })
-
-
-
 export class AppConfigFormComponent implements OnInit {
-
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
-
-  languages: AppConfigLanguage[] = [
+  languages: Language[] = [
     {
       "id": "en",
       "title": "LOCALES.EN",
@@ -40,22 +30,24 @@ export class AppConfigFormComponent implements OnInit {
       "enabled": false
     }
   ]
-
-  constructor(public appService: ApplicationConfigService, public i18nService: I18nService, private sanitizer: DomSanitizer) { }
-
+  showForm = false;
+  configForm: ApplicationConfig;
   @Output() submit = new EventEmitter();
   @Output() export = new EventEmitter();
-  @Input() configForm: any;
+  @Input() set form(conf) {
+    if (this.configForm !== conf) {
+      this.configForm = conf;
+      this.showForm = true;
+      this.editConfig();
+    }
+  }
 
-  showForm = false;
+  constructor(public appService: ApplicationConfigService, public i18nService: I18nService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
-    console.log("SUBMIT", form)
-
     this.appConfigForm = { ...form };
-
     const languagesValue = this.appConfigForm.sections[6].fields[1].value as string[];
     if (languagesValue) {
       let newLanguagesValue: any[] = []
@@ -70,11 +62,10 @@ export class AppConfigFormComponent implements OnInit {
       this.appConfigForm.sections[6].fields[1].value = newLanguagesValue;
     }
     this.submit.emit(this.appConfigForm);
-    console.log('form submit', this.appConfigForm);
   }
 
   formChange(form: OctoFormModel) {
-    console.log('form change', form);
+    console.log('form emit changes', form);
   }
 
 
@@ -102,7 +93,7 @@ export class AppConfigFormComponent implements OnInit {
     this.appConfigForm.sections[6].fields[0].value = this.configForm.languageSettings.defaultLanguage;
 
     let enabledLanguageFromConfig: string[] = [];
-    this.configForm.languageSettings.languages?.forEach((language: AppConfigLanguage) => {
+    this.configForm.languageSettings.languages?.forEach((language: Language) => {
       if (language.enabled === true) {
         enabledLanguageFromConfig = [language.flag, ...enabledLanguageFromConfig];
       }
