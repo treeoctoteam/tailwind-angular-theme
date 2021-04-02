@@ -55,12 +55,15 @@ export class AppConfigFormComponent implements OnInit {
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
+    this.configForm.startup = this.appConfigForm.sections[0].fields[0].value;
+
+    console.log("FORM", this.configForm.startup, form);
     this.appConfigForm = { ...form };
 
     const languagesValue = this.appConfigForm.sections[6].fields[1].value as string[];
     if (languagesValue) {
       let newLanguagesValue: any[] = []
-      languagesValue.forEach(lang => {
+      languagesValue?.forEach(lang => {
         this.languages.forEach((language) => {
           if (lang === language.flag) {
             language.enabled = true;
@@ -77,6 +80,7 @@ export class AppConfigFormComponent implements OnInit {
   formChange(form: OctoFormModel) {
     console.log('form change', form);
   }
+
 
   editConfig() {
     this.appConfigForm.sections[0].fields[0].value = this.configForm.startup;
@@ -170,11 +174,11 @@ const APPCONFIG_FORM: OctoFormModel = {
           name: 'name',
           disabled: false,
           placeholder: 'Ex Euronovate, Siga98...',
-          placeholderColor: 'text-green-600',
+          placeholderColor: '',
           appearance: 'simple',
           label: 'Name',
           labelColor: '',
-          borderColor: 'border-green-600',
+          borderColor: '',
           textColor: '',
           backgroundColor: '',
           clearable: true,
