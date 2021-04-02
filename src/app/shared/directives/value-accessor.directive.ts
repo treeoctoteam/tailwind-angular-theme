@@ -3,13 +3,9 @@ import {
   ElementRef,
   forwardRef,
   HostListener,
-  Injector,
-  OnInit,
-  Self,
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 
@@ -30,12 +26,9 @@ export class ValueAccessorDirective implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef) {}
 
-
   @HostListener('toElementChange', ['$event'])
   handleInputEvent(event: any) {
-    this.onChange(event.detail.value);
-    this.onTouched();
-
+    this.writeValue(event.detail.value);
   }
 
   writeValue(value: any): void {
