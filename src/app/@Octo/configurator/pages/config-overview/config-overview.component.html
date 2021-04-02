@@ -1,12 +1,10 @@
-<div
-  class="gradient leading-relaxed tracking-wide flex flex-col h-full min-h-screen"
->
+<div class="gradient leading-relaxed tracking-wide flex flex-col min-h-screen">
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
-    <to-card [cardTitle]="'Active Configuration'">
+    <to-card [cardTitle]="'Active Configuration'" *ngIf="!editAppConfig">
       <json-editor
         [options]="editorOptions"
-        [data]="appConfigForm"
+        [data]="appConfig"
         (change)="change($event)"
         (jsonChange)="jchange($event)"
       ></json-editor>
@@ -17,17 +15,12 @@
         <to-button class="mx-2" (btnClick)="editForm()" [color]="'red'"
           >Edit</to-button
         >
-        <!-- <to-button class="mx-2" (btnClick)="save()" [color]="'yellow'"
-            >Update</to-button
-          > -->
       </div>
     </to-card>
-    <h1 class="text-center mt-4 mb-2 text-white" *ngIf="editAppConfigForm">
-      Update Parameters
-    </h1>
+
     <octo-app-config-form
       (submit)="setAppConfig($event)"
-      [form]="editAppConfigForm"
+      [form]="editAppConfig"
     ></octo-app-config-form>
   </div>
 </div>

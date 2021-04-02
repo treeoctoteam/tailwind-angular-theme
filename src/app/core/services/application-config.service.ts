@@ -78,7 +78,6 @@ export class ApplicationConfigService {
     newConfig.languageSettings.defaultLanguage = languageSettingsSection.find(f => f.name === "defaultLanguage").value as string;
     newConfig.languageSettings.languages = languageSettingsSection.find(f => f.name === "languages").value as Language[];
 
-    console.log("NEW CONFIG", newConfig);
     return newConfig
   }
 

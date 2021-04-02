@@ -14,8 +14,8 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
 export class ConfigOverviewComponent implements OnInit {
 
   public editorOptions: JsonEditorOptions;
-  public appConfigForm: any;
-  public editAppConfigForm: any;
+  public appConfig: any;
+  public editAppConfig: any;
   public isEditedMode = false;
 
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
@@ -32,7 +32,7 @@ export class ConfigOverviewComponent implements OnInit {
     this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
-    this.appConfigForm = this.appService.config;
+    this.appConfig = this.appService.config;
 
   }
 
@@ -59,7 +59,7 @@ export class ConfigOverviewComponent implements OnInit {
     alert("exported!")
     this.dyanmicDownloadByHtmlTag({
       fileName: 'app-config.json',
-      text: JSON.stringify(this.appConfigForm)
+      text: JSON.stringify(this.appConfig)
     });
   }
   save() {
@@ -75,9 +75,11 @@ export class ConfigOverviewComponent implements OnInit {
 
   setAppConfig(form: OctoFormModel) {
     const newConfig = this.appService.generateConfigFromOctoForm(form);
-    this.appConfigForm = form;
+    console.log("UPDATE APP CONFIG", newConfig);
+    this.appConfig = newConfig;
+    this.editAppConfig = null;
   }
   editForm() {
-    this.editAppConfigForm = this.appConfigForm;
+    this.editAppConfig = this.appConfig;
   }
 }
