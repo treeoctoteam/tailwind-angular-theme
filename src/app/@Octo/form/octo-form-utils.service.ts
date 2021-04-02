@@ -8,7 +8,7 @@ import { OctoSectionModel } from './models/octo-section.model';
 
 export class OctoFormUtilsService {
 
-  constructor() {}
+  constructor() { }
 
   public getSectionFormMap(
     form: OctoFormModel
@@ -26,7 +26,7 @@ export class OctoFormUtilsService {
 
   public getFieldFormMap(
     section: OctoSectionModel
-  ): { id: string; name: string; value: string | number | object}[] {
+  ): { id: string; name: string; value: string | number | object | boolean }[] {
     const fields: { id: string; name: string; value: string | number | object }[] = [];
     section.fields.forEach((f) => {
       const field: { id: string; name: string; value: string | number | object } = {

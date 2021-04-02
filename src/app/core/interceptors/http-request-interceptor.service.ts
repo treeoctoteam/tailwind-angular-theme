@@ -22,7 +22,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     // const auth = this.injector.get(AuthService);
     let authRequest = req.clone();
     if (this.applicationConfigservice.config){
-      if (this.applicationConfigservice?.config.authenticationMode === "Cookie"){
+      if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === "Cookie"){
         authRequest = req.clone({
           withCredentials: true
         })

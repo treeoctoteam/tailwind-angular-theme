@@ -15,32 +15,38 @@
     "hostApiV3": "https://dev.tap-id.tech/v3",
     "openViduServerUrl": "https://rtc.tap-id.tech:4443"
   },
-  "enableAuthentication": true,
-  "authenticationMode": "JWT",
+  "authenticationSettings": {
+    "enableAuthentication": true,
+    "authenticationMode": "JWT"
+  },
   "idleConfig": {
     "timeout": 1000,
     "idle": 5000,
     "ping": 5000
   },
-  "defaultLayout": "/configurator",
-  "layouts": ["/dashboard", "/landingpage", "/workflow", "/configurator", "/pdf-reader"],
-  "defaultLanguage": "en",
-  "languages": [
-    {
-      "id": "en",
-      "title": "LOCALES.EN",
-      "flag": "EN",
-      "iso3code": "USA",
-      "enabled": false
-    },
-    {
-      "id": "it",
-      "title": "LOCALES.IT",
-      "flag": "IT",
-      "iso3code": "ITA",
-      "enabled": true
-    }
-  ],
+  "layoutSettings": {
+    "defaultLayout": "/configurator",
+    "layouts": ["/dashboard", "/landingpage", "/workflow", "/configurator", "/pdf-reader"]
+  },
+  "languageSettings" : {
+    "defaultLanguage": "en",
+    "languages": [
+      {
+        "id": "en",
+        "title": "LOCALES.EN",
+        "flag": "EN",
+        "iso3code": "USA",
+        "enabled": false
+      },
+      {
+        "id": "it",
+        "title": "LOCALES.IT",
+        "flag": "IT",
+        "iso3code": "ITA",
+        "enabled": true
+      }
+    ]
+  },
   "theme": {
     "favicon": "test"
   }

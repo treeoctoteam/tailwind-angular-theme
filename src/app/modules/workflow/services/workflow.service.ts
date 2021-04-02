@@ -174,7 +174,7 @@ export class WorkflowService {
         if (res.success) {
           this.sessionService.setSessionId(res.sessionId);
           if (res.requireLogin) {
-            this.router.navigateByUrl(this.config.config.defaultLayout + "/" + res.token);
+            this.router.navigateByUrl(this.config.config.layoutSettings.defaultLayout + "/" + res.token);
           } else {
             this.router.navigateByUrl(res.route);
           }

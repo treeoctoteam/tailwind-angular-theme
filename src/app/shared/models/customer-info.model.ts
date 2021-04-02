@@ -1,5 +1,5 @@
 export interface CustomerInfo {
-  id: string;
+  id?: string;
   name: string;
   address: string;
   supportEmail: string;
