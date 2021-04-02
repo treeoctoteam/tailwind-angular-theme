@@ -51,7 +51,7 @@ export class ApplicationConfigService {
 
     const authenticationSettingsSection = this.formUtilsService.getFieldFormMap(form.sections.find(s => s.name === "authenticationSettings"));
     newConfig.authenticationSettings.authenticationMode = authenticationSettingsSection.find(f => f.name === "authenticationMode").value as "JWT" | "Cookie";
-    newConfig.authenticationSettings.enableAuthentication = authenticationSettingsSection.find(f => f.name === "enableAuthentication").value as boolean;
+    newConfig.authenticationSettings.enableAuthentication = authenticationSettingsSection.find(f => f.name === "enableAuthentication").value as any;
 
     const layoutSection = this.formUtilsService.getFieldFormMap(form.sections.find(s => s.name === "layoutSettings"));
     newConfig.layoutSettings.defaultLayout = layoutSection.find(f => f.name === "defaultLayout").value as string;
