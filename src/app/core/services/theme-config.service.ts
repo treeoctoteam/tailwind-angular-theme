@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
+import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeConfigService {
 
-  constructor(private appConfigService: ApplicationConfigService) { }
+  constructor(private appConfigService: ApplicationConfigService) {
+    this.appConfigService.$config.subscribe((config: ApplicationConfig) => {
+      this.setFavicon(config);
+      this.setWebManifest(config);
+    })
+  }
 
-  setFavicon() {
+  setFavicon(config: ApplicationConfig) {
+    console.log("SET FAVICON", config.theme.favicon);
     const favicon = document.createElement("link");
     favicon.id = "appFavicon";
     favicon.rel = "icon";
     favicon.type = "image/x-icon";
-    favicon.href = this.appConfigService.config.theme.favicon;
+    favicon.href = config.theme.favicon;
     const defaultFavicon = document.getElementById("defaultFavicon")
     defaultFavicon?.remove();
     return favicon;
   }
-  setWebManifest() {
+  setWebManifest(config: ApplicationConfig) {
     const myDynamicManifest = {
-      name: `Digital Onboarding | ${this.appConfigService.config.customerInfo.name.toUpperCase()}`,
-      short_name: `${this.appConfigService.config.customerInfo.name.toUpperCase()}`,
-      description: `Digital Onboarding | ${this.appConfigService.config.customerInfo.name.toUpperCase()}`,
+      name: `TreeOcto | ${config.customerInfo.name.toUpperCase()}`,
+      short_name: `${config.customerInfo.name.toUpperCase()}`,
+      description: `TreeOcto | ${config.customerInfo.name.toUpperCase()}`,
       start_url: "./",
       scope: "./",
       display: "standalone",
