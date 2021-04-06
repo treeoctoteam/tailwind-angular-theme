@@ -1,5 +1,5 @@
 {
-  "startup": "API",
+  "startup": "api",
   "customerInfo": {
     "name": "EURONOVATE",
     "address": "via roma 1",

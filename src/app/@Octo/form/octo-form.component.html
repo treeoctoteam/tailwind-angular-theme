@@ -6,7 +6,7 @@
         <octo-section *ngFor="let section of form?.sections" [section]="section"></octo-section>
       </div>
       <div class="text-center">
-        <to-button appearance="filled" color="yellow" (click)="submitClick()" class="mr-2">
+        <to-button appearance="filled" color="yellow" (btnClick)="submitClick()" class="mr-2">
           <i slot="icon-start" class="fad fa-share-square"></i>
           Submit
         </to-button>
