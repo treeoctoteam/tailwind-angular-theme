@@ -6,6 +6,8 @@ import { ApplicationConfig } from 'src/app/shared/models/application-config.mode
   providedIn: 'root'
 })
 export class ThemeConfigService {
+  themes = [{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }];
+  theme = "light";
 
   constructor(private appConfigService: ApplicationConfigService) {
     this.appConfigService.$config.subscribe((config: ApplicationConfig) => {
@@ -91,5 +93,16 @@ export class ThemeConfigService {
     const manifestURL = URL.createObjectURL(blob);
     const appManifest = document.querySelector("#appManifest")
     appManifest?.setAttribute("href", manifestURL);
+  }
+
+  switchThemeMode(theme: string) {
+    alert(theme)
+    this.theme = theme;
+    localStorage.theme = theme;
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
 }

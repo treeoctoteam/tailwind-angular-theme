@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { octoAnimations } from 'src/app/shared/utils/animations';
+import { ThemeConfigService } from 'src/app/core/services/theme-config.service';
 
 @Component({
   selector: 'octo-config-overview',
@@ -33,7 +34,6 @@ export class ConfigOverviewComponent implements OnInit {
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
     this.appConfig = this.appService.config;
-
   }
 
   ngOnInit(): void {

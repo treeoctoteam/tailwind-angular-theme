@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardConfigFormComponent } from './components/dashboard-config-form/dashboard-config-form.component';
 import { LandingConfigFormComponent } from './components/landing-config-form/landing-config-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from 'src/app/core/core.module';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
     NgJsonEditorModule,
     SharedModule,
     OctoFormModule,
+    CoreModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -5,13 +5,15 @@ import { CustomDialogTemplateComponent, DialogComponent } from './components/dia
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
+import { ThemeSelectComponent } from './components/theme-select/theme-select.component';
 
 @NgModule({
   declarations: [
     AlertComponent,
     DialogComponent,
     CustomDialogTemplateComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ThemeSelectComponent
   ],
   imports: [
     CommonModule
@@ -19,7 +21,8 @@ import { LoaderInterceptorService } from './interceptors/loader-interceptor.serv
   exports: [
     AlertComponent,
     DialogComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ThemeSelectComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
