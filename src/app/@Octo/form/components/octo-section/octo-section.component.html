@@ -1,8 +1,9 @@
 <div *ngIf="section" [class]="section?.class + ' h-full'" [style]="section?.style">
   <div class="font-medium text-base mb-2 text-center">{{ section.title }}</div>
-  <form class="octo-form-grid" autocomplete="off">
+  <!-- change from form to div for clear button bug -->
+  <div class="octo-form-grid" autocomplete="off">
     <div *ngFor="let field of section?.fields">
       <octo-field [formField]="field"></octo-field>
     </div>
-  </form>
+  </div>
 </div>

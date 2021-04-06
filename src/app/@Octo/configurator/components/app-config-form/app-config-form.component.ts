@@ -32,8 +32,8 @@ export class AppConfigFormComponent implements OnInit {
   ]
   showForm = false;
   configForm: ApplicationConfig;
-  @Output() submit = new EventEmitter();
-  @Output() export = new EventEmitter();
+  @Output() setAppConfig = new EventEmitter();
+  @Output() exportAppConfig = new EventEmitter();
   @Input() set form(conf) {
     console.log("01 RECIVED CONF", conf);
     if (conf) {
@@ -66,7 +66,7 @@ export class AppConfigFormComponent implements OnInit {
       this.appConfigForm.sections[6].fields[1].value = newLanguagesValue;
     }
     console.log("03 RESULT FORM SUBMIT START", this.appConfigForm);
-    this.submit.emit(this.appConfigForm);
+    this.setAppConfig.emit(this.appConfigForm);
   }
 
   formChange(form: OctoFormModel) {
@@ -463,9 +463,9 @@ const APPCONFIG_FORM: OctoFormModel = {
           appearance: 'simple',
           label: 'Enable authentication',
           labelColor: '',
-          borderColor: 'border-green-700',
+          borderColor: '',
           backgroundColor: 'bg-green-600',
-          textColor: 'text-red-300',
+          textColor: '',
           clearable: true,
           value: '',
           type: 'toggle',
