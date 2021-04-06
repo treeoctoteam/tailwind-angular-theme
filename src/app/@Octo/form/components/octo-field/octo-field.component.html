@@ -1,4 +1,5 @@
 <ng-container *ngIf="formField">
+  {{formField.borderWidth}}
   <to-input
     *ngIf="
       formField.type === 'text' ||
@@ -17,6 +18,7 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
+    [borderWidth]="formField.borderWidth"
   >
     {{ formField.label }}
     <to-hint slot="hint" type="error">{{ errorMessage }}</to-hint>
@@ -37,6 +39,7 @@
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
     [value]="formField.value"
+    [borderWidth]="formField.borderWidth"
   >
     <to-hint *ngIf="errorMessage" slot="hint" type="error">{{
       errorMessage
@@ -75,6 +78,7 @@
     [backgroundColor]="formField.backgroundColor"
     [value]="formField.value"
     [multipleSelection]="formField.multipleSelection"
+    [borderWidth]="formField.borderWidth"
   >
     {{ formField.label }}
   </to-autocomplete>
@@ -93,6 +97,7 @@
     [placeholderColor]="formField.placeholderColor"
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
+    [borderWidth]="formField.borderWidth"
   ></to-select>
 
   <to-toggle

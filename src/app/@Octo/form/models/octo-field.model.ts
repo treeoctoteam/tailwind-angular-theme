@@ -23,6 +23,7 @@ export interface OctoFieldModel {
   placeholderColor?: string;
   textColor?: string;
   backgroundColor?: string;
+  borderWidth?: string;
   options?: OctoFieldOptionModel[];
   validation?: Partial<OctoFieldValidationModel>;
   sectionId: string;
