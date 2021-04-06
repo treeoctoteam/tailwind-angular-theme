@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "~11.2.8",
     "@angular/router": "~11.2.8",
     "@ngx-translate/core": "^13.0.0",
+    "@tailwindcss/forms": "^0.3.2",
+    "@tailwindcss/typography": "^0.4.0",
     "@treeocto/ui-kit": "0.1.26",
     "ang-jsoneditor": "^1.10.5",
     "angular-user-idle": "^2.2.4",
