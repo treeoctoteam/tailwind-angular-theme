@@ -26,37 +26,38 @@ export class AppComponent {
     this.appService.$config.pipe(
       takeUntil(this.$unsubscribe)
     ).subscribe((appConfig: ApplicationConfig) => {
-      // Add languages
-      this.translateService.langs = [];
+      if (appConfig) {
+        // Add languages
+        this.translateService.langs = [];
+        appConfig.languageSettings?.languages.forEach(lang => {
+          if (lang.enabled) {
+            this.translateService.addLangs([lang.id]);
+          }
+        })
+        // Set the default language
+        this.translateService.setDefaultLang(this.translateService.langs[0]);
 
-      appConfig.languageSettings.languages.forEach(lang => {
-        if (lang.enabled) {
-          this.translateService.addLangs([lang.id]);
+        // Use a language
+        this.translateService.use(this.translateService.langs[0]);
+
+        let browserLang = navigator.language.slice(0, 2);
+        // this._logger.logInfo("Browser Language : " + browserLang);
+        if (appConfig.languageSettings.languages.find(lang => lang.id == browserLang && lang.enabled)) {
+          // this._logger.logSystem("Active Language :" + browserLang);
+          this.translateService.use(browserLang);
         }
-      })
-      // Set the default language
-      this.translateService.setDefaultLang(this.translateService.langs[0]);
 
-      // Use a language
-      this.translateService.use(this.translateService.langs[0]);
+        this.locale = this.translateService.currentLang;
+        // don't forget to unsubscribe!
+        this.translateService.onLangChange
+          .pipe(takeUntil(this.$unsubscribe))
+          .subscribe((langChangeEvent: LangChangeEvent) => {
+            this.locale = langChangeEvent.lang;
+          });
 
-      let browserLang = navigator.language.slice(0, 2);
-      // this._logger.logInfo("Browser Language : " + browserLang);
-      if (appConfig.languageSettings.languages.find(lang => lang.id == browserLang && lang.enabled)) {
-        // this._logger.logSystem("Active Language :" + browserLang);
-        this.translateService.use(browserLang);
+        window.addEventListener("online", this.onNetworkStatusChange.bind(this));
+        window.addEventListener("offline", this.onNetworkStatusChange.bind(this));
       }
-
-      this.locale = this.translateService.currentLang;
-      // don't forget to unsubscribe!
-      this.translateService.onLangChange
-        .pipe(takeUntil(this.$unsubscribe))
-        .subscribe((langChangeEvent: LangChangeEvent) => {
-          this.locale = langChangeEvent.lang;
-        });
-
-      window.addEventListener("online", this.onNetworkStatusChange.bind(this));
-      window.addEventListener("offline", this.onNetworkStatusChange.bind(this));
     })
   }
 

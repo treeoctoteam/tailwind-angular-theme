@@ -26,9 +26,15 @@
   },
   "layoutSettings": {
     "defaultLayout": "/configurator",
-    "layouts": ["/dashboard", "/landingpage", "/workflow", "/configurator", "/pdf-reader"]
+    "layouts": [
+      "/dashboard",
+      "/landingpage",
+      "/workflow",
+      "/configurator",
+      "/pdf-reader"
+    ]
   },
-  "languageSettings" : {
+  "languageSettings": {
     "defaultLanguage": "en",
     "languages": [
       {
@@ -48,6 +54,6 @@
     ]
   },
   "theme": {
-    "favicon": "test"
+    "favicon": "favicon.ico"
   }
 }

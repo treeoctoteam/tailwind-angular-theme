@@ -96,7 +96,6 @@ export class ThemeConfigService {
   }
 
   switchThemeMode(theme: string) {
-    alert(theme)
     this.theme = theme;
     localStorage.theme = theme;
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
