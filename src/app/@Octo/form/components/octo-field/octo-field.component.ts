@@ -26,7 +26,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
     this.formFieldControl.valueChanges
       .pipe(takeUntil(this.$onDestroing))
       .subscribe((value) => {
-        console.log("#####", this.formField.value, value)
+        console.log("VALUE CHANGE FIELD", this.formField.value, value)
         this.formField.value = value;
         this._formService.setFieldValue(
           value,

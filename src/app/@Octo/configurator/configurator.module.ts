@@ -11,6 +11,7 @@ import { AppConfigFormComponent } from './components/app-config-form/app-config-
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardConfigFormComponent } from './components/dashboard-config-form/dashboard-config-form.component';
 import { LandingConfigFormComponent } from './components/landing-config-form/landing-config-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -45,4 +46,4 @@ export class ConfiguratorModule {
   constructor(i18nService: I18nService) {
     i18nService.getCountries();
   }
- }
+}

@@ -14,13 +14,15 @@ export class OctoFormUtilsService {
     form: OctoFormModel
   ): { id: string; name: string }[] {
     const sections: { id: string; name: string }[] = [];
-    form.sections?.forEach((s) => {
-      const section: { id: string; name: string } = {
-        id: s.id,
-        name: s.name,
-      };
-      sections.push(section);
-    });
+    if (form) {
+      form.sections?.forEach((s) => {
+        const section: { id: string; name: string } = {
+          id: s.id,
+          name: s.name,
+        };
+        sections.push(section);
+      });
+    }
     return sections;
   }
 
@@ -28,14 +30,16 @@ export class OctoFormUtilsService {
     section: OctoSectionModel
   ): { id: string; name: string; value: string | number | object | boolean }[] {
     const fields: { id: string; name: string; value: string | number | object | boolean }[] = [];
-    section.fields.forEach((f) => {
-      const field: { id: string; name: string; value: string | number | object | boolean } = {
-        id: f.id,
-        name: f.name,
-        value: f.value,
-      };
-      fields.push(field);
-    });
+    if (section) {
+      section.fields.forEach((f) => {
+        const field: { id: string; name: string; value: string | number | object | boolean } = {
+          id: f.id,
+          name: f.name,
+          value: f.value,
+        };
+        fields.push(field);
+      });
+    }
     return fields;
   }
 }

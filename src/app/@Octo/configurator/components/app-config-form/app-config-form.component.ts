@@ -35,9 +35,9 @@ export class AppConfigFormComponent implements OnInit {
   @Output() submit = new EventEmitter();
   @Output() export = new EventEmitter();
   @Input() set form(conf) {
+    console.log("01 RECIVED CONF", conf);
     if (conf) {
       this.configForm = conf;
-      console.log(this.configForm);
       this.showForm = true;
       this.editConfig();
     } else {
@@ -50,6 +50,7 @@ export class AppConfigFormComponent implements OnInit {
   ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
+    console.log("02 FORM SUBMIT START", form);
     this.appConfigForm = { ...form };
     const languagesValue = this.appConfigForm.sections[6].fields[1].value as string[];
     if (languagesValue) {
@@ -64,6 +65,7 @@ export class AppConfigFormComponent implements OnInit {
       })
       this.appConfigForm.sections[6].fields[1].value = newLanguagesValue;
     }
+    console.log("03 RESULT FORM SUBMIT START", this.appConfigForm);
     this.submit.emit(this.appConfigForm);
   }
 

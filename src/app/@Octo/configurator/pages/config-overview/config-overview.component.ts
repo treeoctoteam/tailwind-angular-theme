@@ -67,18 +67,20 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
   jchange(e: any) {
-    console.log("JCHANGE", e)
+    console.log("JSON CHANGE", e)
   }
   change(e: any) {
     console.log("CHANGE", e)
   }
 
   setAppConfig(form: OctoFormModel) {
+    console.log("04 SET APP CONFIG SUBMIT", form)
     const newConfig = this.appService.generateConfigFromOctoForm(form);
-    console.log("UPDATE APP CONFIG", newConfig);
+    console.log("05 UPDATE APP CONFIG", newConfig);
     this.appConfig = newConfig;
     this.editAppConfig = null;
   }
+
   editForm() {
     this.editAppConfig = this.appConfig;
   }
