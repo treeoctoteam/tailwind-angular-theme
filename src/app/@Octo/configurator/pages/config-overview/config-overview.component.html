@@ -1,10 +1,12 @@
 <div class="gradient leading-relaxed tracking-wide flex flex-col min-h-screen">
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
-    <to-card [cardTitle]="'Active Configuration'" *ngIf="!editAppConfig">
+    <to-card [cardTitle]="'Active Configuration'" *ngIf="!editConfig">
+      <to-select [options]="options" (toElementChange)="optionChange($event)" >Select config</to-select>
+
       <json-editor
         [options]="editorOptions"
-        [data]="appConfig"
+        [data]="config"
         (change)="change($event)"
         (jsonChange)="jchange($event)"
       ></json-editor>
@@ -18,10 +20,19 @@
       </div>
     </to-card>
 
+
     <octo-app-config-form
       (setAppConfig)="setAppConfig($event)"
-      [form]="editAppConfig"
-    ></octo-app-config-form>
+      [form]="editConfig"
+    >
+    </octo-app-config-form>
+
+    <!-- <octo-dashboard-config-form 
+      (setAppConfig)="setAppConfig($event)" 
+      [form]="editConfig"
+    >
+    </octo-dashboard-config-form> -->
+
   </div>
 </div>
 

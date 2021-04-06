@@ -1,1 +1,6 @@
-<p>dashboard-config-form works!</p>
+<to-card [cardTitle]="'Update Parameters'" *ngIf="showForm">
+    <octo-form [formModel]="appConfigForm" 
+    (formChange)="formChange($event)" 
+    (formSubmit)="formSubmit($event)">
+    </octo-form>
+</to-card>

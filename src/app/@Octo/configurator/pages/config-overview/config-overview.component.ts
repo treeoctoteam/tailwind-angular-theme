@@ -1,6 +1,7 @@
+import { DashboardConfigService } from './../../../../modules/dashboard/services/dashboard-config.service';
 import { AppConfigFormComponent } from './../../components/app-config-form/app-config-form.component';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { octoAnimations } from 'src/app/shared/utils/animations';
@@ -15,9 +16,14 @@ import { ThemeConfigService } from 'src/app/core/services/theme-config.service';
 export class ConfigOverviewComponent implements OnInit {
 
   public editorOptions: JsonEditorOptions;
-  public appConfig: any;
-  public editAppConfig: any;
+  public config: any;
+  public editConfig: any;
   public isEditedMode = false;
+
+  options= [
+    { value: 'appconfig', label: 'Appconfig' },
+    { value: 'dashboard', label: 'Dashboard' },
+  ];
 
   @ViewChild(JsonEditorComponent, { static: false }) editor: JsonEditorComponent;
   private setting = {
@@ -26,14 +32,13 @@ export class ConfigOverviewComponent implements OnInit {
     }
   }
 
-  editedConfigForm: any;
 
-  constructor(public appService: ApplicationConfigService) {
+  constructor(public appService: ApplicationConfigService, public dashboardConfigService: DashboardConfigService) {
     this.editorOptions = new JsonEditorOptions()
     this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
     this.editorOptions.enableSort = false;
     this.editorOptions.enableTransform = false;
-    this.appConfig = this.appService.config;
+    this.config = this.appService.config;
   }
 
   ngOnInit(): void {
@@ -59,7 +64,7 @@ export class ConfigOverviewComponent implements OnInit {
     alert("exported!")
     this.dyanmicDownloadByHtmlTag({
       fileName: 'app-config.json',
-      text: JSON.stringify(this.appConfig)
+      text: JSON.stringify(this.config)
     });
   }
   save() {
@@ -77,11 +82,26 @@ export class ConfigOverviewComponent implements OnInit {
     console.log("04 SET APP CONFIG SUBMIT", form)
     const newConfig = this.appService.generateConfigFromOctoForm(form);
     console.log("05 UPDATE APP CONFIG", newConfig);
-    this.appConfig = newConfig;
-    this.editAppConfig = null;
+    this.config = newConfig;
+    this.editConfig = null;
   }
 
   editForm() {
-    this.editAppConfig = this.appConfig;
+    this.editConfig = this.config;
+  }
+
+  optionChange(event: Event) {
+    const value = (event as CustomEvent).detail.value;
+    console.log(value);
+    if(value === "dashboard") {
+      this.dashboardConfigService.initConfig().subscribe(res => {
+        this.config = res;
+      });
+    }
+    // else if (value === "dashboard") {
+    //   this.dashboardConfigService.initConfig().subscribe(res => {
+    //     this.config = res;
+    //   });
+    // }
   }
 }

@@ -29,8 +29,8 @@
       },
       {
         "id": "item",
-        "translate": "NAV.APPLICATIONS",
         "type": "items",
+        "translate": "NAV.APPLICATIONS",
         "icon": "apps",
         "url": "/test"
       }

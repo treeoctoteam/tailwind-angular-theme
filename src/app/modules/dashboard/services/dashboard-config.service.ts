@@ -22,10 +22,10 @@ export class DashboardConfigService {
       this.$config.next(response);
       this.config = response;
       // Manage Routing
-      let navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
-      if (!navigationExist) {
-        this.router.navigate(['dashboard/' + this.config.defaultRoute]);
-      }
+      // let navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
+      // if (!navigationExist) {
+      //   this.router.navigate(['dashboard/' + this.config.defaultRoute]);
+      // }
     });
     return $req;
   }

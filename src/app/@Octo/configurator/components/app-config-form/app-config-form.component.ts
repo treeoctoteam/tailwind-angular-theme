@@ -2,7 +2,6 @@ import { I18nService } from 'src/app/core/services/i18n.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
 import { Language } from 'src/app/shared/models/language.model';
 
@@ -45,7 +44,7 @@ export class AppConfigFormComponent implements OnInit {
     }
   }
 
-  constructor(public appService: ApplicationConfigService, public i18nService: I18nService, private sanitizer: DomSanitizer) { }
+  constructor(public appService: ApplicationConfigService, public i18nService: I18nService) { }
 
   ngOnInit(): void { }
 
