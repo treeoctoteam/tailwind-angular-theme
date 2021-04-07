@@ -23,10 +23,6 @@ const routes: Routes = [
     loadChildren: () => import('./@Octo/configurator/configurator.module').then(m => m.ConfiguratorModule)
   },
   {
-    path: 'pdf-reader',
-    loadChildren: () => import('./@Octo/pdf-reader/pdf-manager.module').then(m => m.PdfManagerModule)
-  },
-  {
     path: '**',
     redirectTo: 'notfound'
   }
