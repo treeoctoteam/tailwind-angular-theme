@@ -8,6 +8,7 @@ import { localeENPublic } from './i18n/en';
 import { TranslateModule } from '@ngx-translate/core';
 import { PublicConfigService } from './services/public.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
@@ -17,14 +18,19 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
         canActivateChild: [NavigationGuard]
-      }
+      },
+      {
+        path: 'home', component: HomeComponent,
+        canActivateChild: [NavigationGuard]
+      },
     ],
   },
 ];
 
 @NgModule({
   declarations: [
-    PublicComponent
+    PublicComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

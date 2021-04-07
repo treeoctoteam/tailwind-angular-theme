@@ -7,12 +7,11 @@ import { NotfoundComponent } from './not-found/not-found.component';
 import { UserDataComponent } from '../modules/auth/pages/user-data/user-data.component';
 import { LoginComponent } from '../modules/auth/pages/login/login.component';
 import { RegisterComponent } from '../modules/auth/pages/register/register.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from '../modules/public/pages/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { LockComponent } from '../modules/auth/pages/lock/lock.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'not-found', component: NotfoundComponent }
@@ -21,7 +20,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     FaqComponent,
-    HomeComponent,
     NotfoundComponent,
     ContactsComponent
   ],

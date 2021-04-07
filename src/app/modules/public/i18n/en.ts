@@ -5,6 +5,9 @@ export const localeENPublic = {
       APPLICATIONS: 'App',
       HOME: 'Home',
       DOCUMENTS: 'Documents'
+    },
+    PAGES: {
+
     }
   }
 }
