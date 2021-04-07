@@ -1,7 +1,11 @@
+import { DialogService } from './../../../../core/services/dialog.service';
 import { NavigationBase } from './../../../models/modules.model';
 import { OctoFormModel } from '../../../../@Octo/form/models/octo-form.model';
-import { Component, OnInit, EventEmitter, Output, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnChanges, ViewChild, TemplateRef } from '@angular/core';
 import { DashboardConfig } from '../../../models/modules.model';
+import { ToDialog, TODialogOptions } from '@treeocto/ui-kit/dist/types/components/to-dialog/to-dialog';
+
+const navigationConfDialog = "navigationConfDialogID"
 
 @Component({
   selector: 'octo-dashboard-config-form',
@@ -39,7 +43,7 @@ export class DashboardConfigFormComponent implements OnInit {
     }
   ]
 
-
+  @ViewChild('navigationConfigFormDialog') dialog : TemplateRef<any>;
   @Output() setDashboardConfig = new EventEmitter();
   @Output() exportDashboardConfig = new EventEmitter();
   @Input() set form(conf) {
@@ -53,33 +57,45 @@ export class DashboardConfigFormComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  
+
+  constructor(private dialogService: DialogService) { }
 
   ngOnInit(): void {
     
   }
 
-  async setHiddenField(sectionName: string, form){
-    const group = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "children").id);
-    const page = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "page").id);
-    if (form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "type").value === "item") {
-      group.classList.add("hidden");
-      page.classList.remove("hidden");
+
+  closeDialog() {
+    this.dialogService.close(navigationConfDialog);
+  }
+
+  openDialog(){
+    const option: Partial<TODialogOptions> ={
+      hasBackdrop: true,
+      hasCustomTemplate: true,
+      dialogTitle: "Navigation config form"
     }
-    else if (form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "type").value === "group") {
-      page.classList.add("hidden");
-      group.classList.remove("hidden");
-    }
+    this.dialogService.open(option, navigationConfDialog, this.dialog).subscribe(res => {
+      console.log(res)
+    })
+  }
+
+  addEventToButton(sectionName: string, form) {
+    const button = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === `${sectionName}NavigationButton`).id);
+    button.addEventListener("btnClick", e => {
+      this.openDialog();
+    });
   }
 
   formChange(event) {
     console.log("EVENT", event)
     // TODO without timeout doesn't work because element is not already rendered
-    // setTimeout(() => {
-    //   this.setHiddenField("navbar", event);
-    //   this.setHiddenField("sidebar", event);
-    //   this.setHiddenField("footer", event);
-    // }, 100);
+    setTimeout(() => {
+      this.addEventToButton("navbar", event);
+      this.addEventToButton("sidebar", event);
+      this.addEventToButton("footer", event);
+    }, 100);
   }
 
   formSubmit(event) {
@@ -111,7 +127,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
         {
           id: 'f1s1',
           name: 'logoPath',
-          class: 'col-span-2',
+          class: '',
           disabled: false,
           placeholder: 'Insert logo path',
           placeholderColor: '',
@@ -129,9 +145,29 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
             required: true,
           },
           sectionId: 's1',
+        },
+        {
+          id: 'f2s1',
+          name: 'navbarNavigationButton',
+          class: '',
+          disabled: false,
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Handle navigation',
+          labelColor: '',
+          borderColor: 'border-green-700',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'button',
+          validation: {
+            required: true,
+          },
+          sectionId: 's1',
         }
-      ],
-      
+      ]
     },
     {
       id: 's2',
@@ -160,6 +196,27 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           clearable: true,
           value: '',
           type: 'text',
+          validation: {
+            required: true,
+          },
+          sectionId: 's2',
+        },
+        {
+          id: 'f2s2',
+          name: 'sidebarNavigationButton',
+          class: '',
+          disabled: false,
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Handle navigation',
+          labelColor: '',
+          borderColor: 'border-green-700',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'button',
           validation: {
             required: true,
           },
@@ -194,6 +251,27 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           clearable: true,
           value: '',
           type: 'text',
+          validation: {
+            required: true,
+          },
+          sectionId: 's3',
+        },
+        {
+          id: 'f2s3',
+          name: 'footerNavigationButton',
+          class: '',
+          disabled: false,
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Handle navigation',
+          labelColor: '',
+          borderColor: 'border-green-700',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'button',
           validation: {
             required: true,
           },
