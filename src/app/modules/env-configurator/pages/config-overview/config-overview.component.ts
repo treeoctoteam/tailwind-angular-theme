@@ -1,13 +1,10 @@
 
-import { ConfiguratorService } from './../../services/configurator.service';
-import { DashboardConfigService } from './../../../../modules/dashboard/services/dashboard-config.service';
-import { AppConfigFormComponent } from './../../components/app-config-form/app-config-form.component';
+import { ConfiguratorService } from '../../services/configurator.service';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { octoAnimations } from 'src/app/shared/utils/animations';
-import { ThemeConfigService } from 'src/app/core/services/theme-config.service';
 
 @Component({
   selector: 'octo-config-overview',
@@ -102,7 +99,7 @@ export class ConfigOverviewComponent implements OnInit {
   optionChange(event: Event) {
     this.optionSelected = (event as CustomEvent).detail.value;
     console.log(this.optionSelected);
-    if(this.optionSelected === "dashboard") {
+    if (this.optionSelected === "dashboard") {
       this.configuratorService.getDashboardConfig().subscribe(res => {
         this.config = res;
       });

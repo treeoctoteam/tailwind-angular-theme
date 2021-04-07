@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ConfigOverviewComponent } from './pages/config-overview/config-overview.component';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
-import { OctoFormModule } from '../form/octo-form.module';
+import { OctoFormModule } from '../../@Octo/form/octo-form.module';
 import { AppConfigFormComponent } from './components/app-config-form/app-config-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardConfigFormComponent } from './components/dashboard-config-form/dashboard-config-form.component';

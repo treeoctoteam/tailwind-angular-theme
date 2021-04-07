@@ -1,10 +1,10 @@
-import { OctoFormModel } from './../../form/models/octo-form.model';
-import { OctoFormUtilsService } from './../../form/octo-form-utils.service';
+import { OctoFormModel } from '../../../@Octo/form/models/octo-form.model';
+import { OctoFormUtilsService } from '../../../@Octo/form/octo-form-utils.service';
 import { share } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
-import { ApplicationConfig } from './../../../shared/models/application-config.model';
-import { DashboardConfig } from './../../../modules/models/modules.model';
+import { ApplicationConfig } from '../../../shared/models/application-config.model';
+import { DashboardConfig } from '../../models/modules.model';
 import { Injectable } from '@angular/core';
 import { Language } from 'src/app/shared/models/language.model';
 const DASHBOARD_CONFIG_PATH = 'assets/config/dashboard-config.json';
