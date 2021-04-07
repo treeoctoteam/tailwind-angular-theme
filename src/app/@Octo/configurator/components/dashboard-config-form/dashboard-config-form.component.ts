@@ -17,7 +17,12 @@ export class DashboardConfigFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  formChange(event) {
 
+  }
+  formSubmit(event) {
+
+  }
 }
 
 const DASHBOARDCONFIG_FORM: OctoFormModel = {
