@@ -14,7 +14,7 @@ import { ApplicationConfig } from './shared/models/application-config.model';
 export class AppComponent {
 
   private $unsubscribe = new Subject<void>();
-  locale: string;
+  activeLang: string;
 
   constructor(private appService: ApplicationConfigService,
     private translateService: TranslateService,
@@ -47,12 +47,12 @@ export class AppComponent {
           this.translateService.use(browserLang);
         }
 
-        this.locale = this.translateService.currentLang;
+        this.activeLang = this.translateService.currentLang;
         // don't forget to unsubscribe!
         this.translateService.onLangChange
           .pipe(takeUntil(this.$unsubscribe))
           .subscribe((langChangeEvent: LangChangeEvent) => {
-            this.locale = langChangeEvent.lang;
+            this.activeLang = langChangeEvent.lang;
           });
 
         window.addEventListener("online", this.onNetworkStatusChange.bind(this));
