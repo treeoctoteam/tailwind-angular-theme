@@ -31,7 +31,7 @@ export class AppConfigFormComponent implements OnInit {
       "enabled": false
     }
   ]
-  
+
   @Output() setAppConfig = new EventEmitter();
   @Output() exportAppConfig = new EventEmitter();
   @Input() set form(conf) {
@@ -602,7 +602,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           options: [
             { value: '/public', label: 'public' },
             { value: '/dashboard', label: 'dashboard' },
-            { value: '/workflow', label: 'workflow' },
+            { value: '/auth', label: 'authentication' },
             { value: '/configurator', label: 'configurator' },
           ],
           validation: {
@@ -630,7 +630,7 @@ const APPCONFIG_FORM: OctoFormModel = {
           options: [
             { value: '/public', label: 'public' },
             { value: '/dashboard', label: 'dashboard' },
-            { value: '/workflow', label: 'workflow' },
+            { value: '/auth', label: 'authentication' },
             { value: '/configurator', label: 'configurator' },
           ],
           validation: {
