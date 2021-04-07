@@ -1,5 +1,7 @@
-import { DashboardConfigService } from '../../../../modules/dashboard/services/dashboard-config.service';
-import { AppConfigFormComponent } from '../../components/app-config-form/app-config-form.component';
+
+import { ConfiguratorService } from './../../services/configurator.service';
+import { DashboardConfigService } from './../../../../modules/dashboard/services/dashboard-config.service';
+import { AppConfigFormComponent } from './../../components/app-config-form/app-config-form.component';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
@@ -33,7 +35,7 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
 
-  constructor(public appService: ApplicationConfigService, public dashboardConfigService: DashboardConfigService) {
+  constructor(public appService: ApplicationConfigService, public configuratorService: ConfiguratorService) {
     this.editorOptions = new JsonEditorOptions()
     this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
     this.editorOptions.enableSort = false;
@@ -94,14 +96,14 @@ export class ConfigOverviewComponent implements OnInit {
     const value = (event as CustomEvent).detail.value;
     console.log(value);
     if (value === "dashboard") {
-      this.dashboardConfigService.initConfig().subscribe(res => {
+      this.configuratorService.getDashboardConfig().subscribe(res => {
         this.config = res;
       });
     }
-    // else if (value === "dashboard") {
-    //   this.dashboardConfigService.initConfig().subscribe(res => {
-    //     this.config = res;
-    //   });
-    // }
+    else if (value === "appconfig") {
+      this.configuratorService.getApplicationConfig().subscribe(res => {
+        this.config = res;
+      });
+    }
   }
 }
