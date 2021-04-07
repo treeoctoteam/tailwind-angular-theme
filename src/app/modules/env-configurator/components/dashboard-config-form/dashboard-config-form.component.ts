@@ -1,15 +1,7 @@
+import { NavigationBase } from './../../../models/modules.model';
 import { OctoFormModel } from '../../../../@Octo/form/models/octo-form.model';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { DashboardConfig } from '../../../models/modules.model';
-
-export interface Page {
-  id: string;
-  translate: string;
-  type: string;
-  icon: string;
-  url: string;
-  hidden: boolean;
-}
 
 @Component({
   selector: 'octo-dashboard-config-form',
@@ -20,7 +12,7 @@ export class DashboardConfigFormComponent implements OnInit {
   dashboardConfigForm: OctoFormModel = DASHBOARDCONFIG_FORM;
   showForm = false;
   configForm: DashboardConfig;
-  pages: Page[] = [
+  navigations: NavigationBase[] = [
     {
       "id": "home",
       "translate": "NAV.HOME",
@@ -40,7 +32,7 @@ export class DashboardConfigFormComponent implements OnInit {
     {
       "id": "item",
       "translate": "NAV.APPLICATIONS",
-      "type": "items",
+      "type": "item",
       "icon": "apps",
       "url": "/test",
       "hidden": false
@@ -237,7 +229,34 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           },
           sectionId: '2'
         },
+        {
+          id: '6',
+          name: 'children',
+          disabled: false,
+          placeholder: 'Choose one or more',
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Children',
+          labelColor: '',
+          borderColor: 'border-green-700',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'autocomplete',
+          options: [
+            { value: 'home', label: 'Home' },
+            { value: 'pdf-reader', label: 'PDF reader' },
+           
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '2',
+        },
       ],
+      
     },
   ],
 }

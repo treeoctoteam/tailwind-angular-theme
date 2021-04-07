@@ -22,7 +22,7 @@ export interface PageRoute {
   authenticate: boolean;
 }
 
-interface NavigationBase {
+export interface NavigationBase {
   id: string;
   translate: string;
   type: 'item' | 'group' | 'collapsable';

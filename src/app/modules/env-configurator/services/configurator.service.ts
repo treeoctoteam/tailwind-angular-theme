@@ -23,6 +23,7 @@ export class ConfiguratorService {
   getApplicationConfig(): Observable<ApplicationConfig> {
     const $req = this.http.get<ApplicationConfig>(APP_CONFIG_PATH).pipe(share());
     $req.subscribe((response: ApplicationConfig) => {
+      console.log("res", response)
       this.$config.next(response);
       this.config = response;
     });
@@ -32,6 +33,7 @@ export class ConfiguratorService {
   getDashboardConfig(): Observable<DashboardConfig> {
     const $req = this.http.get<DashboardConfig>(DASHBOARD_CONFIG_PATH).pipe(share());
     $req.subscribe((response: DashboardConfig) => {
+      console.log("res", response)
       this.$config.next(response);
       this.config = response;
     });
