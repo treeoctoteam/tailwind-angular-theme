@@ -51,6 +51,5 @@ export interface NavigationItem extends NavigationBase { }
 // AVAIABLE MODULES
 
 export type DashboardConfig = Module;
-export type LandingPageConfig = Omit<Module, 'sidebar'>;
-export type WorkflowConfig = Omit<Module, 'sidebar'>;
+export type PublicConfig = Omit<Module, 'sidebar'>;
 

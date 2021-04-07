@@ -25,14 +25,8 @@
     "ping": 5000
   },
   "layoutSettings": {
-    "defaultLayout": "/configurator",
-    "layouts": [
-      "/dashboard",
-      "/landingpage",
-      "/workflow",
-      "/configurator",
-      "/pdf-reader"
-    ]
+    "defaultLayout": "/public",
+    "layouts": ["/dashboard", "/public", "/auth"]
   },
   "languageSettings": {
     "defaultLanguage": "en",

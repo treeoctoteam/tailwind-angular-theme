@@ -9,18 +9,18 @@ const routes: Routes = [
     canActivate: [NavigationGuard]
   },
   {
-    path: 'workflow',
-    loadChildren: () => import('./modules/workflow/workflow.module').then(m => m.WorkflowModule),
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
     canActivate: [NavigationGuard]
   },
   {
-    path: 'landingpage',
-    loadChildren: () => import('./modules/landing-page/landing-page.module').then(m => m.LandingPageModule),
+    path: 'public',
+    loadChildren: () => import('./modules/public/public.module').then(m => m.PublicModule),
     canActivate: [NavigationGuard]
   },
   {
     path: 'configurator',
-    loadChildren: () => import('./@Octo/configurator/configurator.module').then(m => m.ConfiguratorModule)
+    loadChildren: () => import('./@Octo/env-configurator/env-configurator.module').then(m => m.EnvConfiguratorModule)
   },
   {
     path: '**',

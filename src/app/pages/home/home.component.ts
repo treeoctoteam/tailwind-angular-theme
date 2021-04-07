@@ -10,13 +10,13 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   navigateToLoginPage() {
-    this.router.navigate(['landingpage/login']);
+    this.router.navigate(['auth/login']);
   }
 
   navigateToRegistrationPage() {
-    this.router.navigate(['landingpage/registration']);
+    this.router.navigate(['auth/registration']);
   }
 }
