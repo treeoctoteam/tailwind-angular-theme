@@ -1,5 +1,16 @@
 import { OctoFormModel } from '../../../form/models/octo-form.model';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { DashboardConfig } from './../../../../modules/models/modules.model';
+// import { OctoFormModel } from './../../../form/models/octo-form.model';
+
+export interface Page {
+  id: string;
+  translate: string;
+  type: string;
+  icon: string;
+  url: string;
+  hidden: boolean;
+}
 
 @Component({
   selector: 'octo-dashboard-config-form',
@@ -9,18 +20,62 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class DashboardConfigFormComponent implements OnInit {
   dashboardConfigForm: OctoFormModel = DASHBOARDCONFIG_FORM;
   showForm = false;
+  configForm: DashboardConfig;
+  pages: Page[] = [
+    {
+      "id": "home",
+      "translate": "NAV.HOME",
+      "type": "item",
+      "icon": "home",
+      "url": "/home",
+      "hidden": false
+    },
+    {
+      "id": "pdf-reader",
+      "translate": "NAV.DOCUMENTS",
+      "type": "item",
+      "icon": "insert_drive_file",
+      "url": "/pdf",
+      "hidden": false
+    },
+    {
+      "id": "item",
+      "translate": "NAV.APPLICATIONS",
+      "type": "items",
+      "icon": "apps",
+      "url": "/test",
+      "hidden": false
+    }
+  ]
+
 
   @Output() setDashboardConfig = new EventEmitter();
   @Output() exportDashboardConfig = new EventEmitter();
+  @Input() set form(conf) {
+    console.log("01 RECIVED CONF", conf);
+    if (conf) {
+      this.configForm = conf;
+      this.showForm = true;
+      this.editConfig();
+    } else {
+      this.showForm = false;
+    }
+  }
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
   formChange(event) {
 
   }
+
   formSubmit(event) {
+
+  }
+
+  editConfig() {
 
   }
 }

@@ -13,6 +13,8 @@ import { Language } from 'src/app/shared/models/language.model';
 })
 export class AppConfigFormComponent implements OnInit {
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
+  showForm = false;
+  configForm: ApplicationConfig;
   languages: Language[] = [
     {
       "id": "en",
@@ -29,8 +31,7 @@ export class AppConfigFormComponent implements OnInit {
       "enabled": false
     }
   ]
-  showForm = false;
-  configForm: ApplicationConfig;
+  
   @Output() setAppConfig = new EventEmitter();
   @Output() exportAppConfig = new EventEmitter();
   @Input() set form(conf) {

@@ -69,7 +69,8 @@
         "translate": "NAV.APPLICATIONS",
         "type": "items",
         "icon": "apps",
-        "url": "/test"
+        "url": "/test",
+        "hidden": false
       }
     ]
   },
@@ -106,7 +107,8 @@
         "translate": "NAV.APPLICATIONS",
         "type": "items",
         "icon": "apps",
-        "url": "/test"
+        "url": "/test",
+        "hidden": false
       }
     ]
   },
