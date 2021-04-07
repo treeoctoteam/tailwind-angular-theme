@@ -21,17 +21,17 @@
     </to-card>
 
 
-    <octo-app-config-form
+    <octo-app-config-form *ngIf="optionSelected==='appconfig'"
       (setAppConfig)="setAppConfig($event)"
       [form]="editConfig"
     >
     </octo-app-config-form>
-<!-- 
-    <octo-dashboard-config-form 
-      (setAppConfig)="setAppConfig($event)" 
+
+    <octo-dashboard-config-form *ngIf="optionSelected==='dashboard'"
+      (setDashboardConfig)="setDashboardConfig($event)" 
       [form]="editConfig"
     >
-    </octo-dashboard-config-form> -->
+    </octo-dashboard-config-form>
 
   </div>
 </div>

@@ -20,6 +20,7 @@ export class ConfigOverviewComponent implements OnInit {
   public config: any;
   public editConfig: any;
   public isEditedMode = false;
+  public optionSelected = "appconfig";
 
   options= [
     { value: 'appconfig', label: 'Appconfig' },
@@ -81,8 +82,14 @@ export class ConfigOverviewComponent implements OnInit {
 
   setAppConfig(form: OctoFormModel) {
     console.log("04 SET APP CONFIG SUBMIT", form)
-    const newConfig = this.appService.generateConfigFromOctoForm(form);
+    const newConfig = this.configuratorService.generateAppConfigFromOctoForm(form);
     console.log("05 UPDATE APP CONFIG", newConfig);
+    this.config = newConfig;
+    this.editConfig = null;
+  }
+
+  setDashboardConfig(form: OctoFormModel) {
+    const newConfig = this.configuratorService.generateDashboardConfigFromOctoForm(form);
     this.config = newConfig;
     this.editConfig = null;
   }
@@ -92,14 +99,14 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
   optionChange(event: Event) {
-    const value = (event as CustomEvent).detail.value;
-    console.log(value);
-    if(value === "dashboard") {
+    this.optionSelected = (event as CustomEvent).detail.value;
+    console.log(this.optionSelected);
+    if(this.optionSelected === "dashboard") {
       this.configuratorService.getDashboardConfig().subscribe(res => {
         this.config = res;
       });
     }
-    else if (value === "appconfig") {
+    else if (this.optionSelected === "appconfig") {
       this.configuratorService.getApplicationConfig().subscribe(res => {
         this.config = res;
       });
