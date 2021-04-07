@@ -6,6 +6,7 @@
       formField.type === 'number' ||
       formField.type === 'password'
     "
+    [class]="formField.class"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -26,6 +27,7 @@
 
   <to-textarea
     *ngIf="formField.type === 'textarea'"
+    [class]="formField.class"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -48,6 +50,7 @@
 
   <to-checkbox
     *ngIf="formField.type === 'checkbox'"
+    [class]="formField.class"
     octoValueAccessor
     [formControl]="formFieldControl"
     [checkboxId]="formField.id"
@@ -61,8 +64,9 @@
     {{ formField.label }}
   </to-checkbox>
 
-  <to-autocomplete
+  <to-autocomplete 
     *ngIf="formField.type === 'autocomplete'"
+    [class]="formField.class"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -85,6 +89,7 @@
 
   <to-select
     *ngIf="formField.type === 'select'"
+    [class]="formField.class"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -102,6 +107,7 @@
 
   <to-toggle
     *ngIf="formField.type === 'toggle'"
+    [class]="formField.class"
     octoValueAccessor
     [formControl]="formFieldControl"
     [checked]="formField.value"

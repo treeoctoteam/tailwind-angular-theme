@@ -59,6 +59,15 @@ export class DashboardConfigFormComponent implements OnInit {
   }
 
   formChange(event) {
+    console.log("CHANGE EVENT",event.sections[0].fields[2].value);
+    if (event.sections[0].fields[2].value === "item"){
+      this.dashboardConfigForm.sections[0].fields[5].class = "hidden";
+      this.dashboardConfigForm.sections[0].fields[6].class = "";
+    }
+    else if (event.sections[0].fields[2].value === "group") {
+      this.dashboardConfigForm.sections[0].fields[5].class = "";
+      this.dashboardConfigForm.sections[0].fields[6].class = "hidden";
+    }
 
   }
 
@@ -81,7 +90,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
     {
       id: '1',
       name: 'navbar',
-      title: 'Navbar cnfigurator from',
+      title: 'Navigation config',
       class: 'border-2 broder-grey-100 rounded-md p-4',
       style: '',
       validation: {
@@ -91,6 +100,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
         {
           id: '1',
           name: 'logoPath',
+          class: 'col-span-2',
           disabled: false,
           placeholder: 'Insert logo path',
           placeholderColor: '',
@@ -108,21 +118,9 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
             required: true,
           },
           sectionId: '1',
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'navigation',
-      title: 'Navigation',
-      class: 'border-2 broder-grey-100 rounded-md p-4',
-      style: '',
-      validation: {
-        required: true,
-      },
-      fields: [
+        },
         {
-          id: '1',
+          id: '2',
           name: 'id',
           disabled: false,
           placeholder: 'Ex Applications...',
@@ -140,10 +138,10 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '2',
+          sectionId: '1',
         },
         {
-          id: '2',
+          id: '3',
           name: 'type',
           disabled: false,
           placeholder: '',
@@ -160,15 +158,15 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           type: 'select',
           options: [
             { value: 'group', label: 'Group' },
-            { value: 'itams', label: 'Items' },
+            { value: 'item', label: 'Item' },
           ],
           validation: {
             required: true,
           },
-          sectionId: '2',
+          sectionId: '1',
         },
         {
-          id: '3',
+          id: '4',
           name: 'translate',
           disabled: false,
           placeholder: 'Ex NAV.APPLICATIONS',
@@ -186,10 +184,10 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '2',
+          sectionId: '1',
         },
         {
-          id: '4',
+          id: '5',
           name: 'icon',
           disabled: false,
           placeholder: 'Ex home',
@@ -207,10 +205,63 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '2',
+          sectionId: '1',
         },
         {
-          id: '5',
+          id: '6',
+          name: 'children',
+          disabled: false,
+          class: '',
+          placeholder: 'Choose one or more',
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Children',
+          labelColor: '',
+          borderColor: 'border-green-700',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'autocomplete',
+          multipleSelection: true,
+          options: [
+            { value: 'home', label: 'Home' },
+            { value: 'pdf-reader', label: 'PDF reader' }
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '7',
+          name: 'item',
+          disabled: false,
+          placeholder: 'Choose one',
+          placeholderColor: '',
+          appearance: 'simple',
+          label: 'Item',
+          labelColor: '',
+          borderColor: 'border-green-700',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'autocomplete',
+          multipleSelection: true,
+          options: [
+            { value: 'home', label: 'Home' },
+            { value: 'pdf-reader', label: 'PDF reader' }
+          ],
+          validation: {
+            required: true,
+          },
+          sectionId: '1',
+        },
+        {
+          id: '8',
           name: 'hidden',
           disabled: false,
           placeholder: '',
@@ -227,16 +278,30 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true
           },
-          sectionId: '2'
+          sectionId: '1'
         },
+      ],
+      
+    },
+    {
+      id: '2',
+      name: '',
+      title: 'Navigation config',
+      class: '',
+      style: '',
+      validation: {
+        required: true,
+      },
+      fields: [
         {
-          id: '6',
-          name: 'children',
+          id: '1',
+          name: 'logoPath',
+          class: 'col-span-2',
           disabled: false,
-          placeholder: 'Choose one or more',
+          placeholder: 'Insert logo path',
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Children',
+          label: 'Logo path',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -244,19 +309,13 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           backgroundColor: '',
           clearable: true,
           value: '',
-          type: 'autocomplete',
-          options: [
-            { value: 'home', label: 'Home' },
-            { value: 'pdf-reader', label: 'PDF reader' },
-           
-          ],
+          type: 'text',
           validation: {
             required: true,
           },
-          sectionId: '2',
+          sectionId: '1',
         },
-      ],
-      
-    },
+      ]
+    }
   ],
 }
