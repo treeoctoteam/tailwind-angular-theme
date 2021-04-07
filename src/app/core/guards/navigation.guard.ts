@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { DashboardConfigService } from 'src/app/modules/dashboard/services/dashboard-config.service';
-import { LandingpageConfigService } from 'src/app/modules/landing-page/services/landingpage-config.service';
+import { PublicConfigService } from 'src/app/modules/public/services/public.service';
 import { AlertService } from '../services/alert.service';
 import { ApplicationConfigService } from '../services/application-config.service';
 import { AuthService } from '../services/auth.service';
@@ -21,7 +21,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     private router: Router,
     private appConfigService: ApplicationConfigService,
     private authService: AuthService,
-    private landingService: LandingpageConfigService,
+    private landingService: PublicConfigService,
     private dashboardService: DashboardConfigService,
     private alertService: AlertService) { }
 
@@ -29,7 +29,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     if (this.appConfigService.config.authenticationSettings.enableAuthentication) {
       let activeModule = this.checkActiveModule(state);
       switch (activeModule) {
-        case "landingpage":
+        case "public":
           if (!this.landingService.config) {
             this.landingService.initConfig().subscribe(() => {
               return this.moduleAuthenticate(this.landingService);
@@ -114,7 +114,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
   private checkActivePage(activeLayout: string, state: RouterStateSnapshot) {
     let activeRoute;
     switch (activeLayout) {
-      case "landingpage":
+      case "public":
         for (let r of this.landingService.config.routes) {
           const res = state.url.includes(r.path);
           if (res) {
