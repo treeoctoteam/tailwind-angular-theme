@@ -48,8 +48,7 @@ export class ConfigOverviewComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   private dyanmicDownloadByHtmlTag(arg: {
     fileName: string,

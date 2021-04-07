@@ -1,6 +1,6 @@
 import { NavigationBase } from './../../../models/modules.model';
 import { OctoFormModel } from '../../../../@Octo/form/models/octo-form.model';
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 import { DashboardConfig } from '../../../models/modules.model';
 
 @Component({
@@ -45,8 +45,8 @@ export class DashboardConfigFormComponent implements OnInit {
   @Input() set form(conf) {
     console.log("01 RECIVED CONF", conf);
     if (conf) {
-      this.configForm = conf;
       this.showForm = true;
+      this.configForm = conf;
       this.editConfig();
     } else {
       this.showForm = false;
@@ -56,23 +56,34 @@ export class DashboardConfigFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  async setHiddenField(sectionName: string, form){
+    const group = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "children").id);
+    const page = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "page").id);
+    if (form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "type").value === "item") {
+      group.classList.add("hidden");
+      page.classList.remove("hidden");
+    }
+    else if (form.sections.find(s => s.name === sectionName).fields.find(f => f.name === "type").value === "group") {
+      page.classList.add("hidden");
+      group.classList.remove("hidden");
+    }
   }
 
   formChange(event) {
-    console.log("CHANGE EVENT",event.sections[0].fields[2].value);
-    if (event.sections[0].fields[2].value === "item"){
-      this.dashboardConfigForm.sections[0].fields[5].class = "hidden";
-      this.dashboardConfigForm.sections[0].fields[6].class = "";
-    }
-    else if (event.sections[0].fields[2].value === "group") {
-      this.dashboardConfigForm.sections[0].fields[5].class = "";
-      this.dashboardConfigForm.sections[0].fields[6].class = "hidden";
-    }
-
+    console.log("EVENT", event)
+    // TODO without timeout doesn't work because element is not already rendered
+    // setTimeout(() => {
+    //   this.setHiddenField("navbar", event);
+    //   this.setHiddenField("sidebar", event);
+    //   this.setHiddenField("footer", event);
+    // }, 100);
   }
 
   formSubmit(event) {
-
+    
   }
 
   editConfig() {
@@ -88,17 +99,17 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
   style: '',
   sections: [
     {
-      id: '1',
+      id: 's1',
       name: 'navbar',
       title: 'Navigation config',
-      class: 'border-2 broder-grey-100 rounded-md p-4',
+      class: 'border-2 broder-grey-100 rounded-md py-4',
       style: '',
       validation: {
         required: true,
       },
       fields: [
         {
-          id: '1',
+          id: 'f1s1',
           name: 'logoPath',
           class: 'col-span-2',
           disabled: false,
@@ -117,16 +128,30 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '1',
-        },
+          sectionId: 's1',
+        }
+      ],
+      
+    },
+    {
+      id: 's2',
+      name: 'sidebar',
+      title: 'Sidebar config',
+      class: 'border-2 broder-grey-100 rounded-md py-4',
+      style: '',
+      validation: {
+        required: true,
+      },
+      fields: [
         {
-          id: '2',
-          name: 'id',
+          id: 'f1s2',
+          name: 'logoPath',
+          class: 'col-span-2',
           disabled: false,
-          placeholder: 'Ex Applications...',
+          placeholder: 'Insert logo path',
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Id',
+          label: 'Logo path',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -138,41 +163,29 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '1',
-        },
+          sectionId: 's2',
+        }
+      ],
+    },
+    {
+      id: 's3',
+      name: 'footer',
+      title: 'Footer config',
+      class: 'border-2 broder-grey-100 rounded-md py-4',
+      style: '',
+      validation: {
+        required: true,
+      },
+      fields: [
         {
-          id: '3',
-          name: 'type',
+          id: 'f1s3',
+          name: 'logoPath',
+          class: 'col-span-2',
           disabled: false,
-          placeholder: '',
+          placeholder: 'Insert logo path',
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Type',
-          labelColor: '',
-          borderColor: 'border-green-700',
-          borderWidth: '',
-          textColor: '',
-          backgroundColor: '',
-          clearable: true,
-          value: '',
-          type: 'select',
-          options: [
-            { value: 'group', label: 'Group' },
-            { value: 'item', label: 'Item' },
-          ],
-          validation: {
-            required: true,
-          },
-          sectionId: '1',
-        },
-        {
-          id: '4',
-          name: 'translate',
-          disabled: false,
-          placeholder: 'Ex NAV.APPLICATIONS',
-          placeholderColor: '',
-          appearance: 'simple',
-          label: 'Translate',
+          label: 'Logo path',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -184,124 +197,49 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           validation: {
             required: true,
           },
-          sectionId: '1',
-        },
+          sectionId: 's3',
+        }
+      ]
+    },
+    {
+      id: 's3',
+      name: 'othersconfig',
+      title: 'Others config',
+      class: 'border-2 broder-grey-100 rounded-md py-4',
+      style: '',
+      validation: {
+        required: true,
+      },
+      fields: [
         {
-          id: '5',
-          name: 'icon',
+          id: 'f1s3',
+          name: 'authenticate',
+          class: 'col-span-2',
           disabled: false,
-          placeholder: 'Ex home',
-          placeholderColor: '',
           appearance: 'simple',
-          label: 'Icon',
+          label: 'Authenticate',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
           textColor: '',
           backgroundColor: '',
-          clearable: true,
-          value: '',
-          type: 'text',
-          validation: {
-            required: true,
-          },
-          sectionId: '1',
-        },
-        {
-          id: '6',
-          name: 'children',
-          disabled: false,
-          class: '',
-          placeholder: 'Choose one or more',
-          placeholderColor: '',
-          appearance: 'simple',
-          label: 'Children',
-          labelColor: '',
-          borderColor: 'border-green-700',
-          borderWidth: '',
-          textColor: '',
-          backgroundColor: '',
-          clearable: true,
-          value: '',
-          type: 'autocomplete',
-          multipleSelection: true,
-          options: [
-            { value: 'home', label: 'Home' },
-            { value: 'pdf-reader', label: 'PDF reader' }
-          ],
-          validation: {
-            required: true,
-          },
-          sectionId: '1',
-        },
-        {
-          id: '7',
-          name: 'item',
-          disabled: false,
-          placeholder: 'Choose one',
-          placeholderColor: '',
-          appearance: 'simple',
-          label: 'Item',
-          labelColor: '',
-          borderColor: 'border-green-700',
-          borderWidth: '',
-          textColor: '',
-          backgroundColor: '',
-          clearable: true,
-          value: '',
-          type: 'autocomplete',
-          multipleSelection: true,
-          options: [
-            { value: 'home', label: 'Home' },
-            { value: 'pdf-reader', label: 'PDF reader' }
-          ],
-          validation: {
-            required: true,
-          },
-          sectionId: '1',
-        },
-        {
-          id: '8',
-          name: 'hidden',
-          disabled: false,
-          placeholder: '',
-          placeholderColor: '',
-          appearance: 'simple',
-          label: 'Hidden',
-          labelColor: '',
-          borderColor: '',
-          backgroundColor: 'bg-green-600',
-          textColor: '',
           clearable: true,
           value: '',
           type: 'toggle',
           validation: {
             required: true
           },
-          sectionId: '1'
+          sectionId: 's3',
         },
-      ],
-      
-    },
-    {
-      id: '2',
-      name: '',
-      title: 'Navigation config',
-      class: '',
-      style: '',
-      validation: {
-        required: true,
-      },
-      fields: [
         {
-          id: '1',
-          name: 'logoPath',
+          id: 'f2s3',
+          name: 'defaultRoute',
           class: 'col-span-2',
           disabled: false,
-          placeholder: 'Insert logo path',
+          placeholder: 'Choose one',
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Logo path',
+          label: 'Default route',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -309,13 +247,18 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           backgroundColor: '',
           clearable: true,
           value: '',
-          type: 'text',
+          type: 'autocomplete',
           validation: {
             required: true,
           },
-          sectionId: '1',
-        },
+          options:[
+            { value: "faq", label:"Faq"},
+            { value: "login", label: "login" }
+          ],
+          sectionId: 's3',
+        }
       ]
-    }
+    },
+    
   ],
 }

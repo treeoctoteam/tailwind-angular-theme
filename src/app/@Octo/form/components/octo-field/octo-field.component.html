@@ -7,6 +7,7 @@
       formField.type === 'password'
     "
     [class]="formField.class"
+    [style]="formField.style"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -28,6 +29,7 @@
   <to-textarea
     *ngIf="formField.type === 'textarea'"
     [class]="formField.class"
+    [style]="formField.style"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -51,6 +53,7 @@
   <to-checkbox
     *ngIf="formField.type === 'checkbox'"
     [class]="formField.class"
+    [style]="formField.style"
     octoValueAccessor
     [formControl]="formFieldControl"
     [checkboxId]="formField.id"
@@ -67,6 +70,7 @@
   <to-autocomplete 
     *ngIf="formField.type === 'autocomplete'"
     [class]="formField.class"
+    [style]="formField.style"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -90,6 +94,7 @@
   <to-select
     *ngIf="formField.type === 'select'"
     [class]="formField.class"
+    [style]="formField.style"
     octoValueAccessor
     [formControl]="formFieldControl"
     [value]="formField.value"
@@ -108,6 +113,7 @@
   <to-toggle
     *ngIf="formField.type === 'toggle'"
     [class]="formField.class"
+    [style]="formField.style"
     octoValueAccessor
     [formControl]="formFieldControl"
     [checked]="formField.value"
@@ -115,6 +121,17 @@
     [textColor]="formField.textColor"
     [backgroundColor]="formField.backgroundColor"
   >
-    {{ formField.label }}
+  {{ formField.label }}
   </to-toggle>
+
+  <to-button *ngIf="formField.type === 'button'" 
+    [class]="formField.class" 
+    [style]="formField.style" 
+    [borderColor]="formField.borderColor"
+    [appearance]="formField.appearance"
+    [textColor]="formField.textColor" 
+    [backgroundColor]="formField.backgroundColor"
+  >
+    {{ formField.label }}
+  </to-button>
 </ng-container>
