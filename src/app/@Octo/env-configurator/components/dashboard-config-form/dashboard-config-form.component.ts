@@ -1,5 +1,5 @@
 import { OctoFormModel } from '../../../form/models/octo-form.model';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { DashboardConfig } from './../../../../modules/models/modules.model';
 // import { OctoFormModel } from './../../../form/models/octo-form.model';
 
