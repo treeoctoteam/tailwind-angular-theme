@@ -18,9 +18,6 @@ import { CanvasDrawerService } from './services/canvas-drawer.service';
 import { OctoFormModule } from '../form/octo-form.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-const routes: Routes = [
-  { path: '', component: PdfReaderComponent }
-];
 
 @NgModule({
   declarations: [
@@ -41,13 +38,13 @@ const routes: Routes = [
     DragDropModule,
     OverlayModule,
     OctoFormModule,
-    NgxExtendedPdfViewerModule,
-    RouterModule.forChild(routes)
+    NgxExtendedPdfViewerModule
   ],
   exports: [
-    PdfManagerComponent
+    PdfManagerComponent,
+    PdfReaderComponent
   ],
-  providers : [
+  providers: [
     CanvasDrawerService,
     OverlayMenuService
   ],
