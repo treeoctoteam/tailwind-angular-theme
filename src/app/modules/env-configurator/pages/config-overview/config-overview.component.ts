@@ -5,6 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { octoAnimations } from 'src/app/shared/utils/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'octo-config-overview',
@@ -33,12 +34,18 @@ export class ConfigOverviewComponent implements OnInit {
   }
 
 
-  constructor(public appService: ApplicationConfigService, public configuratorService: ConfiguratorService) {
-    this.editorOptions = new JsonEditorOptions()
-    this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
-    this.editorOptions.enableSort = false;
-    this.editorOptions.enableTransform = false;
-    this.config = this.appService.config;
+  constructor(private router: Router, public appService: ApplicationConfigService, public configuratorService: ConfiguratorService) {
+    if (configuratorService.isStarted) {
+
+      this.editorOptions = new JsonEditorOptions()
+      this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
+      this.editorOptions.enableSort = false;
+      this.editorOptions.enableTransform = false;
+      this.config = this.appService.config;
+    }
+    else {
+      this.router.navigateByUrl("/configurator/start");
+    }
   }
 
   ngOnInit(): void {

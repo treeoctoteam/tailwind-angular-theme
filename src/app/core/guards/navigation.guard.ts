@@ -21,7 +21,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     private router: Router,
     private appConfigService: ApplicationConfigService,
     private authService: AuthService,
-    private landingService: PublicConfigService,
+    private publicService: PublicConfigService,
     private dashboardService: DashboardConfigService,
     private alertService: AlertService) { }
 
@@ -30,13 +30,13 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
       let activeModule = this.checkActiveModule(state);
       switch (activeModule) {
         case "public":
-          if (!this.landingService.config) {
-            this.landingService.initConfig().subscribe(() => {
-              return this.moduleAuthenticate(this.landingService);
+          if (!this.publicService.config) {
+            this.publicService.initConfig().subscribe(() => {
+              return this.moduleAuthenticate(this.publicService);
             })
           }
           else {
-            return this.moduleAuthenticate(this.landingService);
+            return this.moduleAuthenticate(this.publicService);
           }
           break;
         case "dashboard":
@@ -49,6 +49,15 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
             return this.moduleAuthenticate(this.dashboardService);
           }
           break;
+        case "configurator":
+          return this.isLogged();
+          break;
+        case "auth":
+          return true;
+          break;
+        default:
+          this.alertService.present('danger', 'Modulo non trovato', 'Il modulo a cui si è tentato di accedere non è disponibile nel sistema.');
+          return;
       }
     } else {
       if (this.checkActiveModule(state)) {
@@ -115,7 +124,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     let activeRoute;
     switch (activeLayout) {
       case "public":
-        for (let r of this.landingService.config.routes) {
+        for (let r of this.publicService.config.routes) {
           const res = state.url.includes(r.path);
           if (res) {
             activeRoute = r;

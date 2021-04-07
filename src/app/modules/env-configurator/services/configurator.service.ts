@@ -14,6 +14,7 @@ const APP_CONFIG_PATH = 'assets/config/application-config.json';
   providedIn: 'root'
 })
 export class ConfiguratorService {
+  isStarted = false;
   config: DashboardConfig | ApplicationConfig;
   $config = new Subject<DashboardConfig | ApplicationConfig>();
 
