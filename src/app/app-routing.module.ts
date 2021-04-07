@@ -20,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'configurator',
-    loadChildren: () => import('./modules/env-configurator/env-configurator.module').then(m => m.EnvConfiguratorModule)
+    loadChildren: () => import('./modules/env-configurator/env-configurator.module').then(m => m.EnvConfiguratorModule),
+    canActivate: [NavigationGuard]
   },
   {
     path: '**',

@@ -26,7 +26,7 @@
   },
   "layoutSettings": {
     "defaultLayout": "/public",
-    "layouts": ["/dashboard", "/public", "/auth"]
+    "layouts": ["/dashboard", "/public", "/auth", "/configurator"]
   },
   "languageSettings": {
     "defaultLanguage": "en",
