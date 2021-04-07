@@ -1,0 +1,143 @@
+{
+  "navbar": {
+    "logoPath": "/assets/pippo.svg",
+    "navigation": [
+      {
+        "id": "Applications",
+        "type": "group",
+        "translate": "NAV.APPLICATIONS",
+        "icon": "apps",
+        "hidden": false,
+        "children": [
+          {
+            "id": "home",
+            "translate": "NAV.HOME",
+            "type": "item",
+            "icon": "home",
+            "url": "/home",
+            "hidden": false
+          },
+          {
+            "id": "pdf-reader",
+            "translate": "NAV.DOCUMENTS",
+            "type": "item",
+            "icon": "insert_drive_file",
+            "url": "/pdf",
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "item",
+        "type": "items",
+        "translate": "NAV.APPLICATIONS",
+        "icon": "apps",
+        "url": "/test"
+      }
+    ]
+  },
+  "sidebar": {
+    "logoPath": "/assets/pippo.svg",
+    "navigation": [
+      {
+        "id": "Applications",
+        "type": "group",
+        "translate": "NAV.APPLICATIONS",
+        "icon": "apps",
+        "hidden": false,
+        "children": [
+          {
+            "id": "home",
+            "translate": "NAV.HOME",
+            "type": "item",
+            "icon": "home",
+            "url": "/home",
+            "hidden": false
+          },
+          {
+            "id": "pdf-reader",
+            "translate": "NAV.DOCUMENTS",
+            "type": "item",
+            "icon": "insert_drive_file",
+            "url": "/pdf",
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "item",
+        "translate": "NAV.APPLICATIONS",
+        "type": "items",
+        "icon": "apps",
+        "url": "/test",
+        "hidden": false
+      }
+    ]
+  },
+  "footer": {
+    "logoPath": "/assets/pippo.svg",
+    "navigation": [
+      {
+        "id": "Applications",
+        "translate": "NAV.APPLICATIONS",
+        "type": "group",
+        "icon": "apps",
+        "hidden": false,
+        "children": [
+          {
+            "id": "home",
+            "translate": "NAV.HOME",
+            "type": "item",
+            "icon": "home",
+            "url": "/home",
+            "hidden": false
+          },
+          {
+            "id": "pdf-reader",
+            "translate": "NAV.DOCUMENTS",
+            "type": "item",
+            "icon": "insert_drive_file",
+            "url": "/pdf",
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "item",
+        "translate": "NAV.APPLICATIONS",
+        "type": "items",
+        "icon": "apps",
+        "url": "/test",
+        "hidden": false
+      }
+    ]
+  },
+  "authenticate": false,
+  "defaultRoute": "faq",
+  "routes": [
+    {
+      "path": "/login",
+      "authenticate": false
+    },
+    {
+      "path": "/register",
+      "authenticate": false
+    },
+    {
+      "path": "/faq",
+      "authenticate": true
+    },
+    {
+      "path": "/pdf-viewer",
+      "authenticate": false
+    },
+    {
+      "path": "/contacts",
+      "authenticate": false
+    },
+    {
+      "path": "/animations-config",
+      "authenticate": true
+    }
+  ]
+}

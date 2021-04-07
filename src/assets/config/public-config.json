@@ -76,9 +76,6 @@
   "authenticate": false,
   "defaultRoute": "home",
   "routes": [
-    { "path": "/home", "authenticate": false },
-    { "path": "/login", "authenticate": false },
-    { "path": "/register", "authenticate": false },
-    { "path": "/lock", "authenticate": false }
+    { "path": "/home", "authenticate": false }
   ]
 }
