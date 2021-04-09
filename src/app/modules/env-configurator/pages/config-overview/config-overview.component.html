@@ -2,7 +2,9 @@
   <octo-header [customTemplate]="configPageHeader"></octo-header>
   <div class="p-5 w-full">
     <to-card [cardTitle]="'Active Configuration'" *ngIf="!editConfig">
-      <to-select [options]="options" (toElementChange)="optionChange($event)" >Select config</to-select>
+      <div class="w-1/2 sm:w-1/3 pb-4">
+        <to-select [options]="options" (toElementChange)="optionChange($event)" appearance="simple">Select config</to-select>
+      </div>
 
       <json-editor
         [options]="editorOptions"

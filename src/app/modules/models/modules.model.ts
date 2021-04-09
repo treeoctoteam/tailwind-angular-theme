@@ -5,7 +5,7 @@ interface ModuleBase {
 
 export interface Module {
   navbar: Navbar;
-  sidabar: Sidebar;
+  sidebar: Sidebar;
   footer: Footer;
   authenticate: boolean;
   defaultRoute: string;

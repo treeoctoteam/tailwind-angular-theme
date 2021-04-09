@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardConfigFormComponent } from './components/dashboard-config-form/dashboard-config-form.component';
 import { PublicConfigFormComponent } from './components/public-config-form/public-config-form.component';
 import { CoreModule } from 'src/app/core/core.module';
+import { NavigationConfigFormComponent } from './components/navigation-config-form/navigation-config-form.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ConfigStartComponent, ConfigOverviewComponent, AppConfigFormComponent, DashboardConfigFormComponent, PublicConfigFormComponent],
+  declarations: [ConfigStartComponent, ConfigOverviewComponent, AppConfigFormComponent, DashboardConfigFormComponent, PublicConfigFormComponent, NavigationConfigFormComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

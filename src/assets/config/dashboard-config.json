@@ -29,7 +29,7 @@
       },
       {
         "id": "item",
-        "type": "items",
+        "type": "item",
         "translate": "NAV.APPLICATIONS",
         "icon": "apps",
         "url": "/test",
@@ -68,7 +68,7 @@
       {
         "id": "item",
         "translate": "NAV.APPLICATIONS",
-        "type": "items",
+        "type": "item",
         "icon": "apps",
         "url": "/test",
         "hidden": false
@@ -106,7 +106,7 @@
       {
         "id": "item",
         "translate": "NAV.APPLICATIONS",
-        "type": "items",
+        "type": "item",
         "icon": "apps",
         "url": "/test",
         "hidden": false
