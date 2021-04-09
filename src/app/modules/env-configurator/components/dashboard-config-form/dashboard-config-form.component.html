@@ -7,6 +7,33 @@
   </octo-form>
 </to-card>
 
-<ng-template #navigationConfigFormDialog>
-  <octo-navigation-config-form (closeDialog)="closeDialog()"></octo-navigation-config-form>
-</ng-template>
+<!-- <ng-template #navigationConfigFormDialog>
+  <octo-navigation-config-form (closeDialog)="closeDialog()" (navigationConfigSubmit)="getNavigationConfig($event)"></octo-navigation-config-form>
+</ng-template> -->
+<div class="hidden">
+  <div #navigationConfigContainerNavbar>
+    <octo-navigation-config-form 
+      #navigationConfigComponentNavbar
+      
+    >
+    </octo-navigation-config-form>
+  </div>
+</div>
+
+<div class="hidden">
+  <div #navigationConfigContainerSidebar>
+    <octo-navigation-config-form 
+      #navigationConfigComponentSidebar
+    >
+    </octo-navigation-config-form>
+  </div>
+</div>
+
+<div class="hidden">
+  <div #navigationConfigContainerFooter>
+    <octo-navigation-config-form 
+      #navigationConfigComponentFooter
+    >
+    </octo-navigation-config-form>
+  </div>
+</div>

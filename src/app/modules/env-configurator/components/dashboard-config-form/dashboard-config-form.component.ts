@@ -1,7 +1,8 @@
+import { NavigationConfigFormComponent } from './../navigation-config-form/navigation-config-form.component';
 import { DialogService } from './../../../../core/services/dialog.service';
 import { NavigationBase } from './../../../models/modules.model';
 import { OctoFormModel } from '../../../../@Octo/form/models/octo-form.model';
-import { Component, OnInit, EventEmitter, Output, Input, OnChanges, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewChild, Renderer2, ElementRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { DashboardConfig } from '../../../models/modules.model';
 import { ToDialog, TODialogOptions } from '@treeocto/ui-kit/dist/types/components/to-dialog/to-dialog';
 
@@ -16,34 +17,21 @@ export class DashboardConfigFormComponent implements OnInit {
   dashboardConfigForm: OctoFormModel = DASHBOARDCONFIG_FORM;
   showForm = false;
   configForm: DashboardConfig;
-  navigations: NavigationBase[] = [
-    {
-      "id": "home",
-      "translate": "NAV.HOME",
-      "type": "item",
-      "icon": "home",
-      "url": "/home",
-      "hidden": false
-    },
-    {
-      "id": "pdf-reader",
-      "translate": "NAV.DOCUMENTS",
-      "type": "item",
-      "icon": "insert_drive_file",
-      "url": "/pdf",
-      "hidden": false
-    },
-    {
-      "id": "item",
-      "translate": "NAV.APPLICATIONS",
-      "type": "item",
-      "icon": "apps",
-      "url": "/test",
-      "hidden": false
-    }
-  ]
 
-  @ViewChild('navigationConfigFormDialog') dialog : TemplateRef<any>;
+  private navigationNavbar = [];
+  private navigationSidebar = [];
+  private navigationFooter = [];
+
+  // TODO fix with lazy loading see lazyLoadingComponent()
+  @ViewChild('navigationConfigContainerNavbar') navigationConfigContainerNavbar: ElementRef;
+  @ViewChild('navigationConfigContainerSidebar') navigationConfigContainerSidebar: ElementRef;
+  @ViewChild('navigationConfigContainerFooter') navigationConfigContainerFooter: ElementRef;
+
+  @ViewChild('navigationConfigComponentNavbar') navigationConfigComponentNavbar: NavigationConfigFormComponent;
+  @ViewChild('navigationConfigComponentSidebar') navigationConfigComponentSidebar: NavigationConfigFormComponent;
+  @ViewChild('navigationConfigComponentFooter') navigationConfigComponentFooter: NavigationConfigFormComponent;
+
+
   @Output() setDashboardConfig = new EventEmitter();
   @Output() exportDashboardConfig = new EventEmitter();
   @Input() set form(conf) {
@@ -57,45 +45,48 @@ export class DashboardConfigFormComponent implements OnInit {
     }
   }
 
-  
+  constructor( 
+    private dialogService: DialogService, 
+    private render: Renderer2, 
+    private viewContainerRef: ViewContainerRef,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) { }
 
-  constructor(private dialogService: DialogService) { }
+  ngOnInit(): void { }
+  // closeDialog() {
+  //   this.dialogService.close(navigationConfDialog);
+  // }
 
-  ngOnInit(): void {
-    
-  }
+  // openDialog(){
+  //   const option: Partial<TODialogOptions> ={
+  //     hasBackdrop: true,
+  //     hasCustomTemplate: true,
+  //     dialogTitle: "Navigation config form"
+  //   }
+  //   this.dialogService.open(option, navigationConfDialog, this.dialog).subscribe(res => {
+  //     console.log(res)
+  //   })
+  // }
 
+  // async lazyLoadingComponent() {
+  //   this.viewContainerRef.clear();
+  //   const { NavigationConfigFormComponent } = await import('../navigation-config-form/navigation-config-form.component');
+  //   this.viewContainerRef.createComponent(
+  //     this.componentFactoryResolver.resolveComponentFactory(NavigationConfigFormComponent)
+  //   )
+  // }
 
-  closeDialog() {
-    this.dialogService.close(navigationConfDialog);
-  }
-
-  openDialog(){
-    const option: Partial<TODialogOptions> ={
-      hasBackdrop: true,
-      hasCustomTemplate: true,
-      dialogTitle: "Navigation config form"
-    }
-    this.dialogService.open(option, navigationConfDialog, this.dialog).subscribe(res => {
-      console.log(res)
-    })
-  }
 
   addEventToButton(sectionName: string, form) {
     const button = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === `${sectionName}NavigationButton`).id);
+    const container = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === `${sectionName}NavigationConfigForm`).id);
     button.addEventListener("btnClick", e => {
-      this.openDialog();
+      this.handleNavigationConfig(container, sectionName)
     });
   }
 
   formChange(event) {
     console.log("EVENT", event)
-    // TODO without timeout doesn't work because element is not already rendered
-    setTimeout(() => {
-      this.addEventToButton("navbar", event);
-      this.addEventToButton("sidebar", event);
-      this.addEventToButton("footer", event);
-    }, 100);
   }
 
   formSubmit(event) {
@@ -103,8 +94,43 @@ export class DashboardConfigFormComponent implements OnInit {
   }
 
   editConfig() {
-
+    console.log("EDIT")
+    this.dashboardConfigForm.sections[0].fields[0].value = this.configForm.navbar.logoPath;
+    this.navigationNavbar = this.configForm.navbar.navigation;
+    this.dashboardConfigForm.sections[1].fields[0].value = this.configForm.sidebar.logoPath;
+    this.navigationSidebar = this.configForm.sidebar.navigation;
+    this.dashboardConfigForm.sections[2].fields[0].value = this.configForm.footer.logoPath;
+    this.navigationFooter = this.configForm.footer.navigation;
+    this.dashboardConfigForm.sections[3].fields[0].value = this.configForm.authenticate;
+    this.dashboardConfigForm.sections[3].fields[1].value = this.configForm.defaultRoute;
+    // // TODO without timeout doesn't work because element is not already rendered
+    setTimeout(() => {
+      this.addEventToButton("navbar", this.dashboardConfigForm);
+      this.addEventToButton("sidebar", this.dashboardConfigForm);
+      this.addEventToButton("footer", this.dashboardConfigForm);
+    }, 100);
+ 
+    // this.navigationConfigComponent.nativeElement.navigationConfig = this.navigationNavbar;
+    
   }
+
+  
+
+  handleNavigationConfig(container, sectionName) {
+    if(sectionName ==='navbar') {
+      this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerNavbar.nativeElement);
+      this.navigationConfigComponentNavbar.setNavigationsConfig(this.navigationNavbar);
+    }
+    else if(sectionName === 'footer') {
+      this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerFooter.nativeElement);
+      this.navigationConfigComponentFooter.setNavigationsConfig(this.navigationFooter);
+    }
+    else if (sectionName === 'sidebar') {
+      this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerSidebar.nativeElement);
+      this.navigationConfigComponentSidebar.setNavigationsConfig(this.navigationSidebar);
+    }
+  }
+  
 }
 
 const DASHBOARDCONFIG_FORM: OctoFormModel = {
@@ -166,6 +192,28 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
             required: true,
           },
           sectionId: 's1',
+        },
+        {
+          id: 'f3s1',
+          name: 'navbarNavigationConfigForm',
+          class: 'w-full',
+          style: 'width: 100%',
+          disabled: false,
+          placeholderColor: '',
+          appearance: 'simple',
+          label: '',
+          labelColor: '',
+          borderColor: '',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'container',
+          validation: {
+            required: true,
+          },
+          sectionId: 's1',
         }
       ]
     },
@@ -221,6 +269,28 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
             required: true,
           },
           sectionId: 's2',
+        },
+        {
+          id: 'f3s2',
+          name: 'sidebarNavigationConfigForm',
+          class: 'w-full',
+          style: 'width: 100%',
+          disabled: false,
+          placeholderColor: '',
+          appearance: 'simple',
+          label: '',
+          labelColor: '',
+          borderColor: '',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'container',
+          validation: {
+            required: true,
+          },
+          sectionId: 's2',
         }
       ],
     },
@@ -272,6 +342,28 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           clearable: true,
           value: '',
           type: 'button',
+          validation: {
+            required: true,
+          },
+          sectionId: 's3',
+        },
+        {
+          id: 'f3s3',
+          name: 'footerNavigationConfigForm',
+          class: 'w-full',
+          style: 'width: 100%',
+          disabled: false,
+          placeholderColor: '',
+          appearance: 'simple',
+          label: '',
+          labelColor: '',
+          borderColor: '',
+          borderWidth: '',
+          textColor: '',
+          backgroundColor: '',
+          clearable: true,
+          value: '',
+          type: 'container',
           validation: {
             required: true,
           },

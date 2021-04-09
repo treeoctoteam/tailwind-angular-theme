@@ -134,4 +134,14 @@
   >
     {{ formField.label }}
   </to-button>
+
+  <to-container 
+    *ngIf="formField.type === 'container'" 
+    [class]="formField.class" 
+    [style]="formField.style"
+    [borderColor]="formField.borderColor" 
+    [textColor]="formField.textColor"
+    [backgroundColor]="formField.backgroundColor">
+    {{ formField.label }}
+  </to-container>
 </ng-container>

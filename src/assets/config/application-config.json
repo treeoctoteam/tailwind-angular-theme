@@ -25,7 +25,7 @@
     "ping": 5000
   },
   "layoutSettings": {
-    "defaultLayout": "/public",
+    "defaultLayout": "/configurator",
     "layouts": ["/dashboard", "/public", "/auth", "/configurator"]
   },
   "languageSettings": {
