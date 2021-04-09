@@ -9,9 +9,11 @@ import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
 
 interface User {
   email: string;
-  role: string;
+  role: UserRoles;
   username: string;
 }
+
+export type UserRoles = 'admin' | 'superAdmin' | 'user';
 
 interface AuthRes {
   user: User,
@@ -20,7 +22,6 @@ interface AuthRes {
   },
   message: string
 }
-
 
 export class ChangePassword {
   oldPassword: string;
@@ -39,11 +40,11 @@ export class AuthService {
   private loggedUserSubject: BehaviorSubject<User>;
   public redirectUrl: string;
 
-  
+
   constructor(
-    private http: HttpClient, 
-    private alertService: AlertService, 
-    private router: Router, 
+    private http: HttpClient,
+    private alertService: AlertService,
+    private router: Router,
     private userIdle: UserIdleService,
     private applicationConfigservice: ApplicationConfigService
   ) {
@@ -83,19 +84,21 @@ export class AuthService {
   //   localStorage.removeItem(this.TOKEN_KEY);
   // };
   public get isLogged(): boolean {
-    return this.isLoggedSubject.value;
+    return this.token !== '' && this.token !== undefined && this.token !== null;
   }
 
   login(data: { email: string, password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.path}/login`, data).pipe(share());
-    $req.subscribe(res => {
-      console.log("logged", res);
-      this.user = { role: res.user.role, username: res.user.username, email: res.user.email };
-      localStorage.setItem("user", JSON.stringify(this.user));
-      localStorage.setItem("token", res.token.bearer);
-      this.alertService.present("success", "User Logged", "User logged successful")
-      this.router.navigateByUrl('configurator/overview');
-    })
+    $req.subscribe((res: AuthRes) => {
+      if (res) {
+        this.isLoggedSubject.next(true);
+        this.user = { role: res.user.role, username: res.user.username, email: res.user.email };
+        localStorage.setItem("user", JSON.stringify(this.user));
+        localStorage.setItem("token", res.token.bearer);
+        this.alertService.present("success", "User Logged", "User logged successful")
+        this.router.navigateByUrl('configurator/overview');
+      }
+    });
     return $req;
   }
 
@@ -109,7 +112,7 @@ export class AuthService {
       localStorage.setItem("token", res.token.bearer);
       this.alertService.present("success", "User Registered", "User logged successful");
       this.router.navigateByUrl('configurator/overview');
-    })
+    });
     return $req;
   }
 
