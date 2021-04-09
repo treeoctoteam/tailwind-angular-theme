@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
   selector: 'octo-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [AuthService]
 })
 export class HomeComponent implements OnInit {
 

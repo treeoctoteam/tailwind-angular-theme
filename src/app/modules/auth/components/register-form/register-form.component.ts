@@ -7,20 +7,19 @@ import { AuthService } from 'src/app/core/services/auth.service';
   selector: 'octo-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
-  providers: [
-    AuthService
-  ]
 })
 export class RegisterFormComponent implements OnInit {
 
   registerData: { email: string, username: string, password: string } = { email: "", username: "", password: "" };
   registerForm: FormGroup;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private authService: AuthService,
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(4)])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       passwords: this.formBuilder.group({
         pass1: ['', Validators.compose([Validators.required, Validators.minLength(4)])],

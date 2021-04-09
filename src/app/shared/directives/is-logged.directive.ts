@@ -1,8 +1,7 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 import { AuthService, UserRoles } from 'src/app/core/services/auth.service';
 @Directive({
-  selector: '[octoIsLogged]',
-  providers: [AuthService]
+  selector: '[octoIsLogged]'
 })
 export class IsLoggedDirective {
 

@@ -9,10 +9,7 @@ import { AlertService } from 'src/app/core/services/alert.service';
 @Component({
   selector: 'octo-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss'],
-  providers: [
-    AuthService
-  ]
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
 

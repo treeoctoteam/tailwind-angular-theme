@@ -6,7 +6,6 @@ import {
   CanActivateChild,
   Router,
 } from '@angular/router';
-import { pluck } from 'rxjs/operators';
 import { ApplicationConfigService } from '../services/application-config.service';
 import { AuthService } from '../services/auth.service';
 
@@ -20,14 +19,13 @@ const getConfigPath = (pathUrl: string) => {
 export class AuthGuard implements CanActivate, CanActivateChild {
 
   constructor(
-    private appConfigService: ApplicationConfigService, 
-    private authService: AuthService, 
+    private appConfigService: ApplicationConfigService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const role = route.data.role;
-    console.log("ROLE", role, this.authService.user, this.authService.path);
     if (!role) {
       if (this.authService?.user) {
         return true;

@@ -28,7 +28,9 @@ export class ChangePassword {
   newPassword: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   // NB STEFANO
   // Please Stefano, don't delete the second var path, is useful for local tests!
