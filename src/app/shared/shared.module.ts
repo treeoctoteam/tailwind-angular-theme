@@ -1,12 +1,12 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContainerComponent } from './components/container/container.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ValueAccessorDirective } from './directives/value-accessor.directive';
+import { IsLoggedDirective } from './directives/is-logged.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { ValueAccessorDirective } from './directives/value-accessor.directive';
     ContainerComponent,
     HeaderComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    IsLoggedDirective
   ],
   imports: [
     CommonModule
@@ -26,7 +27,8 @@ import { ValueAccessorDirective } from './directives/value-accessor.directive';
     HeaderComponent,
     NavbarComponent,
     SidebarComponent,
-    ValueAccessorDirective
+    ValueAccessorDirective,
+    IsLoggedDirective
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

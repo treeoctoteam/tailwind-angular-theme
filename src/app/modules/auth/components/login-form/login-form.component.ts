@@ -9,10 +9,7 @@ import { AlertService } from 'src/app/core/services/alert.service';
 @Component({
   selector: 'octo-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss'],
-  providers: [
-    AuthService
-  ]
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
 
@@ -24,12 +21,16 @@ export class LoginFormComponent implements OnInit {
   @ViewChild("loginButton") loginButtonElement: ElementRef<ToButton>;
 
 
-  constructor(private alertService: AlertService, private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private loaderService: LoaderService) { }
+  constructor(private alertService: AlertService,
+              private authService: AuthService,
+              private formBuilder: FormBuilder,
+              private router: Router,
+              private loaderService: LoaderService) { }
 
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(4)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     });
   }

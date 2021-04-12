@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from './core/services/auth.service';
 import { UserIdleModule } from 'angular-user-idle';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { UserIdleModule } from 'angular-user-idle';
     UserIdleModule.forRoot({ idle: 1000, timeout: 1000, ping: 1000 })
   ],
   providers: [
-    AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent],

@@ -8,7 +8,7 @@
     >
       Sub-hero message, not too long and not too short. Make it just right!
     </p>
-    <to-button (btnClick)="navigateToLoginPage()">Sign in</to-button>
+    <to-button octoIsLogged [role]="authService.user.role" (btnClick)="navigateToLoginPage()">Sign in</to-button>
     <to-button class="ml-2" (btnClick)="navigateToRegistrationPage()">Sign up</to-button>
   </div>
 
