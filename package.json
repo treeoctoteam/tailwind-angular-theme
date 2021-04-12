@@ -1,11 +1,13 @@
 {
-  "name": "octo-tech",
+  "name": "tailwind-angular-theme",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host dev1.tap-id.tech --port 4000 --ssl true",
     "local": "ng serve --ssl true",
     "build": "ng build",
+    "test:ci": "ng test --watch=false --source-map=true",
+    "build:ci": "ng build --prod --sourceMap=false --base-href /tailwind-angular-theme/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
