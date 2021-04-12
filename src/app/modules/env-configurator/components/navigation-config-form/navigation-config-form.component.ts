@@ -1,29 +1,29 @@
+import { group } from '@angular/animations';
 import { element } from 'protractor';
 import { takeUntil } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { Subject } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface NavigationItem {
-  id: string;
+  id: number;
   type: 'page';
   translate: string;
   icon: string;
   url: string;
-  hidden: boolean
+  hidden: boolean;
+  position: number;
 }
 
 interface NavigationGroup {
-  id: string;
+  id: number;
   type: 'group';
   translate: string;
   icon: string;
   hidden: boolean;
+  position: number;
   children: NavigationItem[];
-}
-
-interface NavigationType {
-  type: 'group' | 'page';
 }
 
 @Component({
@@ -37,7 +37,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     { value: "page", label: "Page" },
     { value: "group", label: "Group" }
   ];
-  public optionSelected : "page" | "group" = 'page';
+  public navigationType : "page" | "group" = 'page';
 
   // show/hide list item
   public showPageList = false;
@@ -62,8 +62,9 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   public navigationPageItemsTemp: NavigationItem[] = [];
   public navigationGroupItemsTemp: NavigationGroup[] = [];
 
-  private groupId = '';
-  private elementIdToEdit = '';
+  private groupId = 0;
+  private elementIdToEdit = 0;
+  public isEditingMode = false;
 
   @Output() closeForm = new EventEmitter<void>();
   @Output() newNavigationConfigSubmit = new EventEmitter<any>();
@@ -72,8 +73,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageGroupConfigForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      type: [{ value: this.optionSelected, disabled: true }, Validators.required],
+      position: ['', Validators.required],
       translate: ['', Validators.required],
       icon: ['', Validators.required],
       url: [''],
@@ -81,8 +81,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     });
 
     this.childConfigForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      type: [{ value: 'item', disabled: true }, Validators.required],
+      position: [null, Validators.required],
       translate: ['', Validators.required],
       icon: ['', Validators.required],
       url: ['', Validators.required],
@@ -92,13 +91,11 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.pageGroupConfigForm.valueChanges.pipe(
       takeUntil(this.$unsubscribe)
     ).subscribe(res => {
-      console.log(res);
     });
 
     this.childConfigForm.valueChanges.pipe(
       takeUntil(this.$unsubscribe)
     ).subscribe(res => {
-      console.log(res);
     });
   }
 
@@ -131,24 +128,109 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     form.updateValueAndValidity();
   }
 
-  public onConfigurationTypeChange(event) {
-    this.optionSelected = event.detail.value;
-    this.resetForm(this.pageGroupConfigForm);
-    // if(this.optionSelected === "page") {
-    //   this.pageConfigForm.get('url').setValidators(Validators.required);
-    //   this.pageConfigForm.updateValueAndValidity();
-    // }
-    // else {
-    //   this.pageConfigForm.get('url').clearValidators();
-    //   this.pageConfigForm.updateValueAndValidity();
-    // }
-    this.pageGroupConfigForm.controls['type'].setValue(this.optionSelected);
+  private generateId(): number {
+    return new Date().getTime();
+  }
+
+  private checkPosistion(position: number, type: 'page' | 'group' | 'child', groupId?: number): boolean {
+    let positionValid = true;
+    if(type === 'page') {
+      this.navigationPageItemsTemp.forEach(page => {
+        if(page.position === position) {
+          positionValid = false;
+        }
+      });
+    }
+    else if (type === 'group') {
+      this.navigationGroupItemsTemp.forEach(group => {
+        if (group.position === position) {
+          positionValid = false;
+        }
+      });
+    }
+    else if (type === 'child') {
+      this.navigationGroupItemsTemp.forEach(group => {
+        if (group.id === groupId) {
+          group.children.forEach(child => {
+            if (child.position === position) {
+              positionValid = false;
+            }
+          })
+        }
+      });
+    }
+    if(!positionValid) {
+      alert(`position for ${type} already used`);
+    }
+    return positionValid;
+
   }
 
   public showFormChild() {
-    this.showAddChildButton = false
+    this.showAddChildButton = false;
     this.showChildForm = true;
-    this.addNavigationItem();
+  }
+
+  private applyModifyToElement(array: Array<any>){ 
+
+  }
+
+  public applyNavigationItemModify() {
+    console.log("ID2", this.elementIdToEdit, this.navigationGroupItemsTemp, this.navigationPageItemsTemp);
+    let findElment = false;
+
+    for (let indexGroup = 0; indexGroup < this.navigationGroupItemsTemp.length && !findElment; indexGroup++){
+      if (this.navigationGroupItemsTemp[indexGroup].id === this.elementIdToEdit){
+        this.navigationGroupItemsTemp[indexGroup].hidden = this.pageGroupConfigForm.get('hidden').value;
+        if (this.navigationGroupItemsTemp[indexGroup].position !== this.pageGroupConfigForm.get('position').value){
+          const positionValid = this.checkPosistion(this.pageGroupConfigForm.get('position').value, "group", this.groupId);
+          if (positionValid) {
+            this.navigationGroupItemsTemp[indexGroup].position = this.pageGroupConfigForm.get('position').value;
+          }
+        }
+        this.navigationGroupItemsTemp[indexGroup].icon = this.pageGroupConfigForm.get('icon').value;
+        this.navigationGroupItemsTemp[indexGroup].translate = this.pageGroupConfigForm.get('translate').value;
+        this.checkPosistion(this.pageGroupConfigForm.get('position').value, "group",);
+        findElment = true;
+      }
+      else {
+        for (let indexChild = 0; indexChild < this.navigationGroupItemsTemp[indexGroup].children.length && !findElment; indexChild++) {
+          if (this.navigationGroupItemsTemp[indexGroup].children[indexChild].id === this.elementIdToEdit) {
+            this.navigationGroupItemsTemp[indexGroup].children[indexChild].hidden = this.pageGroupConfigForm.get('hidden').value;
+            if (this.navigationGroupItemsTemp[indexGroup].children[indexChild].position !== this.pageGroupConfigForm.get('position').value) {
+              const positionValid = this.checkPosistion(this.pageGroupConfigForm.get('position').value, "child");
+              if (positionValid) {
+                this.navigationGroupItemsTemp[indexGroup].children[indexChild].position = this.pageGroupConfigForm.get('position').value;
+              }
+            }
+            this.navigationGroupItemsTemp[indexGroup].children[indexChild].icon = this.pageGroupConfigForm.get('icon').value;
+            this.navigationGroupItemsTemp[indexGroup].children[indexChild].translate = this.pageGroupConfigForm.get('translate').value;
+            this.navigationGroupItemsTemp[indexGroup].children[indexChild].url = this.pageGroupConfigForm.get('url').value;
+            findElment = true;
+          }
+        }
+      }
+    }
+    for (let indexPage = 0; indexPage < this.navigationPageItemsTemp.length && !findElment; indexPage++) {
+      if (this.navigationPageItemsTemp[indexPage].id === this.elementIdToEdit) {
+        this.navigationPageItemsTemp[indexPage].hidden = this.pageGroupConfigForm.get('hidden').value;
+        if (this.navigationPageItemsTemp[indexPage].position !== this.pageGroupConfigForm.get('position').value) {
+          const positionValid = this.checkPosistion(this.pageGroupConfigForm.get('position').value, "page");
+          if (positionValid) {
+            this.navigationPageItemsTemp[indexPage].position = this.pageGroupConfigForm.get('position').value
+          }
+        }
+        this.navigationPageItemsTemp[indexPage].icon = this.pageGroupConfigForm.get('icon').value;
+        this.navigationPageItemsTemp[indexPage].translate = this.pageGroupConfigForm.get('translate').value;
+        this.navigationPageItemsTemp[indexPage].url = this.pageGroupConfigForm.get('url').value;
+        findElment = true;
+      }
+    }
+    if(!findElment) {
+      console.log("ERROR: ELEMENT NOT FOUND");
+    }
+    this.showChildForm = false;
+
   }
 
   public addChild() {
@@ -156,77 +238,89 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.showChildForm = false;
     const child: NavigationItem = this.childConfigForm.value;
     child.type = "page";
-    this.navigationGroupItemsTemp.forEach((group, index) => {
+    child.id = this.generateId();
+    this.navigationGroupItemsTemp.forEach((group: NavigationGroup) => {
       if(group.id === this.groupId) {
-        this.navigationGroupItemsTemp[index].children = [...this.navigationGroupItemsTemp[index].children, child];
+        group.children = [...group.children, child];
         this.resetForm(this.childConfigForm);
-        this.childConfigForm.controls['type'].setValue('item');
       }
     })
   }
 
-  public addNavigationItem() {
-    if(this.optionSelected === "page") {
-      const page: NavigationItem = this.pageGroupConfigForm.value;
-      page.type = this.optionSelected;
-      this.navigationPageItemsTemp = [ ...this.navigationPageItemsTemp, page ];
-      this.resetForm(this.pageGroupConfigForm);
+  private createNavigationElement(type: "page" | "group") {
+    const id = this.generateId();
+    this.isEditingMode = true;
+    const navigationElement = this.pageGroupConfigForm.value;
+    navigationElement.type = this.navigationType;
+    navigationElement.id = id;
+    if(type === "page") {
+      this.navigationPageItemsTemp = [...this.navigationPageItemsTemp, navigationElement];
     }
-    else if (this.optionSelected === "group") {
-      const page: NavigationGroup = this.pageGroupConfigForm.value;
-      page.type = this.optionSelected;
-      this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, page];
-      this.groupId = this.pageGroupConfigForm.get('id').value;
-      this.resetForm(this.pageGroupConfigForm);
+    else if (this.navigationType === "group") {
+      this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, navigationElement];
+      this.groupId = id;
+    }
+    this.resetForm(this.pageGroupConfigForm)
+  }
+
+  public addNavigationItem() {
+    if(this.navigationType === "page") {
+      this.createNavigationElement("page");
+    }
+    else if (this.navigationType === "group") {
+      this.createNavigationElement("group")
     }
   }
 
-  setPageGroupForm(value: NavigationItem | NavigationGroup, type: "page" | "group") {
-    this.optionSelected = type;
+  public addPage() {
+    this.isEditingMode = false;
     this.showPageGroupForm = true;
     this.showChildForm = false;
-    this.pageGroupConfigForm.get('id').setValue(value.id);
+    this.resetForm(this.pageGroupConfigForm);
+    this.navigationType = "page";
+  }
+
+  public addGroup() {
+    this.isEditingMode = false;
+    this.showPageGroupForm = true;
+    this.showChildForm = false;
+    this.resetForm(this.pageGroupConfigForm);
+    this.navigationType = "group";
+  }
+
+  private setPageGroupForm(value: NavigationItem | NavigationGroup, type: "page" | "group") {
+    this.isEditingMode = true;
+    this.showPageGroupForm = true;
+    this.showChildForm = false;
+    this.navigationType = type;
+    this.elementIdToEdit = value.id;
+    console.log("ID3", this.elementIdToEdit);
     this.pageGroupConfigForm.get('hidden').setValue(value.hidden);
+    this.pageGroupConfigForm.get('position').setValue(value.position);
     this.pageGroupConfigForm.get('icon').setValue(value.icon);
     this.pageGroupConfigForm.get('translate').setValue(value.translate);
-    // TODO disable doesn't work
-    this.pageGroupConfigForm.get('type').setValue(type);
-    this.pageGroupConfigForm.get('type').disable();
     if (type === "page") {
       this.pageGroupConfigForm.get('url').setValue((value as NavigationItem).url);
     }
+    else {
+      this.groupId = value.id;
+    }
   }
 
-  editPage(page: NavigationItem) {
+  public editPage(page: NavigationItem) {
     this.setPageGroupForm(page, "page");
   }
 
-  editGroup(group: NavigationGroup) {
+  public editGroup(group: NavigationGroup) {
     this.setPageGroupForm(group, "group");
   }
 
-  deleteItem(page: NavigationItem) {
+  public deleteItem(page: NavigationItem) {
     this.navigationPageItemsTemp = this.navigationPageItemsTemp.filter(item => page.id !== item.id);
   }
 
-  deleteGroup(group: NavigationGroup) {
+  public deleteGroup(group: NavigationGroup) {
     this.navigationGroupItemsTemp = this.navigationGroupItemsTemp.filter(item => group.id !== item.id);
-  }
-
-  addPage() {
-    this.showPageGroupForm = true;
-    this.showChildForm = false;
-    this.resetForm(this.pageGroupConfigForm);
-    this.pageGroupConfigForm.get('type').setValue("page");
-    this.optionSelected = "page";
-  }
-
-  addGroup() {
-    this.showPageGroupForm = true;
-    this.showChildForm = false;
-    this.resetForm(this.pageGroupConfigForm);
-    this.pageGroupConfigForm.get('type').setValue("group");
-    this.optionSelected = "group";
   }
 
 }

@@ -11,9 +11,9 @@
     <ng-container *ngFor="let page of navigationPageItemsTemp" >
       <div class="elementList">
         <div>
-          {{page.id}}
+          {{page.url}}
         </div>
-        <div class="flex gap-2">
+        <div class="flex">
           <to-button (btnClick)="editPage(page)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
           <to-button (btnClick)="deleteItem(page)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
         </div>
@@ -34,8 +34,8 @@
   <div *ngIf="showGroupList" class="listContainer">
     <ng-container *ngFor="let group of navigationGroupItemsTemp">
       <div class="elementList">
-        <div>{{group.id}}</div>
-        <div class="flex gap-2">
+        <div>{{group.icon}}</div>
+        <div class="flex">
           <to-button (btnClick)="editGroup(group)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
           <to-button (btnClick)="deleteGroup(group)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
           <to-button (btnClick)="showGroupPageList=!showGroupPageList" color="white"><i class="fas fa-chevron-down text-green-600"></i></to-button>
@@ -45,9 +45,9 @@
         <ng-container *ngFor="let page of group.children">
           <div class="elementList">
             <div>
-              {{page.id}}
+              {{page.url}}
             </div>
-            <div class="flex gap-2">
+            <div class="flex">
               <to-button (btnClick)="editPage(page)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
               <to-button (btnClick)="deleteItem(page)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
             </div>
@@ -64,17 +64,18 @@
     <div *ngIf="showPageGroupForm">
       <p class="text-xl pb-3">Navigation config</p>
       <div *ngIf="!showChildForm" [formGroup]="pageGroupConfigForm" class="flex flex-col gap-2">
-        <to-select octoValueAccessor formControlName="type" [options]="optionsType"
-          (toElementChange)="onConfigurationTypeChange($event)" appearance="simple">Navigation type</to-select>
-        <to-input octoValueAccessor formControlName="id" appearance="simple">Id</to-input>
+        <to-input octoValueAccessor formControlName="position" appearance="simple" type="number" class="bg-transparent p-0">Position</to-input>
         <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
         <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
-        <to-input *ngIf="optionSelected==='page'" octoValueAccessor formControlName="url" appearance="simple">Url</to-input>
+        <to-input *ngIf="navigationType==='page'" octoValueAccessor formControlName="url" appearance="simple">Url</to-input>
         <to-toggle octoValueAccessor formControlName="hidden" appearance="simple">Hidden</to-toggle>
-        <to-button *ngIf="optionSelected==='group' && showAddChildButton" (btnClick)="showFormChild()"
+        <to-button *ngIf="navigationType==='group' && showAddChildButton" (btnClick)="showFormChild()"
           [disabled]="pageGroupConfigForm?.invalid">Add child</to-button>
-        <to-button (btnClick)="addNavigationItem()" [disabled]="pageGroupConfigForm?.invalid || (optionSelected==='group' && navigationGroupItems.length === 0)">
+        <to-button *ngIf="!isEditingMode" (btnClick)="addNavigationItem()" [disabled]="pageGroupConfigForm?.invalid || (navigationType==='group' && navigationGroupItems.length === 0)">
           Add navigation page
+        </to-button>
+        <to-button *ngIf="isEditingMode" (btnClick)="applyNavigationItemModify()" [disabled]="pageGroupConfigForm?.invalid">
+          Apply modify
         </to-button>
       </div>
     </div>
@@ -82,8 +83,7 @@
     <div>
       <div *ngIf="showChildForm" [formGroup]="childConfigForm" class="flex flex-col gap-2">
         <p class="text-base py-3">Config child</p>
-        <to-input octoValueAccessor formControlName="id" appearance="simple">Id</to-input>
-        <to-input octoValueAccessor formControlName="type" appearance="simple" [clearable]="false">Type</to-input>
+        <to-input octoValueAccessor formControlName="position" appearance="simple" type="number" class="bg-transparent p-0">Position</to-input>
         <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
         <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
         <to-input octoValueAccessor formControlName="url" appearance="simple">Url</to-input>
