@@ -17,12 +17,13 @@
   },
   "authenticationSettings": {
     "enableAuthentication": true,
-    "authenticationMode": "JWT"
+    "authenticationMode": "JWT",
+    "tokenExpirationTime": 5
   },
   "idleConfig": {
-    "timeout": 1000,
-    "idle": 5000,
-    "ping": 5000
+    "timeout": 60,
+    "idle": 5,
+    "ping": 5
   },
   "layoutSettings": {
     "defaultLayout": "/configurator",

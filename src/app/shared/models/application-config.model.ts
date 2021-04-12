@@ -14,7 +14,7 @@ export interface ApplicationConfig {
   authenticationSettings: AuthenticationSettings;
   languageSettings: LanguageSettings;
   theme: ThemeConfig;
-  idleConfig: UserIdleConfig
+  idleConfig: UserIdleConfig;
 }
 
 
