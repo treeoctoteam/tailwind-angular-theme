@@ -1,5 +1,3 @@
-import { group } from '@angular/animations';
-import { element } from 'protractor';
 import { takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
@@ -66,14 +64,16 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   private elementIdToEdit = 0;
   public isEditingMode = false;
 
+
   @Output() closeForm = new EventEmitter<void>();
   @Output() newNavigationConfigSubmit = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
     this.pageGroupConfigForm = this.formBuilder.group({
-      position: ['', Validators.required],
+      position: [null, Validators.required],
       translate: ['', Validators.required],
       icon: ['', Validators.required],
       url: [''],
@@ -151,7 +151,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     else if (type === 'child') {
       this.navigationGroupItemsTemp.forEach(group => {
         if (group.id === groupId) {
-          group.children.forEach(child => {
+          group.children?.forEach(child => {
             if (child.position === position) {
               positionValid = false;
             }
@@ -171,96 +171,86 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.showChildForm = true;
   }
 
-  private applyModifyToElement(array: Array<any>){ 
-
+  // TODO FIND FUNCTION AND SET VALUE OF FOUND ITEM
+  private applyModifyToElement(array: Array<any>, type: 'child' | 'group' | 'page'): boolean { 
+    let findElment = false;
+    for (let i = 0; i < array.length && !findElment; i++) {
+      if (array[i].id === this.elementIdToEdit) {
+        array[i].hidden = this.pageGroupConfigForm.get('hidden').value;
+        if (array[i].position !== parseInt(this.pageGroupConfigForm.get('position').value)) {
+          const positionValid = this.checkPosistion(parseInt(this.pageGroupConfigForm.get('position').value), type, this.groupId);
+          if (positionValid) {
+            array[i].position = parseInt(this.pageGroupConfigForm.get('position').value);
+          }
+        }
+        array[i].icon = this.pageGroupConfigForm.get('icon').value;
+        array[i].translate = this.pageGroupConfigForm.get('translate').value;
+        if(type === 'page' || type === 'child') {
+          array[i].url = this.pageGroupConfigForm.get('url').value;
+        }
+        findElment = true;
+      }
+    }
+    return findElment;
   }
 
   public applyNavigationItemModify() {
-    console.log("ID2", this.elementIdToEdit, this.navigationGroupItemsTemp, this.navigationPageItemsTemp);
     let findElment = false;
-
-    for (let indexGroup = 0; indexGroup < this.navigationGroupItemsTemp.length && !findElment; indexGroup++){
-      if (this.navigationGroupItemsTemp[indexGroup].id === this.elementIdToEdit){
-        this.navigationGroupItemsTemp[indexGroup].hidden = this.pageGroupConfigForm.get('hidden').value;
-        if (this.navigationGroupItemsTemp[indexGroup].position !== this.pageGroupConfigForm.get('position').value){
-          const positionValid = this.checkPosistion(this.pageGroupConfigForm.get('position').value, "group", this.groupId);
-          if (positionValid) {
-            this.navigationGroupItemsTemp[indexGroup].position = this.pageGroupConfigForm.get('position').value;
-          }
-        }
-        this.navigationGroupItemsTemp[indexGroup].icon = this.pageGroupConfigForm.get('icon').value;
-        this.navigationGroupItemsTemp[indexGroup].translate = this.pageGroupConfigForm.get('translate').value;
-        this.checkPosistion(this.pageGroupConfigForm.get('position').value, "group",);
-        findElment = true;
-      }
-      else {
-        for (let indexChild = 0; indexChild < this.navigationGroupItemsTemp[indexGroup].children.length && !findElment; indexChild++) {
-          if (this.navigationGroupItemsTemp[indexGroup].children[indexChild].id === this.elementIdToEdit) {
-            this.navigationGroupItemsTemp[indexGroup].children[indexChild].hidden = this.pageGroupConfigForm.get('hidden').value;
-            if (this.navigationGroupItemsTemp[indexGroup].children[indexChild].position !== this.pageGroupConfigForm.get('position').value) {
-              const positionValid = this.checkPosistion(this.pageGroupConfigForm.get('position').value, "child");
-              if (positionValid) {
-                this.navigationGroupItemsTemp[indexGroup].children[indexChild].position = this.pageGroupConfigForm.get('position').value;
-              }
-            }
-            this.navigationGroupItemsTemp[indexGroup].children[indexChild].icon = this.pageGroupConfigForm.get('icon').value;
-            this.navigationGroupItemsTemp[indexGroup].children[indexChild].translate = this.pageGroupConfigForm.get('translate').value;
-            this.navigationGroupItemsTemp[indexGroup].children[indexChild].url = this.pageGroupConfigForm.get('url').value;
-            findElment = true;
-          }
-        }
-      }
+    findElment = this.applyModifyToElement(this.navigationGroupItemsTemp, "group");
+    if (!findElment) {
+      findElment = this.applyModifyToElement(this.navigationPageItemsTemp, "page");
     }
-    for (let indexPage = 0; indexPage < this.navigationPageItemsTemp.length && !findElment; indexPage++) {
-      if (this.navigationPageItemsTemp[indexPage].id === this.elementIdToEdit) {
-        this.navigationPageItemsTemp[indexPage].hidden = this.pageGroupConfigForm.get('hidden').value;
-        if (this.navigationPageItemsTemp[indexPage].position !== this.pageGroupConfigForm.get('position').value) {
-          const positionValid = this.checkPosistion(this.pageGroupConfigForm.get('position').value, "page");
-          if (positionValid) {
-            this.navigationPageItemsTemp[indexPage].position = this.pageGroupConfigForm.get('position').value
-          }
-        }
-        this.navigationPageItemsTemp[indexPage].icon = this.pageGroupConfigForm.get('icon').value;
-        this.navigationPageItemsTemp[indexPage].translate = this.pageGroupConfigForm.get('translate').value;
-        this.navigationPageItemsTemp[indexPage].url = this.pageGroupConfigForm.get('url').value;
-        findElment = true;
+    if (!findElment) {
+      let find = false;
+      for(let i = 0; i < this.navigationGroupItemsTemp.length && !find; i++) {
+        find = this.applyModifyToElement(this.navigationGroupItemsTemp[i].children, "child");
       }
+      findElment = find;
     }
     if(!findElment) {
       console.log("ERROR: ELEMENT NOT FOUND");
     }
     this.showChildForm = false;
-
   }
 
   public addChild() {
     this.showAddChildButton = true;
     this.showChildForm = false;
-    const child: NavigationItem = this.childConfigForm.value;
-    child.type = "page";
+    const child = this.childConfigForm.value;
     child.id = this.generateId();
-    this.navigationGroupItemsTemp.forEach((group: NavigationGroup) => {
-      if(group.id === this.groupId) {
-        group.children = [...group.children, child];
-        this.resetForm(this.childConfigForm);
-      }
-    })
+    child.type = "page";
+    child.position = parseInt(child.position);
+    const validPosition = this.checkPosistion(child.position, 'child');
+    if (validPosition) {
+      this.navigationGroupItemsTemp.forEach((group: NavigationGroup) => {
+        if(group.id === this.groupId) {
+          group.children = [...group.children, child];
+          this.resetForm(this.childConfigForm);
+        }
+      })
+    }
   }
 
+  // TODO 3 FORMS WITH RXJS?
   private createNavigationElement(type: "page" | "group") {
     const id = this.generateId();
-    this.isEditingMode = true;
     const navigationElement = this.pageGroupConfigForm.value;
     navigationElement.type = this.navigationType;
     navigationElement.id = id;
-    if(type === "page") {
-      this.navigationPageItemsTemp = [...this.navigationPageItemsTemp, navigationElement];
+    // TODO: CHECK WHY POSITION IS A STRING AND NOT A NUMBER LIKE INTERFACE DECLARATION
+    navigationElement.position = parseInt(navigationElement.position);
+    const validPosition = this.checkPosistion(navigationElement.position, type);
+    if(validPosition) {
+      this.isEditingMode = true;
+      if(type === "page") {
+        this.navigationPageItemsTemp = [...this.navigationPageItemsTemp, navigationElement];
+      }
+      else if (this.navigationType === "group") {
+        this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, navigationElement];
+        this.groupId = id;
+      }
+      this.resetForm(this.pageGroupConfigForm)
     }
-    else if (this.navigationType === "group") {
-      this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, navigationElement];
-      this.groupId = id;
-    }
-    this.resetForm(this.pageGroupConfigForm)
   }
 
   public addNavigationItem() {
@@ -294,7 +284,6 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.showChildForm = false;
     this.navigationType = type;
     this.elementIdToEdit = value.id;
-    console.log("ID3", this.elementIdToEdit);
     this.pageGroupConfigForm.get('hidden').setValue(value.hidden);
     this.pageGroupConfigForm.get('position').setValue(value.position);
     this.pageGroupConfigForm.get('icon').setValue(value.icon);
@@ -321,6 +310,13 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
 
   public deleteGroup(group: NavigationGroup) {
     this.navigationGroupItemsTemp = this.navigationGroupItemsTemp.filter(item => group.id !== item.id);
+  }
+
+  public submitNewConfiguration() {
+    this.navigationConfig.push(this.navigationGroupItems);
+    this.navigationConfig.push(this.navigationPageItemsTemp);
+    console.log("Submit new config", this.navigationConfig);
+    this.newNavigationConfigSubmit.emit(this.navigationConfig);
   }
 
 }
