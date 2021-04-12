@@ -47,61 +47,22 @@
   </div>
 </div>
 
+<octo-table-navigation-config-form 
+  [navigationElementType]="'pages'" 
+  [dataTable]="navigationPageItemsTemp" 
+  (addPage)="addPage()" 
+  (editPage)="editPage($event)"
+  (deletePage)="deletePage($event)"
+>
+</octo-table-navigation-config-form>
 
-<div class="w-2/3">
-  <div class="headerList">
-    <h1>Pages</h1>
-    <div>
-      <to-button (btnClick)="addPage()" color="white"><i class="fas fa-plus text-yellow-400"></i></to-button>
-      <to-button (btnClick)="showPageList=!showPageList" color="white"><i class="fas fa-chevron-down text-green-600"></i></to-button>
-    </div>
-  </div>
-  <div *ngIf="showPageList" class="listContainer">
-    <ng-container *ngFor="let page of navigationPageItemsTemp" >
-      <div class="elementList">
-        <div>
-          {{page.url}}
-        </div>
-        <div class="flex">
-          <to-button (btnClick)="editPage(page)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
-          <to-button (btnClick)="deleteItem(page)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</div>
+<octo-table-navigation-config-form 
+  [navigationElementType]="'groups'" 
+  [dataTable]="navigationGroupItemsTemp" 
+  (addGroup)="addGroup()"
+  (editGroup)="editGroup($event)"
+  (deleteGroup)="deleteGroup($event)"
+>
+</octo-table-navigation-config-form>
 
-<div class="w-2/3">
-  <div class="headerList">
-    <h1>Groups</h1>
-    <div>
-      <to-button (btnClick)="addGroup()" color="white"><i class="fas fa-plus text-yellow-400"></i></to-button>
-      <to-button (btnClick)="showGroupList=!showGroupList" color="white"><i class="fas fa-chevron-down text-green-600"></i></to-button>
-    </div>
-  </div>
-  <div *ngIf="showGroupList" class="listContainer">
-    <ng-container *ngFor="let group of navigationGroupItemsTemp">
-      <div class="elementList">
-        <div>{{group.icon}}</div>
-        <div class="flex">
-          <to-button (btnClick)="editGroup(group)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
-          <to-button (btnClick)="deleteGroup(group)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
-          <to-button (btnClick)="showGroupPageList=!showGroupPageList" color="white"><i class="fas fa-chevron-down text-green-600"></i></to-button>
-        </div>
-      </div>
-      <div *ngIf="showGroupPageList">
-        <ng-container *ngFor="let page of group.children">
-          <div class="elementList">
-            <div>
-              {{page.url}}
-            </div>
-            <div class="flex">
-              <to-button (btnClick)="editPage(page)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
-              <to-button (btnClick)="deleteItem(page)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </ng-container>
-  </div>
-</div>
+

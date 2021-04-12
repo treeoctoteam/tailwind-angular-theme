@@ -2,9 +2,8 @@ import { takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-interface NavigationItem {
+export interface NavigationItem {
   id: number;
   type: 'page';
   translate: string;
@@ -14,7 +13,7 @@ interface NavigationItem {
   position: number;
 }
 
-interface NavigationGroup {
+export interface NavigationGroup {
   id: number;
   type: 'group';
   translate: string;
@@ -259,6 +258,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
         this.navigationPageItemsTemp = [...this.navigationPageItemsTemp, navigationElement];
       }
       else if (this.navigationType === "group") {
+        navigationElement.children = [];
         this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, navigationElement];
         this.groupId = id;
       }
@@ -320,7 +320,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.setPageGroupForm(group, "group");
   }
 
-  public deleteItem(page: NavigationItem) {
+  public deletePage(page: NavigationItem) {
     this.navigationPageItemsTemp = this.navigationPageItemsTemp.filter(item => page.id !== item.id);
   }
 
