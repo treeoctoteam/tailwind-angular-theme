@@ -1,5 +1,5 @@
-<div>
-  <div class="p-16">
+<div *ngIf="showPageGroupForm || showChildForm">
+  <div class="pb-6">
     <div *ngIf="showPageGroupForm">
       <p class="text-xl pb-3">Navigation config</p>
       <div *ngIf="!showChildForm" [formGroup]="pageGroupConfigForm" class="flex gap-3 items-end">
@@ -14,25 +14,30 @@
           [disabled]="pageGroupConfigForm?.invalid">Add child</to-button>
         <to-button *ngIf="!isEditingMode" (btnClick)="addNavigationItem()"
           [disabled]="pageGroupConfigForm?.invalid || (navigationType==='group' && navigationGroupItems.length === 0)">
-          Add navigation page
+          Add item
         </to-button>
-        <to-button *ngIf="isEditingMode" (btnClick)="applyNavigationItemModify()"
+        <to-button *ngIf="isEditingMode" color="green" (btnClick)="applyNavigationItemModify()"
           [disabled]="pageGroupConfigForm?.invalid">
           Apply modify
+        </to-button>
+        <to-button color="red" (btnClick)="cancel('element')">
+          Cancel
         </to-button>
       </div>
     </div>
 
     <div>
       <div *ngIf="showChildForm" [formGroup]="childConfigForm" class="flex gap-3 items-end">
-        <p class="text-base py-3">Config child</p>
         <to-input octoValueAccessor formControlName="position" appearance="simple" type="number"
           class="bg-transparent p-0">Position</to-input>
         <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
         <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
         <to-input octoValueAccessor formControlName="url" appearance="simple">Url</to-input>
         <to-toggle octoValueAccessor formControlName="hidden" appearance="simple">Hidden</to-toggle>
-        <to-button *ngIf="showChildForm" (btnClick)="addChild()" [disabled]="childConfigForm?.invalid">Add</to-button>
+        <to-button (btnClick)="addChild()" [disabled]="childConfigForm?.invalid">Add</to-button>
+        <to-button color="red" (btnClick)="cancel('child')">
+          Cancel
+        </to-button>
       </div>
       <!-- <div class="pt-5 flex justify-end">
         <to-button class="pr-2" (btnClick)="closeForm.emit()">Close</to-button>
@@ -43,7 +48,7 @@
 </div>
 
 
-<div class="w-2/3 py-2">
+<div class="w-2/3">
   <div class="headerList">
     <h1>Pages</h1>
     <div>
@@ -66,7 +71,7 @@
   </div>
 </div>
 
-<div class="w-2/3 py-2">
+<div class="w-2/3">
   <div class="headerList">
     <h1>Groups</h1>
     <div>

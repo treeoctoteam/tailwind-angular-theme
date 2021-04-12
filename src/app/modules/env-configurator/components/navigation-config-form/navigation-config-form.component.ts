@@ -44,12 +44,11 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
 
   public showPageGroupForm = false;
   public showChildForm = false;
+  public showAddChildButton = false;
 
   public pageGroupConfigForm: FormGroup;
   public childConfigForm: FormGroup;
   private $unsubscribe = new Subject<void>();
-
-  public showAddChildButton = true;
 
   public navigationConfig: any[] = [];
   // split navigation config for type
@@ -167,8 +166,23 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   public showFormChild() {
-    this.showAddChildButton = false;
     this.showChildForm = true;
+  }
+
+  private hideAllForms() {
+    this.showPageGroupForm = false;
+    this.showChildForm = false;
+  }
+
+  public cancel(type: 'child' | 'element') {
+    this.hideAllForms();
+    if(type === 'child') {
+      this.resetForm(this.childConfigForm);
+    }
+    else {
+      this.resetForm(this.pageGroupConfigForm);
+    }
+
   }
 
   // TODO FIND FUNCTION AND SET VALUE OF FOUND ITEM
@@ -210,12 +224,10 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     if(!findElment) {
       console.log("ERROR: ELEMENT NOT FOUND");
     }
-    this.showChildForm = false;
+    this.hideAllForms();
   }
 
   public addChild() {
-    this.showAddChildButton = true;
-    this.showChildForm = false;
     const child = this.childConfigForm.value;
     child.id = this.generateId();
     child.type = "page";
@@ -228,6 +240,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
           this.resetForm(this.childConfigForm);
         }
       })
+      this.hideAllForms();
     }
   }
 
@@ -249,7 +262,8 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
         this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, navigationElement];
         this.groupId = id;
       }
-      this.resetForm(this.pageGroupConfigForm)
+      this.resetForm(this.pageGroupConfigForm);
+      this.hideAllForms();
     }
   }
 
@@ -274,6 +288,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.isEditingMode = false;
     this.showPageGroupForm = true;
     this.showChildForm = false;
+    this.showAddChildButton = false;
     this.resetForm(this.pageGroupConfigForm);
     this.navigationType = "group";
   }
@@ -301,6 +316,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   public editGroup(group: NavigationGroup) {
+    this.showAddChildButton = true;
     this.setPageGroupForm(group, "group");
   }
 
@@ -315,6 +331,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   public submitNewConfiguration() {
     this.navigationConfig.push(this.navigationGroupItems);
     this.navigationConfig.push(this.navigationPageItemsTemp);
+    this.hideAllForms();
     console.log("Submit new config", this.navigationConfig);
     this.newNavigationConfigSubmit.emit(this.navigationConfig);
   }
