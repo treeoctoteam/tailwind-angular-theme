@@ -119,15 +119,15 @@ export class DashboardConfigFormComponent implements OnInit {
   handleNavigationConfig(container, sectionName) {
     if(sectionName ==='navbar') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerNavbar.nativeElement);
-      this.navigationConfigComponentNavbar.setNavigationsConfig(this.navigationNavbar);
+      this.navigationConfigComponentNavbar.setNavigationsConfigForType(this.navigationNavbar);
     }
     else if(sectionName === 'footer') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerFooter.nativeElement);
-      this.navigationConfigComponentFooter.setNavigationsConfig(this.navigationFooter);
+      this.navigationConfigComponentFooter.setNavigationsConfigForType(this.navigationFooter);
     }
     else if (sectionName === 'sidebar') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerSidebar.nativeElement);
-      this.navigationConfigComponentSidebar.setNavigationsConfig(this.navigationSidebar);
+      this.navigationConfigComponentSidebar.setNavigationsConfigForType(this.navigationSidebar);
     }
   }
   
