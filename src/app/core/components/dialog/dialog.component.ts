@@ -34,7 +34,7 @@ export class DialogComponent implements OnInit, OnDestroy {
         this.dialogs = [];
       }
       this.changeDetector.markForCheck();
-    })
+    });
   }
 
   ngOnDestroy() {

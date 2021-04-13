@@ -3,7 +3,12 @@ name: Lint, Test & Build
 on:
   push:
     branches-ignore:
+<<<<<<< HEAD
       - "quality"
+=======
+      - "master"
+      - "dev"
+>>>>>>> dev
 
 jobs:
   build:

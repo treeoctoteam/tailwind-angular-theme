@@ -26,7 +26,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/typography": "^0.4.0",
-    "@treeocto/ui-kit": "^0.1.34",
+    "@treeocto/ui-kit": "^0.1.36",
     "ang-jsoneditor": "^1.10.5",
     "angular-user-idle": "^2.2.4",
     "cropperjs": "^1.5.11",

@@ -1,6 +1,8 @@
+import { TODialogOptions } from '@treeocto/ui-kit/dist/types/components/to-dialog/to-dialog';
+import { DialogService } from './../../../../core/services/dialog.service';
 import { takeUntil } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface NavigationItem {
@@ -23,12 +25,16 @@ export interface NavigationGroup {
   children: NavigationItem[];
 }
 
+const dialogId = "checkPositionDialog";
+
 @Component({
   selector: 'octo-navigation-config-form',
   templateUrl: './navigation-config-form.component.html',
   styleUrls: ['./navigation-config-form.component.scss']
 })
 export class NavigationConfigFormComponent implements OnInit, OnDestroy {
+
+  private sectionName = '';
 
   public optionsType = [
     { value: "page", label: "Page" },
@@ -49,7 +55,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   public childConfigForm: FormGroup;
   private $unsubscribe = new Subject<void>();
 
-  public navigationConfig: any[] = [];
+  public navigationConfig: { navigation: any[], sectionName: string } = {navigation: [], sectionName: ''};
   // split navigation config for type
   public navigationPageItems: NavigationItem[] = [];
   public navigationGroupItems: NavigationGroup[] = [];
@@ -66,7 +72,9 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   @Output() closeForm = new EventEmitter<void>();
   @Output() newNavigationConfigSubmit = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder) { }
+  @ViewChild('invalidPositionDialog') invalidPositionDialog: TemplateRef<any>;
+
+  constructor(private formBuilder: FormBuilder, private dialogService: DialogService) { }
 
   ngOnInit(): void {
 
@@ -102,8 +110,21 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.$unsubscribe.next();
   }
 
-  public setNavigationsConfigForType(navigationConfig) {
-    if(navigationConfig) {
+  closeDialog() {
+    this.dialogService.close(dialogId);
+  }
+
+  openDialog(){
+    const option: Partial<TODialogOptions> ={
+      hasBackdrop: true,
+      hasCustomTemplate: true
+    }
+    this.dialogService.open(option, dialogId, this.invalidPositionDialog).subscribe();
+  }
+
+  public setNavigationsConfigForType(navigationConfig, sectionName: string) {
+    if(navigationConfig && sectionName) {
+      this.sectionName = sectionName;
       navigationConfig.forEach(navigation => {
         if (navigation.type === "group") {
           this.navigationGroupItems = [...this.navigationGroupItems, navigation];
@@ -158,7 +179,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
       });
     }
     if(!positionValid) {
-      alert(`position for ${type} already used`);
+      this.openDialog()
     }
     return positionValid;
 
@@ -328,11 +349,15 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.navigationGroupItemsTemp = this.navigationGroupItemsTemp.filter(item => group.id !== item.id);
   }
 
-  public submitNewConfiguration() {
-    this.navigationConfig.push(this.navigationGroupItems);
-    this.navigationConfig.push(this.navigationPageItemsTemp);
+  public submitNewNavigationConfiguration() {
+    this.navigationGroupItemsTemp?.forEach(group => {
+      this.navigationConfig.navigation.push(group);
+    });
+    this.navigationPageItemsTemp?.forEach(page => {
+      this.navigationConfig.navigation.push(page);
+    });
+    this.navigationConfig.sectionName = this.sectionName;
     this.hideAllForms();
-    console.log("Submit new config", this.navigationConfig);
     this.newNavigationConfigSubmit.emit(this.navigationConfig);
   }
 

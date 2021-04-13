@@ -39,10 +39,6 @@
           Cancel
         </to-button>
       </div>
-      <!-- <div class="pt-5 flex justify-end">
-        <to-button class="pr-2" (btnClick)="closeForm.emit()">Close</to-button>
-        <to-button class="pl-2" (btnClick)="submitNewConfiguration()">Ok</to-button>
-      </div> -->
     </div>
   </div>
 </div>
@@ -65,4 +61,21 @@
 >
 </octo-table-navigation-config-form>
 
+<ng-template #invalidPositionDialog>
+    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left p-8">
+      <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+        Position invalid
+      </h3>
+      <div class="mt-2">
+        <p class="text-sm text-gray-500">
+          These position is already used, choose another one.
+        </p>
+      </div>
+      <to-button class="flex justify-end" (btnClick)="closeDialog()">Ok</to-button>
+    </div>
+</ng-template>
 
+<div class="pt-5 w-2/3 flex gap-4 justify-end">
+  <to-button (btnClick)="closeForm.emit()" color="red">Discard</to-button>
+  <to-button (btnClick)="submitNewNavigationConfiguration()" color="green">Apply</to-button>
+</div>
