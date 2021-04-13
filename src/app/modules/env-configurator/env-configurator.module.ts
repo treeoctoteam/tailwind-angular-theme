@@ -13,7 +13,7 @@ import { DashboardConfigFormComponent } from './components/dashboard-config-form
 import { PublicConfigFormComponent } from './components/public-config-form/public-config-form.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { NavigationConfigFormComponent } from './components/navigation-config-form/navigation-config-form.component';
-import { TableNavigationConfigFormComponent } from './components/navigation-config-form/table-navigation-config-form/table-navigation-config-form.component';
+import { TableNavigationConfigFormComponent } from './components/navigation-config-form/components/table-navigation-config-form/table-navigation-config-form.component';
 
 const routes: Routes = [
   {

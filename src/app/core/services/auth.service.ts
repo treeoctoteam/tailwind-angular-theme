@@ -18,9 +18,9 @@ export interface User {
 interface AuthRes {
   user: User,
   token: {
-    bearer: string;
+    bearer: string,
   },
-  message: string
+  message: string,
 }
 
 export class ChangePassword {
@@ -118,9 +118,9 @@ export class AuthService {
   checkAuth() {
     const $req = this.http.get<any>('https://dev.tap-id.tech/tapidconfig/home').pipe(share());
     $req.subscribe((res: any) => {
-      console.log('EMAIL',res.email);
-    })
-  }
+      console.log('EMAIL', res.email);
+    });
+  };
 
   initIdleMonitoring(idleConfig: UserIdleConfig) {
     this.checkUserLoggedState();

@@ -34,7 +34,7 @@
         "id": 4,
         "type": "item",
         "translate": "NAV.APPLICATIONS",
-        "icon": "apps",
+        "icon": "appsElement",
         "url": "/test",
         "position": 2,
         "hidden": false

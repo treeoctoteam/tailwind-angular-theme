@@ -7,13 +7,11 @@
   </octo-form>
 </to-card>
 
-<!-- <ng-template #navigationConfigFormDialog>
-  <octo-navigation-config-form (closeDialog)="closeDialog()" (navigationConfigSubmit)="getNavigationConfig($event)"></octo-navigation-config-form>
-</ng-template> -->
 <div class="hidden">
   <div #navigationConfigContainerNavbar>
     <octo-navigation-config-form 
       #navigationConfigComponentNavbar
+      (newNavigationConfigSubmit)="setNewNavigationConfig($event)"
     >
     </octo-navigation-config-form>
   </div>
@@ -23,6 +21,7 @@
   <div #navigationConfigContainerSidebar>
     <octo-navigation-config-form 
       #navigationConfigComponentSidebar
+      (newNavigationConfigSubmit)="setNewNavigationConfig($event)"
     >
     </octo-navigation-config-form>
   </div>
@@ -32,6 +31,7 @@
   <div #navigationConfigContainerFooter>
     <octo-navigation-config-form 
       #navigationConfigComponentFooter
+      (newNavigationConfigSubmit)="setNewNavigationConfig($event)"
     >
     </octo-navigation-config-form>
   </div>
