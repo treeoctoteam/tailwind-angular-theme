@@ -6,7 +6,7 @@ import { Component, OnInit, EventEmitter, Output, Input, ViewChild, Renderer2, E
 import { DashboardConfig } from '../../../models/modules.model';
 import { ToDialog, TODialogOptions } from '@treeocto/ui-kit/dist/types/components/to-dialog/to-dialog';
 
-const navigationConfDialog = "navigationConfDialogID"
+const navigationConfDialog = 'navigationConfDialogID';
 
 @Component({
   selector: 'octo-dashboard-config-form',
@@ -35,7 +35,7 @@ export class DashboardConfigFormComponent implements OnInit {
   @Output() setDashboardConfig = new EventEmitter();
   @Output() exportDashboardConfig = new EventEmitter();
   @Input() set form(conf) {
-    console.log("01 RECIVED CONF", conf);
+    console.log('01 RECIVED CONF', conf);
     if (conf) {
       this.showForm = true;
       this.configForm = conf;
@@ -45,12 +45,12 @@ export class DashboardConfigFormComponent implements OnInit {
     }
   }
 
-  constructor( 
+  constructor(
     private render: Renderer2
   ) { }
 
   ngOnInit(): void { }
-  
+
   // async lazyLoadingComponent() {
   //   this.viewContainerRef.clear();
   //   const { NavigationConfigFormComponent } = await import('../navigation-config-form/navigation-config-form.component');
@@ -63,8 +63,8 @@ export class DashboardConfigFormComponent implements OnInit {
   addEventToButton(sectionName: string, form) {
     const button = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === `${sectionName}NavigationButton`).id);
     const container = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === `${sectionName}NavigationConfigForm`).id);
-    button.addEventListener("btnClick", e => {
-      this.handleNavigationConfig(container, sectionName)
+    button.addEventListener('btnClick', e => {
+      this.handleNavigationConfig(container, sectionName);
     });
   }
 
@@ -73,7 +73,7 @@ export class DashboardConfigFormComponent implements OnInit {
   }
 
   formSubmit(form) {
-    console.log("submit",form)
+    console.log('submit', form);
     this.dashboardConfigForm = {...form};
     this.setDashboardConfig.emit({form: this.dashboardConfigForm, footer: this.navigationFooter, navbar: this.navigationNavbar, sidebar: this.navigationSidebar});
 
@@ -90,21 +90,21 @@ export class DashboardConfigFormComponent implements OnInit {
     this.dashboardConfigForm.sections[3].fields[1].value = this.configForm.defaultRoute;
     // // TODO without timeout doesn't work because element is not already rendered
     setTimeout(() => {
-      this.addEventToButton("navbar", this.dashboardConfigForm);
-      this.addEventToButton("sidebar", this.dashboardConfigForm);
-      this.addEventToButton("footer", this.dashboardConfigForm);
+      this.addEventToButton('navbar', this.dashboardConfigForm);
+      this.addEventToButton('sidebar', this.dashboardConfigForm);
+      this.addEventToButton('footer', this.dashboardConfigForm);
     }, 100);
- 
+
     // this.navigationConfigComponent.nativeElement.navigationConfig = this.navigationNavbar;
-    
+
   }
 
   handleNavigationConfig(container, sectionName) {
-    if(sectionName ==='navbar') {
+    if (sectionName === 'navbar') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerNavbar.nativeElement);
       this.navigationConfigComponentNavbar.setNavigationsConfigForType(this.navigationNavbar, sectionName);
     }
-    else if(sectionName === 'footer') {
+    else if (sectionName === 'footer') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerFooter.nativeElement);
       this.navigationConfigComponentFooter.setNavigationsConfigForType(this.navigationFooter, sectionName);
     }
@@ -125,7 +125,7 @@ export class DashboardConfigFormComponent implements OnInit {
       this.navigationSidebar = config.navigation;
     }
   }
-  
+
 }
 
 const DASHBOARDCONFIG_FORM: OctoFormModel = {
@@ -419,6 +419,6 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
         }
       ]
     },
-    
+
   ],
-}
+};

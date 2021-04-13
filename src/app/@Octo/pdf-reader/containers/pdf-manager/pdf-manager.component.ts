@@ -28,8 +28,8 @@ const createSignatureField = (documentFiled?: Partial<ENDocumentField>): ENDocum
       x: documentFiled?.dimensions?.x ? documentFiled?.dimensions.x : 0,
       y: documentFiled?.dimensions?.y ? documentFiled?.dimensions.y : 0
     }
-  }
-}
+  };
+};
 
 const imageCropperDialogId = 'imageCropperDialog';
 const signatureDialogId = 'SignatureDialog';
@@ -70,7 +70,7 @@ export class PdfManagerComponent implements AfterViewInit {
     disableImage: false,
     disableEditField: true,
     disablePrintPreview: false
-  }
+  };
 
   constructor(public canvasDrawerService: CanvasDrawerService,
               public overlayMenuService: OverlayMenuService,
@@ -78,7 +78,7 @@ export class PdfManagerComponent implements AfterViewInit {
               private deviceDetector: DeviceDetectorService) {}
 
   ngAfterViewInit(): void {
-    this.canvasDrawerService.$elementRightClickEvent.subscribe((node)=> {
+    this.canvasDrawerService.$elementRightClickEvent.subscribe((node) => {
       this.isOnUpdatePosition = false;
       this.activeDocumentField = this.setActiveDocumentField(node.id);
       const disableEditField = true;
@@ -98,7 +98,7 @@ export class PdfManagerComponent implements AfterViewInit {
         this.actionButtonsConfig = {...this.actionButtonsConfig, disableField};
       }
       if (disableEditField !== undefined) {
-        this.actionButtonsConfig = {...this.actionButtonsConfig, disableEditField}
+        this.actionButtonsConfig = {...this.actionButtonsConfig, disableEditField};
       }
     });
 
@@ -108,7 +108,7 @@ export class PdfManagerComponent implements AfterViewInit {
       this.checkPrintPreviewButton();
     });
 
-    this.canvasDrawerService.$updateFieldPosition.subscribe(({dimensions, fieldName: name})=> {
+    this.canvasDrawerService.$updateFieldPosition.subscribe(({dimensions, fieldName: name}) => {
       const currentSignField = this.document.documentFields.find(d => d.fieldName === name);
       if (currentSignField) {
         currentSignField.isEdited = true;
@@ -138,7 +138,7 @@ export class PdfManagerComponent implements AfterViewInit {
   }
 
   drawingFreeHand() {
-    this.dialogService.open({hasBackdrop: true, hasCustomTemplate: true, width: '800px', maxWidth: 'auto', height: '345px'}, signatureDialogId, this.signatureDialogTemplateRef)
+    this.dialogService.open({hasBackdrop: true, hasCustomTemplate: true, width: '800px', maxWidth: 'auto', height: '345px'}, signatureDialogId, this.signatureDialogTemplateRef);
   }
 
   dismissDrawSignature() {
@@ -236,22 +236,22 @@ export class PdfManagerComponent implements AfterViewInit {
 
   printView(){
     this.isPrientView = !this.isPrientView;
-    const pages = Array.from(document.querySelectorAll(".page"));
+    const pages = Array.from(document.querySelectorAll('.page'));
     pages.forEach(element => {
-      const fields =Array.from(element.children);
+      const fields = Array.from(element.children);
       fields.filter((field) => {
-        if (this.isPrientView && field.getAttribute("type")==="signatureField") {
-          (field as HTMLElement).style.borderColor = "transparent";
+        if (this.isPrientView && field.getAttribute('type') === 'signatureField') {
+          (field as HTMLElement).style.borderColor = 'transparent';
           // hide resize button
-          (field.children[0] as HTMLButtonElement).style.display = "none";
+          (field.children[0] as HTMLButtonElement).style.display = 'none';
         }
-        else if (!this.isPrientView && field.getAttribute("type") === "signatureField") {
+        else if (!this.isPrientView && field.getAttribute('type') === 'signatureField') {
           (field as HTMLElement).style.border = '2px solid #99042f';
           // show resize button
-          (field.children[0] as HTMLButtonElement).style.display = "block";
+          (field.children[0] as HTMLButtonElement).style.display = 'block';
         }
-      })
-    })
+      });
+    });
   }
 }
 

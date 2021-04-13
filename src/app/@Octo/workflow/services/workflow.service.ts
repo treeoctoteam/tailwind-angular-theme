@@ -47,17 +47,17 @@ const getFakeSteps = () => {
     }
   ];
   return fakeSteps;
-}
+};
 
 export enum DataStepperType {
-  OCR = "ocr",
-  DOCUMENT = "document",
-  SELFIE = "selfie",
-  ADDITIONAL = "additional"
+  OCR = 'ocr',
+  DOCUMENT = 'document',
+  SELFIE = 'selfie',
+  ADDITIONAL = 'additional'
 }
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class WorkflowService {
 
@@ -89,7 +89,7 @@ export class WorkflowService {
         this.steps = res.data;
         this.steps.forEach((step: Step) => {
           if (step.active) {
-            this.logger.logInfo("STEP: ", step);
+            this.logger.logInfo('STEP: ', step);
             this.activeStep = step;
             this.setActive.next(true);
             return;
@@ -107,7 +107,7 @@ export class WorkflowService {
 
   public move(id: string, loader = false) {
     const currentUrl = this.router.url;
-    console.log(currentUrl, this.activeStep?.stepId, "CURRENT URL1")
+    console.log(currentUrl, this.activeStep?.stepId, 'CURRENT URL1');
     if (this.activeStep?.stepId) {
       if (id == null) {
         id = this.activeStep.stepId;
@@ -115,7 +115,7 @@ export class WorkflowService {
       }
       this.moveToStep(id).subscribe((res: any) => {
         if (res.success) {
-          this.logger.logInfo("ROUTE TO GO: " + res.route);
+          this.logger.logInfo('ROUTE TO GO: ' + res.route);
           this.setActive.next(false);
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
@@ -127,7 +127,7 @@ export class WorkflowService {
       });
     } else {
       setTimeout(() => {
-        console.log(currentUrl, "CURRENT URL2")
+        console.log(currentUrl, 'CURRENT URL2');
         this.router.navigateByUrl(currentUrl);
       }, 250);
     }
@@ -168,7 +168,7 @@ export class WorkflowService {
         if (res.success) {
           this.sessionService.setSessionId(res.sessionId);
           if (res.requireLogin) {
-            this.router.navigateByUrl(this.config.config.layoutSettings.defaultLayout + "/" + res.token);
+            this.router.navigateByUrl(this.config.config.layoutSettings.defaultLayout + '/' + res.token);
           } else {
             this.router.navigateByUrl(res.route);
           }
@@ -176,7 +176,7 @@ export class WorkflowService {
         if (res.error) {
           // this._alert.showError(this._translate.instant("LOGGER.ERROR"), res.message);
           this.logger.logInfo(res.message);
-          this.router.navigateByUrl("/");
+          this.router.navigateByUrl('/');
         }
       },
       (err: any) => this.logger.logInfo(err.message)
@@ -186,7 +186,7 @@ export class WorkflowService {
   private createRoot() {
     let counter = 0;
     for (let i = 0; i < this.router.url.length; i++) {
-      const index_of_sub = this.router.url.indexOf("/", i);
+      const index_of_sub = this.router.url.indexOf('/', i);
       if (index_of_sub > -1) {
         counter++;
         if (counter > 3) {

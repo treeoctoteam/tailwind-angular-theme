@@ -25,34 +25,34 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     private dashboardService: DashboardConfigService,
     private alertService: AlertService) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, ): boolean {
     if (this.appConfigService.config.authenticationSettings.enableAuthentication) {
-      let activeModule = this.checkActiveModule(state);
+      const activeModule = this.checkActiveModule(state);
       switch (activeModule) {
-        case "public":
+        case 'public':
           if (!this.publicService.config) {
             this.publicService.initConfig().subscribe(() => {
               return this.moduleAuthenticate(this.publicService);
-            })
+            });
           }
           else {
             return this.moduleAuthenticate(this.publicService);
           }
           break;
-        case "dashboard":
+        case 'dashboard':
           if (!this.dashboardService.config) {
             this.dashboardService.initConfig().subscribe(() => {
               return this.moduleAuthenticate(this.dashboardService);
-            })
+            });
           }
           else {
             return this.moduleAuthenticate(this.dashboardService);
           }
           break;
-        case "configurator":
+        case 'configurator':
           return this.isLogged();
           break;
-        case "auth":
+        case 'auth':
           return true;
           break;
         default:
@@ -64,7 +64,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
         return true;
       }
       else {
-        this.router.navigateByUrl(this.appConfigService.config.layoutSettings.defaultLayout)
+        this.router.navigateByUrl(this.appConfigService.config.layoutSettings.defaultLayout);
       }
     }
     return false;
@@ -72,18 +72,18 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      let activeLayout = this.checkActiveModule(state);
-      let activeRoute = this.checkActivePage(activeLayout, state);
+      const activeLayout = this.checkActiveModule(state);
+      const activeRoute = this.checkActivePage(activeLayout, state);
       if (!activeRoute?.authenticate) {
-        resolve(true)
+        resolve(true);
       }
       else if (this.authService.user) {
-        resolve(true)
+        resolve(true);
       } else {
         this.redirectLogin();
-        resolve(false)
+        resolve(false);
       }
-    })
+    });
   }
 
   private moduleAuthenticate(service: any) {
@@ -105,41 +105,41 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
   }
   private redirectLogin() {
     this.alertService.present('danger', 'Auth error', 'Devi prima effettuare il login');
-    this.router.navigateByUrl("auth/login");
+    this.router.navigateByUrl('auth/login');
   }
 
   private checkActiveModule(state: RouterStateSnapshot) {
     const layouts: string[] = this.appConfigService.config.layoutSettings.layouts;
-    let activeLayout = "";
-    for (let l of layouts) {
+    let activeLayout = '';
+    for (const l of layouts) {
       const res = state.url.includes(l);
       if (res) {
-        activeLayout = l.replace("/", "");
+        activeLayout = l.replace('/', '');
         break;
       }
-    };
+    }
     return activeLayout;
   }
   private checkActivePage(activeLayout: string, state: RouterStateSnapshot) {
     let activeRoute;
     switch (activeLayout) {
-      case "public":
-        for (let r of this.publicService.config.routes) {
+      case 'public':
+        for (const r of this.publicService.config.routes) {
           const res = state.url.includes(r.path);
           if (res) {
             activeRoute = r;
             break;
           }
-        };
+        }
         break;
-      case "dashboard":
-        for (let r of this.dashboardService.config.routes) {
+      case 'dashboard':
+        for (const r of this.dashboardService.config.routes) {
           const res = state.url.includes(r.path);
           if (res) {
             activeRoute = r;
             break;
           }
-        };
+        }
         break;
     }
     return activeRoute;

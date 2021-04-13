@@ -7,7 +7,7 @@ import { PublicConfig } from '../../models/modules.model';
 const CONFIG_PATH = 'assets/config/public-config.json';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PublicConfigService {
   config: PublicConfig;
@@ -22,7 +22,7 @@ export class PublicConfigService {
       this.$config.next(response);
       this.config = response;
       // Manage Routing
-      let navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
+      const navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
       if (!navigationExist) {
         this.router.navigate(['public/' + this.config.defaultRoute]);
       }

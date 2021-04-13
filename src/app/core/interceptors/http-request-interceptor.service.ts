@@ -17,16 +17,16 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     private applicationConfigservice: ApplicationConfigService
   ) {
   }
-  
+
   intercept(req: any, next: any) {
     // const auth = this.injector.get(AuthService);
     let authRequest = req.clone();
     if (this.applicationConfigservice.config){
-      if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === "Cookie"){
+      if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === 'Cookie'){
         authRequest = req.clone({
           withCredentials: true
-        })
-        console.log("TEST", authRequest)
+        });
+        console.log('TEST', authRequest);
       }
       else {
         authRequest = req.clone({
@@ -34,25 +34,25 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
             // User: this.authService.user,
             Authorization: `Bearer ${this.authService.token}`,
           }
-        })
+        });
       }
-      
+
     }
     else {
-      console.log("Configuration hasn't been loaded yet");
+      console.log('Configuration hasn\'t been loaded yet');
     }
     return next.handle(authRequest)
       .pipe(
         catchError(err => {
           // in case of 401 http error && message of check authenticated
-          if (err instanceof HttpErrorResponse && err.status === 401 && err.statusText === "Token not verified") {
+          if (err instanceof HttpErrorResponse && err.status === 401 && err.statusText === 'Token not verified') {
             return this.authService.refreshToken();
           }
           // of error operator transform in observable
           // return of(err.statusText);
           return throwError(err);
         })
-      )
+      );
   }
 }
 

@@ -25,7 +25,7 @@ export interface NavigationGroup {
   children: NavigationItem[];
 }
 
-const dialogId = "checkPositionDialog";
+const dialogId = 'checkPositionDialog';
 
 @Component({
   selector: 'octo-navigation-config-form',
@@ -37,10 +37,10 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   private sectionName = '';
 
   public optionsType = [
-    { value: "page", label: "Page" },
-    { value: "group", label: "Group" }
+    { value: 'page', label: 'Page' },
+    { value: 'group', label: 'Group' }
   ];
-  public navigationType : "page" | "group" = 'page';
+  public navigationType: 'page' | 'group' = 'page';
 
   // show/hide list item
   public showPageList = false;
@@ -92,7 +92,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
       icon: ['', Validators.required],
       url: ['', Validators.required],
       hidden: ['false', Validators.required]
-    })
+    });
 
     this.pageGroupConfigForm.valueChanges.pipe(
       takeUntil(this.$unsubscribe)
@@ -115,21 +115,21 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   openDialog(){
-    const option: Partial<TODialogOptions> ={
+    const option: Partial<TODialogOptions> = {
       hasBackdrop: true,
       hasCustomTemplate: true
-    }
+    };
     this.dialogService.open(option, dialogId, this.invalidPositionDialog).subscribe();
   }
 
   public setNavigationsConfigForType(navigationConfig, sectionName: string) {
-    if(navigationConfig && sectionName) {
+    if (navigationConfig && sectionName) {
       this.sectionName = sectionName;
       navigationConfig.forEach(navigation => {
-        if (navigation.type === "group") {
+        if (navigation.type === 'group') {
           this.navigationGroupItems = [...this.navigationGroupItems, navigation];
         }
-        else if (navigation.type === "item") {
+        else if (navigation.type === 'item') {
           this.navigationPageItems = [...this.navigationPageItems, navigation];
         }
       });
@@ -137,13 +137,13 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
       this.navigationGroupItemsTemp = this.navigationGroupItems;
     }
     else {
-      console.log("Navigation config is empty")
+      console.log('Navigation config is empty');
     }
   }
 
   private resetForm(form: FormGroup) {
     form.reset();
-    form.controls['hidden'].setValue('false');
+    form.controls.hidden.setValue('false');
     form.updateValueAndValidity();
   }
 
@@ -153,9 +153,9 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
 
   private checkPosistion(position: number, type: 'page' | 'group' | 'child', groupId?: number): boolean {
     let positionValid = true;
-    if(type === 'page') {
+    if (type === 'page') {
       this.navigationPageItemsTemp.forEach(page => {
-        if(page.position === position) {
+        if (page.position === position) {
           positionValid = false;
         }
       });
@@ -174,12 +174,12 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
             if (child.position === position) {
               positionValid = false;
             }
-          })
+          });
         }
       });
     }
-    if(!positionValid) {
-      this.openDialog()
+    if (!positionValid) {
+      this.openDialog();
     }
     return positionValid;
 
@@ -196,7 +196,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
 
   public cancel(type: 'child' | 'element') {
     this.hideAllForms();
-    if(type === 'child') {
+    if (type === 'child') {
       this.resetForm(this.childConfigForm);
     }
     else {
@@ -206,7 +206,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   // TODO FIND FUNCTION AND SET VALUE OF FOUND ITEM
-  private applyModifyToElement(array: Array<any>, type: 'child' | 'group' | 'page'): boolean { 
+  private applyModifyToElement(array: Array<any>, type: 'child' | 'group' | 'page'): boolean {
     let findElment = false;
     for (let i = 0; i < array.length && !findElment; i++) {
       if (array[i].id === this.elementIdToEdit) {
@@ -219,7 +219,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
         }
         array[i].icon = this.pageGroupConfigForm.get('icon').value;
         array[i].translate = this.pageGroupConfigForm.get('translate').value;
-        if(type === 'page' || type === 'child') {
+        if (type === 'page' || type === 'child') {
           array[i].url = this.pageGroupConfigForm.get('url').value;
         }
         findElment = true;
@@ -230,19 +230,19 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
 
   public applyNavigationItemModify() {
     let findElment = false;
-    findElment = this.applyModifyToElement(this.navigationGroupItemsTemp, "group");
+    findElment = this.applyModifyToElement(this.navigationGroupItemsTemp, 'group');
     if (!findElment) {
-      findElment = this.applyModifyToElement(this.navigationPageItemsTemp, "page");
+      findElment = this.applyModifyToElement(this.navigationPageItemsTemp, 'page');
     }
     if (!findElment) {
       let find = false;
-      for(let i = 0; i < this.navigationGroupItemsTemp.length && !find; i++) {
-        find = this.applyModifyToElement(this.navigationGroupItemsTemp[i].children, "child");
+      for (let i = 0; i < this.navigationGroupItemsTemp.length && !find; i++) {
+        find = this.applyModifyToElement(this.navigationGroupItemsTemp[i].children, 'child');
       }
       findElment = find;
     }
-    if(!findElment) {
-      console.log("ERROR: ELEMENT NOT FOUND");
+    if (!findElment) {
+      console.log('ERROR: ELEMENT NOT FOUND');
     }
     this.hideAllForms();
   }
@@ -250,22 +250,22 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   public addChild() {
     const child = this.childConfigForm.value;
     child.id = this.generateId();
-    child.type = "page";
+    child.type = 'page';
     child.position = parseInt(child.position);
     const validPosition = this.checkPosistion(child.position, 'child');
     if (validPosition) {
       this.navigationGroupItemsTemp.forEach((group: NavigationGroup) => {
-        if(group.id === this.groupId) {
+        if (group.id === this.groupId) {
           group.children = [...group.children, child];
           this.resetForm(this.childConfigForm);
         }
-      })
+      });
       this.hideAllForms();
     }
   }
 
   // TODO 3 FORMS WITH RXJS?
-  private createNavigationElement(type: "page" | "group") {
+  private createNavigationElement(type: 'page' | 'group') {
     const id = this.generateId();
     const navigationElement = this.pageGroupConfigForm.value;
     navigationElement.type = this.navigationType;
@@ -273,12 +273,12 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     // TODO: CHECK WHY POSITION IS A STRING AND NOT A NUMBER LIKE INTERFACE DECLARATION
     navigationElement.position = parseInt(navigationElement.position);
     const validPosition = this.checkPosistion(navigationElement.position, type);
-    if(validPosition) {
+    if (validPosition) {
       this.isEditingMode = true;
-      if(type === "page") {
+      if (type === 'page') {
         this.navigationPageItemsTemp = [...this.navigationPageItemsTemp, navigationElement];
       }
-      else if (this.navigationType === "group") {
+      else if (this.navigationType === 'group') {
         navigationElement.children = [];
         this.navigationGroupItemsTemp = [...this.navigationGroupItemsTemp, navigationElement];
         this.groupId = id;
@@ -289,11 +289,11 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   public addNavigationItem() {
-    if(this.navigationType === "page") {
-      this.createNavigationElement("page");
+    if (this.navigationType === 'page') {
+      this.createNavigationElement('page');
     }
-    else if (this.navigationType === "group") {
-      this.createNavigationElement("group")
+    else if (this.navigationType === 'group') {
+      this.createNavigationElement('group');
     }
   }
 
@@ -302,7 +302,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.showPageGroupForm = true;
     this.showChildForm = false;
     this.resetForm(this.pageGroupConfigForm);
-    this.navigationType = "page";
+    this.navigationType = 'page';
   }
 
   public addGroup() {
@@ -311,10 +311,10 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.showChildForm = false;
     this.showAddChildButton = false;
     this.resetForm(this.pageGroupConfigForm);
-    this.navigationType = "group";
+    this.navigationType = 'group';
   }
 
-  private setPageGroupForm(value: NavigationItem | NavigationGroup, type: "page" | "group") {
+  private setPageGroupForm(value: NavigationItem | NavigationGroup, type: 'page' | 'group') {
     this.isEditingMode = true;
     this.showPageGroupForm = true;
     this.showChildForm = false;
@@ -324,7 +324,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.pageGroupConfigForm.get('position').setValue(value.position);
     this.pageGroupConfigForm.get('icon').setValue(value.icon);
     this.pageGroupConfigForm.get('translate').setValue(value.translate);
-    if (type === "page") {
+    if (type === 'page') {
       this.pageGroupConfigForm.get('url').setValue((value as NavigationItem).url);
     }
     else {
@@ -333,12 +333,12 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   public editPage(page: NavigationItem) {
-    this.setPageGroupForm(page, "page");
+    this.setPageGroupForm(page, 'page');
   }
 
   public editGroup(group: NavigationGroup) {
     this.showAddChildButton = true;
-    this.setPageGroupForm(group, "group");
+    this.setPageGroupForm(group, 'group');
   }
 
   public deletePage(page: NavigationItem) {
