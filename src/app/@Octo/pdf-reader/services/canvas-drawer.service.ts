@@ -185,7 +185,7 @@ export class CanvasDrawerService {
             w: 0,
             h: 0
     };
-  const documentField: Partial<ENDocumentField> = {
+        const documentField: Partial<ENDocumentField> = {
       dimensions: {
         x: rect.startX,
         y: rect.startY,
@@ -196,7 +196,7 @@ export class CanvasDrawerService {
       pageNumber: this.pageNumber
     };
 
-  this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
+        this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
       const ctx = canvas.getContext('2d');
       const draw = () => {
         ctx.beginPath();
@@ -284,7 +284,7 @@ export class CanvasDrawerService {
     resizeBtn.style.top = '100%';
     resizeBtn.style.transform = 'translate3d(-50%,-50%,0) rotateZ(45deg)';
     resizeBtn.style.borderStyle = 'solid';
-          resizeBtn.style.borderWidth = '12px';
+    resizeBtn.style.borderWidth = '12px';
     resizeBtn.style.borderColor = 'transparent transparent transparent #99042f';
     resizeBtn.style.backgroundColor = 'transparent';
     resizeBtn.style.outline = 'none';
