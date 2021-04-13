@@ -18,9 +18,9 @@ interface User {
 interface AuthRes {
   user: User,
   token: {
-    bearer: string;
+    bearer: string,
   },
-  message: string
+  message: string,
 }
 
 export class ChangePassword {
@@ -46,7 +46,6 @@ export class AuthService {
     private alertService: AlertService,
     private router: Router,
     private userIdleService: UserIdleService,
-    private applicationConfigservice: ApplicationConfigService
   ) {
     // this.loggedUserSubject = new BehaviorSubject<User>(
     //   JSON.parse(localStorage.getItem('user'))
@@ -95,7 +94,7 @@ export class AuthService {
         const user: User = { role: res.user.role, username: res.user.username, email: res.user.email };
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', res.token.bearer);
-        this.alertService.present('success', 'User Logged', 'User logged successful!')
+        this.alertService.present('success', 'User Logged', 'User logged successful!');
         this.router.navigateByUrl('configurator/overview');
       }
     });
@@ -124,8 +123,8 @@ export class AuthService {
   refreshToken(): Observable<void> {
     const $req = this.http.post<void>(`${this.#path}/refresh`, null).pipe(share());
     $req.subscribe(res => {
-      console.log('refresh res', res)
-    })
+      console.log('refresh res', res);
+    });
     return $req;
   }
 
@@ -134,9 +133,9 @@ export class AuthService {
   checkAuth() {
     const $req = this.http.get<any>('https://dev.tap-id.tech/tapidconfig/home').pipe(share());
     $req.subscribe((res: any) => {
-      console.log('EMAIL',res.email);
-    })
-  }
+      console.log('EMAIL', res.email);
+    });
+  };
 
   initIdleMonitoring(idleConfig: UserIdleConfig) {
     if (this.isLogged) {
@@ -149,7 +148,7 @@ export class AuthService {
     // Start watching when user idle is starting.
     this.userIdleService.onTimerStart().subscribe((count) => {
       if (count === 1) {
-        this.alertService.present('info', 'Tempo di inattività', `La sessione verrà bloccata per inattività`)
+        this.alertService.present('info', 'Tempo di inattività', `La sessione verrà bloccata per inattività`);
       }
     });
     // Start watch when time is up.
