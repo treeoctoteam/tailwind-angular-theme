@@ -137,7 +137,7 @@ export class AuthService {
         takeUntil(this.userIdleService.onTimeout())
       ).subscribe((count) => {
         if (count === 1) {
-          this.alertService.present('warning', 'Be careful!', 'Your session is gonna be locked.', idleConfig.timeout);
+          this.alertService.present('warning', 'Be careful!', 'Your session is gonna be locked.', idleConfig.timeout * 1000);
         }
       });
 
