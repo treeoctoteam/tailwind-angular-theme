@@ -11,7 +11,7 @@ export class OverlayMenuService {
   private overlayRef: OverlayRef | null;
 
   constructor(private overlay: Overlay,
-              private viewContainerRef: ViewContainerRef) { }
+    private viewContainerRef: ViewContainerRef) { }
 
   open({ x, y }: MouseEvent, data: any, templateRef: TemplateRef<any>) {
     this.close();
