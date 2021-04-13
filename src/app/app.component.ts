@@ -4,6 +4,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApplicationConfigService } from './core/services/application-config.service';
+import { AuthService } from './core/services/auth.service';
 import { ApplicationConfig } from './shared/models/application-config.model';
 
 @Component({
@@ -17,8 +18,9 @@ export class AppComponent {
   activeLang: string;
 
   constructor(private appService: ApplicationConfigService,
-    private translateService: TranslateService,
-    private router: Router) { }
+              private translateService: TranslateService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.appService.initAppConfig();
@@ -54,6 +56,8 @@ export class AppComponent {
           .subscribe((langChangeEvent: LangChangeEvent) => {
             this.activeLang = langChangeEvent.lang;
           });
+
+        this.authService.initIdleMonitoring(appConfig.idleConfig);
 
         window.addEventListener("online", this.onNetworkStatusChange.bind(this));
         window.addEventListener("offline", this.onNetworkStatusChange.bind(this));

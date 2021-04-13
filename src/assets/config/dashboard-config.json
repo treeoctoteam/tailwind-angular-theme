@@ -3,36 +3,40 @@
     "logoPath": "/assets/pippo.svg",
     "navigation": [
       {
-        "id": "Applications",
+        "id": 1,
         "type": "group",
         "translate": "NAV.APPLICATIONS",
         "icon": "apps",
         "hidden": false,
+        "position": 1,
         "children": [
           {
-            "id": "home",
+            "id": 2,
             "translate": "NAV.HOME",
             "type": "item",
             "icon": "home",
             "url": "/home",
+            "position": 1,
             "hidden": false
           },
           {
-            "id": "pdf-reader",
+            "id": 3,
             "translate": "NAV.DOCUMENTS",
             "type": "item",
             "icon": "insert_drive_file",
             "url": "/pdf",
+            "position": 2,
             "hidden": false
           }
         ]
       },
       {
-        "id": "item",
+        "id": 4,
         "type": "item",
         "translate": "NAV.APPLICATIONS",
-        "icon": "apps",
+        "icon": "appsElement",
         "url": "/test",
+        "position": 2,
         "hidden": false
       }
     ]
@@ -41,36 +45,40 @@
     "logoPath": "/assets/pippo.svg",
     "navigation": [
       {
-        "id": "Applications",
+        "id": 5,
         "type": "group",
         "translate": "NAV.APPLICATIONS",
         "icon": "apps",
         "hidden": false,
+        "position": 1,
         "children": [
           {
-            "id": "home",
+            "id": 6,
             "translate": "NAV.HOME",
             "type": "item",
             "icon": "home",
             "url": "/home",
+            "position": 1,
             "hidden": false
           },
           {
-            "id": "pdf-reader",
+            "id": 7,
             "translate": "NAV.DOCUMENTS",
             "type": "item",
             "icon": "insert_drive_file",
             "url": "/pdf",
+            "position": 2,
             "hidden": false
           }
         ]
       },
       {
-        "id": "item",
+        "id": 8,
         "translate": "NAV.APPLICATIONS",
         "type": "item",
         "icon": "apps",
         "url": "/test",
+        "position": 2,
         "hidden": false
       }
     ]
@@ -79,36 +87,40 @@
     "logoPath": "/assets/pippo.svg",
     "navigation": [
       {
-        "id": "Applications",
+        "id": 9,
         "translate": "NAV.APPLICATIONS",
         "type": "group",
         "icon": "apps",
         "hidden": false,
+        "position": 1,
         "children": [
           {
-            "id": "home",
+            "id": 10,
             "translate": "NAV.HOME",
             "type": "item",
             "icon": "home",
             "url": "/home",
+            "position": 1,
             "hidden": false
           },
           {
-            "id": "pdf-reader",
+            "id": 11,
             "translate": "NAV.DOCUMENTS",
             "type": "item",
             "icon": "insert_drive_file",
             "url": "/pdf",
+            "position": 2,
             "hidden": false
           }
         ]
       },
       {
-        "id": "item",
+        "id": 12,
         "translate": "NAV.APPLICATIONS",
         "type": "item",
         "icon": "apps",
         "url": "/test",
+        "position": 2,
         "hidden": false
       }
     ]

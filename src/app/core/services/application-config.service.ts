@@ -17,8 +17,6 @@ export class ApplicationConfigService {
   config: ApplicationConfig;
   $config = new BehaviorSubject<ApplicationConfig>(null);
 
-
-
   constructor(private http: HttpClient, private router: Router) { }
 
   initAppConfig(): Observable<ApplicationConfig> {
