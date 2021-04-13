@@ -46,28 +46,11 @@ export class DashboardConfigFormComponent implements OnInit {
   }
 
   constructor( 
-    private dialogService: DialogService, 
-    private render: Renderer2, 
-    private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private render: Renderer2
   ) { }
 
   ngOnInit(): void { }
-  // closeDialog() {
-  //   this.dialogService.close(navigationConfDialog);
-  // }
-
-  // openDialog(){
-  //   const option: Partial<TODialogOptions> ={
-  //     hasBackdrop: true,
-  //     hasCustomTemplate: true,
-  //     dialogTitle: "Navigation config form"
-  //   }
-  //   this.dialogService.open(option, navigationConfDialog, this.dialog).subscribe(res => {
-  //     console.log(res)
-  //   })
-  // }
-
+  
   // async lazyLoadingComponent() {
   //   this.viewContainerRef.clear();
   //   const { NavigationConfigFormComponent } = await import('../navigation-config-form/navigation-config-form.component');
@@ -86,15 +69,17 @@ export class DashboardConfigFormComponent implements OnInit {
   }
 
   formChange(event) {
-    console.log("EVENT", event)
+    // console.log("EVENT", event)
   }
 
-  formSubmit(event) {
-    
+  formSubmit(form) {
+    console.log("submit",form)
+    this.dashboardConfigForm = {...form};
+    this.setDashboardConfig.emit({form: this.dashboardConfigForm, footer: this.navigationFooter, navbar: this.navigationNavbar, sidebar: this.navigationSidebar});
+
   }
 
   editConfig() {
-    console.log("EDIT")
     this.dashboardConfigForm.sections[0].fields[0].value = this.configForm.navbar.logoPath;
     this.navigationNavbar = this.configForm.navbar.navigation;
     this.dashboardConfigForm.sections[1].fields[0].value = this.configForm.sidebar.logoPath;
@@ -114,20 +99,30 @@ export class DashboardConfigFormComponent implements OnInit {
     
   }
 
-  
-
   handleNavigationConfig(container, sectionName) {
     if(sectionName ==='navbar') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerNavbar.nativeElement);
-      this.navigationConfigComponentNavbar.setNavigationsConfigForType(this.navigationNavbar);
+      this.navigationConfigComponentNavbar.setNavigationsConfigForType(this.navigationNavbar, sectionName);
     }
     else if(sectionName === 'footer') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerFooter.nativeElement);
-      this.navigationConfigComponentFooter.setNavigationsConfigForType(this.navigationFooter);
+      this.navigationConfigComponentFooter.setNavigationsConfigForType(this.navigationFooter, sectionName);
     }
     else if (sectionName === 'sidebar') {
       this.render.appendChild(container as HTMLDivElement, this.navigationConfigContainerSidebar.nativeElement);
-      this.navigationConfigComponentSidebar.setNavigationsConfigForType(this.navigationSidebar);
+      this.navigationConfigComponentSidebar.setNavigationsConfigForType(this.navigationSidebar, sectionName);
+    }
+  }
+
+  setNewNavigationConfig(config) {
+    if (config.sectionName === 'navbar') {
+      this.navigationNavbar = config.navigation;
+    }
+    else if (config.sectionName === 'footer') {
+      this.navigationFooter = config.navigation;
+    }
+    else if (config.sectionName === 'sidebar') {
+      this.navigationSidebar = config.navigation;
     }
   }
   
@@ -179,7 +174,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           disabled: false,
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Handle navigation',
+          label: 'Navigation settings',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -256,7 +251,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           disabled: false,
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Handle navigation',
+          label: 'Navigation settings',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -333,7 +328,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           disabled: false,
           placeholderColor: '',
           appearance: 'simple',
-          label: 'Handle navigation',
+          label: 'Navigation settings',
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
@@ -372,7 +367,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
       ]
     },
     {
-      id: 's3',
+      id: 's4',
       name: 'othersconfig',
       title: 'Others config',
       class: 'border-2 broder-grey-100 rounded-md py-4',
@@ -391,15 +386,14 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           labelColor: '',
           borderColor: 'border-green-700',
           borderWidth: '',
-          textColor: '',
-          backgroundColor: '',
+          textColor: 'text-green-700',
           clearable: true,
           value: '',
           type: 'toggle',
           validation: {
             required: true
           },
-          sectionId: 's3',
+          sectionId: 's4',
         },
         {
           id: 'f2s3',
@@ -417,15 +411,11 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
           backgroundColor: '',
           clearable: true,
           value: '',
-          type: 'autocomplete',
+          type: 'text',
           validation: {
             required: true,
           },
-          options:[
-            { value: "faq", label:"Faq"},
-            { value: "login", label: "login" }
-          ],
-          sectionId: 's3',
+          sectionId: 's4',
         }
       ]
     },

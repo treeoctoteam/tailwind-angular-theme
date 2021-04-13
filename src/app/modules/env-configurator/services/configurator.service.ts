@@ -1,10 +1,10 @@
-import { OctoFormModel } from '../../../@Octo/form/models/octo-form.model';
+import { OctoFormModel } from './../../../@Octo/form/models/octo-form.model';
+import { DashboardConfig } from './../../models/modules.model';
 import { OctoFormUtilsService } from '../../../@Octo/form/octo-form-utils.service';
 import { share } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { ApplicationConfig } from '../../../shared/models/application-config.model';
-import { DashboardConfig } from '../../models/modules.model';
 import { Injectable } from '@angular/core';
 import { Language } from 'src/app/shared/models/language.model';
 const DASHBOARD_CONFIG_PATH = 'assets/config/dashboard-config.json';
@@ -43,7 +43,7 @@ export class ConfiguratorService {
   generateAppConfigFromOctoForm(form: OctoFormModel) {
     let newConfig: ApplicationConfig = this.config as ApplicationConfig;
 
-    newConfig.startup = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "startup")).find(f => f.name === "startup")?.value.toString().toLowerCase() as "api" | "file";
+    newConfig.startup = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "startup")).find(f => f.name === "startup")?.value.toString() as "api" | "file";
 
     const customerInfoSection = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "customerInfo"))
     newConfig.customerInfo.name = customerInfoSection.find(f => f.name === "name")?.value.toString();
@@ -83,8 +83,18 @@ export class ConfiguratorService {
     return newConfig
   }
 
-  generateDashboardConfigFromOctoForm(form: OctoFormModel) {
-    console.log("TO DO GENERATE NEW DASHBOARD CONFIG")
+  generateDashboardConfigFromOctoForm(config) {
+    const form: OctoFormModel= config.form;
+    let newConfig: DashboardConfig = this.config as DashboardConfig;
+    newConfig.navbar.logoPath = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "navbar")).find(f => f.name === "logoPath")?.value.toString();
+    newConfig.navbar.navigation = config.navbar;
+    newConfig.footer.logoPath = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "footer")).find(f => f.name === "logoPath")?.value.toString();
+    newConfig.footer.navigation = config.footer;
+    newConfig.sidebar.logoPath = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "sidebar")).find(f => f.name === "logoPath")?.value.toString();
+    newConfig.sidebar.navigation = config.sidebar;
+    newConfig.authenticate = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "othersconfig")).find(f => f.name === "authenticate")?.value as boolean;
+    newConfig.defaultRoute = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === "othersconfig")).find(f => f.name === "defaultRoute")?.value.toString();
+    return newConfig
   }
 
 }
