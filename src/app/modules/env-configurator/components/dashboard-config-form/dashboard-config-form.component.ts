@@ -139,7 +139,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
       id: 's1',
       name: 'navbar',
       title: 'Navigation config',
-      class: 'border-2 broder-grey-100 rounded-md py-4',
+      class: 'border-2 broder-grey-100 rounded-md py-4 px-10',
       style: '',
       validation: {
         required: true,
@@ -216,7 +216,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
       id: 's2',
       name: 'sidebar',
       title: 'Sidebar config',
-      class: 'border-2 broder-grey-100 rounded-md py-4',
+      class: 'border-2 broder-grey-100 rounded-md py-4 px-10',
       style: '',
       validation: {
         required: true,
@@ -293,7 +293,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
       id: 's3',
       name: 'footer',
       title: 'Footer config',
-      class: 'border-2 broder-grey-100 rounded-md py-4',
+      class: 'border-2 broder-grey-100 rounded-md py-4 px-10',
       style: '',
       validation: {
         required: true,
@@ -370,7 +370,7 @@ const DASHBOARDCONFIG_FORM: OctoFormModel = {
       id: 's4',
       name: 'othersconfig',
       title: 'Others config',
-      class: 'border-2 broder-grey-100 rounded-md py-4',
+      class: 'border-2 broder-grey-100 rounded-md py-4 px-10',
       style: '',
       validation: {
         required: true,

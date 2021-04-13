@@ -1,66 +1,105 @@
-<table class="table-fixed w-2/3 mb-12">
-  <thead>
-    <tr>   
-      <th class="w-3/4 p-2">Type</th>
-      <th class="w-1/4 p-2">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="bg-green-100">
-      <td class="p-2">
-        <h1 *ngIf="navigationElementType==='pages'">Pages</h1>
-        <h1 *ngIf="navigationElementType==='groups'">Groups</h1>
-      </td>
-      <td class="p-2">
-        <to-button *ngIf="navigationElementType==='pages'" (btnClick)="addPage.emit()" color="white"><i
-            class="fas fa-plus text-yellow-400"></i></to-button>
-        <to-button *ngIf="navigationElementType==='groups'" (btnClick)="addGroup.emit()" color="white"><i
-            class="fas fa-plus text-yellow-400"></i></to-button>
-        <to-button (btnClick)="showPageList=!showPageList" color="white"><i class="fas fa-chevron-down text-green-600"></i>
-        </to-button>
-      </td>
-    </tr>
-    <ng-container *ngIf="showPageList">
-      <ng-container *ngFor="let element of dataTable">
-        <tr class="bg-gray-100">
-          <td class="p-2">
-            <div>{{element.icon}}</div>
-          </td>
-          <td class="p-2">
-            <ng-container *ngIf="navigationElementType==='pages'">
-              <to-button (btnClick)="editPage.emit(element)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
-              <to-button (btnClick)="deletePage.emit(element)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
-            </ng-container>
-            <ng-container *ngIf="navigationElementType==='groups'">
-              <to-button (btnClick)="editGroup.emit(element)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
-              <to-button (btnClick)="deleteGroup.emit(element)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
-              <to-button (btnClick)="showHideGroupPageList(element)" color="white"><i
-                  class="fas fa-chevron-down text-green-600"></i></to-button>
-            </ng-container>
-          </td>
+<div class="mb-10">
+  <table class="table-fixed w-full">
+    <thead>
+      <tr>   
+        <th class="w-3/4 p-2"></th>
+        <th class="w-1/4 p-2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-200">
+        <td class="p-2">
+          <h1 *ngIf="navigationElementType==='pages'">Pages</h1>
+          <h1 *ngIf="navigationElementType==='groups'">Groups</h1>
+        </td>
+        <td class="p-2 flex justify-end">
+          <to-button *ngIf="navigationElementType==='pages'" (btnClick)="addPage.emit()" color="white"><i
+              class="fas fa-plus text-yellow-400"></i></to-button>
+          <to-button *ngIf="navigationElementType==='groups'" (btnClick)="addGroup.emit()" color="white"><i
+              class="fas fa-plus text-yellow-400"></i></to-button>
+          <to-button (btnClick)="showPageList=!showPageList" color="white"><i class="fas fa-chevron-down text-green-600"></i>
+          </to-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-container *ngIf="showPageList && dataTable.length>0">
+    <table class="table-fixed w-full pt-3">
+      <thead>
+        <tr>
+          <th [ngClass]="navigationElementType==='pages' ? 'w-1/6' : 'w-1/5'">Position</th>
+          <th [ngClass]="navigationElementType==='pages' ? 'w-1/6' : 'w-1/5'">Translate</th>
+          <th [ngClass]="navigationElementType==='pages' ? 'w-1/6' : 'w-1/5'">Icon</th>
+          <th [ngClass]="navigationElementType==='pages' ? 'w-1/6' : 'w-1/5'">Url</th>
+          <th [ngClass]="navigationElementType==='pages' ? 'w-1/6' : 'w-1/5'">Hidden</th>
+          <th [ngClass]="navigationElementType==='pages' ? 'w-1/6' : 'w-1/5'">Actions</th>
         </tr>
-        <ng-container *ngIf="navigationElementType==='groups'">
-          <ng-container *ngFor="let page of element.children">
-            <ng-container *ngIf="element.hideChildren">
-              <tr>
-                <td class="p-2">
-                  <div>
-                    {{page.url}}
-                    {{page.hideChildren}}
-                  </div>
-                </td>
-                <td class="p-2">
-                  <to-button (btnClick)="editPage.emit(page)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
-                  <to-button (btnClick)="deletePage.emit(page)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
-                </td>
-              </tr>
+      </thead>
+      <tbody>
+          <ng-container *ngFor="let element of dataTable">
+            <tr class="bg-gray-100">
+              <td class="p-2">
+                {{element.position}}
+              </td>
+              <td class="p-2">
+                {{element.translate}}
+              </td>
+              <td class="p-2">
+                {{element.icon}}
+              </td>
+              <td class="p-2">
+                {{element.url}}
+              </td>
+              <td class="p-2">
+                {{element.hidden}}
+              </td>
+              <td class="p-2">
+                <ng-container *ngIf="navigationElementType==='pages'">
+                  <to-button (btnClick)="editPage.emit(element)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
+                  <to-button (btnClick)="deletePage.emit(element)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
+                </ng-container>
+                <ng-container *ngIf="navigationElementType==='groups'">
+                  <to-button (btnClick)="editGroup.emit(element)" color="white"><i class="far fa-edit text-yellow-400"></i></to-button>
+                  <to-button (btnClick)="deleteGroup.emit(element)" color="white"><i class="fas fa-trash text-red-500"></i></to-button>
+                  <to-button (btnClick)="showHideGroupPageList(element)" color="white"><i
+                      class="fas fa-chevron-down text-green-600"></i></to-button>
+                </ng-container>
+              </td>
+            </tr>
+            <ng-container *ngFor="let page of element.children">
+              <ng-container *ngIf="element.hideChildren">
+                  <tr class="bg-gray-50">
+                    <td class="p-2">
+                      {{page.position}}
+                    </td>
+                    <td class="p-2">
+                      {{page.translate}}
+                    </td>
+                    <td class="p-2">
+                      {{page.icon}}
+                    </td>
+                    <td class="p-2">
+                      {{page.url}}
+                    </td>
+                    <td class="p-2">
+                      {{page.hidden}}
+                    </td>
+                    <td class="p-2">
+                      <to-button (btnClick)="editPage.emit(page)" color="white"><i class="far fa-edit text-yellow-400"></i>
+                      </to-button>
+                      <to-button (btnClick)="deletePage.emit(page)" color="white"><i class="fas fa-trash text-red-500"></i>
+                      </to-button>
+                    </td>
+                  </tr>
+              </ng-container>
             </ng-container>
           </ng-container>
-        </ng-container>
-      </ng-container>
-    </ng-container>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+  </ng-container>
+</div>
+
 
 
 

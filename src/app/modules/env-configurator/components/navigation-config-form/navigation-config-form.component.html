@@ -1,81 +1,87 @@
-<div *ngIf="showPageGroupForm || showChildForm">
-  <div class="pb-6">
-    <div *ngIf="showPageGroupForm">
-      <p class="text-xl pb-3">Navigation config</p>
-      <div *ngIf="!showChildForm" [formGroup]="pageGroupConfigForm" class="flex gap-3 items-end">
-        <to-input octoValueAccessor formControlName="position" appearance="simple" type="number"
-          class="bg-transparent p-0">Position</to-input>
-        <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
-        <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
-        <to-input *ngIf="navigationType==='page'" octoValueAccessor formControlName="url" appearance="simple">Url
-        </to-input>
-        <to-toggle octoValueAccessor formControlName="hidden" appearance="simple">Hidden</to-toggle>
-        <to-button *ngIf="navigationType==='group' && showAddChildButton" (btnClick)="showFormChild()"
-          [disabled]="pageGroupConfigForm?.invalid">Add child</to-button>
-        <to-button *ngIf="!isEditingMode" (btnClick)="addNavigationItem()"
-          [disabled]="pageGroupConfigForm?.invalid || (navigationType==='group' && navigationGroupItems.length === 0)">
-          Add item
-        </to-button>
-        <to-button *ngIf="isEditingMode" color="green" (btnClick)="applyNavigationItemModify()"
-          [disabled]="pageGroupConfigForm?.invalid">
-          Apply modify
-        </to-button>
-        <to-button color="red" (btnClick)="cancel('element')">
-          Cancel
-        </to-button>
+  <div *ngIf="showPageGroupForm || showChildForm">
+    <div class="pb-6 w-full">
+      <div *ngIf="showPageGroupForm">
+        <p class="text-xl pb-3">Navigation config</p>
+        <div *ngIf="!showChildForm" [formGroup]="pageGroupConfigForm" class="flex justify-between items-end">
+          <to-input octoValueAccessor formControlName="position" appearance="simple" type="number"
+            class="bg-transparent p-0">Position</to-input>
+          <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
+          <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
+          <to-input *ngIf="navigationType==='page'" octoValueAccessor formControlName="url" appearance="simple">Url
+          </to-input>
+          <to-toggle octoValueAccessor formControlName="hidden" appearance="simple">Hidden</to-toggle>
+          <to-button *ngIf="navigationType==='group' && showAddChildButton" (btnClick)="showFormChild()"
+            [disabled]="pageGroupConfigForm?.invalid">Add child</to-button>
+          <to-button *ngIf="!isEditingMode" (btnClick)="addNavigationItem()"
+            [disabled]="pageGroupConfigForm?.invalid || (navigationType==='group' && navigationGroupItems.length === 0)">
+            Add item
+          </to-button>
+          <to-button *ngIf="isEditingMode" color="green" (btnClick)="applyNavigationItemModify()"
+            [disabled]="pageGroupConfigForm?.invalid">
+            Apply modify
+          </to-button>
+          <to-button color="red" (btnClick)="cancel('element')">
+            Cancel
+          </to-button>
+        </div>
       </div>
-    </div>
 
-    <div>
-      <div *ngIf="showChildForm" [formGroup]="childConfigForm" class="flex gap-3 items-end">
-        <to-input octoValueAccessor formControlName="position" appearance="simple" type="number"
-          class="bg-transparent p-0">Position</to-input>
-        <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
-        <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
-        <to-input octoValueAccessor formControlName="url" appearance="simple">Url</to-input>
-        <to-toggle octoValueAccessor formControlName="hidden" appearance="simple">Hidden</to-toggle>
-        <to-button (btnClick)="addChild()" [disabled]="childConfigForm?.invalid">Add</to-button>
-        <to-button color="red" (btnClick)="cancel('child')">
-          Cancel
-        </to-button>
+      <div>
+        <div *ngIf="showChildForm" [formGroup]="childConfigForm" class="flex gap-3 items-end">
+          <to-input octoValueAccessor formControlName="position" appearance="simple" type="number"
+            class="bg-transparent p-0">Position</to-input>
+          <to-input octoValueAccessor formControlName="translate" appearance="simple">Translate</to-input>
+          <to-input octoValueAccessor formControlName="icon" appearance="simple">Icon</to-input>
+          <to-input octoValueAccessor formControlName="url" appearance="simple">Url</to-input>
+          <to-toggle octoValueAccessor formControlName="hidden" appearance="simple">Hidden</to-toggle>
+          <to-button (btnClick)="addChild()" [disabled]="childConfigForm?.invalid">Add</to-button>
+          <to-button color="red" (btnClick)="cancel('child')">
+            Cancel
+          </to-button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<octo-table-navigation-config-form 
-  [navigationElementType]="'pages'" 
-  [dataTable]="navigationPageItemsTemp" 
-  (addPage)="addPage()" 
-  (editPage)="editPage($event)"
-  (deletePage)="deletePage($event)"
->
-</octo-table-navigation-config-form>
+  <div *ngIf="showTable">
+    <octo-table-navigation-config-form 
+      [navigationElementType]="'pages'" 
+      [dataTable]="navigationPageItemsTemp" 
+      (addPage)="addPage()" 
+      (editPage)="editPage($event)"
+      (deletePage)="deletePage($event)"
+    >
+    </octo-table-navigation-config-form>
+    
+    <octo-table-navigation-config-form 
+      [navigationElementType]="'groups'" 
+      [dataTable]="navigationGroupItemsTemp" 
+      (addGroup)="addGroup()"
+      (editGroup)="editGroup($event)"
+      (deleteGroup)="deleteGroup($event)"
+      (editPage)="editPage($event)"
+      (deletePage)="deletePage($event)"
+    >
+    </octo-table-navigation-config-form>
 
-<octo-table-navigation-config-form 
-  [navigationElementType]="'groups'" 
-  [dataTable]="navigationGroupItemsTemp" 
-  (addGroup)="addGroup()"
-  (editGroup)="editGroup($event)"
-  (deleteGroup)="deleteGroup($event)"
->
-</octo-table-navigation-config-form>
-
-<ng-template #invalidPositionDialog>
-    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left p-8">
-      <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-        Position invalid
-      </h3>
-      <div class="mt-2">
-        <p class="text-sm text-gray-500">
-          These position is already used, choose another one.
-        </p>
+    <ng-template #invalidPositionDialog>
+      <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left p-8">
+        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+          Position invalid
+        </h3>
+        <div class="mt-2">
+          <p class="text-sm text-gray-500">
+            These position is already used, choose another one.
+          </p>
+        </div>
+        <to-button class="flex justify-end" (btnClick)="closeDialog()">Ok</to-button>
       </div>
-      <to-button class="flex justify-end" (btnClick)="closeDialog()">Ok</to-button>
+    </ng-template>
+    
+    <div class="flex gap-4 justify-center">
+      <to-button (btnClick)="discardChanges()" color="red">Discard</to-button>
+      <to-button (btnClick)="submitNewNavigationConfiguration()" color="green">Apply</to-button>
     </div>
-</ng-template>
+  </div>
 
-<div class="pt-5 w-2/3 flex gap-4 justify-end">
-  <to-button (btnClick)="closeForm.emit()" color="red">Discard</to-button>
-  <to-button (btnClick)="submitNewNavigationConfiguration()" color="green">Apply</to-button>
-</div>
+

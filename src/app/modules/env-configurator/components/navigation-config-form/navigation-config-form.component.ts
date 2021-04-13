@@ -50,6 +50,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   public showPageGroupForm = false;
   public showChildForm = false;
   public showAddChildButton = false;
+  public showTable = false;
 
   public pageGroupConfigForm: FormGroup;
   public childConfigForm: FormGroup;
@@ -123,6 +124,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   }
 
   public setNavigationsConfigForType(navigationConfig, sectionName: string) {
+    this.showTable = true;
     if(navigationConfig && sectionName) {
       this.sectionName = sectionName;
       navigationConfig.forEach(navigation => {
@@ -359,6 +361,14 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
     this.navigationConfig.sectionName = this.sectionName;
     this.hideAllForms();
     this.newNavigationConfigSubmit.emit(this.navigationConfig);
+    this.showTable = false;
+  }
+
+  public discardChanges() {
+    this.showTable = !this.showTable;
+    this.navigationPageItemsTemp = [];
+    this.navigationGroupItemsTemp = [];
+    this.closeForm.emit();
   }
 
 }
