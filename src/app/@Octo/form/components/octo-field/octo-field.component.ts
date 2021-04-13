@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { OctoFormService } from '../../octo-form.service';
 import { Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs/operators';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { OctoFieldModel } from '../../models/octo-field.model';
 import { OctoFieldOptionModel } from '../../models/octo-field-option.model';
 
