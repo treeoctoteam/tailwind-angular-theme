@@ -16,11 +16,11 @@ export interface User {
 }
 
 interface AuthRes {
-  user: User,
+  user: User;
   token: {
-    bearer: string,
-  },
-  message: string,
+    bearer: string;
+  };
+  message: string;
 }
 
 export class ChangePassword {
