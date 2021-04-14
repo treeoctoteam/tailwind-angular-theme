@@ -1,10 +1,8 @@
 import { LoaderService } from '../../../../core/services/loader.service';
-import { Router } from '@angular/router';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToButton } from '@treeocto/ui-kit/dist/types/components/to-button/to-button';
-import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
   selector: 'octo-login-form',
@@ -17,14 +15,11 @@ export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
 
   @Input() isLocked: boolean = false;
-
   @ViewChild("loginButton") loginButtonElement: ElementRef<ToButton>;
 
 
-  constructor(private alertService: AlertService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
-              private router: Router,
               private loaderService: LoaderService) { }
 
 

@@ -1,5 +1,4 @@
 import { ApplicationConfigService } from './../services/application-config.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -13,31 +12,26 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    private applicationConfigservice: ApplicationConfigService
-  ) {
-  }
+    private applicationConfigservice: ApplicationConfigService) {}
 
   intercept(req: any, next: any) {
     let authRequest = req.clone();
-    if (this.applicationConfigservice.config) {
-      if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === "Cookie") {
-        authRequest = req.clone({
-          withCredentials: true
-        })
-        console.log("TEST", authRequest)
+    if (this.authService.isLogged) {
+      if (this.applicationConfigservice.config) {
+        if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === "Cookie") {
+          authRequest = req.clone({
+            withCredentials: true
+          })
+        } else {
+          authRequest = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${this.authService.token}`,
+            }
+          });
+        }
+      } else {
+        console.log("Configuration hasn't been loaded yet");
       }
-      else {
-        authRequest = req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${this.authService.token}`,
-          }
-        })
-      }
-
-    }
-    else {
-      console.log("Configuration hasn't been loaded yet");
     }
     return next.handle(authRequest)
       .pipe(

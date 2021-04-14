@@ -90,6 +90,8 @@ export class AuthService {
     if (!this.token && this.user) {
       this.$lockUserSubject.next();
       this.$loggedUserSubject.next(this.user);
+    } else if (this.token) {
+      this.refreshToken();
     }
   }
 
