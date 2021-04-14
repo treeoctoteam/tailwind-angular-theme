@@ -43,8 +43,7 @@ export class ConfiguratorService {
   generateAppConfigFromOctoForm(form: OctoFormModel) {
     const newConfig: ApplicationConfig = this.config as ApplicationConfig;
 
-    newConfig.startup = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === 'startup'))
-      .find(f => f.name === 'startup')?.value.toString() as 'api' | 'file';
+    newConfig.startup = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === 'startup')).find(f => f.name === 'startup')?.value.toString() as 'api' | 'file';
 
     const customerInfoSection = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === 'customerInfo'));
     newConfig.customerInfo.name = customerInfoSection.find(f => f.name === 'name')?.value.toString();
