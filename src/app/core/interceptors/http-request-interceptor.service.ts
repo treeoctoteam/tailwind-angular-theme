@@ -17,12 +17,11 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     private applicationConfigservice: ApplicationConfigService
   ) {
   }
-  
+
   intercept(req: any, next: any) {
-    // const auth = this.injector.get(AuthService);
     let authRequest = req.clone();
-    if (this.applicationConfigservice.config){
-      if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === "Cookie"){
+    if (this.applicationConfigservice.config) {
+      if (this.applicationConfigservice?.config.authenticationSettings.authenticationMode === "Cookie") {
         authRequest = req.clone({
           withCredentials: true
         })
@@ -31,12 +30,11 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
       else {
         authRequest = req.clone({
           setHeaders: {
-            // User: this.authService.user,
             Authorization: `Bearer ${this.authService.token}`,
           }
         })
       }
-      
+
     }
     else {
       console.log("Configuration hasn't been loaded yet");
