@@ -103,7 +103,7 @@ export class AuthService {
     this.router.navigateByUrl('configurator/overview');
   }
 
-  refreshToken(): Observable<any> {
+  public refreshToken(): Observable<any> {
     const $req = this.http.post<any>(`${this.#path}/refresh`, null).pipe(share());
     $req.subscribe((res: any) => {
       if (res) {
@@ -115,14 +115,14 @@ export class AuthService {
 
   // NB STEFANO
   // Please Stefano don't delete this method, is useful for testing!
-  checkAuth() {
+  public checkAuth() {
     const $req = this.http.get<any>('https://dev.tap-id.tech/tapidconfig/home').pipe(share());
     $req.subscribe((res: any) => {
       console.log('EMAIL', res.email);
     });
   };
 
-  initIdleMonitoring(idleConfig: UserIdleConfig) {
+  public initIdleMonitoring(idleConfig: UserIdleConfig) {
     this.checkUserLoggedState();
     if (this.isLogged) {
       this.userIdleService.setConfigValues(idleConfig);
@@ -158,6 +158,17 @@ export class AuthService {
       };
     } else {
       this.userIdleService.stopWatching();
+    }
+  }
+
+  public logout(route?: string){
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    if(route){
+      this.router.navigateByUrl(route);
+    }
+    else {
+      this.router.navigateByUrl('auth/login');
     }
   }
 }

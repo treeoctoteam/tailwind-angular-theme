@@ -44,9 +44,9 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     return next.handle(authRequest)
       .pipe(
         catchError(err => {
-          // in case of 401 http error && message of check authenticated
-          if (err instanceof HttpErrorResponse && err.status === 401 && err.statusText === "Token not verified") {
-            return this.authService.refreshToken();
+          // in case of 401 || 403 http error logout
+          if (err instanceof HttpErrorResponse &&  (err.status === 401 || err.status === 403)) {
+            this.authService.logout();
           }
           // of error operator transform in observable
           // return of(err.statusText);
