@@ -283,11 +283,9 @@ export class CanvasDrawerService {
     resizeBtn.style.top = '100%';
     resizeBtn.style.transform = 'translate3d(-50%,-50%,0) rotateZ(45deg)';
     resizeBtn.style.borderStyle = 'solid';
-<<<<<<< HEAD
+
     resizeBtn.style.borderWidth = '12px';
-=======
-		  resizeBtn.style.borderWidth = '12px';
->>>>>>> dev
+
     resizeBtn.style.borderColor = 'transparent transparent transparent #99042f';
     resizeBtn.style.backgroundColor = 'transparent';
     resizeBtn.style.outline = 'none';
