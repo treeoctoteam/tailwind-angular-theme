@@ -195,10 +195,7 @@ export class CanvasDrawerService {
       fieldName: new Date().getTime().toString(),
       pageNumber: this.pageNumber
     };
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
     this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
       const ctx = canvas.getContext('2d');
       const draw = () => {
