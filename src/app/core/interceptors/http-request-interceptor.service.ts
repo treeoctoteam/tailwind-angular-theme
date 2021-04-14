@@ -44,7 +44,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
         catchError(err => {
           // in case of 401 http error && message of check authenticated
           if (err instanceof HttpErrorResponse && err.status === 401 && err.statusText === "Token not verified") {
-            return this.authService.kifi();
+            return this.authService.refreshToken();
           }
           // of error operator transform in observable
           // return of(err.statusText);
