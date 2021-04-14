@@ -63,7 +63,7 @@ export class AuthService {
     return this.token !== '' && this.token !== undefined && this.token !== null;
   }
 
-  login(data: { email: string, password: string }): Observable<AuthRes> {
+  login(data: { email: string; password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.#path}/login`, data).pipe(share());
     $req.subscribe((res: AuthRes) => {
       if (res) {
@@ -74,7 +74,7 @@ export class AuthService {
     return $req;
   }
 
-  register(registerData: { username: string, email: string, password: string }): Observable<AuthRes> {
+  register(registerData: { username: string; email: string; password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.#path}/register`, registerData).pipe(share());
     $req.subscribe((res: AuthRes) => {
       if (res) {

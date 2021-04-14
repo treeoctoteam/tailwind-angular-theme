@@ -8,8 +8,7 @@ import { OverlayMenuService } from '../../services/overlay-menu.service';
 import { DialogService } from 'src/app/core/services/dialog.service';
 import { CanvasDrawerService } from '../../services/canvas-drawer.service';
 
-const createSignatureField = (documentFiled?: Partial<ENDocumentField>): ENDocumentField => {
-  return {
+const createSignatureField = (documentFiled?: Partial<ENDocumentField>): ENDocumentField => ({
     fieldName: documentFiled?.fieldName ? documentFiled.fieldName : '',
     description: documentFiled?.description ? documentFiled.description : '',
     type: documentFiled?.type ? documentFiled.type : 'signatureField',
@@ -28,8 +27,7 @@ const createSignatureField = (documentFiled?: Partial<ENDocumentField>): ENDocum
       x: documentFiled?.dimensions?.x ? documentFiled?.dimensions.x : 0,
       y: documentFiled?.dimensions?.y ? documentFiled?.dimensions.y : 0
     }
-  };
-};
+  });
 
 const imageCropperDialogId = 'imageCropperDialog';
 const signatureDialogId = 'SignatureDialog';

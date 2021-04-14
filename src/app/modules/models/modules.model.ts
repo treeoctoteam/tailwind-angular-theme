@@ -12,11 +12,9 @@ export interface Module {
   routes: PageRoute[];
 }
 
-export interface Navbar extends ModuleBase {
-}
-export interface Sidebar extends ModuleBase {
-}
-export interface Footer extends ModuleBase { }
+export type Navbar = ModuleBase;
+export type Sidebar = ModuleBase;
+export type Footer = ModuleBase;
 export interface PageRoute {
   path: string;
   authenticate: boolean;
@@ -46,7 +44,7 @@ export interface Navigation extends NavigationBase {
   children: NavigationItem[];
 }
 
-export interface NavigationItem extends NavigationBase { }
+export type NavigationItem = NavigationBase;
 
 // AVAIABLE MODULES
 

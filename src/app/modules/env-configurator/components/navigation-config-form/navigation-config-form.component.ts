@@ -56,7 +56,7 @@ export class NavigationConfigFormComponent implements OnInit, OnDestroy {
   public childConfigForm: FormGroup;
   private $unsubscribe = new Subject<void>();
 
-  public navigationConfig: { navigation: any[], sectionName: string } = {navigation: [], sectionName: ''};
+  public navigationConfig: { navigation: any[]; sectionName: string } = {navigation: [], sectionName: ''};
   // split navigation config for type
   public navigationPageItems: NavigationItem[] = [];
   public navigationGroupItems: NavigationGroup[] = [];

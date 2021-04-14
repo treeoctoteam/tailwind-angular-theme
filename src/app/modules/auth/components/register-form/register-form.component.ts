@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class RegisterFormComponent implements OnInit {
 
-  registerData: { email: string, username: string, password: string } = { email: '', username: '', password: '' };
+  registerData: { email: string; username: string; password: string } = { email: '', username: '', password: '' };
   registerForm: FormGroup;
 
   constructor(private authService: AuthService,

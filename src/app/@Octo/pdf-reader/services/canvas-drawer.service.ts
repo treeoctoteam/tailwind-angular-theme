@@ -134,7 +134,7 @@ export class CanvasDrawerService {
   }
 
   drawingFreeHand(canvas: HTMLCanvasElement, $unsubscribe: Subject<void>) {
-    let x1, y1, x2, y2 = 0;
+    let x1; let y1; let x2; let y2 = 0;
     const rect = canvas.getBoundingClientRect();
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = 3;
@@ -364,7 +364,7 @@ export class CanvasDrawerService {
   }
 
   private moveElement(element: HTMLElement) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    let pos1 = 0; let pos2 = 0; let pos3 = 0; let pos4 = 0;
 
     const dragMouseDown = (e) => {
       e = e || window.event;
@@ -452,7 +452,7 @@ export class CanvasDrawerService {
     ).subscribe(resize);
   }
 
-  private getClientXY(event: MouseEvent | TouchEvent): { clientX: number, clientY: number } {
+  private getClientXY(event: MouseEvent | TouchEvent): { clientX: number; clientY: number } {
     if (event instanceof MouseEvent) {
       return {
         clientX: event.clientX,

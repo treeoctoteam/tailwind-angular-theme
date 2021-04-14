@@ -51,8 +51,8 @@ export class ConfigOverviewComponent implements OnInit {
   ngOnInit(): void { }
 
   private dyanmicDownloadByHtmlTag(arg: {
-    fileName: string,
-    text: string
+    fileName: string;
+    text: string;
   }) {
     if (!this.setting.element.dynamicDownload) {
       this.setting.element.dynamicDownload = document.createElement('a');

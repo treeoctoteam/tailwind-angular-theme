@@ -31,9 +31,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
       switch (activeModule) {
         case 'public':
           if (!this.publicService.config) {
-            this.publicService.initConfig().subscribe(() => {
-              return this.moduleAuthenticate(this.publicService);
-            });
+            this.publicService.initConfig().subscribe(() => this.moduleAuthenticate(this.publicService));
           }
           else {
             return this.moduleAuthenticate(this.publicService);
@@ -41,9 +39,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
           break;
         case 'dashboard':
           if (!this.dashboardService.config) {
-            this.dashboardService.initConfig().subscribe(() => {
-              return this.moduleAuthenticate(this.dashboardService);
-            });
+            this.dashboardService.initConfig().subscribe(() => this.moduleAuthenticate(this.dashboardService));
           }
           else {
             return this.moduleAuthenticate(this.dashboardService);

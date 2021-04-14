@@ -10,11 +10,9 @@ export const fileToBase64 = (file: File, withPrefix = false): Promise<string> =>
   reader.onerror = error => reject(error);
 });
 
-export const getElementDimensions = (element: HTMLElement): ElementDimension => {
-  return {
+export const getElementDimensions = (element: HTMLElement): ElementDimension => ({
     x: element.offsetLeft,
     y: element.offsetTop,
     w: element.getBoundingClientRect().width,
     h: element.getBoundingClientRect().height
-  };
-};
+  });

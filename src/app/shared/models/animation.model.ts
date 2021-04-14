@@ -10,7 +10,7 @@ export interface AnimationParams {
 }
 
 export interface OctoAnimation {
-  name: string,
+  name: string;
   params: AnimationParams;
 }
 
