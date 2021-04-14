@@ -4,8 +4,7 @@ import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ENDocumentField } from '../../models/document-fields.model';
 
-const createSignFieldForm = (): FormGroup => {
-  return new FormBuilder().group({
+const createSignFieldForm = (): FormGroup => new FormBuilder().group({
     description: new FormControl(''),
     mandatory: new FormControl(''),
     fieldName: new FormControl(''),
@@ -25,7 +24,6 @@ const createSignFieldForm = (): FormGroup => {
       y: new FormControl('')
     })
   });
-}
 
 @Component({
   selector: 'octo-field-proprieties-menu',
@@ -60,7 +58,7 @@ export class FieldProprietiesMenuComponent implements OnInit, OnDestroy {
   }
 
   closeOverlayMenu() {
-    this.closeMenu.emit()
+    this.closeMenu.emit();
   }
 
   deleteSignFieldElement(){

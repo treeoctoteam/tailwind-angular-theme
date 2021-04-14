@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
+        loadChildren: () => import('../../pages/pages.module').then((m) => m.PagesModule),
         canActivateChild: [NavigationGuard]
       },
       {
@@ -47,6 +47,6 @@ export class PublicModule {
   constructor(i18nService: I18nService) {
     i18nService.loadTranslations(
       localeENPublic
-    )
+    );
   }
 }

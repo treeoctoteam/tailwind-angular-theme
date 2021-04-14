@@ -1,4 +1,8 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectionStrategy,
+  ChangeDetectorRef, Component, ElementRef,
+  EventEmitter, OnDestroy, Output, ViewChild
+} from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,15 +15,15 @@ import { CanvasDrawerService } from '../../services/canvas-drawer.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignatureDialogComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('canvasElement') canvas: ElementRef<HTMLCanvasElement>;
+  @Output() dismissDrawSignature = new EventEmitter<{ success: boolean } | void>();
+  @Output() confirmSignatureDrawn = new EventEmitter<{ success: boolean; imageBase64: string }>();
 
   imageData: any | string;
   isConfirmButton = false;
   regExpFileName = '(.*?)\.(jpg|bmp|jpeg|png)$';
   private $unsubscribe = new Subject<void>();
 
-  @ViewChild('canvasElement') canvas: ElementRef<HTMLCanvasElement>;
-  @Output() dismissDrawSignature  = new EventEmitter<{success: boolean} | void>();
-  @Output() confirmSignatureDrawn = new EventEmitter<{success: boolean; imageBase64: string;}>();
 
   constructor(
     private canvasDrawerService: CanvasDrawerService,

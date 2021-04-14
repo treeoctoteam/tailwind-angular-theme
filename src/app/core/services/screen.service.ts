@@ -1,5 +1,5 @@
-import { Injectable, HostListener, OnDestroy } from "@angular/core";
-import { Observable, Subscription, fromEvent } from "rxjs";
+import { Injectable, HostListener, OnDestroy } from '@angular/core';
+import { Observable, Subscription, fromEvent } from 'rxjs';
 // import { Platform } from "@angular/cdk/platform";
 
 @Injectable()
@@ -13,7 +13,7 @@ export class ScreenService implements OnDestroy {
   constructor() {
     this.innerWidth = window.innerWidth;
     // console.log("ResizeSubscription: START");
-    this.resizeObservable$ = fromEvent(window, "resize");
+    this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe((evt) => {
       this.innerWidth = window.innerWidth;
     });

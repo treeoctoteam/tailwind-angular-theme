@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class RegisterFormComponent implements OnInit {
 
-  registerData: { email: string, username: string, password: string } = { email: "", username: "", password: "" };
+  registerData: { email: string; username: string; password: string } = { email: '', username: '', password: '' };
   registerForm: FormGroup;
 
   constructor(private authService: AuthService,
@@ -38,7 +38,7 @@ export class RegisterFormComponent implements OnInit {
       else {
         group.get(field2).setErrors(null);
       }
-    }
+    };
   }
 
   register() {
@@ -47,7 +47,7 @@ export class RegisterFormComponent implements OnInit {
     this.registerData.password = this.registerForm.value.passwords.pass1;
     this.authService.register(this.registerData).subscribe(
       () => {
-        console.log("User is register and logged in");
+        console.log('User is register and logged in');
       }
     );
   }

@@ -1,5 +1,5 @@
 import { I18nService } from 'src/app/core/services/i18n.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
@@ -11,31 +11,31 @@ import { Language } from 'src/app/shared/models/language.model';
   templateUrl: './app-config-form.component.html',
   styleUrls: ['./app-config-form.component.scss'],
 })
-export class AppConfigFormComponent implements OnInit {
+export class AppConfigFormComponent {
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
   showForm = false;
   configForm: ApplicationConfig;
   languages: Language[] = [
     {
-      "id": "en",
-      "title": "LOCALES.EN",
-      "flag": "EN",
-      "iso3code": "USA",
-      "enabled": false
+      id: 'en',
+      title: 'LOCALES.EN',
+      flag: 'EN',
+      iso3code: 'USA',
+      enabled: false
     },
     {
-      "id": "it",
-      "title": "LOCALES.IT",
-      "flag": "IT",
-      "iso3code": "ITA",
-      "enabled": false
+      id: 'it',
+      title: 'LOCALES.IT',
+      flag: 'IT',
+      iso3code: 'ITA',
+      enabled: false
     }
-  ]
+  ];
 
   @Output() setAppConfig = new EventEmitter();
   @Output() exportAppConfig = new EventEmitter();
   @Input() set form(conf) {
-    console.log("01 RECIVED CONF", conf);
+    console.log('01 RECIVED CONF', conf);
     if (conf) {
       this.configForm = conf;
       this.showForm = true;
@@ -47,25 +47,23 @@ export class AppConfigFormComponent implements OnInit {
 
   constructor(public appService: ApplicationConfigService, public i18nService: I18nService) { }
 
-  ngOnInit(): void { }
-
   formSubmit(form: OctoFormModel) {
-    console.log("02 FORM SUBMIT START", form);
+    console.log('02 FORM SUBMIT START', form);
     this.appConfigForm = { ...form };
     const languagesValue = this.appConfigForm.sections[6].fields[1].value as string[];
     if (languagesValue) {
-      let newLanguagesValue: any[] = []
+      let newLanguagesValue: any[] = [];
       languagesValue?.forEach(lang => {
         this.languages.forEach((language) => {
           if (lang === language.flag) {
             language.enabled = true;
             newLanguagesValue = [language, ...newLanguagesValue];
           }
-        })
-      })
+        });
+      });
       this.appConfigForm.sections[6].fields[1].value = newLanguagesValue;
     }
-    console.log("03 RESULT FORM SUBMIT START", this.appConfigForm);
+    console.log('03 RESULT FORM SUBMIT START', this.appConfigForm);
     this.setAppConfig.emit(this.appConfigForm);
   }
 

@@ -11,11 +11,10 @@ import { ToButton } from '@treeocto/ui-kit/dist/types/components/to-button/to-bu
 })
 export class LoginFormComponent implements OnInit {
 
-  loginData: { email: string, password: string } = { email: "", password: "" };
+  @Input() isLocked = false;
+  @ViewChild('loginButton') loginButtonElement: ElementRef<ToButton>;
+  loginData: { email: string; password: string } = { email: '', password: '' };
   loginForm: FormGroup;
-
-  @Input() isLocked: boolean = false;
-  @ViewChild("loginButton") loginButtonElement: ElementRef<ToButton>;
 
 
   constructor(private authService: AuthService,

@@ -63,18 +63,18 @@ export class AuthService {
     return this.token !== '' && this.token !== undefined && this.token !== null;
   }
 
-  login(data: { email: string, password: string }): Observable<AuthRes> {
+  login(data: { email: string; password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.#path}/login`, data).pipe(share());
     $req.subscribe((res: AuthRes) => {
       if (res) {
         this.handleUserLoggedInResponse(res);
-        this.alertService.present('success', 'User Logged', 'User logged successful!')
+        this.alertService.present('success', 'User Logged', 'User logged successful!');
       }
     });
     return $req;
   }
 
-  register(registerData: { username: string, email: string, password: string }): Observable<AuthRes> {
+  register(registerData: { username: string; email: string; password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.#path}/register`, registerData).pipe(share());
     $req.subscribe((res: AuthRes) => {
       if (res) {
@@ -122,7 +122,7 @@ export class AuthService {
     $req.subscribe((res: any) => {
       console.log('EMAIL', res.email);
     });
-  };
+  }
 
   public initIdleMonitoring(idleConfig: UserIdleConfig) {
     this.checkUserLoggedState();
@@ -166,7 +166,7 @@ export class AuthService {
   public logout(route?: string){
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    if(route){
+    if (route){
       this.router.navigateByUrl(route);
     }
     else {

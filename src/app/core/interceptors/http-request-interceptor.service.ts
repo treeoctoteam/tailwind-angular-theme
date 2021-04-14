@@ -44,7 +44,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
           // return of(err.statusText);
           return throwError(err);
         })
-      )
+      );
   }
 }
 

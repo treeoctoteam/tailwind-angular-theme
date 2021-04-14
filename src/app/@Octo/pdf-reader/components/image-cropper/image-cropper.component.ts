@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import Cropper from 'cropperjs';
 
 const INITIAL_ZOOM = 0.4;
@@ -9,7 +9,7 @@ const INITIAL_ZOOM = 0.4;
   styleUrls: ['./image-cropper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImageCropperComponent implements OnInit {
+export class ImageCropperComponent {
 
   cropper: Cropper;
   zoom = INITIAL_ZOOM;
@@ -25,14 +25,12 @@ export class ImageCropperComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
-
   private createCropper(src: string): void {
     const cropperContainer = document.getElementsByClassName('cropper-container')[0] as HTMLElement;
     cropperContainer.style.visibility = 'visible';
     const containerElement = document.querySelector('.img-cropper-container');
     const imageElement = containerElement?.getElementsByTagName('img').item(0);
-    imageElement!.src = src;
+    imageElement.src = src;
     const options: any = {
       aspectRatio: 19 / 6,
       toggleDragModeOnDblclick: false,
@@ -50,7 +48,7 @@ export class ImageCropperComponent implements OnInit {
     if (this.cropper) {
       this.cropper.destroy();
     }
-    this.cropper = new Cropper(imageElement!, options);
+    this.cropper = new Cropper(imageElement, options);
   }
 
   onCropperZoom(type: 'zoom-in' | 'zoom-out') {
@@ -59,10 +57,10 @@ export class ImageCropperComponent implements OnInit {
     const y = containerData.top + containerData.height / 2;
     if (type === 'zoom-in') {
       this.zoom += 0.025;
-      this.cropper.zoomTo(this.zoom, {x, y});
+      this.cropper.zoomTo(this.zoom, { x, y });
     } else {
       this.zoom -= 0.025;
-      this.cropper.zoomTo(this.zoom, {x, y});
+      this.cropper.zoomTo(this.zoom, { x, y });
     }
   }
 
