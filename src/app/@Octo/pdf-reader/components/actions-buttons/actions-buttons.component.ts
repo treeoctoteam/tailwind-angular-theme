@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Input} from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
 import { octoAnimations } from 'src/app/shared/utils/animations';
 import { PdfActionButtons } from '../../models/pdf-action-buttons.model';
 
@@ -9,7 +9,7 @@ import { PdfActionButtons } from '../../models/pdf-action-buttons.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [octoAnimations],
 })
-export class ActionsButtonsComponent implements OnInit {
+export class ActionsButtonsComponent {
 
   @Output() drawingField = new EventEmitter<void>();
   @Output() drawingImage = new EventEmitter<void>();
@@ -21,5 +21,4 @@ export class ActionsButtonsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
 }

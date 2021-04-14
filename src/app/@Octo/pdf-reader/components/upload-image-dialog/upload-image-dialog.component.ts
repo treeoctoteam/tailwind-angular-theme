@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { fileToBase64 } from '../../utils/common-functions';
 
 export interface ImageCropperInfo {
@@ -12,19 +12,17 @@ export interface ImageCropperInfo {
   templateUrl: './upload-image-dialog.component.html',
   styleUrls: ['./upload-image-dialog.component.scss'],
 })
-export class UploadImageDialogComponent implements OnInit {
+export class UploadImageDialogComponent {
 
   messageError = '';
   imageCropped = '';
   imageSrc = '';
 
   @Input() data: any;
-  @Output() dismissImageCropper = new EventEmitter<{success: boolean} | void>();
-  @Output() confirmCroppedImage = new EventEmitter<{success: boolean; imageBase64: string}>();
+  @Output() dismissImageCropper = new EventEmitter<{ success: boolean } | void>();
+  @Output() confirmCroppedImage = new EventEmitter<{ success: boolean; imageBase64: string }>();
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor() { }
 
   async uploadImage(event: any) {
     const acceptedImageTypes = ['image/jpeg', 'image/png'];

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfiguratorService } from '../../services/configurator.service';
 
@@ -7,11 +7,8 @@ import { ConfiguratorService } from '../../services/configurator.service';
   templateUrl: './config-start.component.html',
   styleUrls: ['./config-start.component.scss']
 })
-export class ConfigStartComponent implements OnInit {
+export class ConfigStartComponent {
   constructor(private configService: ConfiguratorService, private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   start() {
     this.configService.isStarted = true;

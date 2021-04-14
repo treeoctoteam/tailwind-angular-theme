@@ -1,10 +1,7 @@
 import { NavigationConfigFormComponent } from './../navigation-config-form/navigation-config-form.component';
-import { DialogService } from './../../../../core/services/dialog.service';
-import { NavigationBase } from './../../../models/modules.model';
 import { OctoFormModel } from '../../../../@Octo/form/models/octo-form.model';
-import { Component, OnInit, EventEmitter, Output, Input, ViewChild, Renderer2, ElementRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, EventEmitter, Input, ViewChild, Renderer2, ElementRef, Output } from '@angular/core';
 import { DashboardConfig } from '../../../models/modules.model';
-import { ToDialog, TODialogOptions } from '@treeocto/ui-kit/dist/types/components/to-dialog/to-dialog';
 
 const navigationConfDialog = 'navigationConfDialogID';
 
@@ -13,15 +10,7 @@ const navigationConfDialog = 'navigationConfDialogID';
   templateUrl: './dashboard-config-form.component.html',
   styleUrls: ['./dashboard-config-form.component.scss']
 })
-export class DashboardConfigFormComponent implements OnInit {
-  dashboardConfigForm: OctoFormModel = DASHBOARDCONFIG_FORM;
-  showForm = false;
-  configForm: DashboardConfig;
-
-  private navigationNavbar = [];
-  private navigationSidebar = [];
-  private navigationFooter = [];
-
+export class DashboardConfigFormComponent {
   // TODO fix with lazy loading see lazyLoadingComponent()
   @ViewChild('navigationConfigContainerNavbar') navigationConfigContainerNavbar: ElementRef;
   @ViewChild('navigationConfigContainerSidebar') navigationConfigContainerSidebar: ElementRef;
@@ -45,11 +34,17 @@ export class DashboardConfigFormComponent implements OnInit {
     }
   }
 
+  dashboardConfigForm: OctoFormModel = DASHBOARDCONFIG_FORM;
+  showForm = false;
+  configForm: DashboardConfig;
+
+  private navigationNavbar = [];
+  private navigationSidebar = [];
+  private navigationFooter = [];
+
   constructor(
     private render: Renderer2
   ) { }
-
-  ngOnInit(): void { }
 
   // async lazyLoadingComponent() {
   //   this.viewContainerRef.clear();
@@ -58,7 +53,6 @@ export class DashboardConfigFormComponent implements OnInit {
   //     this.componentFactoryResolver.resolveComponentFactory(NavigationConfigFormComponent)
   //   )
   // }
-
 
   addEventToButton(sectionName: string, form) {
     const button = document.getElementById(form.sections.find(s => s.name === sectionName).fields.find(f => f.name === `${sectionName}NavigationButton`).id);
@@ -74,8 +68,8 @@ export class DashboardConfigFormComponent implements OnInit {
 
   formSubmit(form) {
     console.log('submit', form);
-    this.dashboardConfigForm = {...form};
-    this.setDashboardConfig.emit({form: this.dashboardConfigForm, footer: this.navigationFooter, navbar: this.navigationNavbar, sidebar: this.navigationSidebar});
+    this.dashboardConfigForm = { ...form };
+    this.setDashboardConfig.emit({ form: this.dashboardConfigForm, footer: this.navigationFooter, navbar: this.navigationNavbar, sidebar: this.navigationSidebar });
 
   }
 
