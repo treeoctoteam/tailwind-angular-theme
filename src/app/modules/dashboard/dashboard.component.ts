@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,7 +14,7 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
   styleUrls: ['./dashboard.component.scss'],
   animations: [octoAnimations],
 })
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent {
 
   constructor() {
     this.formGroupTest = new FormBuilder().group({
@@ -49,8 +49,6 @@ export class DashboardComponent implements AfterViewInit {
       z: '0px',
     },
   };
-
-  ngAfterViewInit(): void { }
 
   onActivate(e: any, outlet: HTMLElement) {
     console.log(e, outlet);

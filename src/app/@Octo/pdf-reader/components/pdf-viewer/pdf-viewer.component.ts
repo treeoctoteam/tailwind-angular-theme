@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ENDocumentField } from '../../models/document-fields.model';
 
 @Component({
   selector: 'octo-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PdfViewerComponent implements OnInit {
+export class PdfViewerComponent {
 
   @Input() config: any;
   @Input() enableHandTool: boolean;
@@ -20,8 +19,6 @@ export class PdfViewerComponent implements OnInit {
   prevPageHeight = 0;
 
   constructor() { }
-
-  ngOnInit(): void {}
 
   loadComplete(event): void {
     if (event) {
@@ -59,7 +56,7 @@ export class PdfViewerComponent implements OnInit {
             this.drawDocumentFields.emit(documentField);
           }
         }
-        else if (this.documentFields?.length > 0){
+        else if (this.documentFields?.length > 0) {
           for (const documentField of this.documentFields) {
             if (this.prevPageHeight !== 0) {
               documentField.dimensions = this.calculateSignaturePositionByDimensions(documentField.dimensions);

@@ -1,19 +1,12 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'octo-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

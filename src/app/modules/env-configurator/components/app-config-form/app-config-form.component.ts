@@ -1,5 +1,5 @@
 import { I18nService } from 'src/app/core/services/i18n.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
 import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
@@ -11,7 +11,7 @@ import { Language } from 'src/app/shared/models/language.model';
   templateUrl: './app-config-form.component.html',
   styleUrls: ['./app-config-form.component.scss'],
 })
-export class AppConfigFormComponent implements OnInit {
+export class AppConfigFormComponent {
   appConfigForm: OctoFormModel = APPCONFIG_FORM;
   showForm = false;
   configForm: ApplicationConfig;
@@ -46,8 +46,6 @@ export class AppConfigFormComponent implements OnInit {
   }
 
   constructor(public appService: ApplicationConfigService, public i18nService: I18nService) { }
-
-  ngOnInit(): void { }
 
   formSubmit(form: OctoFormModel) {
     console.log('02 FORM SUBMIT START', form);

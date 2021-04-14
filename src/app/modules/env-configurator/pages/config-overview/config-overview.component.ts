@@ -1,4 +1,3 @@
-
 import { ConfiguratorService } from '../../services/configurator.service';
 import { OctoFormModel } from 'src/app/@Octo/form/models/octo-form.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./config-overview.component.scss'],
   animations: [octoAnimations]
 })
-export class ConfigOverviewComponent implements OnInit {
+export class ConfigOverviewComponent {
 
   public editorOptions: JsonEditorOptions;
   public config: any;
@@ -48,11 +47,9 @@ export class ConfigOverviewComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
-
   private dyanmicDownloadByHtmlTag(arg: {
-    fileName: string,
-    text: string
+    fileName: string;
+    text: string;
   }) {
     if (!this.setting.element.dynamicDownload) {
       this.setting.element.dynamicDownload = document.createElement('a');

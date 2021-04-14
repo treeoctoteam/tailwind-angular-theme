@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OctoFormModel } from './models/octo-form.model';
@@ -10,7 +10,7 @@ import { OctoFormService } from './octo-form.service';
   styleUrls: ['./octo-form.component.scss'],
   providers: [OctoFormService],
 })
-export class OctoFormComponent implements OnInit, OnDestroy {
+export class OctoFormComponent implements OnDestroy {
 
   public form: OctoFormModel;
   private $onDestroing: Subject<void> = new Subject<void>();
@@ -30,10 +30,6 @@ export class OctoFormComponent implements OnInit, OnDestroy {
           this.formChange.emit(this.form);
         }
       });
-  }
-
-  ngOnInit() {
-
   }
 
   ngOnDestroy(): void {

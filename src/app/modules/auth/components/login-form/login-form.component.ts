@@ -13,7 +13,7 @@ import { AlertService } from 'src/app/core/services/alert.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  loginData: { email: string, password: string } = { email: '', password: '' };
+  loginData: { email: string; password: string } = { email: '', password: '' };
   loginForm: FormGroup;
 
   @Input() isLocked = false;

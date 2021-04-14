@@ -9,9 +9,7 @@ import {
 import { ApplicationConfigService } from '../services/application-config.service';
 import { AuthService } from '../services/auth.service';
 
-const getConfigPath = (pathUrl: string) => {
-  return pathUrl.split('/')[1];
-};
+const getConfigPath = (pathUrl: string) => pathUrl.split('/')[1];
 
 @Injectable({
   providedIn: 'root',

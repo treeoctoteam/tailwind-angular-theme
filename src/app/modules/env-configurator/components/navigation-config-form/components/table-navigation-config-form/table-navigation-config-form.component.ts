@@ -1,5 +1,4 @@
-import { BlockScrollStrategy } from '@angular/cdk/overlay';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NavigationItem, NavigationGroup } from '../../navigation-config-form.component';
 
 interface HideChildren extends NavigationGroup {
@@ -11,7 +10,7 @@ interface HideChildren extends NavigationGroup {
   templateUrl: './table-navigation-config-form.component.html',
   styleUrls: ['./table-navigation-config-form.component.scss']
 })
-export class TableNavigationConfigFormComponent implements OnInit {
+export class TableNavigationConfigFormComponent {
 
   public showPageList = false;
   public showGroupList = false;
@@ -31,9 +30,7 @@ export class TableNavigationConfigFormComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
 
-  }
 
   public showHideGroupPageList(item: HideChildren) {
     this.showGroupPageList = !this.showGroupPageList;
