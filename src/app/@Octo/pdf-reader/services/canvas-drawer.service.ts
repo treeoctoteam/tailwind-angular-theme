@@ -195,6 +195,10 @@ export class CanvasDrawerService {
       fieldName: new Date().getTime().toString(),
       pageNumber: this.pageNumber
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
     this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
       const ctx = canvas.getContext('2d');
       const draw = () => {
@@ -283,9 +287,7 @@ export class CanvasDrawerService {
     resizeBtn.style.top = '100%';
     resizeBtn.style.transform = 'translate3d(-50%,-50%,0) rotateZ(45deg)';
     resizeBtn.style.borderStyle = 'solid';
-
     resizeBtn.style.borderWidth = '12px';
-
     resizeBtn.style.borderColor = 'transparent transparent transparent #99042f';
     resizeBtn.style.backgroundColor = 'transparent';
     resizeBtn.style.outline = 'none';
