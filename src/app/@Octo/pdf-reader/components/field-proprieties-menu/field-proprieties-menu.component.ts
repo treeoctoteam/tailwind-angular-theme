@@ -25,7 +25,7 @@ const createSignFieldForm = (): FormGroup => {
       y: new FormControl('')
     })
   });
-}
+};
 
 @Component({
   selector: 'octo-field-proprieties-menu',
@@ -60,7 +60,7 @@ export class FieldProprietiesMenuComponent implements OnInit, OnDestroy {
   }
 
   closeOverlayMenu() {
-    this.closeMenu.emit()
+    this.closeMenu.emit();
   }
 
   deleteSignFieldElement(){

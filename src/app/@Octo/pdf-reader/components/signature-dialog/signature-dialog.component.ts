@@ -19,7 +19,7 @@ export class SignatureDialogComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('canvasElement') canvas: ElementRef<HTMLCanvasElement>;
   @Output() dismissDrawSignature  = new EventEmitter<{success: boolean} | void>();
-  @Output() confirmSignatureDrawn = new EventEmitter<{success: boolean; imageBase64: string;}>();
+  @Output() confirmSignatureDrawn = new EventEmitter<{success: boolean; imageBase64: string; }>();
 
   constructor(
     private canvasDrawerService: CanvasDrawerService,

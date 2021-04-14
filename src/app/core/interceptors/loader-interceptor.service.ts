@@ -14,7 +14,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     this.totalRequests++;
-    let elementRef = this.loaderService.elementRef?.nativeElement;
+    const elementRef = this.loaderService.elementRef?.nativeElement;
     if (elementRef !== undefined) {
       elementRef.showSpinner = true;
       elementRef.disabled = true;

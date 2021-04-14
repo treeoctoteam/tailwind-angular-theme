@@ -58,6 +58,6 @@ export class I18nService {
   getCountries() {
     this.http.get(this.countriesURL).subscribe((data: any) => {
       this.countries = data.countries;
-    })
+    });
   }
 }

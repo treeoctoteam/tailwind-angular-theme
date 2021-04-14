@@ -28,8 +28,8 @@ export class CanvasDrawerService {
   $addDocumentField = new Subject<Partial<ENDocumentField>>();
 
   constructor() {
-    window.addEventListener("click", (event) => {
-      if ((event.target as HTMLElement).parentElement.className === "active-sign-field") {
+    window.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).parentElement.className === 'active-sign-field') {
         return;
       } else {
         const disableEditField = true;
@@ -60,7 +60,7 @@ export class CanvasDrawerService {
     canvas.width = this.pageElement.clientWidth;
     canvas.height = this.pageElement.clientHeight;
     canvas.style.paddingRight = '16px';
-    canvas.style.cursor = "crosshair";
+    canvas.style.cursor = 'crosshair';
     canvas.style.top = this.pageElement.offsetTop + 'px';
     canvasContainer.appendChild(canvas);
     parentContainer.appendChild(canvasContainer);
@@ -71,13 +71,13 @@ export class CanvasDrawerService {
     this.removeExistingElement(documentField.fieldName);
     let resizeElement: HTMLElement;
     let inputElement: HTMLElement;
-    let containerElement = this.createInputContainer(documentField, isDefault);
+    const containerElement = this.createInputContainer(documentField, isDefault);
     if (documentField?.backgroundImage) {
       this.setBackgroundImage(containerElement, documentField.backgroundImage);
     }
     resizeElement = this.createResizeButton(containerElement);
     inputElement = this.createInputElement();
-    containerElement.setAttribute("page-number", documentField.pageNumber.toString())
+    containerElement.setAttribute('page-number', documentField.pageNumber.toString());
     containerElement.appendChild(inputElement);
     const pageElement = this.getPdfPageElement(documentField.pageNumber);
     pageElement.appendChild(containerElement);
@@ -140,7 +140,7 @@ export class CanvasDrawerService {
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
-    console.log(rect)
+    console.log(rect);
 
     this.captureEvents(canvas, 'freeHand')
       .pipe(takeUntil($unsubscribe))
@@ -152,7 +152,7 @@ export class CanvasDrawerService {
         y2 = this.getClientXY(res[1]).clientY;
 
         // previous and current position with the offset
-        let prevPos = {
+        const prevPos = {
           x: x1 - rect.left,
           y: y1 - rect.top
         };
@@ -185,7 +185,7 @@ export class CanvasDrawerService {
 			w: 0,
 			h: 0
     };
-    let documentField: Partial<ENDocumentField> = {
+  const documentField: Partial<ENDocumentField> = {
       dimensions: {
         x: rect.startX,
         y: rect.startY,
@@ -194,21 +194,21 @@ export class CanvasDrawerService {
       },
       fieldName: new Date().getTime().toString(),
       pageNumber: this.pageNumber
-    }
+    };
 
-    this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
+  this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
       const ctx = canvas.getContext('2d');
       const draw = () => {
         ctx.beginPath();
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "#99042f";
+        ctx.strokeStyle = '#99042f';
         ctx.rect(rect.startX, rect.startY, rect.w, rect.h);
         ctx.stroke();
-      }
+      };
 
       const clearCanvasRect = (): void => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
+      };
 
       if (res instanceof MouseEvent) {
         if (res.type === 'mousedown') {
@@ -257,7 +257,7 @@ export class CanvasDrawerService {
   private createInputContainer({ fieldName, dimensions }: Partial<ENDocumentField>, isDefault: boolean): HTMLDivElement {
     const inputContainer = document.createElement('div');
     inputContainer.id = fieldName;
-    inputContainer.setAttribute("type","signatureField");
+    inputContainer.setAttribute('type', 'signatureField');
     inputContainer.style.position = 'absolute';
     inputContainer.style.height = isDefault ? `${this.defaultDimension.height}px` : `${dimensions.h}px`;
     inputContainer.style.width = isDefault ? `${this.defaultDimension.width}px` : `${dimensions.w}px`;
@@ -278,16 +278,16 @@ export class CanvasDrawerService {
   private createResizeButton(parentElement: HTMLDivElement): HTMLButtonElement {
     const resizeBtn = document.createElement('button');
     resizeBtn.id = parentElement.id;
-    resizeBtn.style.position = "absolute";
-    resizeBtn.style.cursor = "nwse-resize"
-    resizeBtn.style.left = "100%";
-    resizeBtn.style.top = "100%";
-    resizeBtn.style.transform = "translate3d(-50%,-50%,0) rotateZ(45deg)";
-    resizeBtn.style.borderStyle = "solid";
-		resizeBtn.style.borderWidth = "12px";
-    resizeBtn.style.borderColor = "transparent transparent transparent #99042f";
-    resizeBtn.style.backgroundColor = "transparent"
-    resizeBtn.style.outline = "none"
+    resizeBtn.style.position = 'absolute';
+    resizeBtn.style.cursor = 'nwse-resize';
+    resizeBtn.style.left = '100%';
+    resizeBtn.style.top = '100%';
+    resizeBtn.style.transform = 'translate3d(-50%,-50%,0) rotateZ(45deg)';
+    resizeBtn.style.borderStyle = 'solid';
+		  resizeBtn.style.borderWidth = '12px';
+    resizeBtn.style.borderColor = 'transparent transparent transparent #99042f';
+    resizeBtn.style.backgroundColor = 'transparent';
+    resizeBtn.style.outline = 'none';
     resizeBtn.style.zIndex = '40';
     parentElement.appendChild(resizeBtn);
     return resizeBtn;
@@ -295,12 +295,12 @@ export class CanvasDrawerService {
 
   private createInputElement(): HTMLElement {
     const input = document.createElement('input') as HTMLInputElement;
-    input.style.width = "100%";
-    input.style.height = "100%";
-    input.style.backgroundColor = "transparent";
-    input.style.cursor = "move"
+    input.style.width = '100%';
+    input.style.height = '100%';
+    input.style.backgroundColor = 'transparent';
+    input.style.cursor = 'move';
     input.style.border = 'none';
-    input.autocomplete = "no";
+    input.autocomplete = 'no';
     return input;
   }
 
@@ -318,21 +318,21 @@ export class CanvasDrawerService {
     return merge(
       fromEvent(element, 'mousedown'),
       fromEvent(element, 'touchstart')
-    )
+    );
   }
 
   private setMoveEvent(element: HTMLElement | Document | Window): Observable<any> {
     return merge(
       fromEvent(element, 'mousemove'),
       fromEvent(element, 'touchmove')
-    )
+    );
   }
 
   private setEndEvent(element: HTMLElement | Document | Window): Observable<any> {
     return merge(
       fromEvent(element, 'mouseup'),
       fromEvent(element, 'touchend')
-    )
+    );
   }
 
   private onSignatureFieldSelected(element: HTMLElement, resizeElement: HTMLElement): void {
@@ -353,7 +353,7 @@ export class CanvasDrawerService {
   private setStatus(element: HTMLElement, status: number) {
     if (status === ElementStatus.resize) {
       this.enableHandTool = false;
-      this.resizeElement(element.parentElement)
+      this.resizeElement(element.parentElement);
     } else if (status === ElementStatus.move) {
       this.enableHandTool = false;
       this.moveElement(element.parentElement);
@@ -380,7 +380,7 @@ export class CanvasDrawerService {
       this.setMoveEvent(document).pipe(
         takeUntil(this.$unsubscribe)
       ).subscribe(elementDrag);
-    }
+    };
 
     const elementDrag = (e) => {
       e = e || window.event;
@@ -392,16 +392,16 @@ export class CanvasDrawerService {
       pos4 =  this.getClientXY(e).clientY;
       // set the element's new position:
 
-      parseInt(element.style.top) < 0 ? element.style.top = 0 + "px" : element.style.top = +(element.offsetTop - pos2) + "px";
-      parseInt(element.style.left) < 0 ? element.style.left = 0 + "px" : element.style.left = +(element.offsetLeft - pos1) + "px";
+      parseInt(element.style.top) < 0 ? element.style.top = 0 + 'px' : element.style.top = +(element.offsetTop - pos2) + 'px';
+      parseInt(element.style.left) < 0 ? element.style.left = 0 + 'px' : element.style.left = +(element.offsetLeft - pos1) + 'px';
       if (parseInt(element.style.left) + element.clientWidth > element.parentElement.clientWidth) {
-        element.style.left = (element.parentElement.clientWidth - element.clientWidth) + "px"
+        element.style.left = (element.parentElement.clientWidth - element.clientWidth) + 'px';
       }
       if (parseInt(element.style.top) + element.clientHeight > element.parentElement.clientHeight) {
-        element.style.top = (element.parentElement.clientHeight - element.clientHeight) - 1 + "px"
+        element.style.top = (element.parentElement.clientHeight - element.clientHeight) - 1 + 'px';
       }
       this.$updateFieldPosition.next({fieldName: element.id, dimensions: getElementDimensions(element)});
-    }
+    };
 
 
     const closeDragElement = () => {
@@ -409,7 +409,7 @@ export class CanvasDrawerService {
       document.onmousedown = null;
       document.ontouchstart = null;
       this.$unsubscribe.next();
-    }
+    };
     document.onmousedown = dragMouseDown;
     document.ontouchstart = dragMouseDown;
   }
@@ -419,15 +419,15 @@ export class CanvasDrawerService {
       e.preventDefault();
       const offsetLeft = element.offsetLeft + this.pageElement.getBoundingClientRect().left;
       const offsetTop = element.offsetTop + this.pageElement.getBoundingClientRect().top;
-      element.style.width = this.getClientXY(e).clientX - offsetLeft + "px";
-      element.style.height = this.getClientXY(e).clientY - offsetTop + "px";
+      element.style.width = this.getClientXY(e).clientX - offsetLeft + 'px';
+      element.style.height = this.getClientXY(e).clientY - offsetTop + 'px';
       const parentElement = document.getElementById(element.id).parentElement;
 
-      if(element.clientWidth < 30) {
-        element.style.width = '30px'
+      if (element.clientWidth < 30) {
+        element.style.width = '30px';
       }
       if (parseInt(element.style.height) < 30) {
-        element.style.height = '30px'
+        element.style.height = '30px';
       }
       if (parseInt(element.style.left) + parseInt(element.style.width) > parseInt(parentElement.style.width)) {
         element.style.width = parseInt(parentElement.style.width) - element.offsetLeft + 'px';
@@ -437,11 +437,11 @@ export class CanvasDrawerService {
       }
 
       this.$updateFieldPosition.next({fieldName: element.id, dimensions: getElementDimensions(element)});
-    }
+    };
 
     const stopResizeElement = () => {
       this.$unsubscribe.next();
-    }
+    };
 
     this.setEndEvent(window).pipe(
       takeUntil(this.$unsubscribe)
@@ -457,12 +457,12 @@ export class CanvasDrawerService {
       return {
         clientX: event.clientX,
         clientY: event.clientY,
-      }
+      };
     } else {
       return {
         clientX: event.targetTouches[0].clientX,
         clientY:  event.targetTouches[0].clientY
-      }
+      };
     }
   }
 

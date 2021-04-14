@@ -17,7 +17,7 @@ export class PdfViewerComponent implements OnInit {
   @Output() drawDocumentFields = new EventEmitter<Partial<ENDocumentField>>();
   @Input() documentFields: ENDocumentField[];
   currentPageHeigth = 0;
-  prevPageHeight = 0
+  prevPageHeight = 0;
 
   constructor() { }
 
@@ -37,32 +37,32 @@ export class PdfViewerComponent implements OnInit {
       canvasHeight: pageData.canvas.clientHeight,
       pageWidth: pageData.pdfPage.view[2],
       pageHeight: pageData.pdfPage.view[3]
-    }
+    };
     const pageElement = this.getPageElement(pageData.id);
     this.currentPageHeigth = pageDimensions.canvasHeight;
     if (pageElement) {
       pageData.pdfPage.getAnnotations().then((annotations) => {
         let documentFields = [];
         if (this.prevPageHeight === 0 && annotations?.length > 0) {
-          for (let annotation of annotations) {
+          for (const annotation of annotations) {
             let documentField: Partial<ENDocumentField>;
             documentField = {
               dimensions: this.calculateSignaturePositionByAnnotationRect(annotation.rect, pageDimensions, pageElement),
               fieldName: annotation?.fieldName ? annotation.fieldName : new Date().getTime().toString(),
               isEdited: false,
               pageNumber: +pageData.id
-            }
+            };
             documentFields = [...documentFields, documentField];
           }
           this.documentFields = [...this.documentFields, ...documentFields];
-          for (let documentField of documentFields) {
+          for (const documentField of documentFields) {
             this.drawDocumentFields.emit(documentField);
           }
         }
         else if (this.documentFields?.length > 0){
-          for (let documentField of this.documentFields) {
+          for (const documentField of this.documentFields) {
             if (this.prevPageHeight !== 0) {
-              documentField.dimensions = this.calculateSignaturePositionByDimensions(documentField.dimensions)
+              documentField.dimensions = this.calculateSignaturePositionByDimensions(documentField.dimensions);
             }
             this.drawDocumentFields.emit(documentField);
           }

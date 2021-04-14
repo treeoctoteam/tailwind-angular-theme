@@ -13,12 +13,12 @@ import { AlertService } from 'src/app/core/services/alert.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  loginData: { email: string, password: string } = { email: "", password: "" };
+  loginData: { email: string, password: string } = { email: '', password: '' };
   loginForm: FormGroup;
 
-  @Input() isLocked: boolean = false;
+  @Input() isLocked = false;
 
-  @ViewChild("loginButton") loginButtonElement: ElementRef<ToButton>;
+  @ViewChild('loginButton') loginButtonElement: ElementRef<ToButton>;
 
 
   constructor(private alertService: AlertService,

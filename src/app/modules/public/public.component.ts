@@ -23,8 +23,8 @@ export class PublicComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNavigationItem();
-    const navMenuDiv = document.getElementById("nav-content");
-    const navMenu = document.getElementById("nav-toggle");
+    const navMenuDiv = document.getElementById('nav-content');
+    const navMenu = document.getElementById('nav-toggle');
     const checkParent = (t: any, elm: any) => {
       while (t.parentNode) {
         if (t === elm) {
@@ -33,23 +33,23 @@ export class PublicComponent implements OnInit {
         t = t.parentNode;
       }
       return false;
-    }
+    };
 
     fromEvent(document, 'click').pipe(takeUntil(this.$unsubscribe)).subscribe((e: any) => {
       const target = (e && e.target) || (event && event.srcElement);
-      //Nav Menu
+      // Nav Menu
       if (!checkParent(target, navMenuDiv)) {
         // click NOT on the menu
         if (checkParent(target, navMenu)) {
           // click on the link
-          if (navMenuDiv?.classList.contains("hidden")) {
-            navMenuDiv.classList.remove("hidden");
+          if (navMenuDiv?.classList.contains('hidden')) {
+            navMenuDiv.classList.remove('hidden');
           } else {
-            navMenuDiv?.classList.add("hidden");
+            navMenuDiv?.classList.add('hidden');
           }
         } else {
           // click both outside link and outside menu, hide menu
-          navMenuDiv?.classList.add("hidden");
+          navMenuDiv?.classList.add('hidden');
         }
       }
     });

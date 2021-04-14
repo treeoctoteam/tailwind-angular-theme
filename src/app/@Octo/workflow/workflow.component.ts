@@ -22,7 +22,7 @@ export class WorkflowComponent implements OnInit {
   ngOnInit() {
     this.workflowService.getSteps().subscribe((data: any) => {
       this.steps = data;
-      console.log("STEPS Recuperati :", this.steps);
+      console.log('STEPS Recuperati :', this.steps);
       this.redirect(this.steps[0]);
     });
   }
@@ -45,7 +45,7 @@ export class WorkflowComponent implements OnInit {
   redirect(step: Step) {
     let route = step.route;
     step.params.forEach((element) => {
-      route = route + "/" + element;
+      route = route + '/' + element;
     });
     // set active step
     if (this.workflowService.activeStep?.stepId) {
@@ -56,7 +56,7 @@ export class WorkflowComponent implements OnInit {
         else if (element.stepId === this.workflowService.activeStep.stepId) {
           element.active = false;
         }
-      })
+      });
     }
     this.router.navigateByUrl(`workflow/${route}`);
     this.workflowService.activeStep = step;
@@ -91,7 +91,7 @@ export class WorkflowComponent implements OnInit {
 
   testInputChange(event: any) {
     const value = (event.target as HTMLInputElement).value;
-    console.log("input change", event)
+    console.log('input change', event);
   }
 
 }

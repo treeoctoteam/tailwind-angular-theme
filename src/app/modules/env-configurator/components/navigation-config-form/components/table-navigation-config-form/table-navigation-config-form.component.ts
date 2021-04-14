@@ -32,12 +32,12 @@ export class TableNavigationConfigFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  
+
   }
 
   public showHideGroupPageList(item: HideChildren) {
     this.showGroupPageList = !this.showGroupPageList;
-    item.hideChildren = this.showGroupPageList
+    item.hideChildren = this.showGroupPageList;
   }
 
 }

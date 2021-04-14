@@ -19,7 +19,7 @@ export class ConfigOverviewComponent implements OnInit {
   public config: any;
   public editConfig: any;
   public isEditedMode = false;
-  public optionSelected = "appconfig";
+  public optionSelected = 'appconfig';
 
   options = [
     { value: 'appconfig', label: 'Appconfig' },
@@ -31,20 +31,20 @@ export class ConfigOverviewComponent implements OnInit {
     element: {
       dynamicDownload: null as unknown as HTMLElement
     }
-  }
+  };
 
 
   constructor(private router: Router, public appService: ApplicationConfigService, public configuratorService: ConfiguratorService) {
     if (configuratorService.isStarted) {
 
-      this.editorOptions = new JsonEditorOptions()
+      this.editorOptions = new JsonEditorOptions();
       this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
       this.editorOptions.enableSort = false;
       this.editorOptions.enableTransform = false;
       this.config = this.appService.config;
     }
     else {
-      this.router.navigateByUrl("/configurator/start");
+      this.router.navigateByUrl('/configurator/start');
     }
   }
 
@@ -62,32 +62,32 @@ export class ConfigOverviewComponent implements OnInit {
     element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
     element.setAttribute('download', arg.fileName);
 
-    var event = new MouseEvent("click");
+    const event = new MouseEvent('click');
     element.dispatchEvent(event);
   }
 
   export() {
-    alert("exported!")
+    alert('exported!');
     this.dyanmicDownloadByHtmlTag({
       fileName: 'app-config.json',
       text: JSON.stringify(this.config)
     });
   }
   save() {
-    alert("save!")
+    alert('save!');
   }
 
   jchange(e: any) {
-    console.log("JSON CHANGE", e)
+    console.log('JSON CHANGE', e);
   }
   change(e: any) {
-    console.log("CHANGE", e)
+    console.log('CHANGE', e);
   }
 
   setAppConfig(form: OctoFormModel) {
-    console.log("04 SET APP CONFIG SUBMIT", form)
+    console.log('04 SET APP CONFIG SUBMIT', form);
     const newConfig = this.configuratorService.generateAppConfigFromOctoForm(form);
-    console.log("05 UPDATE APP CONFIG", newConfig);
+    console.log('05 UPDATE APP CONFIG', newConfig);
     this.config = newConfig;
     this.editConfig = null;
   }
@@ -105,12 +105,12 @@ export class ConfigOverviewComponent implements OnInit {
   optionChange(event: Event) {
     this.optionSelected = (event as CustomEvent).detail.value;
     console.log(this.optionSelected);
-    if (this.optionSelected === "dashboard") {
+    if (this.optionSelected === 'dashboard') {
       this.configuratorService.getDashboardConfig().subscribe(res => {
         this.config = res;
       });
     }
-    else if (this.optionSelected === "appconfig") {
+    else if (this.optionSelected === 'appconfig') {
       this.configuratorService.getApplicationConfig().subscribe(res => {
         this.config = res;
       });

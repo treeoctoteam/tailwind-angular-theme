@@ -1,4 +1,4 @@
 export interface AuthenticationSettings {
   enableAuthentication: boolean;
-  authenticationMode: "JWT" | "Cookie";
+  authenticationMode: 'JWT' | 'Cookie';
 }

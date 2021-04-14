@@ -43,7 +43,7 @@ export class OverlayMenuService {
           return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
         }),
         take(1)
-      ).subscribe()
+      ).subscribe();
   }
 
   close() {

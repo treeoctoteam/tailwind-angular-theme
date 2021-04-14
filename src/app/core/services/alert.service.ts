@@ -37,7 +37,7 @@ export class AlertService {
       postition: 'top right',
       isStandalone: false,
       icon: this.getIconNameByAlertType(type)
-    }
+    };
     this.$alerts.next(alert);
     this.alertHistory = [...this.alertHistory, alert];
     this.$alertHistory.next(this.alertHistory);

@@ -68,7 +68,7 @@ export class AuthService {
     $req.subscribe((res: AuthRes) => {
       if (res) {
         this.handleUserLoggedInResponse(res);
-        this.alertService.present('success', 'User Logged', 'User logged successful!')
+        this.alertService.present('success', 'User Logged', 'User logged successful!');
       }
     });
     return $req;
@@ -120,7 +120,7 @@ export class AuthService {
     $req.subscribe((res: any) => {
       console.log('EMAIL', res.email);
     });
-  };
+  }
 
   public initIdleMonitoring(idleConfig: UserIdleConfig) {
     this.checkUserLoggedState();
@@ -164,7 +164,7 @@ export class AuthService {
   public logout(route?: string){
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    if(route){
+    if (route){
       this.router.navigateByUrl(route);
     }
     else {

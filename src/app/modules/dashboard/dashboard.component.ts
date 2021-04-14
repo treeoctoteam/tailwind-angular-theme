@@ -15,8 +15,6 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
   animations: [octoAnimations],
 })
 export class DashboardComponent implements AfterViewInit {
-  formGroupTest: FormGroup;
-  formControld = new FormControl('name');
 
   constructor() {
     this.formGroupTest = new FormBuilder().group({
@@ -33,11 +31,11 @@ export class DashboardComponent implements AfterViewInit {
     this.formGroupTest.valueChanges.subscribe(console.log);
   }
 
-  ngAfterViewInit(): void { }
-
   get name(): AbstractControl | null {
     return this.formGroupTest.get('name');
   }
+  formGroupTest: FormGroup;
+  formControld = new FormControl('name');
 
   animation = {
     value: '*',
@@ -51,6 +49,8 @@ export class DashboardComponent implements AfterViewInit {
       z: '0px',
     },
   };
+
+  ngAfterViewInit(): void { }
 
   onActivate(e: any, outlet: HTMLElement) {
     console.log(e, outlet);

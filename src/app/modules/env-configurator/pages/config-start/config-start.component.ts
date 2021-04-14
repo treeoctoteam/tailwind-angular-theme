@@ -15,6 +15,6 @@ export class ConfigStartComponent implements OnInit {
 
   start() {
     this.configService.isStarted = true;
-    this.router.navigate(["configurator/overview"])
+    this.router.navigate(['configurator/overview']);
   }
 }

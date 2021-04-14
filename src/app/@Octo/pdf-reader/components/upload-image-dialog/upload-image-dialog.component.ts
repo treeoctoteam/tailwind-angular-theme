@@ -30,7 +30,7 @@ export class UploadImageDialogComponent implements OnInit {
     const acceptedImageTypes = ['image/jpeg', 'image/png'];
     const file = event.target.files[0] as File;
     if (file) {
-      if (acceptedImageTypes.includes(file['type'])) {
+      if (acceptedImageTypes.includes(file.type)) {
         this.imageSrc = await fileToBase64(file);
         this.messageError = '';
       } else {

@@ -7,7 +7,7 @@ import { DashboardConfig } from '../../models/modules.model';
 const CONFIG_PATH = 'assets/config/dashboard-config.json';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class DashboardConfigService {
   config: DashboardConfig;
@@ -22,7 +22,7 @@ export class DashboardConfigService {
       this.$config.next(response);
       this.config = response;
       // Manage Routing
-      let navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
+      const navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
       if (!navigationExist) {
         this.router.navigate(['dashboard/' + this.config.defaultRoute]);
       }

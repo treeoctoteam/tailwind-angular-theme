@@ -26,7 +26,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
     this.formFieldControl.valueChanges
       .pipe(takeUntil(this.$onDestroing))
       .subscribe((value) => {
-        console.log("VALUE CHANGE FIELD", this.formField.value, value)
+        console.log('VALUE CHANGE FIELD', this.formField.value, value);
         this.formField.value = value;
         this._formService.setFieldValue(
           value,
@@ -37,7 +37,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
 
     this.formFieldControl.statusChanges
       .pipe(takeUntil(this.$onDestroing))
-      .subscribe(status => { console.log("????"); this.errorMessage = status === 'INVALID' ? this.getErrorMessage() : '' });
+      .subscribe(status => { console.log('????'); this.errorMessage = status === 'INVALID' ? this.getErrorMessage() : ''; });
 
     this.filteredOptions = this.formFieldControl.valueChanges.pipe(
       startWith(''),
@@ -59,7 +59,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
   }
 
   private setValidators(field: OctoFieldModel): ValidatorFn[] {
-    let validators: ValidatorFn[] = [];
+    const validators: ValidatorFn[] = [];
     if (field) {
       if (field.validation?.required) {
         validators.push(Validators.required);
@@ -97,7 +97,7 @@ export class OctoFieldComponent implements OnInit, OnDestroy {
       } else if (this.formFieldControl.errors.max) {
         return 'Max error';
       } else if (this.formFieldControl.errors.pattern) {
-        return 'Regex error'
+        return 'Regex error';
       }
     }
     return '';

@@ -43,14 +43,14 @@ export class AppComponent {
           if (lang.enabled) {
             this.translateService.addLangs([lang.id]);
           }
-        })
+        });
         // Set the default language
         this.translateService.setDefaultLang(this.translateService.langs[0]);
 
         // Use a language
         this.translateService.use(this.translateService.langs[0]);
 
-        let browserLang = navigator.language.slice(0, 2);
+        const browserLang = navigator.language.slice(0, 2);
         // this._logger.logInfo("Browser Language : " + browserLang);
         if (appConfig.languageSettings.languages.find(lang => lang.id == browserLang && lang.enabled)) {
           // this._logger.logSystem("Active Language :" + browserLang);
@@ -67,8 +67,8 @@ export class AppComponent {
 
         this.authService.initIdleMonitoring(appConfig.idleConfig);
 
-        window.addEventListener("online", this.onNetworkStatusChange.bind(this));
-        window.addEventListener("offline", this.onNetworkStatusChange.bind(this));
+        window.addEventListener('online', this.onNetworkStatusChange.bind(this));
+        window.addEventListener('offline', this.onNetworkStatusChange.bind(this));
       }
     });
 
@@ -106,7 +106,7 @@ export class AppComponent {
     // this._logger.logInfo("ONLINE: " + navigator.onLine);
     if (!navigator.onLine) {
       // this._logger.logSystem("SET OFFLINE_REDIRECT => " + this.router.url);
-      localStorage.setItem("offlineRedirect", this.router.url);
+      localStorage.setItem('offlineRedirect', this.router.url);
       // this.router.navigate(["/offline"]);
     }
   }

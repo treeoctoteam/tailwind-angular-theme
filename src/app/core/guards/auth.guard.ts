@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 
 const getConfigPath = (pathUrl: string) => {
   return pathUrl.split('/')[1];
-}
+};
 
 @Injectable({
   providedIn: 'root',
@@ -44,13 +44,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   checkAuth(url: string): boolean {
-    console.log("Check user logged");
+    console.log('Check user logged');
     if (this.authService.isLogged) {
       return true;
     }
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;
-    this.router.navigate(["auth/login"]);
+    this.router.navigate(['auth/login']);
     return false;
   }
 }

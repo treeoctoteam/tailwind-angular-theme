@@ -42,7 +42,7 @@ export class DialogComponent implements OnInit, OnDestroy {
   }
 
   dialogConfirm(dialog: Dialog): void {
-    const result: {dialogId: string; success: boolean; value: any;} = {
+    const result: {dialogId: string; success: boolean; value: any; } = {
       dialogId: dialog.dialogId,
       success: true,
       value: 'Dialog Confirmed'
