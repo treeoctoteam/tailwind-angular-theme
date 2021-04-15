@@ -21,9 +21,9 @@
     "tokenExpirationTime": 60
   },
   "idleConfig": {
-    "timeout": 1,
-    "idle": 300,
-    "ping": 58
+    "timeout": 30,
+    "idle": 500,
+    "ping": 10
   },
   "layoutSettings": {
     "defaultLayout": "/configurator",

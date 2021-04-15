@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApplicationConfig } from 'src/app/shared/models/application-config.model';
 
@@ -13,7 +13,7 @@ const APP_CONFIG_PATH = 'assets/config/application-config.json';
 export class ApplicationConfigService {
 
   config: ApplicationConfig;
-  $config = new BehaviorSubject<ApplicationConfig>(null);
+  $config = new Subject<ApplicationConfig>();
 
   constructor(private http: HttpClient, private router: Router) { }
 

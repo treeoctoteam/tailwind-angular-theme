@@ -1,7 +1,7 @@
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, config } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { share, takeUntil } from 'rxjs/operators';
+import { share, take, takeUntil } from 'rxjs/operators';
 import { AlertService } from './alert.service';
 import { Router } from '@angular/router';
 import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
@@ -45,7 +45,21 @@ export class AuthService {
     private alertService: AlertService,
     private router: Router,
     private applicationService: ApplicationConfigService,
-    private userIdleService: UserIdleService) {}
+    private userIdleService: UserIdleService) {
+    this.applicationService.$config.pipe(take(1)).subscribe(res => {
+      if (this.token && this.user) {
+        this.$isLoggedSubject.next(true);
+        this.$loggedUserSubject.next(this.user);
+        this.initIdleMonitoring(res.idleConfig);
+      } else if (!this.token && this.user) {
+        this.$lockUserSubject.next();
+        this.$loggedUserSubject.next(this.user);
+      } else if (!this.token && !this.user) {
+        this.$isLoggedSubject.next(false);
+        this.$loggedUserSubject.next(null);
+      }
+    })
+  }
 
   // with token jwt set on local storage
   public get token(): string {
@@ -84,17 +98,8 @@ export class AuthService {
     return $req;
   }
 
-  checkUserLoggedState(): void {
-    if (!this.token && this.user) {
-      this.$lockUserSubject.next();
-      this.$loggedUserSubject.next(this.user);
-    } else if (this.token) {
-      this.refreshToken();
-    }
-  }
-
   private handleUserLoggedInResponse(response: AuthRes) {
-    const user: User = { role: response.user.role, username: response.user.username, email: response.user.email };
+    const user: User = response.user;
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', response.token);
     this.$isLoggedSubject.next(this.isLogged);
@@ -104,9 +109,12 @@ export class AuthService {
   }
 
   public refreshToken(): Observable<any> {
+    console.log('CALL refreshToken');
     const $req = this.http.post<any>(`${this.#path}/refresh`, null).pipe(share());
     $req.subscribe((res: any) => {
       if (res) {
+        console.log('RES refreshToken', res);
+
         localStorage.setItem('token', res.token);
       }
     });
@@ -123,7 +131,7 @@ export class AuthService {
   }
 
   public initIdleMonitoring(idleConfig: UserIdleConfig) {
-    if (this.isLogged) {
+    if (this.isLogged && idleConfig) {
       this.userIdleService.setConfigValues(idleConfig);
       this.userIdleService.startWatching();
 
@@ -142,9 +150,10 @@ export class AuthService {
 
       // Start watch when time is up.
       this.userIdleService.onTimeout().subscribe(() => {
-        if (this.isLogged) {
+        if (this.isLogged && this.user) {
           localStorage.removeItem('token');
-          this.checkUserLoggedState();
+          this.$isLoggedSubject.next(false);
+          this.$lockUserSubject.next();
           this.userIdleService.stopWatching();
         }
       });
@@ -160,10 +169,10 @@ export class AuthService {
     }
   }
 
-  public logout(route?: string){
+  public logout(route?: string) {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    if (route){
+    if (route) {
       this.router.navigateByUrl(route);
     }
     else {

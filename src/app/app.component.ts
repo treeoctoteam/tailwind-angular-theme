@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private $unsubscribe = new Subject<void>();
   activeLang: string;
   userPassword = '';
+  loginErrorMessage: string;
 
   constructor(private appService: ApplicationConfigService,
     private translateService: TranslateService,
@@ -63,9 +64,6 @@ export class AppComponent implements OnInit, OnDestroy {
             this.activeLang = langChangeEvent.lang;
           });
 
-        this.authService.checkUserLoggedState();
-        this.authService.initIdleMonitoring(appConfig.idleConfig);
-
         window.addEventListener('online', this.onNetworkStatusChange.bind(this));
         window.addEventListener('offline', this.onNetworkStatusChange.bind(this));
       }
@@ -87,13 +85,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   unlockUserSession(): void {
+    this.loginErrorMessage = '';
     this.authService.$loggedUserSubject.pipe(
       first(),
       takeUntil(this.$unsubscribe),
-      switchMap((user: User) => this.authService.login({ email: user.email, password: this.userPassword }))
-    ).subscribe(() => {
+      switchMap(user => this.authService.login({ email: user.email, password: this.userPassword }))
+    ).subscribe((res) => {
       this.userPassword = '';
       this.dialogService.close(USER_LOCK_DIALOG_ID);
+    }, err => {
+      this.loginErrorMessage = err.error.message;
     });
   }
 
