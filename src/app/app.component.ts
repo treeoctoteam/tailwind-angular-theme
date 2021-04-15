@@ -63,6 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.activeLang = langChangeEvent.lang;
           });
 
+        this.authService.checkUserLoggedState();
         this.authService.initIdleMonitoring(appConfig.idleConfig);
 
         window.addEventListener('online', this.onNetworkStatusChange.bind(this));
