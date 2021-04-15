@@ -1,11 +1,12 @@
 import { Observable, BehaviorSubject, Subject, config } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { share, take, takeUntil } from 'rxjs/operators';
+import { share, take, takeUntil, first } from 'rxjs/operators';
 import { AlertService } from './alert.service';
 import { Router } from '@angular/router';
 import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
 import { ApplicationConfigService } from './application-config.service';
+import { LoaderService } from './loader.service';
 
 export type UserRoles = 'admin' | 'superAdmin' | 'user';
 
@@ -40,16 +41,25 @@ export class AuthService {
   public $lockUserSubject: Subject<void> = new Subject<void>();
   public redirectUrl: string;
 
+  private tokenStorage;
+  private userStorage;
+
   constructor(
     private http: HttpClient,
     private alertService: AlertService,
     private router: Router,
+    private loaderService: LoaderService,
     private applicationService: ApplicationConfigService,
     private userIdleService: UserIdleService) {
+    this.tokenStorage = localStorage.getItem('token');
+    this.userStorage = JSON.parse(localStorage.getItem('user'));
+
     this.applicationService.$config.pipe(take(1)).subscribe(res => {
+      console.log("CONFIG DEL CAZZO", res)
       if (this.token && this.user) {
         this.$isLoggedSubject.next(true);
         this.$loggedUserSubject.next(this.user);
+        this.refreshToken();
         this.initIdleMonitoring(res.idleConfig);
       } else if (!this.token && this.user) {
         this.$lockUserSubject.next();
@@ -63,12 +73,11 @@ export class AuthService {
 
   // with token jwt set on local storage
   public get token(): string {
-    return localStorage.getItem('token');
+    return this.tokenStorage;
   }
 
   public get user(): User {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user;
+    return this.userStorage;
   }
 
   public get isLogged(): boolean {
@@ -109,13 +118,11 @@ export class AuthService {
   }
 
   public refreshToken(): Observable<any> {
-    console.log('CALL refreshToken');
-    const $req = this.http.post<any>(`${this.#path}/refresh`, null).pipe(share());
+    const $req = this.http.post<any>(`${this.#path}/refresh`, null, this.loaderService.createHiddenSpinnerHeader()).pipe(share());
     $req.subscribe((res: any) => {
       if (res) {
-        console.log('RES refreshToken', res);
-
         localStorage.setItem('token', res.token);
+        this.tokenStorage = res.token;
       }
     });
     return $req;

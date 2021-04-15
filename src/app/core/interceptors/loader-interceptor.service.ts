@@ -14,12 +14,14 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     this.totalRequests++;
-    const elementRef = this.loaderService.elementRef?.nativeElement;
+    const elementRef = this.loaderService.getElementRef()?.nativeElement;
     if (elementRef !== undefined) {
       elementRef.showSpinner = true;
       elementRef.disabled = true;
     } else {
-      this.loaderService.show();
+      if (!request.headers.getAll("octo-hidden-spinner")) {
+        this.loaderService.show();
+      }
     }
 
     return next.handle(request).pipe(

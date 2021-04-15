@@ -12,7 +12,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
-    private applicationConfigservice: ApplicationConfigService) {}
+    private applicationConfigservice: ApplicationConfigService) { }
 
   intercept(req: any, next: any) {
     let authRequest = req.clone();
@@ -30,14 +30,14 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
           });
         }
       } else {
-        console.log("Configuration hasn't been loaded yet");
+        console.log("Configuration hasn't been loaded yet.");
       }
     }
     return next.handle(authRequest)
       .pipe(
         catchError(err => {
           // in case of 401 || 403 http error logout
-          if (err instanceof HttpErrorResponse &&  (err.status === 401 || err.status === 403)) {
+          if (err instanceof HttpErrorResponse && (err.status === 401 || err.status === 403)) {
             this.authService.logout();
           }
           // of error operator transform in observable

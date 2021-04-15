@@ -18,8 +18,8 @@ export class LoginFormComponent implements OnInit {
 
 
   constructor(private authService: AuthService,
-              private formBuilder: FormBuilder,
-              private loaderService: LoaderService) { }
+    private formBuilder: FormBuilder,
+    private loaderService: LoaderService) { }
 
 
   ngOnInit(): void {
@@ -32,21 +32,13 @@ export class LoginFormComponent implements OnInit {
   login() {
     this.loginData = this.loginForm.value;
     if (this.loginData) {
-      this.loaderService.elementRef = this.loginButtonElement;
+      this.loaderService.showSpinnerButton(this.loginButtonElement);
       this.authService.login(this.loginData).subscribe(
         () => {
-          this.loaderService.elementRef = undefined;
+          this.loaderService.hideSpinnerButton();
         }
       );
     }
-  }
-
-  testAuth() {
-    this.authService.checkAuth();
-  }
-
-  testRefresh() {
-    this.authService.refreshToken();
   }
 
 }
