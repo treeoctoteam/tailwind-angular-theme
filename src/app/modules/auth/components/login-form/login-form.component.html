@@ -1,26 +1,64 @@
 <div class="w-full h-100">
-  <a class="flex items-center w-32 mb-4 font-medium text-gray-900 title-font md:mb-0">
+  <a
+    class="flex items-center w-32 mb-4 font-medium text-gray-900 title-font md:mb-0"
+  >
     <img src="../badges/WhitePink.svg" alt="" />
   </a>
-  <h1 *ngIf="!isLocked" class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font">
+  <h1
+    *ngIf="!isLocked"
+    class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font"
+  >
     Log in to your account
   </h1>
-  <h1 *ngIf="isLocked" class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font">
+  <h1
+    *ngIf="isLocked"
+    class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font"
+  >
     Session locked, log in to your account
   </h1>
-  <form class="mt-6" action="#" method="POST" [formGroup]="loginForm">
-    <to-input octoValueAccessor type="email" [appearance]="'solid'" [placeholder]="'Your email'" formControlName="email">
+  <div class="mt-6" [formGroup]="loginForm">
+    <to-input
+      octoValueAccessor
+      id="email"
+      type="email"
+      [appearance]="'solid'"
+      [placeholder]="'Your email'"
+      formControlName="email"
+    >
       Email
-      <to-hint *ngIf="loginForm.get('email').hasError('email')" slot="hint" type="error">email is not valid!</to-hint>
+      <to-hint
+        *ngIf="loginForm.get('email').hasError('email')"
+        slot="hint"
+        type="error"
+        >email is not valid!</to-hint
+      >
     </to-input>
-    <to-input octoValueAccessor type="password" [appearance]="'solid'" [placeholder]="'Your password'" formControlName="password">
+    <to-input
+      octoValueAccessor
+      id="psw"
+      type="password"
+      [appearance]="'solid'"
+      [placeholder]="'Your password'"
+      formControlName="password"
+    >
       Password
     </to-input>
     <div class="mt-2 text-right">
-      <a href="#"
-        class="text-sm font-semibold leading-relaxed text-gray-700 hover:text-blue-700 focus:text-blue-700">Forgot Password?</a>
+      <a
+        href="#"
+        class="text-sm font-semibold leading-relaxed text-gray-700 hover:text-blue-700 focus:text-blue-700"
+        >Forgot Password?</a
+      >
     </div>
-    <to-button #loginButton (btnClick)="login()" [disabled]="loginForm.invalid" size="lg" type="outline" color="greay" text-color="blue">
+    <to-button
+      #loginButton
+      (btnClick)="login()"
+      [disabled]="loginForm.invalid"
+      size="lg"
+      type="outline"
+      color="greay"
+      text-color="blue"
+    >
       <i class="fad fa-sign-in-alt" slot="icon-start"></i>
       Log In
     </to-button>
@@ -33,11 +71,13 @@
       <i class="fad fa-sign-in-alt" slot="icon-start"></i>
       Check refresh
     </to-button> -->
-  </form>
+  </div>
 
   <hr class="w-full my-6 border-gray-300" />
   <p class="mt-8 text-center">
     Need an account?
-    <a href="#" class="font-semibold text-blue-500 hover:text-blue-700">Sign Up</a>
+    <a href="#" class="font-semibold text-blue-500 hover:text-blue-700"
+      >Sign Up</a
+    >
   </p>
 </div>
