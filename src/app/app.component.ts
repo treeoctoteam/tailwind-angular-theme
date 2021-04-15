@@ -31,8 +31,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.appService.initAppConfig();
 
-    console.log('ciao');
-
     this.appService.$config.pipe(
       takeUntil(this.$unsubscribe)
     ).subscribe((appConfig: ApplicationConfig) => {
