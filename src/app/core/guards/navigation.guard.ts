@@ -25,7 +25,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     private dashboardService: DashboardConfigService,
     private alertService: AlertService) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, ): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): boolean {
     if (this.appConfigService.config.authenticationSettings.enableAuthentication) {
       const activeModule = this.checkActiveModule(state);
       switch (activeModule) {
@@ -53,7 +53,8 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
           break;
         default:
           this.alertService.present('danger', 'Modulo non trovato', 'Il modulo a cui si è tentato di accedere non è disponibile nel sistema.');
-          return;
+          return false;
+          break;
       }
     } else {
       if (this.checkActiveModule(state)) {

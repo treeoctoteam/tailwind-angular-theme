@@ -8,6 +8,7 @@ import { UserDataComponent } from './pages/user-data/user-data.component';
 import { LockComponent } from './pages/lock/lock.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   { path: 'user-data', component: UserDataComponent },
@@ -28,7 +29,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     LoginFormComponent,

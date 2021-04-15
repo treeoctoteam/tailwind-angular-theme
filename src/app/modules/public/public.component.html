@@ -56,6 +56,7 @@
               <a
                 class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                 routerLink="/auth/login"
+                *ngIf="!authService.isLogged"
                 >Sign in</a
               >
             </li>
@@ -63,7 +64,16 @@
               <a
                 class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                 routerLink="/auth/register"
+                *ngIf="!authService.isLogged"
                 >Sign up</a
+              >
+            </li>
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                routerLink="/dashboard"
+                *ngIf="authService.isLogged"
+                >Dashboard</a
               >
             </li>
           </ng-container>

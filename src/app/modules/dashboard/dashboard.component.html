@@ -1,24 +1,111 @@
-<div class="layout-grid">
-  <octo-navbar></octo-navbar>
-  <octo-container [customTemplate]="dashboardContainer"></octo-container>
-  <octo-footer></octo-footer>
+<div class="flex flex-col h-screen gradient">
+  <octo-header [customTemplate]="dashboardHeader"></octo-header>
+  <div class="flex flex-auto">
+    <octo-container [customTemplate]="sidebarContainer"> </octo-container>
+    <div class="flex-1 bg-gray-300 p-4" style="height: calc(100vh - 66px)">
+      <octo-container [customTemplate]="dashboardContainer"></octo-container>
+    </div>
+  </div>
 </div>
 
+<ng-template #sidebarContainer>
+  <div style="height: calc(100vh - 66px)">
+    <to-sidebar>
+      <to-divider type="space"></to-divider>
+
+      <to-button type="link" routerLink="/public/home" color="red"
+        >Home</to-button
+      >
+      <to-button type="link" href="http://www.treeocto.com/" color="red"
+        >About us</to-button
+      >
+
+      <to-divider
+        type="line"
+        color="gray-500"
+        line-style="dotted"
+        line-height="2"
+      ></to-divider>
+
+      <to-button
+        type="link"
+        href="http://www.treeocto.com/"
+        color="blue"
+        link-color="text-white"
+        disabled="true"
+        >Info</to-button
+      >
+
+      <to-divider type="space"></to-divider>
+
+      <to-button
+        type="link"
+        href="http://www.treeocto.com/"
+        color="gray"
+        link-color="text-white"
+        class="border-gray-600 border-5"
+        >Go to tree octo site</to-button
+      >
+    </to-sidebar>
+  </div>
+</ng-template>
+<ng-template #dashboardHeader>
+  <div class="relative z-40 py-3 text-white bg-red-600" id="header">
+    <div
+      class="flex flex-wrap items-start mx-auto lg:items-center xl:px-8"
+      data-controller="toggle"
+    >
+      <a class="ml-2 lg:ml-4" routerLink="/dashboard">
+        <img class="w-10" src="assets/img/octopus.png" alt="" />
+      </a>
+      <a
+        class="lg:mr-8 ml-2 lg:ml-4 mt-1 lg:mt-0 font-bold"
+        routerLink="/dashboard"
+        >Dashboard</a
+      >
+      <nav
+        class="flex flex-wrap items-center justify-end flex-1 w-full lg:justify-between lg:w-auto"
+      >
+        <div class="block lg:hidden">
+          <button
+            class="flex items-center px-3 py-2 mt-2 mr-4 text-gray-200 border border-gray-400 rounded"
+            data-action="click->toggle#toggle"
+          >
+            <svg
+              class="w-4 h-4 fill-current"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
+          </button>
+        </div>
+        <div
+          class="absolute top-0 left-0 items-center hidden w-full px-4 py-4 pb-6 text-center bg-black border-t border-b border-gray-800 shadow-2xl lg:static lg:block lg:flex-1 lg:flex lg:text-left lg:border-t-0 lg:bg-transparent lg:px-0 lg:shadow-none lg:pb-0 nav-list lg:border-b-0 lg:py-0"
+          data-target="toggle.content"
+        >
+          <div class="flex flex-wrap items-center lg:flex-grow">
+            <ul class="flex-wrap flex-1 lg:flex">
+              <li><a class="nav-link mr-2" href="/faq">Faq</a></li>
+              <li><a class="nav-link mr-2" href="/contacts">Contacts</a></li>
+            </ul>
+            <ul
+              class="flex-wrap items-center justify-end w-full lg:py-2 lg:pr-2 lg:flex lg:w-auto"
+            >
+              <li>
+                <a class="nav-link mr-2" (click)="authService.logout()"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #dashboardContainer>
-  <!-- <div class="flex items-center justify-center bg-white shadow-md rounded-md">
-    <form class="w-96 m-3" [formGroup]="formGroupTest">
-      <to-input type="text" appearance="solid" octoValueAccessor formControlName="name">
-        Name
-      </to-input>
-      <to-input type="text" appearance="simple" octoValueAccessor formControlName="surname">
-        Surname
-      </to-input>
-      <to-input type="number" [clearable]="false" appearance="underline" octoValueAccessor formControlName="age">
-        Age
-      </to-input>
-    </form>
-  </div> -->
-  <!-- <router-outlet #dashboard
-    (activate)="onActivate($event, dashboard)">
-  </router-outlet> -->
+  <router-outlet #dashboard></router-outlet>
 </ng-template>

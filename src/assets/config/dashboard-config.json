@@ -126,7 +126,7 @@
     ]
   },
   "authenticate": false,
-  "defaultRoute": "faq",
+  "defaultRoute": "overview-user",
   "routes": [
     {
       "path": "/login",

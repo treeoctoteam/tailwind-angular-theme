@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApplicationConfigService } from 'src/app/core/services/application-config.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { NavigationItem } from '../models/modules.model';
 import { PublicConfigService } from './services/public.service';
 
@@ -15,7 +16,8 @@ export class PublicComponent implements OnInit {
   $unsubscribe = new Subject<void>();
 
   constructor(public appService: ApplicationConfigService,
-              private landingService: PublicConfigService) {}
+    public authService: AuthService,
+    private landingService: PublicConfigService) { }
 
   getNavigationItem(): NavigationItem[] {
     return this.landingService.config?.navbar?.navigation[0].children;
