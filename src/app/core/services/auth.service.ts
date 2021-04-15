@@ -17,9 +17,7 @@ export interface User {
 
 interface AuthRes {
   user: User;
-  token: {
-    bearer: string;
-  };
+  token: string;
   message: string;
 }
 
@@ -86,7 +84,7 @@ export class AuthService {
     return $req;
   }
 
-  private checkUserLoggedState(): void {
+  checkUserLoggedState(): void {
     if (!this.token && this.user) {
       this.$lockUserSubject.next();
       this.$loggedUserSubject.next(this.user);
@@ -98,7 +96,7 @@ export class AuthService {
   private handleUserLoggedInResponse(response: AuthRes) {
     const user: User = { role: response.user.role, username: response.user.username, email: response.user.email };
     localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', response.token.bearer);
+    localStorage.setItem('token', response.token);
     this.$isLoggedSubject.next(this.isLogged);
     this.$loggedUserSubject.next(this.user);
     this.initIdleMonitoring(this.applicationService.config.idleConfig);
@@ -109,7 +107,7 @@ export class AuthService {
     const $req = this.http.post<any>(`${this.#path}/refresh`, null).pipe(share());
     $req.subscribe((res: any) => {
       if (res) {
-        localStorage.setItem('token', res.token.bearer);
+        localStorage.setItem('token', res.token);
       }
     });
     return $req;
@@ -125,7 +123,6 @@ export class AuthService {
   }
 
   public initIdleMonitoring(idleConfig: UserIdleConfig) {
-    this.checkUserLoggedState();
     if (this.isLogged) {
       this.userIdleService.setConfigValues(idleConfig);
       this.userIdleService.startWatching();
