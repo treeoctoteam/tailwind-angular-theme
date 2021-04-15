@@ -21,12 +21,12 @@
     "tokenExpirationTime": 60
   },
   "idleConfig": {
-    "timeout": 30,
-    "idle": 500,
+    "timeout": 300,
+    "idle": 1000,
     "ping": 10
   },
   "layoutSettings": {
-    "defaultLayout": "/configurator",
+    "defaultLayout": "/public",
     "layouts": ["/dashboard", "/public", "/auth", "/configurator"]
   },
   "languageSettings": {

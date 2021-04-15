@@ -55,7 +55,6 @@ export class AuthService {
     this.userStorage = JSON.parse(localStorage.getItem('user'));
 
     this.applicationService.$config.pipe(take(1)).subscribe(res => {
-      console.log("CONFIG DEL CAZZO", res)
       if (this.token && this.user) {
         this.$isLoggedSubject.next(true);
         this.$loggedUserSubject.next(this.user);
@@ -90,6 +89,7 @@ export class AuthService {
       if (res) {
         this.handleUserLoggedInResponse(res);
         this.alertService.present('success', 'User Logged', 'User logged successful!');
+        this.router.navigateByUrl('dashboard');
       }
     });
     return $req;
@@ -114,7 +114,6 @@ export class AuthService {
     this.$isLoggedSubject.next(this.isLogged);
     this.$loggedUserSubject.next(this.user);
     this.initIdleMonitoring(this.applicationService.config.idleConfig);
-    this.router.navigateByUrl('configurator/overview');
   }
 
   public refreshToken(): Observable<any> {

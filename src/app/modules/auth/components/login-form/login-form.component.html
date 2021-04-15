@@ -1,18 +1,17 @@
-<div class="w-full h-100">
-  <a
-    class="flex items-center w-32 mb-4 font-medium text-gray-900 title-font md:mb-0"
-  >
-    <img src="../badges/WhitePink.svg" alt="" />
-  </a>
+<div class="w-full">
+  <div class="flex justify-center">
+    <img class="w-36" src="/assets/img/octopus.png" alt="" />
+  </div>
+
   <h1
     *ngIf="!isLocked"
-    class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font"
+    class="mt-12 text-2xl font-semibold tracking-tighter text-red-500 sm:text-3xl title-font"
   >
     Log in to your account
   </h1>
   <h1
     *ngIf="isLocked"
-    class="mt-12 text-2xl font-semibold tracking-tighter text-blue-700 sm:text-3xl title-font"
+    class="mt-12 text-2xl font-semibold tracking-tighter text-red-500 sm:text-3xl title-font"
   >
     Session locked, log in to your account
   </h1>
@@ -43,40 +42,33 @@
     >
       Password
     </to-input>
-    <div class="mt-2 text-right">
+    <div class="flex justify-between items-center mt-2">
       <a
         href="#"
-        class="text-sm font-semibold leading-relaxed text-gray-700 hover:text-blue-700 focus:text-blue-700"
+        class="text-sm font-semibold leading-relaxed text-red-500 hover:text-red-700 focus:text-red-700"
         >Forgot Password?</a
       >
+      <to-button
+        #loginButton
+        (btnClick)="login()"
+        [disabled]="loginForm.invalid"
+        size="lg"
+        type="filled"
+        color="red"
+        text-color="white"
+      >
+        <i class="fad fa-sign-in-alt" slot="icon-start"></i>
+        Log In
+      </to-button>
     </div>
-    <to-button
-      #loginButton
-      (btnClick)="login()"
-      [disabled]="loginForm.invalid"
-      size="lg"
-      type="outline"
-      color="greay"
-      text-color="blue"
-    >
-      <i class="fad fa-sign-in-alt" slot="icon-start"></i>
-      Log In
-    </to-button>
-    <!-- <to-button #loginButton (btnClick)="testAuth()" size="xl" type="outline" color="green"
-      text-color="blue">
-      <i class="fad fa-sign-in-alt" slot="icon-start"></i>
-      Check auth
-    </to-button>
-    <to-button #loginButton (btnClick)="testRefresh()" size="xl" type="outline" color="green" text-color="blue">
-      <i class="fad fa-sign-in-alt" slot="icon-start"></i>
-      Check refresh
-    </to-button> -->
   </div>
 
-  <hr class="w-full my-6 border-gray-300" />
-  <p class="mt-8 text-center">
+  <hr class="w-full my-8 border-gray-300" />
+  <p class="text-center">
     Need an account?
-    <a href="#" class="font-semibold text-blue-500 hover:text-blue-700"
+    <a
+      routerLink="/auth/register"
+      class="font-semibold text-red-500 hover:text-red-700"
       >Sign Up</a
     >
   </p>

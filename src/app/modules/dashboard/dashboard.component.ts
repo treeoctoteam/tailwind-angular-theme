@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { octoAnimations } from 'src/app/shared/utils/animations';
 
 @Component({
@@ -16,7 +17,7 @@ import { octoAnimations } from 'src/app/shared/utils/animations';
 })
 export class DashboardComponent {
 
-  constructor() {
+  constructor(public authService: AuthService) {
     this.formGroupTest = new FormBuilder().group({
       name: new FormControl('Paolo', [
         Validators.required,
@@ -30,7 +31,6 @@ export class DashboardComponent {
     });
     this.formGroupTest.valueChanges.subscribe(console.log);
   }
-
   get name(): AbstractControl | null {
     return this.formGroupTest.get('name');
   }
