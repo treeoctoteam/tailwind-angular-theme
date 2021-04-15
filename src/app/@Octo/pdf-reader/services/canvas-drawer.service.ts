@@ -24,7 +24,7 @@ export class CanvasDrawerService {
   $elementClickEvent = new Subject<HTMLElement>();
   $elementRightClickEvent = new Subject<HTMLElement>();
   $handleActionButtons = new Subject<{ disableEditField?: boolean; disableField?: boolean }>();
-  $updateFieldPosition = new Subject<{fieldName: string; dimensions: ElementDimension}>();
+  $updateFieldPosition = new Subject<{ fieldName: string; dimensions: ElementDimension }>();
   $addDocumentField = new Subject<Partial<ENDocumentField>>();
 
   constructor() {
@@ -33,7 +33,7 @@ export class CanvasDrawerService {
         return;
       } else {
         const disableEditField = true;
-        this.$handleActionButtons.next({disableEditField});
+        this.$handleActionButtons.next({ disableEditField });
         this.removeElementClass(this.activeElement);
       }
     });
@@ -174,18 +174,18 @@ export class CanvasDrawerService {
           ctx.stroke();
         }
         this.$imageData.next(canvas.toDataURL());
-    });
+      });
   }
 
   drawingField(canvas: HTMLCanvasElement) {
-		let drag = false;
-		const rect = {
-			startX: 0,
-			startY: 0,
-			w: 0,
-			h: 0
+    let drag = false;
+    const rect = {
+      startX: 0,
+      startY: 0,
+      w: 0,
+      h: 0
     };
-  const documentField: Partial<ENDocumentField> = {
+    const documentField: Partial<ENDocumentField> = {
       dimensions: {
         x: rect.startX,
         y: rect.startY,
@@ -196,7 +196,7 @@ export class CanvasDrawerService {
       pageNumber: this.pageNumber
     };
 
-  this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
+    this.captureEvents(canvas, 'Field').subscribe((res: MouseEvent | TouchEvent) => {
       const ctx = canvas.getContext('2d');
       const draw = () => {
         ctx.beginPath();
@@ -241,7 +241,7 @@ export class CanvasDrawerService {
           this.$addDocumentField.next(documentField);
           const disableField = false;
           const disableEditField = true;
-          this.$handleActionButtons.next({ disableField, disableEditField});
+          this.$handleActionButtons.next({ disableField, disableEditField });
           this.$unsubscribe.next();
         }
       }
@@ -284,7 +284,7 @@ export class CanvasDrawerService {
     resizeBtn.style.top = '100%';
     resizeBtn.style.transform = 'translate3d(-50%,-50%,0) rotateZ(45deg)';
     resizeBtn.style.borderStyle = 'solid';
-		  resizeBtn.style.borderWidth = '12px';
+    resizeBtn.style.borderWidth = '12px';
     resizeBtn.style.borderColor = 'transparent transparent transparent #99042f';
     resizeBtn.style.backgroundColor = 'transparent';
     resizeBtn.style.outline = 'none';
@@ -388,8 +388,8 @@ export class CanvasDrawerService {
       // calculate the new cursor position:
       pos1 = pos3 - this.getClientXY(e).clientX;
       pos2 = pos4 - this.getClientXY(e).clientY;
-      pos3 =  this.getClientXY(e).clientX;
-      pos4 =  this.getClientXY(e).clientY;
+      pos3 = this.getClientXY(e).clientX;
+      pos4 = this.getClientXY(e).clientY;
       // set the element's new position:
 
       parseInt(element.style.top) < 0 ? element.style.top = 0 + 'px' : element.style.top = +(element.offsetTop - pos2) + 'px';
@@ -400,7 +400,7 @@ export class CanvasDrawerService {
       if (parseInt(element.style.top) + element.clientHeight > element.parentElement.clientHeight) {
         element.style.top = (element.parentElement.clientHeight - element.clientHeight) - 1 + 'px';
       }
-      this.$updateFieldPosition.next({fieldName: element.id, dimensions: getElementDimensions(element)});
+      this.$updateFieldPosition.next({ fieldName: element.id, dimensions: getElementDimensions(element) });
     };
 
 
@@ -436,7 +436,7 @@ export class CanvasDrawerService {
         element.style.height = parseInt(parentElement.style.height) - element.offsetTop + 'px';
       }
 
-      this.$updateFieldPosition.next({fieldName: element.id, dimensions: getElementDimensions(element)});
+      this.$updateFieldPosition.next({ fieldName: element.id, dimensions: getElementDimensions(element) });
     };
 
     const stopResizeElement = () => {
@@ -461,7 +461,7 @@ export class CanvasDrawerService {
     } else {
       return {
         clientX: event.targetTouches[0].clientX,
-        clientY:  event.targetTouches[0].clientY
+        clientY: event.targetTouches[0].clientY
       };
     }
   }
@@ -484,7 +484,7 @@ export class CanvasDrawerService {
       $elementClickEvent.subscribe((event: MouseEvent | TouchEvent) => {
         event.preventDefault();
         // left mouse click
-        if ( ((event instanceof MouseEvent) && event.buttons === 1) || (event instanceof TouchEvent)) {
+        if (((event instanceof MouseEvent) && event.buttons === 1) || (event instanceof TouchEvent)) {
           this.handleElementCLick(element);
           this.$elementClickEvent.next(element);
           return false;
