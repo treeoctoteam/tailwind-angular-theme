@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
@@ -80,6 +80,29 @@ export class AppComponent implements OnInit, OnDestroy {
     this.$unsubscribe.complete();
   }
 
+  // @HostListener('window:unload', ['$event'])
+  // unloadHandler(event) {
+  //   console.log("event", event);
+  //   alert("close1");
+  // }
+
+  // @HostListener('window:beforeunload', ['$event'])
+  // beforeunloadHandler(event) {
+  //   console.log("event", event)
+  //   alert("close2");
+  // }
+
+  // public doUnload(): void {
+  //   this.doBeforeUnload();
+  // }
+
+  // // Keep me Signed in
+  // public doBeforeUnload(): void {
+  //   // Clear localStorage
+  //   alert("asdasdasd");
+  //   localStorage.removeItem("username_key");
+  // }
+
   private presentUserLockDialog(): void {
     this.dialogService.open({ hasCustomTemplate: true, hasBackdrop: true }, USER_LOCK_DIALOG_ID, this.userLockDialogTemnplateRef);
   }
@@ -111,3 +134,4 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 }
+
