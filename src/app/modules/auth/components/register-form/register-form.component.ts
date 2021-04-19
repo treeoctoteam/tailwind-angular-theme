@@ -14,8 +14,8 @@ export class RegisterFormComponent implements OnInit {
   registerForm: FormGroup;
 
   constructor(private authService: AuthService,
-              private formBuilder: FormBuilder,
-              private router: Router) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -47,7 +47,7 @@ export class RegisterFormComponent implements OnInit {
     this.registerData.password = this.registerForm.value.passwords.pass1;
     this.authService.register(this.registerData).subscribe(
       () => {
-        console.log('User is register and logged in');
+        this.router.navigate(['auth/verify-email']);
       }
     );
   }

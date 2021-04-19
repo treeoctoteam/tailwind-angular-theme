@@ -1,0 +1,21 @@
+<div
+  class="flex flex-col items-center gap-4 justify-center text-center h-screen"
+>
+  <h1
+    class="text-green-600 text-2xl font-semibold tracking-tighter sm:text-3xl title-font"
+  >
+    Email verified successfully!
+  </h1>
+  <p class="text-lg">
+    Go to the login page and log in to start using the application.
+  </p>
+  <to-button
+    (btnClick)="goToLoginPage()"
+    size="lg"
+    type="filled"
+    color="blue"
+    text-color="white"
+  >
+    Go to login
+  </to-button>
+</div>

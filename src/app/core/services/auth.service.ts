@@ -33,8 +33,8 @@ export class ChangePassword {
 export class AuthService {
   // NB STEFANO
   // Please Stefano, don't delete the second var path, is useful for local tests!
-  #path = 'https://dev.tap-id.tech/tapidconfig/auth';
-  // path = 'http://localhost:3002/tapidconfig/auth';
+  // #path = 'https://dev.tap-id.tech/tapidconfig/auth';
+  #path = 'http://localhost:3002/tapidconfig/auth';
 
   public $isLoggedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(undefined);
   public $loggedUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
@@ -50,7 +50,8 @@ export class AuthService {
     private router: Router,
     private loaderService: LoaderService,
     private applicationService: ApplicationConfigService,
-    private userIdleService: UserIdleService) {
+    private userIdleService: UserIdleService,
+  ) {
     this.tokenStorage = localStorage.getItem('token');
     this.userStorage = JSON.parse(localStorage.getItem('user'));
 
@@ -83,26 +84,31 @@ export class AuthService {
     return this.token !== '' && this.token !== undefined && this.token !== null;
   }
 
-  login(data: { email: string; password: string }): Observable<AuthRes> {
+  public login(data: { email: string; password: string }): Observable<AuthRes> {
     const $req = this.http.post<AuthRes>(`${this.#path}/login`, data).pipe(share());
     $req.subscribe((res: AuthRes) => {
       if (res) {
         this.handleUserLoggedInResponse(res);
-        this.alertService.present('success', 'User Logged', 'User logged successful!');
-        this.router.navigateByUrl('dashboard');
+        this.alertService.present('success', 'User Logged', 'User logged successful!', 4000);
+        this.router.navigate(['dashboard']);
       }
+    }, err => {
+      this.alertService.present('danger', 'Login error', err.error.message, 4000);
     });
     return $req;
   }
 
-  register(registerData: { username: string; email: string; password: string }): Observable<AuthRes> {
-    const $req = this.http.post<AuthRes>(`${this.#path}/register`, registerData).pipe(share());
-    $req.subscribe((res: AuthRes) => {
+  public register(registerData: { username: string; email: string; password: string }): Observable<any> {
+    const $req = this.http.post<any>(`${this.#path}/register`, registerData).pipe(share());
+    $req.subscribe((res) => {
       if (res) {
         // TODO confirm account and not logged user automatically
-        this.handleUserLoggedInResponse(res);
-        this.alertService.present('success', 'User Registered', 'User logged successful!');
+        // this.handleUserLoggedInResponse(res);
+        localStorage.setItem('register-email', registerData.email);
+        this.alertService.present('success', 'User Registered', 'You need to verify email!', 4000);
       }
+    }, err => {
+      this.alertService.present('danger', 'Register error', err.error.message, 4000);
     });
     return $req;
   }
@@ -184,5 +190,15 @@ export class AuthService {
     else {
       this.router.navigateByUrl('auth/login');
     }
+  }
+
+  public verifyEmail(data: { email: string; verificationCode: string }): Observable<any> {
+    const $req = this.http.post<any>(`${this.#path}/verify-email`, data).pipe(share());
+    $req.subscribe((res) => {
+      if (res) {
+        console.log("Verify email message", res);
+      }
+    });
+    return $req;
   }
 }

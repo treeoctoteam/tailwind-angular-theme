@@ -9,12 +9,16 @@ import { LockComponent } from './pages/lock/lock.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { EmailVerificationComponent } from './pages/email-verification/email-verification.component';
+import { EmailVerifyComponent } from './pages/email-verify/email-verify.component';
 
 const routes: Routes = [
   { path: 'user-data', component: UserDataComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'lock', component: LockComponent },
+  { path: 'verify-email', component: EmailVerificationComponent },
+  { path: 'email-verified', component: EmailVerifyComponent },
 ];
 
 @NgModule({
@@ -24,7 +28,9 @@ const routes: Routes = [
     UserDataComponent,
     LockComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    EmailVerificationComponent,
+    EmailVerifyComponent
   ],
   imports: [
     CommonModule,

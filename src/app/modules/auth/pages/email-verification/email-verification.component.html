@@ -1,0 +1,36 @@
+<div
+  class="flex flex-col items-center gap-4 justify-center text-center h-screen"
+>
+  <h1
+    class="text-green-600 text-2xl font-semibold tracking-tighter sm:text-3xl title-font"
+  >
+    Account registered successfully!
+  </h1>
+  <p class="text-lg">
+    Please enter the verification code received by email for continue
+  </p>
+  <div [formGroup]="verifyCodeForm">
+    <to-input
+      octoValueAccessor
+      id="verifyEmail"
+      formControlName="verifyCode"
+      class="w-48"
+      type="text"
+      [appearance]="'solid'"
+      [placeholder]="'Your verification code'"
+    >
+    </to-input>
+  </div>
+  <to-button
+    #loginButton
+    (btnClick)="sendVerificationCode()"
+    [disabled]="verifyCodeForm.invalid"
+    size="lg"
+    type="filled"
+    color="red"
+    text-color="white"
+  >
+    <i class="fad fa-sign-in-alt" slot="icon-start"></i>
+    Verify code
+  </to-button>
+</div>
