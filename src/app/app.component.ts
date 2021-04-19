@@ -27,7 +27,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private authService: AuthService,
     private dialogService: DialogService,
-    private router: Router) { }
+    private router: Router) {
+    window.addEventListener("beforeunload", (event) => {
+      event.preventDefault();
+      event.returnValue = 'close event';
+    }, { capture: true });
+  }
 
   ngOnInit(): void {
     this.appService.initAppConfig();
@@ -79,29 +84,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.$unsubscribe.next();
     this.$unsubscribe.complete();
   }
-
-  // @HostListener('window:unload', ['$event'])
-  // unloadHandler(event) {
-  //   console.log("event", event);
-  //   alert("close1");
-  // }
-
-  // @HostListener('window:beforeunload', ['$event'])
-  // beforeunloadHandler(event) {
-  //   console.log("event", event)
-  //   alert("close2");
-  // }
-
-  // public doUnload(): void {
-  //   this.doBeforeUnload();
-  // }
-
-  // // Keep me Signed in
-  // public doBeforeUnload(): void {
-  //   // Clear localStorage
-  //   alert("asdasdasd");
-  //   localStorage.removeItem("username_key");
-  // }
 
   private presentUserLockDialog(): void {
     this.dialogService.open({ hasCustomTemplate: true, hasBackdrop: true }, USER_LOCK_DIALOG_ID, this.userLockDialogTemnplateRef);
