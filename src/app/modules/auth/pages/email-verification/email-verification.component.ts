@@ -1,5 +1,4 @@
 import { AlertService } from './../../../../core/services/alert.service';
-import { LoaderService } from './../../../../core/services/loader.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -36,11 +35,21 @@ export class EmailVerificationComponent implements OnInit {
         localStorage.removeItem('register-email');
         this.router.navigate(['auth/email-verified']);
       }, err => {
-        this.alertService.present('danger', 'Email not verified', 'You insert a wrong verification code!');
+        this.alertService.present('danger', 'Email not verified', 'You insert a wrong verification code!', 4000);
       });
     }
     else {
-      console.log("Email or verification code missed");
+      console.log('Email or verification code missed');
     }
   }
+
+  resendEmail() {
+    const email = localStorage.getItem('register-email');
+    this.authService.resendEmail(email).subscribe((res) => {
+      this.alertService.present('success', 'Email sended', res.message, 4000);
+    }, err => {
+      this.alertService.present('danger', 'Email not sended', err.message, 4000);
+    })
+  }
+
 }

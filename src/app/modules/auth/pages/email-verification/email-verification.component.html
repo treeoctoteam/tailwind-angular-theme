@@ -33,4 +33,13 @@
     <i class="fad fa-sign-in-alt" slot="icon-start"></i>
     Verify code
   </to-button>
+  <div class="flex gap-2 items-center justify-center">
+    <p class="text-sm">
+      You didn't receive the email?check your spam folderor ask for another
+      mailing
+    </p>
+    <to-button (btnClick)="resendEmail()" color="yellow" size="sm"
+      >Send another time</to-button
+    >
+  </div>
 </div>

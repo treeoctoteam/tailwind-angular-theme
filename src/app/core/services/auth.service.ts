@@ -33,8 +33,8 @@ export class ChangePassword {
 export class AuthService {
   // NB STEFANO
   // Please Stefano, don't delete the second var path, is useful for local tests!
-  // #path = 'https://dev.tap-id.tech/tapidconfig/auth';
-  #path = 'http://localhost:3002/tapidconfig/auth';
+  #path = 'https://dev.tap-id.tech/tapidconfig/auth';
+  // #path = 'http://localhost:3002/tapidconfig/auth';
 
   public $isLoggedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(undefined);
   public $loggedUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
@@ -102,8 +102,6 @@ export class AuthService {
     const $req = this.http.post<any>(`${this.#path}/register`, registerData).pipe(share());
     $req.subscribe((res) => {
       if (res) {
-        // TODO confirm account and not logged user automatically
-        // this.handleUserLoggedInResponse(res);
         localStorage.setItem('register-email', registerData.email);
         this.alertService.present('success', 'User Registered', 'You need to verify email!', 4000);
       }
@@ -197,6 +195,16 @@ export class AuthService {
     $req.subscribe((res) => {
       if (res) {
         console.log("Verify email message", res);
+      }
+    });
+    return $req;
+  }
+
+  public resendEmail(email: string): Observable<any> {
+    const $req = this.http.post<any>(`${this.#path}/resend-email`, { email }).pipe(share());
+    $req.subscribe((res) => {
+      if (res) {
+        console.log("Resend email message", res);
       }
     });
     return $req;
