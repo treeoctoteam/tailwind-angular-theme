@@ -17,9 +17,12 @@ export interface User {
 }
 
 interface AuthRes {
-  user: User;
-  token: string;
   message: string;
+  success: boolean;
+  data: {
+    user: User;
+    token: string;
+  }
 }
 
 export class ChangePassword {
@@ -112,9 +115,9 @@ export class AuthService {
   }
 
   private handleUserLoggedInResponse(response: AuthRes) {
-    const user: User = response.user;
+    const user: User = response.data.user;
     localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', response.token);
+    localStorage.setItem('token', response.data.token);
     this.$isLoggedSubject.next(this.isLogged);
     this.$loggedUserSubject.next(this.user);
     this.initIdleMonitoring(this.applicationService.config.idleConfig);
@@ -124,8 +127,8 @@ export class AuthService {
     const $req = this.http.post<any>(`${this.#path}/refresh`, null, this.loaderService.createHiddenSpinnerHeader()).pipe(share());
     $req.subscribe((res: any) => {
       if (res) {
-        localStorage.setItem('token', res.token);
-        this.tokenStorage = res.token;
+        localStorage.setItem('token', res.data.token);
+        this.tokenStorage = res.data.token;
       }
     });
     return $req;
