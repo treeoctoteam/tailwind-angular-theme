@@ -23,7 +23,7 @@
   "idleConfig": {
     "timeout": 300,
     "idle": 1000,
-    "ping": 10
+    "ping": 200
   },
   "layoutSettings": {
     "defaultLayout": "/public",

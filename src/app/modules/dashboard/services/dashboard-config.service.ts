@@ -44,7 +44,6 @@ export class DashboardConfigService {
     const $req = this.http.get<Response<any[]>>(`${this.#path}/get-all`).pipe(share());
     $req.subscribe((res: Response<any[]>) => {
       if (res) {
-        console.log(res);
         this.$usersList.next(res.data);
       }
     }, err => {
@@ -56,9 +55,6 @@ export class DashboardConfigService {
   lockUser(data: { email: string, lock: boolean }) {
     const $req = this.http.post<Response<{ isLocked: boolean }>>(`${this.#path}/lock`, data).pipe(share());
     $req.subscribe((res: Response<{ isLocked: boolean }>) => {
-      if (res) {
-        console.log(res);
-      }
     }, err => {
       this.alertService.present('danger', 'Failed to lock user', err.error.message, 4000);
     });
