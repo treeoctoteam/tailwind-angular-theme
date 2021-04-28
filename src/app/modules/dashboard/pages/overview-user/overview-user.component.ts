@@ -33,4 +33,13 @@ export class OverviewUserComponent implements OnInit, OnDestroy {
     })
   }
 
+  editUser(email: string) {
+    alert(email)
+  }
+
+  onSelectChange(event: any, email: string) {
+    const role = event.target.value;
+    this.dashboardConfigService.changeRole({ email, role }).subscribe();
+  }
+
 }

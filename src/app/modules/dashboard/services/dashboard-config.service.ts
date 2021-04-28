@@ -16,7 +16,7 @@ export class DashboardConfigService {
   $config = new Subject<DashboardConfig>();
   $usersList = new Subject<any[]>();
   // #path = 'https://dev.tap-id.tech/tapidconfig/user';
-  #path = 'http://localhost:3002/tapidconfig/user';
+  #path = 'http://localhost:3002/api/user';
 
   constructor(
     private http: HttpClient,
@@ -55,6 +55,16 @@ export class DashboardConfigService {
   lockUser(data: { email: string, lock: boolean }) {
     const $req = this.http.post<Response<{ isLocked: boolean }>>(`${this.#path}/lock`, data).pipe(share());
     $req.subscribe((res: Response<{ isLocked: boolean }>) => {
+    }, err => {
+      this.alertService.present('danger', 'Failed to lock user', err.error.message, 4000);
+    });
+    return $req;
+  }
+
+  changeRole(data: { email: string, role: string }) {
+    const $req = this.http.post<Response<any>>(`${this.#path}/change-role`, data).pipe(share());
+    $req.subscribe((res: Response<any>) => {
+      console.log(res);
     }, err => {
       this.alertService.present('danger', 'Failed to lock user', err.error.message, 4000);
     });

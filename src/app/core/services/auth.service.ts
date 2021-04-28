@@ -36,8 +36,8 @@ export class ChangePassword {
 export class AuthService {
   // NB STEFANO
   // Please Stefano, don't delete the second var path, is useful for local tests!
-  #path = 'https://dev.tap-id.tech/tapidconfig/auth';
-  // #path = 'http://localhost:3002/tapidconfig/auth';
+  // #path = 'https://dev.tap-id.tech/tapidconfig/auth';
+  #path = 'http://localhost:3002/api/auth';
 
   public $isLoggedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(undefined);
   public $loggedUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
