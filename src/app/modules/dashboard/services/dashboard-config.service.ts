@@ -66,7 +66,17 @@ export class DashboardConfigService {
     $req.subscribe((res: Response<any>) => {
       console.log(res);
     }, err => {
-      this.alertService.present('danger', 'Failed to lock user', err.error.message, 4000);
+      this.alertService.present('danger', 'Failed to change role of user', err.error.message, 4000);
+    });
+    return $req;
+  }
+
+  resetPaswword(email: string) {
+    const $req = this.http.post<Response<any>>(`${this.#path}/reset-password`, { email }).pipe(share());
+    $req.subscribe((res: Response<any>) => {
+      console.log(res);
+    }, err => {
+      this.alertService.present('danger', 'Failed reset password of user', err.error.message, 4000);
     });
     return $req;
   }
