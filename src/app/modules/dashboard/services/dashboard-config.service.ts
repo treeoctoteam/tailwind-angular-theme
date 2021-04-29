@@ -80,4 +80,8 @@ export class DashboardConfigService {
     });
     return $req;
   }
+
+  updateUser() {
+
+  }
 }
