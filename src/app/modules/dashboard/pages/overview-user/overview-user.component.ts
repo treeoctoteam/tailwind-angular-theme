@@ -26,6 +26,7 @@ export class OverviewUserComponent implements OnInit, OnDestroy {
   public usersList = [];
   public isAdmin = false;
   public isEditingMode = false;
+  public currentUserEmail = ''
 
   public userManagement: IUserManagement[] = [];
 
@@ -42,6 +43,7 @@ export class OverviewUserComponent implements OnInit, OnDestroy {
       })
     });
     this.isAdmin = this.authService.user.role === 'admin' ? true : false;
+    this.currentUserEmail = this.authService.user.email;
   }
 
   ngOnDestroy() {
@@ -56,21 +58,25 @@ export class OverviewUserComponent implements OnInit, OnDestroy {
   }
 
   activateEdit(um: IUserManagement) {
-    um.options.edit = true;
+
     if (this.isAdmin) {
+      um.options.edit = true;
       um.options.editUsername = true;
       um.options.editEmail = true;
     }
-    else {
+    else if (!this.isAdmin && this.currentUserEmail === um.user.email) {
+      um.options.edit = true;
       um.options.editUsername = true;
     }
   }
 
   editUser(um: IUserManagement) {
-    console.log(um.user, "USER");
+
+    this.dashboardConfigService.updateUser(um.user.email, um.user.username);
     um.options.edit = false;
     um.options.editEmail = false;
     um.options.editUsername = false;
+
   }
 
   onSelectChange(event: any, email: string) {

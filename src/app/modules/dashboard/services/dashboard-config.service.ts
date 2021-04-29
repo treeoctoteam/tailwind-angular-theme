@@ -81,7 +81,14 @@ export class DashboardConfigService {
     return $req;
   }
 
-  updateUser() {
-
+  updateUser(email: string, username: string) {
+    console.log("update user", email);
+    const $req = this.http.post<Response<any>>(`${this.#path}/edit`, { user: { email, username } }).pipe(share());
+    $req.subscribe((res: Response<any>) => {
+      console.log(res);
+    }, err => {
+      this.alertService.present('danger', 'Failed data of user', err.error.message, 4000);
+    });
+    return $req;
   }
 }
