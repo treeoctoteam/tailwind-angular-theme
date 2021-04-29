@@ -14,7 +14,9 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
+      {path: '', pathMatch: 'full', redirectTo: 'overview-user'},
       { path: 'overview-user', component: OverviewUserComponent },
+
       {
         path: '',
         loadChildren: () =>

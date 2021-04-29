@@ -14,6 +14,7 @@ const routes: Routes = [
   {
     path: '', component: PublicComponent,
     children: [
+      {path: '', pathMatch: 'full', redirectTo: 'home'},
       {
         path: '',
         loadChildren: () => import('../../pages/pages.module').then((m) => m.PagesModule),

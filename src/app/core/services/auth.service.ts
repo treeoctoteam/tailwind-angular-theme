@@ -89,12 +89,16 @@ export class AuthService {
   }
 
   public login(data: { email: string; password: string }): Observable<AuthRes> {
+    // CLEAN
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    // START REQUEST
     const $req = this.http.post<AuthRes>(`${this.#path}/login`, data).pipe(share());
     $req.subscribe((res: AuthRes) => {
       if (res) {
         this.handleUserLoggedInResponse(res);
         this.alertService.present('success', 'User Logged', 'User logged successful!', 4000);
-        this.router.navigate(['dashboard']);
+          this.router.navigateByUrl('/dashboard');
       }
     }, err => {
       this.alertService.present('danger', 'Login error', err.error.message, 4000);
@@ -119,6 +123,8 @@ export class AuthService {
     const user: User = response.data.user;
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', response.data.token);
+    this.userStorage = JSON.stringify(user);
+    this.tokenStorage = response.data.token;
     this.$isLoggedSubject.next(this.isLogged);
     this.$loggedUserSubject.next(this.user);
     this.initIdleMonitoring(this.applicationService.config.idleConfig);
@@ -187,6 +193,7 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.$isLoggedSubject.next(false);
+    this.$loggedUserSubject.next(null);
     this.userIdleService.stopWatching();
     if (route) {
       this.router.navigateByUrl(route);
