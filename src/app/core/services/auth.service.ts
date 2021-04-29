@@ -185,6 +185,8 @@ export class AuthService {
   public logout(route?: string) {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    this.$isLoggedSubject.next(false);
+    this.userIdleService.stopWatching();
     if (route) {
       this.router.navigateByUrl(route);
     }
