@@ -1062,24 +1062,44 @@
         <th class="py-3 px-6 text-center">Actions</th>
       </tr>
     </thead>
-    <tbody *ngFor="let user of usersList">
+    <tbody *ngFor="let um of userManagement">
       <tr class="hover:bg-gray-100">
-        <td class="py-3 px-6 text-left">{{ user.email }}</td>
-        <td class="py-3 px-6 text-left">{{ user.username }}</td>
+        <td class="py-3 px-6 text-left">
+          <input
+            #email
+            name="email"
+            *ngIf="um.options.editEmail"
+            [(ngModel)]="um.user.email"
+            class="border px-3 py-15"
+          />
+          <p *ngIf="!um.options.editEmail">{{ um.user.email }}</p>
+        </td>
+        <td class="py-3 px-6 text-left">
+          <input
+            #username
+            name="ursname"
+            *ngIf="um.options.editUsername"
+            [(ngModel)]="um.user.username"
+            class="border px-3 py-1"
+          />
+
+          <p *ngIf="!um.options.editUsername">{{ um.user.username }}</p>
+        </td>
         <td class="py-3 px-6 text-left">
           <select
             class="border-none"
-            (change)="onSelectChange($event, user.email)"
+            (change)="onSelectChange($event, um.user.email)"
+            [disabled]="!isAdmin"
           >
             <option
               value="admin"
-              [selected]="user.role === 'admin' ? 'selected' : ''"
+              [selected]="um.user.role === 'admin' ? 'selected' : ''"
             >
               admin
             </option>
             <option
               value="user"
-              [selected]="user.role === 'user' ? 'selected' : ''"
+              [selected]="um.user.role === 'user' ? 'selected' : ''"
             >
               user
             </option>
@@ -1087,48 +1107,58 @@
         </td>
         <td class="py-3 px-6 text-center">
           <span
-            *ngIf="!user.isLocked"
+            *ngIf="!um.user.isLocked"
             class="bg-green-600 text-white py-1 px-3 rounded-full text-xs"
             >Active
           </span>
           <span
-            *ngIf="user.isLocked"
+            *ngIf="um.user.isLocked"
             class="bg-red-600 text-white py-1 px-3 rounded-full text-xs"
             >Block
           </span>
         </td>
         <td class="py-3 px-6 text-center">
           <div class="flex item-center justify-center">
-            <div
-              *ngIf="!user.isLocked"
-              class="w-8 mr-2 transform hover:text-red-500 hover:scale-110"
-            >
-              <i
-                class="far fa-lock"
-                (click)="lockUser(user.email, user.isLocked)"
-              ></i>
-            </div>
-            <div
-              *ngIf="user.isLocked"
-              class="w-8 mr-2 transform hover:text-green-500 hover:scale-110"
-            >
-              <i
-                class="far fa-lock-open"
-                (click)="lockUser(user.email, user.isLocked)"
-              ></i>
-            </div>
+            <ng-container *ngIf="!um.options.edit">
+              <div
+                *ngIf="!um.user.isLocked"
+                class="w-8 mr-2 transform hover:text-red-500 hover:scale-110"
+              >
+                <i
+                  class="far fa-lock"
+                  (click)="
+                    isAdmin ? lockUser(um.user.email, um.user.isLocked) : null
+                  "
+                ></i>
+              </div>
+              <div
+                *ngIf="um.user.isLocked"
+                class="w-8 mr-2 transform hover:text-green-500 hover:scale-110"
+              >
+                <i
+                  class="far fa-lock-open"
+                  (click)="lockUser(um.user.email, um.user.isLocked)"
+                ></i>
+              </div>
 
-            <div
-              class="w-8 mr-2 transform hover:text-yellow-500 hover:scale-110"
-            >
-              <i class="far fa-edit" (click)="editUser(user.email)"></i>
-            </div>
+              <div
+                class="w-8 mr-2 transform hover:text-yellow-500 hover:scale-110"
+              >
+                <i class="far fa-edit" (click)="activateEdit(um)"></i>
+              </div>
 
-            <div
-              class="w-8 mr-2 transform hover:text-yellow-500 hover:scale-110"
-            >
-              <i class="far fa-key" (click)="resetPassword(user.email)"></i>
-            </div>
+              <div
+                class="w-8 mr-2 transform hover:text-yellow-500 hover:scale-110"
+              >
+                <i
+                  class="far fa-key"
+                  (click)="resetPassword(um.user.email)"
+                ></i>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="um.options.edit">
+              <to-button (btnClick)="editUser(um)">Save</to-button>
+            </ng-container>
           </div>
         </td>
       </tr>

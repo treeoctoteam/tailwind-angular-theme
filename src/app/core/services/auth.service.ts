@@ -14,6 +14,7 @@ export interface User {
   email: string;
   role: UserRoles;
   username: string;
+  isLocked: boolean;
 }
 
 interface AuthRes {
