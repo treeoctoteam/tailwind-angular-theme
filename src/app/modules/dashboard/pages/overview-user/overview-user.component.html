@@ -1123,6 +1123,12 @@
             >
               <i class="far fa-edit" (click)="editUser(user.email)"></i>
             </div>
+
+            <div
+              class="w-8 mr-2 transform hover:text-yellow-500 hover:scale-110"
+            >
+              <i class="far fa-key" (click)="resetPassword(user.email)"></i>
+            </div>
           </div>
         </td>
       </tr>

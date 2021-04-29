@@ -42,4 +42,8 @@ export class OverviewUserComponent implements OnInit, OnDestroy {
     this.dashboardConfigService.changeRole({ email, role }).subscribe();
   }
 
+  resetPassword(email: string) {
+    this.dashboardConfigService.resetPaswword(email).subscribe();
+  }
+
 }
