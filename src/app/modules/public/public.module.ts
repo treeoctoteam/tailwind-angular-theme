@@ -7,16 +7,15 @@ import { NavigationGuard } from 'src/app/core/guards/navigation.guard';
 import { I18nService } from 'src/app/core/services/i18n.service';
 import { localeENPublic } from './i18n/en';
 import { TranslateModule } from '@ngx-translate/core';
-import { PublicConfigService } from './services/public.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
-import { RedirectComponent } from './pages/redirect/redirect.component';
+import { RedirectComponent } from '../../shared/components/redirect/redirect.component';
 
 const routes: Routes = [
   {
     path: '', component: PublicComponent,
     children: [
-      {path: '', pathMatch:'full', redirectTo: 'redirect'},
+      { path: '', pathMatch: 'full', redirectTo: 'redirect' },
       {
         path: '',
         loadChildren: () => import('../../pages/pages.module').then((m) => m.PagesModule),
@@ -29,6 +28,10 @@ const routes: Routes = [
       {
         path: 'redirect', component: RedirectComponent
       },
+      {
+        path: '**',
+        redirectTo: 'not-found'
+      }
     ],
   },
 ];

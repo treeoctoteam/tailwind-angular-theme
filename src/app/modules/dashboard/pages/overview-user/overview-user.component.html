@@ -1137,7 +1137,9 @@
               >
                 <i
                   class="far fa-lock-open"
-                  (click)="lockUser(um.user.email, um.user.isLocked)"
+                  (click)="
+                    isAdmin ? lockUser(um.user.email, um.user.isLocked) : null
+                  "
                 ></i>
               </div>
 

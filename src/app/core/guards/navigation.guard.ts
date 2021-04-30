@@ -46,11 +46,11 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
               this.dashboardService.initConfig().subscribe(() => resolve(this.moduleAuthenticate(this.dashboardService)));
             }
             else {
-              return this.moduleAuthenticate(this.dashboardService);
+              resolve(this.moduleAuthenticate(this.dashboardService));
             }
             break;
           case 'configurator':
-            return this.isLogged();
+            resolve(this.isLogged());
             break;
           case 'auth':
             resolve(true);
@@ -70,7 +70,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
       }
 
     });
-    
+
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
