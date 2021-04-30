@@ -8,13 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OctoFormModule } from 'src/app/@Octo/form/octo-form.module';
 import { OverviewUserComponent } from './pages/overview-user/overview-user.component';
+import { DashboardDefaultGuard } from './guard/dashboard-default.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     children: [
-      {path: '', pathMatch: 'full', redirectTo: 'overview-user'},
+      {path: '', canActivateChild: [DashboardDefaultGuard],  pathMatch: 'full', redirectTo: 'overview-user'},
       { path: 'overview-user', component: OverviewUserComponent },
 
       {

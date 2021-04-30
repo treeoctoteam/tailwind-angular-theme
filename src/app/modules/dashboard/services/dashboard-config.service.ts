@@ -2,8 +2,7 @@ import { AlertService } from './../../../core/services/alert.service';
 import { Response } from './../../../shared/models/response.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { DashboardConfig } from '../../models/modules.model';
 const CONFIG_PATH = 'assets/config/dashboard-config.json';
@@ -13,29 +12,26 @@ const CONFIG_PATH = 'assets/config/dashboard-config.json';
 })
 export class DashboardConfigService {
   config: DashboardConfig;
-  $config = new Subject<DashboardConfig>();
+  $config = new BehaviorSubject<DashboardConfig>(null);
   $usersList = new Subject<any[]>();
   // #path = 'https://dev.tap-id.tech/tapidconfig/user';
   #path = 'http://localhost:3002/api/user';
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private activeRoute: ActivatedRoute,
     private alertService: AlertService
   ) {
+    this.$config.subscribe(res => {
+      if (res) {
+        this.config = res;
+      }
+    })
   }
 
   initConfig(): Observable<DashboardConfig> {
     const $req = this.http.get<DashboardConfig>(CONFIG_PATH).pipe(share());
     $req.subscribe((response: DashboardConfig) => {
       this.$config.next(response);
-      this.config = response;
-      // Manage Routing
-      const navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
-      if (!navigationExist) {
-        this.router.navigate(['dashboard/' + this.config.defaultRoute]);
-      }
     });
     return $req;
   }

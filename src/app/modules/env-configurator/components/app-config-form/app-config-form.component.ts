@@ -92,7 +92,7 @@ export class AppConfigFormComponent {
     this.appConfigForm.sections[4].fields[2].value = this.configForm.idleConfig.ping;
 
     this.appConfigForm.sections[5].fields[0].value = this.configForm.layoutSettings.defaultLayout;
-    this.appConfigForm.sections[5].fields[1].value = this.configForm.layoutSettings.layouts;
+    this.appConfigForm.sections[5].fields[1].value = this.configForm.layoutSettings.modules;
     this.appConfigForm.sections[6].fields[0].value = this.configForm.languageSettings.defaultLanguage;
 
     let enabledLanguageFromConfig: string[] = [];

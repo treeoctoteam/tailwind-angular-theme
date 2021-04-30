@@ -1,3 +1,4 @@
+
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PublicComponent } from './public.component';
@@ -9,12 +10,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PublicConfigService } from './services/public.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
+import { RedirectComponent } from './pages/redirect/redirect.component';
 
 const routes: Routes = [
   {
     path: '', component: PublicComponent,
     children: [
-      {path: '', pathMatch: 'full', redirectTo: 'home'},
+      {path: '', pathMatch:'full', redirectTo: 'redirect'},
       {
         path: '',
         loadChildren: () => import('../../pages/pages.module').then((m) => m.PagesModule),
@@ -24,6 +26,9 @@ const routes: Routes = [
         path: 'home', component: HomeComponent,
         canActivateChild: [NavigationGuard]
       },
+      {
+        path: 'redirect', component: RedirectComponent
+      },
     ],
   },
 ];
@@ -31,7 +36,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PublicComponent,
-    HomeComponent
+    HomeComponent,
+    RedirectComponent,
   ],
   imports: [
     CommonModule,

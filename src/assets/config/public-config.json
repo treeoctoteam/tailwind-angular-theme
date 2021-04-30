@@ -74,8 +74,5 @@
     ]
   },
   "authenticate": false,
-  "defaultRoute": "home",
-  "routes": [
-    { "path": "/home", "authenticate": false }
-  ]
+  "defaultRoute": "faq"
 }

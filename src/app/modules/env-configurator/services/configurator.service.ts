@@ -57,7 +57,7 @@ export class ConfiguratorService {
 
     const layoutSection = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === 'layoutSettings'));
     newConfig.layoutSettings.defaultLayout = layoutSection.find(f => f.name === 'defaultLayout')?.value as string;
-    newConfig.layoutSettings.layouts = layoutSection.find(f => f.name === 'layouts')?.value as string[];
+    newConfig.layoutSettings.modules = layoutSection.find(f => f.name === 'layouts')?.value as string[];
 
     const idleConfigSection = this.formUtilsService.getFieldFormMap(form?.sections?.find(s => s.name === 'idleConfig'));
     newConfig.idleConfig.idle = idleConfigSection.find(f => f.name === 'idle')?.value as number;

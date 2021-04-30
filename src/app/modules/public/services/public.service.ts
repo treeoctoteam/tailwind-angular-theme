@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { PublicConfig } from '../../models/modules.model';
 const CONFIG_PATH = 'assets/config/public-config.json';
@@ -11,20 +11,23 @@ const CONFIG_PATH = 'assets/config/public-config.json';
 })
 export class PublicConfigService {
   config: PublicConfig;
-  $config = new Subject<PublicConfig>();
+  public $config = new BehaviorSubject<PublicConfig>(null);
 
   constructor(private http: HttpClient, private router: Router) {
+    this.$config.subscribe(res => {
+      if (res) {
+        this.config = res;
+      }
+    })
   }
 
   initConfig(): Observable<PublicConfig> {
     const $req = this.http.get<PublicConfig>(CONFIG_PATH).pipe(share());
     $req.subscribe((response: PublicConfig) => {
-      this.$config.next(response);
-      this.config = response;
-      // Manage Routing
-      const navigationExist = this.config.routes.some(r => this.router.url.includes(r.path));
-      if (!navigationExist) {
-        this.router.navigate(['public/' + this.config.defaultRoute]);
+      if (response) {
+        this.$config.next(response);
+      } else {
+        console.log("PUBLIC CONFIG NOT FOUND!!")
       }
     });
     return $req;

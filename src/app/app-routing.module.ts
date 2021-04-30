@@ -24,8 +24,13 @@ const routes: Routes = [
     canActivate: [NavigationGuard]
   },
   {
+    path: '',
+    pathMatch: "full",
+    redirectTo: 'public'
+  },
+  {
     path: '**',
-    redirectTo: 'notfound'
+    redirectTo: 'public/not-found'
   }
 ];
 

@@ -25,61 +25,58 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     private dashboardService: DashboardConfigService,
     private alertService: AlertService) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): boolean {
-    if (this.appConfigService.config.authenticationSettings.enableAuthentication) {
-      const activeModule = this.checkActiveModule(state);
-      switch (activeModule) {
-        case 'public':
-          if (!this.publicService.config) {
-            this.publicService.initConfig().subscribe(() => this.moduleAuthenticate(this.publicService));
-          }
-          else {
-            return this.moduleAuthenticate(this.publicService);
-          }
-          break;
-        case 'dashboard':
-          if (!this.dashboardService.config) {
-            this.dashboardService.initConfig().subscribe(() => this.moduleAuthenticate(this.dashboardService));
-          }
-          else {
-            return this.moduleAuthenticate(this.dashboardService);
-          }
-          break;
-        case 'configurator':
-          return this.isLogged();
-          break;
-        case 'auth':
-          return true;
-          break;
-        default:
-          this.alertService.present('danger', 'Modulo non trovato', 'Il modulo a cui si è tentato di accedere non è disponibile nel sistema.');
-          return false;
-          break;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      console.log(route.url)
+
+      if (this.appConfigService.config.authenticationSettings.enableAuthentication) {
+        const activeModule = this.checkActiveModule(state);
+        switch (activeModule) {
+          case 'public':
+            if (!this.publicService.config) {
+              
+              this.publicService.initConfig().subscribe(() => resolve(this.moduleAuthenticate(this.publicService)));
+            }
+            else {
+              resolve(this.moduleAuthenticate(this.publicService));
+            }
+            break;
+          case 'dashboard':
+            if (!this.dashboardService.config) {
+              this.dashboardService.initConfig().subscribe(() => resolve(this.moduleAuthenticate(this.dashboardService)));
+            }
+            else {
+              return this.moduleAuthenticate(this.dashboardService);
+            }
+            break;
+          case 'configurator':
+            return this.isLogged();
+            break;
+          case 'auth':
+            resolve(true);
+            break;
+          default:
+            this.alertService.present('danger', 'Modulo non trovato', 'Il modulo a cui si è tentato di accedere non è disponibile nel sistema.');
+            resolve(false);
+            break;
+        }
+      } else {
+        if (this.checkActiveModule(state)) {
+          resolve(true);
+        }
+        else {
+          this.router.navigateByUrl(this.appConfigService.config.layoutSettings.defaultLayout);
+        }
       }
-    } else {
-      if (this.checkActiveModule(state)) {
-        return true;
-      }
-      else {
-        this.router.navigateByUrl(this.appConfigService.config.layoutSettings.defaultLayout);
-      }
-    }
-    return false;
+
+    });
+    
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      const activeLayout = this.checkActiveModule(state);
-      const activeRoute = this.checkActivePage(activeLayout, state);
-      if (!activeRoute?.authenticate) {
-        resolve(true);
-      }
-      else if (this.authService.user) {
-        resolve(true);
-      } else {
-        this.redirectLogin();
-        resolve(false);
-      }
+      console.log(route.url)
+      resolve(true);
     });
   }
 
@@ -106,7 +103,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
   }
 
   private checkActiveModule(state: RouterStateSnapshot) {
-    const layouts: string[] = this.appConfigService.config.layoutSettings.layouts;
+    const layouts: string[] = this.appConfigService.config.layoutSettings.modules;
     let activeLayout = '';
     for (const l of layouts) {
       const res = state.url.includes(l);
@@ -117,28 +114,5 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
     }
     return activeLayout;
   }
-  private checkActivePage(activeLayout: string, state: RouterStateSnapshot) {
-    let activeRoute;
-    switch (activeLayout) {
-      case 'public':
-        for (const r of this.publicService.config.routes) {
-          const res = state.url.includes(r.path);
-          if (res) {
-            activeRoute = r;
-            break;
-          }
-        }
-        break;
-      case 'dashboard':
-        for (const r of this.dashboardService.config.routes) {
-          const res = state.url.includes(r.path);
-          if (res) {
-            activeRoute = r;
-            break;
-          }
-        }
-        break;
-    }
-    return activeRoute;
-  }
+
 }

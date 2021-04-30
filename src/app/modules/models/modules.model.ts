@@ -9,7 +9,6 @@ export interface Module {
   footer: Footer;
   authenticate: boolean;
   defaultRoute: string;
-  routes: PageRoute[];
 }
 
 export type Navbar = ModuleBase;

@@ -15,14 +15,16 @@ export class ApplicationConfigService {
   private configuration: ApplicationConfig;
   $config = new Subject<ApplicationConfig>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { 
+    
+  }
 
   initAppConfig(): Observable<ApplicationConfig> {
     const $req = this.http.get<ApplicationConfig>(APP_CONFIG_PATH).pipe(share());
     $req.subscribe((response: ApplicationConfig) => {
       this.configuration = response;
       this.$config.next(response);
-      const navigationExist = this.configuration.layoutSettings.layouts.some(l => this.router.url.includes(l));
+      const navigationExist = this.configuration.layoutSettings.modules.some(module => this.router.url.includes(module));
       if (!navigationExist) {
         this.router.navigateByUrl(this.configuration.layoutSettings.defaultLayout);
       }

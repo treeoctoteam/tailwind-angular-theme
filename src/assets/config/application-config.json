@@ -7,12 +7,9 @@
     "phone": "+39 3662803495"
   },
   "network": {
-    "host": "https://dev.tap-id.tech",
-    "basePath": "/video_operator/euronovate/",
-    "hostApi": "https://dev.tap-id.tech",
-    "hostApiV1": "https://dev.tap-id.tech/v1",
-    "hostApiV2": "https://dev.tap-id.tech/v2",
-    "hostApiV3": "https://dev.tap-id.tech/v3",
+    "host": "https://localhost:4200",
+    "basePath": "/",
+    "hostApi": "https://localhost:3002",
     "openViduServerUrl": "https://rtc.tap-id.tech:4443"
   },
   "authenticationSettings": {
@@ -26,8 +23,8 @@
     "ping": 200
   },
   "layoutSettings": {
-    "defaultLayout": "/public",
-    "layouts": ["/dashboard", "/public", "/auth", "/configurator"]
+    "defaultLayout": "public",
+    "modules": ["/dashboard", "/public", "/auth", "/configurator"]
   },
   "languageSettings": {
     "defaultLanguage": "en",
