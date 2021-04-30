@@ -11,8 +11,10 @@ export class ThemeConfigService {
 
   constructor(private appConfigService: ApplicationConfigService) {
     this.appConfigService.$config.subscribe((config: ApplicationConfig) => {
-      this.setFavicon(config);
-      this.setWebManifest(config);
+      if (config) {
+        this.setFavicon(config);
+        this.setWebManifest(config);
+      }
     });
   }
 

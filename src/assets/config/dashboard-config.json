@@ -126,5 +126,5 @@
     ]
   },
   "authenticate": false,
-  "defaultRoute": "dashborad/faq"
+  "defaultRoute": "dashboard/overview-user"
 }

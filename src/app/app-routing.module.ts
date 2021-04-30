@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavigationGuard } from './core/guards/navigation.guard';
+import { RedirectComponent } from './shared/components/redirect/redirect.component';
 
 const routes: Routes = [
   {
@@ -24,9 +25,13 @@ const routes: Routes = [
     canActivate: [NavigationGuard]
   },
   {
+    path: 'redirect',
+    component: RedirectComponent
+  },
+  {
     path: '',
     pathMatch: "full",
-    redirectTo: 'public'
+    redirectTo: 'redirect'
   },
   {
     path: '**',

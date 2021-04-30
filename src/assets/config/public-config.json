@@ -74,5 +74,5 @@
     ]
   },
   "authenticate": false,
-  "defaultRoute": "public/faq"
+  "defaultRoute": "public/home"
 }

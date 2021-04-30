@@ -1,3 +1,4 @@
+import { ApplicationConfig } from './../../models/application-config.model';
 import { DashboardConfigService } from './../../../modules/dashboard/services/dashboard-config.service';
 import { takeUntil } from 'rxjs/operators';
 import { DashboardConfig, PublicConfig } from '../../../modules/models/modules.model';
@@ -18,7 +19,7 @@ export class RedirectComponent implements OnDestroy {
     private router: Router,
     public publicConfigService: PublicConfigService,
     private dashboardConfigService: DashboardConfigService,
-    private app: ApplicationConfigService
+    private appConfigService: ApplicationConfigService
   ) {
 
     if (this.router.url.match('public')) {
@@ -32,15 +33,22 @@ export class RedirectComponent implements OnDestroy {
     }
     else if (this.router.url.match('dashboard')) {
       console.log("DASH")
-      this.router.navigate(['dashboard']);
-      // this.dashboardConfigService.$config.pipe(takeUntil(this.$unsubscribe)).subscribe(
-      //   (res: DashboardConfig) => {
-      //     console.log("dash", res)
-      //     if (res) {
-      //       this.router.navigateByUrl(res.defaultRoute);
-      //     }
-      //   }
-      // );
+      this.dashboardConfigService.$config.pipe(takeUntil(this.$unsubscribe)).subscribe(
+        (res: DashboardConfig) => {
+          if (res) {
+            this.router.navigateByUrl(res.defaultRoute);
+          }
+        }
+      );
+    }
+    else{
+      this.appConfigService.$config.pipe(takeUntil(this.$unsubscribe)).subscribe(
+        (res: ApplicationConfig) => {
+          if (res) {
+            this.router.navigateByUrl(res.layoutSettings.defaultLayout);
+          }
+        }
+      );
     }
   }
   ngOnDestroy(): void {

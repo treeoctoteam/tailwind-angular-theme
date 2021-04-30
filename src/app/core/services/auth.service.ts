@@ -60,17 +60,19 @@ export class AuthService {
     this.userStorage = JSON.parse(localStorage.getItem('user'));
 
     this.applicationService.$config.pipe(take(1)).subscribe(res => {
-      if (this.token && this.user) {
-        this.$isLoggedSubject.next(true);
-        this.$loggedUserSubject.next(this.user);
-        this.refreshToken();
-        this.initIdleMonitoring(res.idleConfig);
-      } else if (!this.token && this.user) {
-        this.$lockUserSubject.next();
-        this.$loggedUserSubject.next(this.user);
-      } else if (!this.token && !this.user) {
-        this.$isLoggedSubject.next(false);
-        this.$loggedUserSubject.next(null);
+      if (res) {
+        if (this.token && this.user) {
+          this.$isLoggedSubject.next(true);
+          this.$loggedUserSubject.next(this.user);
+          this.refreshToken();
+          this.initIdleMonitoring(res.idleConfig);
+        } else if (!this.token && this.user) {
+          this.$lockUserSubject.next();
+          this.$loggedUserSubject.next(this.user);
+        } else if (!this.token && !this.user) {
+          this.$isLoggedSubject.next(false);
+          this.$loggedUserSubject.next(null);
+        }
       }
     })
   }
@@ -98,7 +100,7 @@ export class AuthService {
       if (res) {
         this.handleUserLoggedInResponse(res);
         this.alertService.present('success', 'User Logged', 'User logged successful!', 4000);
-          this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/dashboard');
       }
     }, err => {
       this.alertService.present('danger', 'Login error', err.error.message, 4000);
