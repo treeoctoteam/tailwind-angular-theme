@@ -16,6 +16,7 @@ export class PublicConfigService {
   constructor(private http: HttpClient, private router: Router) {
     this.$config.subscribe(res => {
       if (res) {
+        console.log("CHANGE PUBlIC CONFIG", res)
         this.config = res;
       }
     })

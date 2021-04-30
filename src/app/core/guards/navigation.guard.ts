@@ -34,7 +34,7 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
         switch (activeModule) {
           case 'public':
             if (!this.publicService.config) {
-              
+              console.log("init config public")
               this.publicService.initConfig().subscribe(() => resolve(this.moduleAuthenticate(this.publicService)));
             }
             else {
@@ -75,7 +75,6 @@ export class NavigationGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      console.log(route.url)
       resolve(true);
     });
   }

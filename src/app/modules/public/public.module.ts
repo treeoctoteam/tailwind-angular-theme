@@ -45,9 +45,6 @@ const routes: Routes = [
     TranslateModule,
     RouterModule.forChild(routes)
   ],
-  providers: [
-    PublicConfigService
-  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PublicModule {
